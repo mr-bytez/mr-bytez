@@ -1,0 +1,42 @@
+# ============================================
+# mr-bytez .gitignore
+# ============================================
+
+# Build & Cache
+build/
+cache/
+*.log
+
+# Dependencies
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+
+# Environment (NIEMALS .env committen!)
+.env
+.env.local
+.env.*.local
+*.secret
+
+# Secrets (werden Age-verschlüsselt als .age committed)
+shared/.secrets/**/*
+!shared/.secrets/**/*.age
+!shared/.secrets/**/*.pub
+
+# IDE
+.vscode/settings.json
+.vscode/*.code-workspace
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak
+*.orig
