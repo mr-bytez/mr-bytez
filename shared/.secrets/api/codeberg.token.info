@@ -14,7 +14,7 @@ Codeberg API Token für Repository-Verwaltung.
 | Feld | Wert |
 |------|------|
 | **Typ** | Codeberg API Token |
-| **Token-Name** | n8kiste-repo-admin |
+| **Token-Name** | codeberg_api.token |
 | **Berechtigung** | repository: Lesen und Schreiben |
 | **Verschlüsselung** | age (passphrase) |
 

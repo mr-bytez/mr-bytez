@@ -21,7 +21,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ### Added
 - Secrets-Management mit Age-Encryption
 - SSH-Key für Codeberg (id_ed25519_codeberg)
-- API-Token für Codeberg (n8kiste-repo-admin)
+- API-Token für Codeberg (codeberg_api.token)
 - derive_key.fish für Master-Password Derivation
 - symlinks.db für automatisches Deployment
 - SECRETS.md Dokumentation
