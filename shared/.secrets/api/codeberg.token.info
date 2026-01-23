@@ -1,0 +1,44 @@
+# codeberg.token - Secret Info
+
+**Erstellt:** 2026-01-23
+**Autor:** Michael Rohwer
+
+---
+
+## Zweck
+
+Codeberg API Token für Repository-Verwaltung.
+
+## Details
+
+| Feld | Wert |
+|------|------|
+| **Typ** | Codeberg API Token |
+| **Token-Name** | n8kiste-repo-admin |
+| **Berechtigung** | repository: Lesen und Schreiben |
+| **Verschlüsselung** | age (passphrase) |
+
+## Entschlüsselung
+
+```fish
+# 1. Derived Key generieren
+cd /mr-bytez/shared/deployment
+fish derive_key.fish secrets
+
+# 2. Secret entschlüsseln
+age -d shared/.secrets/api/codeberg.token.age > /tmp/token
+# → Passphrase = Derived Key eingeben
+
+# 3. Token an Zielort kopieren
+cp /tmp/token ~/.secrets/api/codeberg_api.token
+chmod 600 ~/.secrets/api/codeberg_api.token
+rm /tmp/token
+```
+
+## Key-Derivation
+
+| Parameter | Wert |
+|-----------|------|
+| **Salt** | secrets |
+| **Mit Hostname** | Nein |
+| **Formel** | PBKDF2(secrets + MasterPwd) |

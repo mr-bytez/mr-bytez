@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "description": "Symlink-Datenbank für mr-bytez Deployment",
+  "generated": "2026-01-23",
+  "author": "Michael Rohwer",
+  
+  "symlinks": [
+    {
+      "comment": "SSH Private Key für Codeberg",
+      "target": "/home/mrohwer/.ssh/id_ed25519_codeberg",
+      "source": "/home/mrohwer/.secrets/ssh/id_ed25519_codeberg",
+      "type": "file",
+      "permissions": "0600",
+      "owner": "mrohwer:mrohwer",
+      "requires_sudo": false
+    },
+    {
+      "comment": "SSH Config für Codeberg Host",
+      "target": "/home/mrohwer/.ssh/config",
+      "source": "/mr-bytez/shared/home/mrohwer/.ssh/config",
+      "type": "file",
+      "permissions": "0600",
+      "owner": "mrohwer:mrohwer",
+      "requires_sudo": false
+    }
+  ]
+}

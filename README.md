@@ -1,7 +1,7 @@
 # mr-bytez
 
-**Version:** 0.1.0
-**Status:** Initial Setup
+**Version:** 0.2.0
+**Status:** Secrets-Management implementiert
 **Erstellt:** 2026-01-22
 **Autor:** Michael Rohwer
 
@@ -26,7 +26,8 @@ Meta-Repository für komplette Infrastruktur-Verwaltung.
 ├── shared/              # Shared Resources (alle Hosts)
 │   ├── etc/            # System-Configs
 │   ├── home/           # User Home-Directories
-│   └── .secrets/       # Age-verschlüsselte Secrets
+│   ├── .secrets/       # Age-verschlüsselte Secrets (IM Git!)
+│   └── deployment/     # Deployment-Scripts
 ├── projects/           # Projekte (Submodules)
 │   ├── infrastructure/ # Hosts (n8-vps, n8-kiste, etc.)
 │   └── web/           # Web-Projekte
@@ -38,24 +39,27 @@ Meta-Repository für komplette Infrastruktur-Verwaltung.
 
 ## Status
 
-**Phase 1:** Initial Setup (in Progress)
+**Phase 1:** Foundation ✅
 - [x] Repository erstellt
 - [x] Basis-Struktur angelegt
-- [ ] SSH-Setup für Codeberg
-- [ ] Initial Push
+- [x] SSH-Key für Codeberg generiert
+- [x] Codeberg Repository verbunden
+- [x] Secrets-Management (Age-Encryption)
+- [x] derive_key.fish (Master-Password Derivation)
+- [x] symlinks.db (Deployment-Datenbank)
 
-**Nächste Schritte:**
-1. SSH-Key generieren & deployen
-2. Codeberg Repository verbinden
-3. Submodules hinzufügen (n8-vps, n8-kiste)
+**Phase 2:** Host-Setup (nächster Schritt)
+- [ ] Submodules hinzufügen (n8-vps, n8-kiste)
+- [ ] Fish-Config Basis erstellen
+- [ ] Docs-Struktur aufbauen
 
 ---
 
 ## Dokumentation
 
-- **Strukturplan:** `shared/home/mrohwer/Documents/docs/architecture/`
-- **Guides:** `shared/home/mrohwer/Documents/docs/guides/`
-- **Wikis:** `shared/home/mrohwer/Documents/wikis/`
+- **Secrets:** `shared/.secrets/SECRETS.md`
+- **Deployment:** `shared/deployment/`
+- **Strukturplan:** Im Claude.ai Projekt-Context
 
 ---
 
@@ -63,7 +67,7 @@ Meta-Repository für komplette Infrastruktur-Verwaltung.
 
 **Autor:** Michael Rohwer
 **Email:** mail@mr-bytez.de
-**Repository:** Codeberg (privat)
+**Repository:** [Codeberg](https://codeberg.org/n8lauscher/mr-bytez) (privat)
 
 ---
 

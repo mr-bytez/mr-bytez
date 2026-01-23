@@ -17,12 +17,13 @@ __pycache__/
 .env
 .env.local
 .env.*.local
-*.secret
 
-# Secrets (werden Age-verschlüsselt als .age committed)
-shared/.secrets/**/*
-!shared/.secrets/**/*.age
-!shared/.secrets/**/*.pub
+# Secrets - NUR unverschlüsselte Formate ignorieren
+# (verschlüsselte .age + Doku werden committed!)
+*.secret
+*.key
+*.pem
+!*.pem.age
 
 # IDE
 .vscode/settings.json
