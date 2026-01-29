@@ -1,7 +1,7 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "description": "Symlink-Datenbank für mr-bytez Deployment",
-  "generated": "2026-01-23",
+  "generated": "2026-01-29",
   "author": "Michael Rohwer",
   
   "symlinks": [
@@ -20,6 +20,42 @@
       "source": "/mr-bytez/shared/home/mrohwer/.ssh/config",
       "type": "file",
       "permissions": "0600",
+      "owner": "mrohwer:mrohwer",
+      "requires_sudo": false
+    },
+    {
+      "comment": "Fish Shell v2.0 - System-weite Config",
+      "target": "/usr/local/share/fish",
+      "source": "/mr-bytez/shared/usr/local/share/fish",
+      "type": "directory",
+      "permissions": "0755",
+      "owner": "root:root",
+      "requires_sudo": true
+    },
+    {
+      "comment": "Micro Editor - System-weite Config",
+      "target": "/usr/local/share/micro",
+      "source": "/mr-bytez/shared/usr/local/share/micro",
+      "type": "directory",
+      "permissions": "0755",
+      "owner": "root:root",
+      "requires_sudo": true
+    },
+    {
+      "comment": "Micro Editor - User Settings",
+      "target": "/home/mrohwer/.config/micro/settings.json",
+      "source": "/usr/local/share/micro/settings.json",
+      "type": "file",
+      "permissions": "0644",
+      "owner": "mrohwer:mrohwer",
+      "requires_sudo": false
+    },
+    {
+      "comment": "Micro Editor - User Bindings",
+      "target": "/home/mrohwer/.config/micro/bindings.json",
+      "source": "/usr/local/share/micro/bindings.json",
+      "type": "file",
+      "permissions": "0644",
       "owner": "mrohwer:mrohwer",
       "requires_sudo": false
     }

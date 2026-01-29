@@ -2,7 +2,7 @@
 
 **Projekt:** mr-bytez Meta-Repository
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-01-23
+**Aktualisiert:** 2026-01-29
 
 ---
 
@@ -27,15 +27,19 @@
 
 ## Phase 2: Host-Setup (Q1 2026)
 
-**Ziel:** n8-vps & n8-kiste als Submodules
+**Ziel:** Shared Configs & Submodules
 
 ### Milestones
-- [ ] Fish-Config Basis (shared/usr/local/share/fish/)
+- [x] Fish-Config v2.0 (shared/usr/local/share/fish/)
+  - [x] Hierarchischer Loader (00-loader.fish)
+  - [x] Theme-System (mr-bytez.fish)
+  - [x] Modulare Aliases (10-90)
+  - [x] Host-spezifische Configs (8 Hosts)
+- [x] Micro Editor-Konfiguration
 - [ ] Docs-Struktur (shared/home/mrohwer/Documents/)
 - [ ] Submodule: n8-vps (Codeberg privat)
 - [ ] Submodule: n8-kiste (Codeberg privat)
-- [ ] Shared Configs deployed
-- [ ] Symlink-Strategie implementiert
+- [ ] Symlink-Strategie vollständig dokumentiert
 
 **Status:** In Progress
 **ETA:** Februar 2026
@@ -73,4 +77,4 @@
 
 ---
 
-**Letzte Aktualisierung:** 2026-01-23
+**Letzte Aktualisierung:** 2026-01-29
