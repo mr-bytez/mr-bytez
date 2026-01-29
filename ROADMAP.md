@@ -36,6 +36,13 @@
   - [x] Modulare Aliases (10-90)
   - [x] Host-spezifische Configs (8 Hosts)
 - [x] Micro Editor-Konfiguration
+- [ ] Bash-Config (Äquivalent zur Fish-Config)
+  - [ ] Aliases, Variablen, Funktionen
+  - [ ] Hierarchische Struktur (shared → host-spezifisch)
+- [ ] mr-bytez-info.fish (Selbstdokumentierendes Hilfe-System)
+  - [ ] Metadaten-Tags: @alias, @var, @func, @file, @category, @scope
+  - [ ] Dynamisches Parsing aller Config-Dateien
+  - [ ] Ausgabe pro Host: aktive Aliase, Variablen, Funktionen
 - [ ] Docs-Struktur (shared/home/mrohwer/Documents/)
 - [ ] Submodule: n8-vps (Codeberg privat)
 - [ ] Submodule: n8-kiste (Codeberg privat)
@@ -46,11 +53,17 @@
 
 ---
 
-## Phase 3: Automation (Q1 2026)
+## Phase 3: Automation & Integration (Q1 2026)
 
-**Ziel:** Deployment & Backup-Automatisierung
+**Ziel:** Deployment, Backup & Multi-Remote
 
 ### Milestones
+- [ ] GitHub als zusätzliches Remote
+  - [ ] SSH-Key (id_ed25519_github) + Age-Verschlüsselung
+  - [ ] Multi-Remote Push (Codeberg + GitHub)
+- [ ] MCP GitHub Server für Claude
+  - [ ] Personal Access Token + Age-Verschlüsselung
+  - [ ] Claude Lese- + Schreibzugriff auf Repo
 - [ ] restore.fish Script (Disaster Recovery)
 - [ ] Auto-Backup zu Codeberg (Cronjob)
 - [ ] Webhosting Backup (Hetzner)
