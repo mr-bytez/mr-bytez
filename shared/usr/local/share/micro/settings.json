@@ -1,0 +1,22 @@
+{
+    "clipboard": "terminal",
+    "autoindent": true,
+    "tabsize": 4,
+    "tabstospaces": true,
+    "savecursor": true,
+    "saveundo": true,
+    "scrollbar": true,
+    "scrollmargin": 5,
+    "softwrap": true,
+    "wordwrap": true,
+    "colorscheme": "gruvbox",
+    "ruler": true,
+    "rmtrailingws": true,
+    "autoclose": true,
+    "hlsearch": true,
+    "incsearch": true,
+    "ignorecase": true,
+    "smartcase": true,
+    "syntax": true,
+    "mouse": true
+}
