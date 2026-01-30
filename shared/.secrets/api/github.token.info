@@ -1,0 +1,44 @@
+# github.token - Secret Info
+
+**Erstellt:** 2026-01-30
+**Autor:** Michael Rohwer
+
+---
+
+## Zweck
+
+GitHub API Token für Repository-Verwaltung und MCP Server Integration.
+
+## Details
+
+| Feld | Wert |
+|------|------|
+| **Typ** | GitHub Personal Access Token (classic) |
+| **Token-Name** | github_api.token |
+| **Berechtigung** | repo, workflow, user |
+| **Verschlüsselung** | age (passphrase) |
+
+## Entschlüsselung
+
+```fish
+# 1. Derived Key generieren
+cd /mr-bytez/shared/deployment
+fish derive_key.fish secrets
+
+# 2. Secret entschlüsseln
+age -d shared/.secrets/api/github.token.age > /tmp/token
+# → Passphrase = Derived Key eingeben
+
+# 3. Token an Zielort kopieren
+cp /tmp/token ~/.secrets/api/github_api.token
+chmod 600 ~/.secrets/api/github_api.token
+rm /tmp/token
+```
+
+## Key-Derivation
+
+| Parameter | Wert |
+|-----------|------|
+| **Salt** | secrets |
+| **Mit Hostname** | Nein |
+| **Formel** | PBKDF2(secrets + MasterPwd) |

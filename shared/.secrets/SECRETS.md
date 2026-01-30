@@ -36,12 +36,15 @@ fish derive_key.fish secrets
 |-------|-------|------|------|
 | `ssh/mrohwer/id_ed25519_codeberg.age` | Codeberg Git-Zugriff | secrets | [.info](ssh/mrohwer/id_ed25519_codeberg.info) |
 | `ssh/mrohwer/id_ed25519_codeberg.pub` | Public Key (unverschlüsselt) | - | - |
+| `ssh/mrohwer/id_ed25519_github.age` | GitHub Git-Zugriff | secrets | [.info](ssh/mrohwer/id_ed25519_github.info) |
+| `ssh/mrohwer/id_ed25519_github.pub` | Public Key (unverschlüsselt) | - | - |
 
 ### API Tokens
 
 | Datei | Zweck | Salt | Info |
 |-------|-------|------|------|
 | `api/codeberg.token.age` | Codeberg API (repo admin) | secrets | [.info](api/codeberg.token.info) |
+| `api/github.token.age` | GitHub API (repo, workflow, user) | secrets | [.info](api/github.token.info) |
 
 ---
 
@@ -92,4 +95,4 @@ age -e -p -o shared/.secrets/PFAD/name.age /pfad/zum/secret
 
 ---
 
-**Letzte Aktualisierung:** 2026-01-23
+**Letzte Aktualisierung:** 2026-01-30
