@@ -1,0 +1,3 @@
+[submodule "shared/.secrets"]
+	path = shared/.secrets
+	url = /home/mrohwer/work/mr-bytez-secrets
