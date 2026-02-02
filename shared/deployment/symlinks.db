@@ -24,8 +24,8 @@
       "requires_sudo": false
     },
     {
-      "comment": "SSH Config für Codeberg Host",
-      "target": "/home/mrohwer/.ssh/config",
+      "comment": "SSH Config TEMPLATE (do not deploy to ~/.ssh/config)",
+      "target": "/home/mrohwer/.ssh/config.example",
       "source": "/mr-bytez/shared/home/mrohwer/.ssh/config.example",
       "type": "file",
       "permissions": "0600",
