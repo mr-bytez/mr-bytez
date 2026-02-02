@@ -26,7 +26,7 @@
     {
       "comment": "SSH Config für Codeberg Host",
       "target": "/home/mrohwer/.ssh/config",
-      "source": "/mr-bytez/shared/home/mrohwer/.ssh/config",
+      "source": "/mr-bytez/shared/home/mrohwer/.ssh/config.example",
       "type": "file",
       "permissions": "0600",
       "owner": "mrohwer:mrohwer",
