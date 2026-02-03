@@ -1,10 +1,9 @@
 # DEPLOYMENT.md
 
-**Projekt:** mr-bytez  \
-**Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)  \
-**Prinzip:** kontrolliert, reproduzierbar, Fish-first  \
-**Stand:** 2026-02-03  \
-
+**Projekt:** mr-bytez
+**Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
+**Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
+**Stand:** 2026-02-04
 
 ---
 
@@ -17,7 +16,8 @@ Dieses Dokument beschreibt **wie** `mr-bytez` in ein System eingebunden wird –
 - reproduzierbares Setup (gleiches Ergebnis auf jedem Host)
 - minimale System-Mutation (wenige, bewusst gesetzte Symlinks)
 - einfache Rollbacks (atomarer Switch)
-- Security-by-Design (keine Secrets im Klartext, keine Symlinks in sensible User-State-Dateien)
+- Security-by-Design (keine Secrets im Klartext, OAuth statt SSH-Keys)
+- GitHub CLI für Auth (kein SSH-Key auf Server nötig!)
 
 ---
 
@@ -37,46 +37,144 @@ Warum?
 
 ---
 
-## Quickstart
+## Prerequisites
 
-### 1) Repo auschecken (inkl. Secrets-Submodule)
+**Benötigt:**
+- Arch Linux (fresh install)
+- User `mrohwer` (sudo-Berechtigung)
+- Internet-Verbindung
+- GitHub Account (mr-bytez)
 
-> Hinweis: Das Secrets-Repo ist ein privates Submodule (`shared/.secrets`).
+**Repository-Struktur:**
+- Main Repo: `mr-bytez/mr-bytez` (PUBLIC)
+- Secrets Submodule: `mr-bytez/mr-bytez-secrets` (PRIVATE)
+
+---
+
+## Quickstart (Full Deployment)
+
+### 1. GitHub CLI installieren & authentifizieren
 
 ```fish
-git clone git@github.com:mr-bytez/mr-bytez.git /mr-bytez
+# GitHub CLI installieren
+sudo pacman -S github-cli
+
+# Authentifizieren (Browser-Flow)
+gh auth login
+# → GitHub.com
+# → HTTPS
+# → Login with a web browser
+# → Folge dem Link + One-time Code eingeben
+```
+
+**Warum GitHub CLI?**
+- ✅ Kein SSH-Key auf Server nötig (OAuth Token)
+- ✅ Einfache Browser-Auth
+- ✅ Token kann revoked werden
+- ✅ Funktioniert mit privaten Repos
+
+### 2. Main Repo clonen (PUBLIC)
+
+```fish
+# Clone in temporäres Verzeichnis
+gh repo clone mr-bytez/mr-bytez /tmp/mr-bytez-clone
+
+# Nach /mr-bytez verschieben
+sudo mv /tmp/mr-bytez-clone /mr-bytez
+
+# Ownership setzen
+sudo chown -R mrohwer:mrohwer /mr-bytez
+```
+
+### 3. Secrets Submodule clonen (PRIVATE)
+
+> **WICHTIG:** `git submodule update` funktioniert NICHT ohne SSH-Key!
+> Wir clonen das Submodule manuell mit `gh` (hat Auth!)
+
+```fish
+# Secrets-Repo separat clonen
+gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
+
+# Alten Submodule-Ordner entfernen (falls vorhanden)
+rm -rf /mr-bytez/shared/.secrets
+
+# Geclontes Repo an richtige Stelle verschieben
+mv /tmp/secrets-clone /mr-bytez/shared/.secrets
+
+# Submodule-Status updaten (optional)
 cd /mr-bytez
 git submodule update --init --recursive
 ```
 
-### 2) Stabilen Pfad setzen
+### 4. Stabilen Anchor setzen
 
 ```fish
 sudo mkdir -p /opt/mr-bytez
 sudo ln -sfn /mr-bytez /opt/mr-bytez/current
+
+# Prüfen
+ls -la /opt/mr-bytez/
+# → current -> /mr-bytez
 ```
 
-### 3) Systemweite Konfigurationen einhängen
+### 5. Systemweite Konfigurationen einhängen
 
-**Fish (systemweit):**
+**Fish (systemweit nach /etc/fish):**
+
+> **KRITISCH:** Fish lädt NUR aus `/etc/fish/`, NICHT aus `/usr/local/share/fish/`!
 
 ```fish
-sudo ln -sfn /opt/mr-bytez/current/shared/usr/local/share/fish /usr/local/share/fish
+# Original /etc/fish sichern (falls vorhanden)
+sudo mv /etc/fish /etc/fish.backup
+
+# Symlink setzen (GANZES /etc/fish ersetzt!)
+sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
+
+# Prüfen
+ls -la /etc/fish
+# → /etc/fish -> /opt/mr-bytez/current/shared/etc/fish
 ```
 
 **Micro (systemweit):**
 
 ```fish
 sudo ln -sfn /opt/mr-bytez/current/shared/usr/local/share/micro /usr/local/share/micro
+
+# Prüfen
+ls -la /usr/local/share/micro
 ```
 
-**Micro (User):**
+### 6. User Fish Config deployen
 
 ```fish
-mkdir -p ~/.config/micro
-ln -sfn /usr/local/share/micro/settings.json ~/.config/micro/settings.json
-ln -sfn /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
+# User-Config-Ordner erstellen
+mkdir -p ~/.config/fish
+
+# Symlink zu Repo-Config setzen
+ln -sf /opt/mr-bytez/current/shared/home/mrohwer/.config/fish/config.fish ~/.config/fish/config.fish
+
+# Prüfen
+ls -la ~/.config/fish/config.fish
 ```
+
+### 7. Default Shell zu Fish ändern
+
+```fish
+sudo chsh -s /usr/bin/fish mrohwer
+```
+
+### 8. Neu einloggen & testen
+
+```fish
+exit
+# Neu einloggen via SSH
+```
+
+**Erwartetes Ergebnis:**
+- ✅ Powerline Prompt (bunt, mit Pfeilen)
+- ✅ Fastfetch mit mr-bytez ASCII Art
+- ✅ Fish Config geladen (siehe Debug-Output)
+- ✅ Alle Aliases funktionieren (`ll`, `gst`, `dps`)
 
 ---
 
@@ -84,7 +182,9 @@ ln -sfn /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
 
 ### Erlaubt
 
-- systemweite Pfade unter `/usr/local/share/*`
+- systemweite Pfade unter `/etc/*` (Fish)
+- systemweite Pfade unter `/usr/local/share/*` (Micro)
+- User-Config in `~/.config/*` (XDG-konform)
 - klar dokumentierte Ziele
 - Templates (z. B. `*.example`)
 
@@ -93,6 +193,7 @@ ln -sfn /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
 - `~/.ssh/config` (User-State, hochsensibel)
 - echte Home-Dateien/State-Dateien (Browser-Profile, Session-State, etc.)
 - alles, was Secrets indirekt exponieren könnte
+- SSH Private Keys (niemals aus Repo deployen!)
 
 **Merksatz:**
 
@@ -100,9 +201,9 @@ ln -sfn /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
 
 ---
 
-## SSH-Konfiguration: nur Template
+## SSH-Konfiguration: NUR Template
 
-Es gibt **kein** Deployment von `~/.ssh/config` aus dem Repo.
+Es gibt **kein** Deployment von `~/.ssh/config` oder SSH-Keys aus dem Repo.
 
 Stattdessen liegt im Repo eine **Vorlage**:
 
@@ -110,11 +211,12 @@ Stattdessen liegt im Repo eine **Vorlage**:
 
 Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config` und passt sie host-spezifisch an.
 
-Warum?
+**Warum?**
 
-- verhindert „kaputte“ SSH-Configs, wenn `/mr-bytez` mal kurz weg ist
+- verhindert „kaputte" SSH-Configs, wenn `/mr-bytez` mal kurz weg ist
 - verhindert Leaks durch versehentlich versionierte Hostdetails
 - hält Auth/Keys strikt lokal
+- **GitHub CLI verwendet OAuth (kein SSH-Key nötig!)**
 
 ---
 
@@ -131,29 +233,12 @@ Warum?
 - Secrets niemals symlinken
 - Tokens/Keys nie mit `cat` lesen, wenn `cat` auf `bat` zeigt
   - nutze: `command cat` oder `/usr/bin/cat`
-  - sanitize (Fish): `string replace -a   '' | string trim`
+  - sanitize (Fish): `string replace -a    | string trim`
 
 Details:
 
 - `shared/.secrets/SECRETS.md`
 - `PROJECT_NOTES.md`
-
----
-
-## symlinks.db
-
-`shared/deployment/symlinks.db` beschreibt **was grundsätzlich deploybar wäre**.
-
-Wichtig:
-
-- Eintrag ≠ automatische Aktivierung
-- Templates sind ok
-- sensible Ziele (z. B. SSH-Config) sind **nur als Template** enthalten
-
-Wenn du neue Deployments einführst:
-
-- immer zuerst die Policy prüfen
-- dann dokumentieren (hier in DEPLOYMENT.md)
 
 ---
 
@@ -163,13 +248,19 @@ Wenn du neue Deployments einführst:
 
 ```fish
 cd /mr-bytez
+
+# Main Repo pullen
 git pull --ff-only
-git submodule update --init --recursive
+
+# Secrets Submodule updaten (falls geändert)
+cd shared/.secrets
+git pull --ff-only
+cd ../..
 ```
 
 ### System-Links bleiben stabil
 
-Da `/usr/local/share/*` auf `/opt/mr-bytez/current/...` zeigt, brauchst du in der Regel **keine** weiteren Anpassungen – solange der Anker korrekt ist.
+Da `/etc/fish` und `/usr/local/share/micro` auf `/opt/mr-bytez/current/...` zeigen, brauchst du in der Regel **keine** weiteren Anpassungen – solange der Anker korrekt ist.
 
 ---
 
@@ -186,27 +277,56 @@ Beispiel (Prinzip):
 sudo ln -sfn /mr-bytez-v1_fish_micro_secrets /opt/mr-bytez/current
 ```
 
-Danach zeigen alle System-Symlinks automatisch auf die „neue“ Version.
+Danach zeigen alle System-Symlinks automatisch auf die „neue" Version.
 
 ---
 
 ## Troubleshooting
 
-### „Terminal schließt sich nach Enter“
+### Fish Prompt lädt nicht / Keine Farben
 
-Das passiert typischerweise, wenn ein Terminal-Profil „Command ausführen und schließen“ nutzt oder ein Shell-Exec am Ende steht.
+**Symptom:** Normaler Bash-Prompt oder Fish ohne Powerline
 
-Empfehlung:
+**Ursache:** `/etc/fish` zeigt nicht auf Repo-Config
 
-- Terminal-Profil prüfen: **nicht automatisch schließen**
-- keine `exec bash`/`exec fish` in Einmal-Kommandos verwenden
+**Fix:**
+
+```fish
+# Prüfen
+ls -la /etc/fish
+
+# Falls NICHT Symlink:
+sudo mv /etc/fish /etc/fish.backup
+sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
+
+# Neu einloggen
+exit
+```
 
 ### Submodule Probleme
 
-- `git submodule sync --recursive`
-- `git submodule update --init --recursive`
+**Symptom:** `shared/.secrets` leer oder Fehler bei `git submodule update`
 
-Wenn SSH nicht geht: zuerst `ssh -T git@github.com` testen.
+**Fix:**
+
+```fish
+# Manuell clonen mit gh (hat Auth!)
+gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
+rm -rf /mr-bytez/shared/.secrets
+mv /tmp/secrets-clone /mr-bytez/shared/.secrets
+```
+
+### GitHub CLI Auth verloren
+
+**Symptom:** `gh` Befehle schlagen fehl mit "authentication required"
+
+**Fix:**
+
+```fish
+# Re-authenticate
+gh auth login
+# → Browser-Flow wiederholen
+```
 
 ---
 
@@ -217,9 +337,23 @@ Wenn du an einer der folgenden Stellen etwas änderst, muss es hier dokumentiert
 - Symlink-Strategie / Ankerpfad
 - neue systemweite Links
 - Änderungen an Secrets-Handling
-- Ausnahmen (z. B. „Template-only“ Regeln)
+- Ausnahmen (z. B. „Template-only" Regeln)
+- GitHub CLI Workflow
 
 ---
 
-**Stand:** 2026-02-03
+## Changelog
 
+**2026-02-04:**
+- Fish-Config von `/usr/local/share/fish/` nach `/etc/fish/` verschoben
+- GitHub CLI Workflow statt SSH Clone hinzugefügt
+- Secrets Submodule manuell clonen (mit `gh`)
+- User Fish Config Deployment dokumentiert
+- SSH-Key Deployment entfernt (nicht nötig mit gh)
+
+**2026-02-03:**
+- Initial Version
+
+---
+
+**Stand:** 2026-02-04
