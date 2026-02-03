@@ -1,4 +1,4 @@
-# Changelog
+# CHANGELOG.md
 
 Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
@@ -7,12 +7,25 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
-## [Unreleased]
+## [0.4.0] - 2026-02-03
 
-### Planned
-- Docs-Struktur (shared/home/mrohwer/Documents/)
-- Submodules: n8-vps, n8-kiste
-- Strukturplan-Docs aktualisieren (neue Symlink-Strategie)
+### Added
+- [Docs] **DEPLOYMENT.md** als zentraler Deployment-Guide (stabiler Anker via `/opt/mr-bytez/current`).
+- [Repo] GitHub Mirror zusätzlich zu Codeberg (Multi-Remote Push: GitHub + Codeberg).
+- [Docs] **PROJECT_NOTES.md** erweitert/aktualisiert (Fish-first, Token-Handling, printf statt heredoc).
+
+### Changed
+- [Deployment] Systemweite Symlinks referenzieren ab jetzt ausschließlich `/opt/mr-bytez/current/...` (statt direkt `/mr-bytez/...`).
+- [Micro] Deployment angepasst: `/usr/local/share/micro` wird wie Fish über den stabilen Anker eingebunden.
+- [Security] Symlink-Policy verschärft: `~/.ssh/config` wird nicht mehr aus dem Repo deployed.
+  - [Deployment] Eintrag in `shared/deployment/symlinks.db` zeigt nur noch auf `~/.ssh/config.example` (Template).
+
+### Fixed
+- [Security] Stabilität: keine „kaputte“ SSH-Config mehr, wenn `/mr-bytez` temporär fehlt oder Checkout/Anker gewechselt wird.
+
+### Notes
+- [Repo] Split/Übergang: das alte v1-Repo bleibt parallel nutzbar (z. B. lokal unter `/mr-bytez-v1_fish_micro_secrets`) und kann per Anker-Switch aktiviert werden.
+- [Secrets] Secrets bleiben strikt getrennt im privaten Submodule `shared/.secrets` (Age-verschlüsselt).
 
 ---
 
@@ -69,4 +82,4 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
-**Letzte Aktualisierung:** 2026-01-29
+**Letzte Aktualisierung:** 2026-02-03
