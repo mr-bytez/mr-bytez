@@ -7,6 +7,33 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.5.0] - 2026-02-04
+
+### Changed
+- [fish] Fish-Config von `/usr/local/share/fish/` nach `/etc/fish/` verschoben
+  - System-Symlink: `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
+  - Grund: Fish lädt NUR aus `/etc/fish/`, NICHT aus `/usr/local/share/fish/`!
+- [deployment] `symlinks.db` aktualisiert (Fish-Pfad korrigiert)
+- [deployment] DEPLOYMENT.md vollständig überarbeitet
+  - GitHub CLI Workflow statt SSH-Clone dokumentiert
+  - Secrets Submodule manuell clonen (mit `gh`)
+  - User Fish Config Deployment dokumentiert
+  - Micro User Settings Deployment hinzugefügt
+  - symlinks.db Sektion wieder hinzugefügt
+  - Deployment-Regel: Commits nur auf n8-kiste
+- [docs] PROJECT_NOTES.md Fish-Pfad korrigiert
+- [docs] README.md Struktur + Fish-Pfad korrigiert
+- [docs] ROADMAP.md Fish-Pfad korrigiert
+
+### Fixed
+- [fish] Powerline Prompt funktioniert jetzt korrekt (richtige Lade-Reihenfolge)
+- [deployment] n8-vps vollständig deployed mit GitHub CLI
+
+### Notes
+- [workflow] Deployment-Workflow etabliert: n8-kiste = commit, n8-vps = read-only (nur pull)
+- [security] GitHub CLI verwendet OAuth (kein SSH-Key auf Server nötig!)
+
+---
 ## [0.4.0] - 2026-02-03
 
 ### Added

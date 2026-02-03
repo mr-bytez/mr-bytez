@@ -1,10 +1,9 @@
-# PROJECT\_NOTES.md
+# PROJECT_NOTES.md
 
-**Projekt:** mr-bytez  \
-**Scope:** Repo-Policy & Arbeitsweise  \
-**Prinzip:** Fish-first, reproduzierbar, dokumentiert  \
-**Aktualisiert:** 2026-02-03  \
-
+**Projekt:** mr-bytez
+**Scope:** Repo-Policy & Arbeitsweise
+**Prinzip:** Fish-first, reproduzierbar, dokumentiert
+**Aktualisiert:** 2026-02-04
 
 ---
 
@@ -21,7 +20,7 @@
 
 - Fish ist die **Referenz-Shell** für Skripte & Beispiele.
 - **Keine Heredocs/EOF** in Fish (kein `cat <<EOF`).
-- Datei-Generierung in Fish grundsätzlich mit `` + Redirect.
+- Datei-Generierung in Fish grundsätzlich mit `printf` + Redirect.
 
 Beispiel (Pattern):
 
@@ -35,7 +34,7 @@ printf '%s\n' 'line1' 'line2' > file.txt
 
 In diesem Projekt kann `cat` auf `bat` gemappt sein.
 
-- **Nie Tokens/Keys mit dem **``**-Alias lesen** (Formatierung/CRLF kann Secrets zerstören).
+- **Nie Tokens/Keys mit dem `cat`-Alias lesen** (Formatierung/CRLF kann Secrets zerstören).
 - Stattdessen immer:
   - `command cat` oder
   - `/usr/bin/cat`
@@ -69,7 +68,7 @@ Referenz: `shared/.secrets/SECRETS.md`
 
 - Beispiele:
 
-  - `/usr/local/share/fish -> /opt/mr-bytez/current/shared/usr/local/share/fish`
+  - `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
   - `/usr/local/share/micro -> /opt/mr-bytez/current/shared/usr/local/share/micro`
 
 - **Verboten:** Deployment von `~/.ssh/config` (User-State). Stattdessen nur Template `config.example`.
@@ -83,7 +82,7 @@ Referenz: `DEPLOYMENT.md`
 Wenn wir **Configs ändern**, **Deployment anpassen**, **Repos splitten/migrieren** oder **Security-Policies** verändern, dann gilt:
 
 1. **Docs zuerst aktualisieren** (in derselben Arbeits-Session)
-2. Danach erst Commit (nicht „Docs später“)
+2. Danach erst Commit (nicht „Docs später")
 
 Betroffene Dateien (typisch):
 
@@ -98,7 +97,7 @@ Betroffene Dateien (typisch):
 Für zentrale Dateien wie `README.md`, `DEPLOYMENT.md`, `PROJECT_NOTES.md`, `CHANGELOG.md`, `ROADMAP.md` gilt:
 
 - `README.md` ist **Überblick/Onboarding** (keine operativen Commands).
-- Operative Commands/Schrittfolgen gehören nach ``.
+- Operative Commands/Schrittfolgen gehören nach `DEPLOYMENT.md`.
 - **Basis ist immer die bestehende Datei.**
 - Es werden **nur Ergänzungen** oder **kleine Korrekturen** gemacht.
 - **Keine Kürzungen/Entfernungen** – außer du erlaubst es explizit.
@@ -113,7 +112,7 @@ Wichtig: **Keine Einzel-Commits für Kleinkram**, sondern sinnvolle Bündel.
 
 Wir nutzen SemVer (major.minor.patch) und Keep-a-Changelog als Struktur.
 
-### Kein „Unreleased“
+### Kein „Unreleased"
 
 - Wir führen **keinen** dauerhaften `Unreleased`-Block.
 - Stattdessen vergeben wir **direkt** die nächste Versionnummer, sobald klar ist, dass wir diese Änderung so committen.
@@ -169,3 +168,215 @@ Wenn wir eine Datei überarbeiten:
 
 Referenz: `DEPLOYMENT.md`
 
+---
+
+## 11) Fish Config Location (KRITISCH!)
+
+Fish lädt Configs **NUR** aus `/etc/fish/`, **NICHT** aus `/usr/local/share/fish/`!
+
+**Korrekt:**
+
+- System-Config: `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
+- Repository: `shared/etc/fish/`
+
+**Falsch (funktioniert NICHT):**
+
+- ❌ `/usr/local/share/fish/` (wird von Fish IGNORIERT!)
+
+**Warum wichtig:**
+
+- Ohne korrekte Location lädt Fish die Config nicht
+- Powerline Prompt fehlt
+- Aliases/Functions fehlen
+- Theme fehlt
+
+**Deployment:**
+
+```fish
+sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
+```
+
+**Validierung:**
+
+```fish
+ls -la /etc/fish  # Sollte Symlink sein
+fish --version    # Fish sollte Config laden
+```
+
+---
+
+## 12) GitHub CLI statt SSH-Keys (Security)
+
+**Prinzip:** OAuth-Token statt SSH-Keys auf Servern
+
+**Warum:**
+
+- ✅ Kein SSH Private Key auf Server nötig
+- ✅ Token kann jederzeit revoked werden
+- ✅ Browser-basierte Auth (einfacher)
+- ✅ Funktioniert mit privaten Repos
+- ✅ Kein SSH-Key-Management nötig
+
+**Installation & Auth:**
+
+```fish
+# 1. GitHub CLI installieren
+sudo pacman -S github-cli
+
+# 2. Authentifizieren (Browser-Flow)
+gh auth login
+# → GitHub.com
+# → HTTPS
+# → Login with a web browser
+# → Folge dem Link + One-time Code eingeben
+```
+
+**Clonen (Main Repo):**
+
+```fish
+gh repo clone mr-bytez/mr-bytez /tmp/mr-bytez-clone
+```
+
+**Clonen (Private Submodules):**
+
+```fish
+# Funktioniert NICHT mit `git submodule update` (braucht SSH-Key)
+# Stattdessen manuell clonen mit gh:
+gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
+mv /tmp/secrets-clone /mr-bytez/shared/.secrets
+```
+
+**Deployment auf Servern:**
+
+- **n8-vps:** Nur `gh` (kein SSH-Key!)
+- **n8-kiste:** `gh` + SSH für Codeberg
+
+**Token Management:**
+
+```fish
+# Status prüfen
+gh auth status
+
+# Token erneuern (bei Ablauf)
+gh auth refresh
+
+# Logout (Token revoken)
+gh auth logout
+```
+
+---
+
+## 13) Deployment-Workflow: n8-kiste = Master
+
+**WICHTIG:** Alle Commits **IMMER** auf n8-kiste machen!
+
+**Warum:**
+
+- n8-kiste hat **BEIDE** Remotes (GitHub + Codeberg)
+- n8-vps ist **read-only** (nur `git pull`, KEIN `git push`)
+- Verhindert Sync-Probleme zwischen Remotes
+- Klare Verantwortlichkeit (ein Master)
+
+**Workflow (Development auf n8-kiste):**
+
+```fish
+cd /mr-bytez
+
+# Änderungen machen
+micro DEPLOYMENT.md
+
+# Committen
+git add .
+git commit -m "[deployment][docs] DEPLOYMENT.md aktualisiert"
+
+# Pushen zu BEIDEN Remotes
+git push origin main      # GitHub
+git push codeberg main    # Codeberg
+```
+
+**Workflow (Production auf n8-vps):**
+
+```fish
+cd /mr-bytez
+
+# NUR pullen (NIEMALS pushen!)
+git pull origin main
+
+# Bei Submodule-Updates
+cd shared/.secrets
+git pull origin main
+cd ../..
+```
+
+**Regel:** n8-vps = **NIEMALS** `git push`!
+
+**Ausnahme:** Notfall-Hotfix direkt auf n8-vps
+
+```fish
+# Nur im Notfall (Server down, n8-kiste nicht erreichbar)
+# Danach SOFORT auf n8-kiste synchronisieren!
+ssh n8-kiste "cd /mr-bytez && git pull origin main"
+```
+
+---
+
+## 14) symlinks.db Pflege
+
+`shared/deployment/symlinks.db` muss bei **JEDEM** neuen Symlink aktualisiert werden!
+
+**Format:** JSON mit Metadaten
+
+**Wichtig:**
+
+- Bei neuem Deployment: Eintrag in symlinks.db
+- Bei Pfad-Änderung: symlinks.db updaten
+- Vor Commit: symlinks.db validieren (JSON-Syntax)
+
+**Struktur (Beispiel):**
+
+```json
+{
+  "comment": "Fish Shell v2.0 - System-weite Config",
+  "target": "/etc/fish",
+  "source": "/mr-bytez/shared/etc/fish",
+  "type": "directory",
+  "permissions": "0755",
+  "owner": "root:root",
+  "requires_sudo": true
+}
+```
+
+**Workflow bei neuem Symlink:**
+
+```fish
+# 1. Symlink deployen
+sudo ln -sf /opt/mr-bytez/current/shared/etc/foo /etc/foo
+
+# 2. symlinks.db updaten (manuell)
+micro shared/deployment/symlinks.db
+# → Eintrag hinzufügen (JSON-Format beachten!)
+
+# 3. Validieren (optional)
+python -m json.tool shared/deployment/symlinks.db > /dev/null
+# → Kein Output = valides JSON
+
+# 4. Commit mit BEIDEN Änderungen
+git add shared/deployment/symlinks.db
+git commit -m "[deployment] Neuer Symlink /etc/foo + symlinks.db update"
+```
+
+**Validierung vor Commit:**
+
+```fish
+# JSON-Syntax prüfen
+python -m json.tool shared/deployment/symlinks.db
+
+# Oder mit jq (falls installiert)
+jq . shared/deployment/symlinks.db
+```
+
+**Wichtig:** symlinks.db ist die **Single Source of Truth** für Deployments!
+
+---
+
+**Letzte Aktualisierung:** 2026-02-04

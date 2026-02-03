@@ -41,7 +41,7 @@
 
 ### Milestones
 
-- [x] Fish-Config v2.0 (shared/usr/local/share/fish/)
+- [x] Fish-Config v2.0 (shared/etc/fish/)
   - [x] Hierarchischer Loader (00-loader.fish)
   - [x] Theme-System (mr-bytez.fish)
   - [x] Modulare Aliases (10-90)

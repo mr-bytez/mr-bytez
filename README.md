@@ -1,9 +1,9 @@
 # mr-bytez
 
-**Version:** 0.4.0 (draft)\
+**Version:** 0.5.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-03\
+**Aktualisiert:** 2026-02-04\
 **Autor:** Michael Rohwer
 
 ---
@@ -48,7 +48,8 @@ Enthält:
 /mr-bytez/
 ├── shared/                      # Shared Resources (alle Hosts)
 │   ├── usr/local/share/         # System-weite Configs
-│   │   ├── fish/                # Fish Shell v2.x (Loader, Theme, Aliases, Functions)
+├── etc/                         # System Configs
+│   └── fish/                    # Fish Shell v2.x (Loader, Theme, Aliases, Functions)
 │   │   └── micro/               # Micro Editor Settings
 │   ├── home/                    # User-Templates (keine Live-Homes)
 │   ├── .secrets/                # Private Secrets (Age-Encrypted) -> Submodule
@@ -86,7 +87,7 @@ Enthält:
 - [x] Micro Editor Konfiguration unter `shared/usr/local/share/micro/`
 - [x] Stabiler Deployment-Anker: `/opt/mr-bytez/current -> /mr-bytez`
 - [x] System-Symlinks laufen über den Anker (kein Symlink-Wildwuchs)
-  - `/usr/local/share/fish -> /opt/mr-bytez/current/shared/usr/local/share/fish`
+  - `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
   - `/usr/local/share/micro -> /opt/mr-bytez/current/shared/usr/local/share/micro`
 - [x] SSH-Config wird **nicht** mehr aus dem Repo deployt (nur Template)
   - Repo enthält nur: `shared/home/mrohwer/.ssh/config.example`

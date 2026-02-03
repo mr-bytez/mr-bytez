@@ -5,6 +5,9 @@
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
 **Stand:** 2026-02-04
 
+> **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
+> n8-vps ist read-only (nur pullen, nicht committen)!
+
 ---
 
 ## Ziel
@@ -144,7 +147,9 @@ sudo ln -sfn /opt/mr-bytez/current/shared/usr/local/share/micro /usr/local/share
 ls -la /usr/local/share/micro
 ```
 
-### 6. User Fish Config deployen
+### 6. User Fish Config & Micro Settings deployen
+
+**Fish User Config:**
 
 ```fish
 # User-Config-Ordner erstellen
@@ -155,6 +160,20 @@ ln -sf /opt/mr-bytez/current/shared/home/mrohwer/.config/fish/config.fish ~/.con
 
 # Prüfen
 ls -la ~/.config/fish/config.fish
+```
+
+**Micro User Settings:**
+
+```fish
+# User-Config-Ordner erstellen
+mkdir -p ~/.config/micro
+
+# Symlinks zu System-Config setzen
+ln -sf /usr/local/share/micro/settings.json ~/.config/micro/settings.json
+ln -sf /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
+
+# Prüfen
+ls -la ~/.config/micro/
 ```
 
 ### 7. Default Shell zu Fish ändern
@@ -175,6 +194,7 @@ exit
 - ✅ Fastfetch mit mr-bytez ASCII Art
 - ✅ Fish Config geladen (siehe Debug-Output)
 - ✅ Alle Aliases funktionieren (`ll`, `gst`, `dps`)
+- ✅ Micro mit Gruvbox-Theme & OSC52-Clipboard
 
 ---
 
@@ -239,6 +259,41 @@ Details:
 
 - `shared/.secrets/SECRETS.md`
 - `PROJECT_NOTES.md`
+
+---
+
+## symlinks.db
+
+`shared/deployment/symlinks.db` beschreibt **alle deployten Symlinks**.
+
+**Wichtig:**
+
+- Eintrag = was deployed werden kann/soll
+- Templates sind dokumentiert
+- Sensible Ziele (z. B. SSH-Config) sind **nur als Template** enthalten
+- Bei Änderungen: `symlinks.db` manuell updaten
+
+**Format:** JSON mit Comment, Target, Source, Type, Permissions, Owner
+
+**Beispiel:**
+
+```json
+{
+  "comment": "Fish Shell v2.0 - System-weite Config",
+  "target": "/etc/fish",
+  "source": "/mr-bytez/shared/etc/fish",
+  "type": "directory",
+  "permissions": "0755",
+  "owner": "root:root",
+  "requires_sudo": true
+}
+```
+
+**Wenn du neue Deployments einführst:**
+
+- immer zuerst die Policy prüfen
+- dann in `symlinks.db` dokumentieren
+- dann hier in DEPLOYMENT.md dokumentieren
 
 ---
 
@@ -342,6 +397,31 @@ Wenn du an einer der folgenden Stellen etwas änderst, muss es hier dokumentiert
 
 ---
 
+## Deployment-Regel
+
+**WICHTIG: Alle Commits IMMER auf n8-kiste machen!**
+
+**Warum?**
+- n8-kiste hat beide Git-Remotes (GitHub + Codeberg)
+- n8-vps ist read-only (nur `git pull`, KEIN `git push`)
+- Verhindert Sync-Probleme zwischen Remotes
+
+**Workflow:**
+```fish
+# Auf n8-kiste
+cd /mr-bytez
+git add .
+git commit -m "[Tags] Message"
+git push origin main      # GitHub
+git push codeberg main    # Codeberg
+
+# Auf n8-vps
+cd /mr-bytez
+git pull origin main      # Nur pullen!
+```
+
+---
+
 ## Changelog
 
 **2026-02-04:**
@@ -349,6 +429,9 @@ Wenn du an einer der folgenden Stellen etwas änderst, muss es hier dokumentiert
 - GitHub CLI Workflow statt SSH Clone hinzugefügt
 - Secrets Submodule manuell clonen (mit `gh`)
 - User Fish Config Deployment dokumentiert
+- Micro User Settings Deployment hinzugefügt
+- symlinks.db Sektion wieder hinzugefügt
+- Deployment-Regel: Commits nur auf n8-kiste
 - SSH-Key Deployment entfernt (nicht nötig mit gh)
 
 **2026-02-03:**
