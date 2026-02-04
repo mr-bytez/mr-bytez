@@ -162,28 +162,69 @@ project_knowledge_search → query: "relevante keywords"
 - Vor wichtigen Arbeiten
 - Wenn Repository-Änderungen relevant sind
 
-**Claude empfiehlt bei Bedarf:**
+**⚠️ KRITISCH: Nach jedem Push → SOFORT "Sync now" klicken!**
+
+**Warum so wichtig?**
+- GitHub Integration hat **Verzögerung** (mehrere Minuten)
+- Claude sieht sonst **alte Version** des Repositories
+- Führt zu **veralteten Antworten** und falschen Vorschlägen
+- **User und Claude arbeiten aneinander vorbei!**
+- Verschwendete Zeit durch Doppelarbeit
+
+**Empfohlener Workflow:**
+
+```fish
+# 1. Änderungen committen & pushen
+cd /mr-bytez
+git add .
+git commit -m "[Tags] Ausführliche Message"
+git push origin main
+git push codeberg main
+
+# 2. ⚠️ SOFORT danach "Sync now" klicken!
+# Claude.ai → Projekt → Project Knowledge → 
+# → GitHub Repo (Zahnrad-Icon) → "Sync now"
+
+# 3. Kurz warten (5-10 Sekunden)
+# Sync läuft im Hintergrund
+
+# 4. ✅ Jetzt mit Claude weiterarbeiten
+# Claude sieht aktuelle Version!
 ```
-"Falls du kürzlich gepusht hast, bitte einmal
-'Sync now' im Project Knowledge klicken."
+
+**Claude erinnert bei Bedarf:**
+
 ```
+"Falls du gerade gepusht hast, bitte einmal 
+'Sync now' im Project Knowledge klicken, damit 
+ich die aktuellste Version sehe!"
+```
+
+**Symptome wenn NICHT gesynct:**
+
+- Claude schlägt Änderungen vor die schon gemacht wurden
+- Claude sieht alte Datei-Versionen
+- Claude findet neue Abschnitte nicht
+- Claude arbeitet mit veralteter Struktur
+
+**Lösung: IMMER nach Push syncen!**
 
 ### Verfügbare Dokumentation
 
-**Via GitHub Integration (dynamisch):**
+**Via GitHub Integration (dynamisch - aktuelle Quelle!):**
 - Komplettes Repository durchsuchbar
 - Fish Configs in `shared/etc/fish/`
 - Docker Stacks in `projects/infrastructure/*/stacks/`
 - Scripts in `scripts/`
 - Alle Markdown-Docs
 
-**In /mnt/project/ (statisch):**
+**In /mnt/project/ (statisch - kann veraltet sein!):**
 - CLAUDE_ARBEITSWEISE.md
-- CLAUDE_STRUKTUR_REFERENZ.md
+- CLAUDE_STRUKTUR_REFERENZ.md  
 - 00-uebersicht.md bis 06-hosts-uebersicht.md
 - n8-vps_Installationsplan_v2_0_konsolidiert.md
 
-**Wichtig:** `/mnt/project/` Dateien können veraltet sein - GitHub Integration ist die aktuelle Quelle!
+**⚠️ Wichtig:** `/mnt/project/` Dateien können veraltet sein - **GitHub Integration ist die Single Source of Truth!**
 
 ---
 
