@@ -102,280 +102,334 @@ Für zentrale Dateien wie `README.md`, `DEPLOYMENT.md`, `PROJECT_NOTES.md`, `CHA
 - Es werden **nur Ergänzungen** oder **kleine Korrekturen** gemacht.
 - **Keine Kürzungen/Entfernungen** – außer du erlaubst es explizit.
 - Vor Änderungen kurz erklären: **was** geändert wird, **wo** und **warum**.
-- Wenn vorhanden: `Aktualisiert:`-Datum entsprechend pflegen.
-
-Wichtig: **Keine Einzel-Commits für Kleinkram**, sondern sinnvolle Bündel.
 
 ---
 
-## 7) Versioning & Changelog-Regeln
+## 7) Claude GitHub Integration (wichtig)
 
-Wir nutzen SemVer (major.minor.patch) und Keep-a-Changelog als Struktur.
+Das mr-bytez Repository ist über die **Claude.ai GitHub Integration** verbunden.
 
-### Kein „Unreleased"
+### Zugriff-Status
 
-- Wir führen **keinen** dauerhaften `Unreleased`-Block.
-- Stattdessen vergeben wir **direkt** die nächste Versionnummer, sobald klar ist, dass wir diese Änderung so committen.
+- **Repository:** `mr-bytez/mr-bytez` (GitHub)
+- **Integration:** Claude.ai Projects → GitHub Integration (aktiv ✅)
+- **Branch:** main
+- **Berechtigungen:** Read-Only
 
-Beispiel:
+### Was Claude KANN
 
-- Änderung geplant → erst lokal sammeln
-- Änderung final → Docs + Version erhöhen → **ein** sauberer Commit
+- ✅ **Lesen:** Alle Dateien im Repository via `project_knowledge_search`
+- ✅ **Analysieren:** Code, Configs, Dokumentation durchsuchen
+- ✅ **Referenzieren:** Konkrete Dateipfade und Inhalte zitieren
+- ✅ **Sync:** User kann "Sync now" klicken für Updates
 
-### Changelog-Tags (Kategorien)
+### Was Claude NICHT KANN
 
-Änderungen werden zusätzlich mit Tags versehen, z. B.:
+- ❌ **Schreiben:** Keine direkten Commits ins Repository
+- ❌ **Push:** Keine Änderungen pushen
+- ❌ **PR:** Keine Pull Requests erstellen
+- ❌ **Branch:** Keine Branch-Verwaltung
 
-- `[repo]` Struktur/Meta/Remotes
-- `[deployment]` Anker/Symlink-Policy/Setup
-- `[fish]` Shell/Loader/Aliases
-- `[micro]` Editor-Config
-- `[secrets]` Age/Keys/Tokens/Recovery
-- `[security]` Policies/Hardening
+**Für Schreibzugriff:** Claude Code CLI verwenden (lokal auf n8-kiste)!
 
-Die Tags werden in `CHANGELOG.md` in den Bullet-Points genutzt.
+### Claude-Workflow
+
+**IMMER zuerst im Repository suchen:**
+
+```
+project_knowledge_search → query: "relevante keywords"
+```
+
+**Beispiele:**
+- Fish Config → `project_knowledge_search → "fish configuration loader"`
+- Docker Stack → `project_knowledge_search → "docker stack traefik"`
+- Deployment → `project_knowledge_search → "deployment symlinks"`
+
+**NIEMALS annehmen:**
+- ❌ "Ich habe keinen Zugriff auf das Repository..."
+- ❌ "Bitte lade die Datei hoch..."
+- ❌ "Ich kann das Repository nicht sehen..."
+
+**IMMER tun:**
+- ✅ `project_knowledge_search` verwenden
+- ✅ Bei Fund direkt mit Arbeit beginnen
+- ✅ Nur bei echtem Problem User informieren
+
+### Sync-Strategie
+
+**User synct manuell:**
+- Nach größeren Commits
+- Vor wichtigen Arbeiten
+- Wenn Repository-Änderungen relevant sind
+
+**Claude empfiehlt bei Bedarf:**
+```
+"Falls du kürzlich gepusht hast, bitte einmal
+'Sync now' im Project Knowledge klicken."
+```
+
+### Verfügbare Dokumentation
+
+**Via GitHub Integration (dynamisch):**
+- Komplettes Repository durchsuchbar
+- Fish Configs in `shared/etc/fish/`
+- Docker Stacks in `projects/infrastructure/*/stacks/`
+- Scripts in `scripts/`
+- Alle Markdown-Docs
+
+**In /mnt/project/ (statisch):**
+- CLAUDE_ARBEITSWEISE.md
+- CLAUDE_STRUKTUR_REFERENZ.md
+- 00-uebersicht.md bis 06-hosts-uebersicht.md
+- n8-vps_Installationsplan_v2_0_konsolidiert.md
+
+**Wichtig:** `/mnt/project/` Dateien können veraltet sein - GitHub Integration ist die aktuelle Quelle!
 
 ---
 
-## 8) Repo-Split / v1 parallel weiterführen
+## 8) Git Commit-Message Format (PFLICHT!)
 
-- Das alte v1-Repo bleibt lokal erhalten (z. B. `/mr-bytez-v1_fish_micro_secrets`).
-- Aktivierung erfolgt über den Anker-Switch:
+Alle Commits MÜSSEN einem einheitlichen Format folgen.
 
-```fish
-sudo ln -sfn /mr-bytez-v1_fish_micro_secrets /opt/mr-bytez/current
+### Standard-Format
+
+```
+[Kategorie1][Kategorie2] Kurze aussagekräftige Beschreibung
+
+Optional: Ausführliche Beschreibung in folgenden Zeilen
+- Detail 1
+- Detail 2
+- Detail 3
 ```
 
-(Details: `DEPLOYMENT.md`)
+### Verfügbare Kategorien
+
+**Hauptkategorien:**
+
+- `[Docs]` - Dokumentations-Änderungen (README, DEPLOYMENT, PROJECT_NOTES, etc.)
+- `[Config]` - Konfigurationsdateien (systemweit oder projekt-spezifisch)
+- `[Fish]` - Fish Shell Configs, Functions, Aliases
+- `[Docker]` - Docker Compose, Dockerfiles, Container-Configs
+- `[Security]` - Security-relevante Änderungen, Secrets, Permissions
+- `[Fix]` - Bug-Fixes, Korrekturen
+- `[Feature]` - Neue Features, Funktionalität
+- `[Refactor]` - Code-Umstrukturierung ohne Funktionsänderung
+- `[Deploy]` - Deployment-bezogene Änderungen
+- `[Test]` - Tests hinzufügen oder ändern
+- `[CI/CD]` - Continuous Integration/Deployment
+- `[Release]` - Release-Commits (mit Version)
+
+**Spezial-Kategorien:**
+
+- `[Submodule]` - Submodule-Updates
+- `[Cleanup]` - Code-Aufräumarbeiten, Linting
+- `[WIP]` - Work in Progress (nur für Feature-Branches!)
+- `[Hotfix]` - Notfall-Fix in Production
+
+### Multi-Tag Syntax
+
+Wenn mehrere Bereiche betroffen sind, mehrere Tags verwenden:
+
+```
+✅ RICHTIG:
+[Config][Fish] Loader v2.1 - Host-Override Mechanismus
+[Docker][Traefik] SSL Wildcards konfiguriert
+[Docs][Security] SECRETS.md erweitert - Recovery dokumentiert
+[Fish][Feature] Powerline Prompt mit Git-Status
+
+❌ FALSCH:
+[Misc] Various changes
+[Update] Config
+Fixed stuff
+```
+
+### Ausführlichkeit ist PFLICHT
+
+**Commit-Message muss beantworten:**
+1. **Was** wurde geändert?
+2. **Warum** wurde es geändert? (optional bei offensichtlichen Fixes)
+3. **Wo** wurde es geändert? (Datei/Komponente)
+
+**Beispiele:**
+
+```
+✅ AUSFÜHRLICH UND GUT:
+[Fish][Config] Loader v2.1 - Hierarchische Override-Logik implementiert
+
+- Shared Configs (00-69) laden zuerst
+- Host-spezifische Overrides (70-89) danach
+- User Tweaks (90-99) zum Schluss
+- Debug-Modus via FISH_LOADER_DEBUG=1
+
+Fixes: Konflikt zwischen n8-kiste und n8-vps Aliases
 
 ---
 
-## 9) Canvas-Regel (für diese Zusammenarbeit)
-
-Wenn wir eine Datei überarbeiten:
-
-- jede Datei als eigenes Canvas-Dokument
-- Canvas-Name = Dateiname im Repo (z. B. `PROJECT_NOTES.md`)
-- Inhalte so schreiben, dass du sie 1:1 ins Repo kopieren kannst
+✅ GUT (für einfache Changes):
+[Docs][PROJECT_NOTES] Abschnitt 8 hinzugefügt - Git Commit-Format
 
 ---
 
-## 10) Micro-Standard (kurz)
+✅ GUT (Multi-File):
+[Config][Docker] Traefik Stack v3 - Migration von v2
 
-- Micro-Defaults sind **systemweit** unter `shared/usr/local/share/micro` versioniert.
-- User-Mapping erfolgt nach `~/.config/micro/` (Symlinks auf `settings.json` / `bindings.json`).
-- Änderungen an Micro-Konfig werden **immer** in Docs + Changelog erfasst.
-
-Referenz: `DEPLOYMENT.md`
-
----
-
-## 11) Fish Config Location (KRITISCH!)
-
-Fish lädt Configs **NUR** aus `/etc/fish/`, **NICHT** aus `/usr/local/share/fish/`!
-
-**Korrekt:**
-
-- System-Config: `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
-- Repository: `shared/etc/fish/`
-
-**Falsch (funktioniert NICHT):**
-
-- ❌ `/usr/local/share/fish/` (wird von Fish IGNORIERT!)
-
-**Warum wichtig:**
-
-- Ohne korrekte Location lädt Fish die Config nicht
-- Powerline Prompt fehlt
-- Aliases/Functions fehlen
-- Theme fehlt
-
-**Deployment:**
-
-```fish
-sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
-```
-
-**Validierung:**
-
-```fish
-ls -la /etc/fish  # Sollte Symlink sein
-fish --version    # Fish sollte Config laden
-```
+- docker-compose.yml auf neue Syntax
+- Middlewares für SSL-Redirect
+- Rate-Limiting konfiguriert
+- Authentik Integration vorbereitet
 
 ---
 
-## 12) GitHub CLI statt SSH-Keys (Security)
-
-**Prinzip:** OAuth-Token statt SSH-Keys auf Servern
-
-**Warum:**
-
-- ✅ Kein SSH Private Key auf Server nötig
-- ✅ Token kann jederzeit revoked werden
-- ✅ Browser-basierte Auth (einfacher)
-- ✅ Funktioniert mit privaten Repos
-- ✅ Kein SSH-Key-Management nötig
-
-**Installation & Auth:**
-
-```fish
-# 1. GitHub CLI installieren
-sudo pacman -S github-cli
-
-# 2. Authentifizieren (Browser-Flow)
-gh auth login
-# → GitHub.com
-# → HTTPS
-# → Login with a web browser
-# → Folge dem Link + One-time Code eingeben
-```
-
-**Clonen (Main Repo):**
-
-```fish
-gh repo clone mr-bytez/mr-bytez /tmp/mr-bytez-clone
-```
-
-**Clonen (Private Submodules):**
-
-```fish
-# Funktioniert NICHT mit `git submodule update` (braucht SSH-Key)
-# Stattdessen manuell clonen mit gh:
-gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
-mv /tmp/secrets-clone /mr-bytez/shared/.secrets
-```
-
-**Deployment auf Servern:**
-
-- **n8-vps:** Nur `gh` (kein SSH-Key!)
-- **n8-kiste:** `gh` + SSH für Codeberg
-
-**Token Management:**
-
-```fish
-# Status prüfen
-gh auth status
-
-# Token erneuern (bei Ablauf)
-gh auth refresh
-
-# Logout (Token revoken)
-gh auth logout
-```
+❌ SCHLECHT - ZU KURZ:
+[Docs] Update
+[Fix] Fixed bug
+[Config] Changes
+Update README
 
 ---
 
-## 13) Deployment-Workflow: n8-kiste = Master
+❌ SCHLECHT - KEINE KATEGORIE:
+Updated Fish config
+Added new feature
+Fixed deployment issue
+```
 
-**WICHTIG:** Alle Commits **IMMER** auf n8-kiste machen!
+### Wann welche Kategorie?
 
-**Warum:**
+**[Docs]**
+- README, DEPLOYMENT, PROJECT_NOTES, CHANGELOG, ROADMAP
+- ADRs (Architecture Decision Records)
+- Code-Kommentare (wenn standalone-Commit)
 
-- n8-kiste hat **BEIDE** Remotes (GitHub + Codeberg)
-- n8-vps ist **read-only** (nur `git pull`, KEIN `git push`)
-- Verhindert Sync-Probleme zwischen Remotes
-- Klare Verantwortlichkeit (ein Master)
+**[Config]**
+- Systemweite Configs in `shared/`
+- Host-spezifische Configs
+- Environment-Variablen
+- Symlink-Definitionen
 
-**Workflow (Development auf n8-kiste):**
+**[Fish]**
+- Fish Shell Configs (`conf.d/`, `functions/`, `aliases/`)
+- Fish-spezifische Scripts
+- Prompt-System, Theme
+
+**[Docker]**
+- docker-compose.yml
+- Dockerfiles
+- Stack-Konfigurationen
+- Container-Umgebungen
+
+**[Security]**
+- Secrets (verschlüsselt!)
+- Permissions-Änderungen
+- SSH-Configs
+- Firewall-Regeln
+- Security-Patches
+
+**[Fix]**
+- Bug-Fixes
+- Syntax-Korrekturen
+- Broken-Links
+- Permission-Fixes
+
+**[Feature]**
+- Neue Funktionalität
+- Neue Commands/Scripts
+- Neue Services/Stacks
+- Erweiterte Config-Optionen
+
+**[Deploy]**
+- Deployment-Scripts
+- symlinks.db Updates
+- System-Integration
+- Rollout-Prozesse
+
+**[Release]**
+- Version-Bumps
+- CHANGELOG Updates für Release
+- Git-Tags
+- Production-Deployment
+
+### Spezial-Fälle
+
+**Mehrere Dateien, ein Thema:**
+
+```
+[Fish][Config] v2.1 Release - 8 Hosts konfiguriert
+
+Neue Host-Configs:
+- n8-vps (Server)
+- n8-kiste (Desktop Dev)
+- n8-station (Workstation)
+- n8-book, n8-bookchen (Laptops)
+- n8-maxx, n8-broker (Specialized)
+- n8-archstick (Portable)
+
+Dateien:
+- projects/infrastructure/*/root/home/*/.config/fish/
+```
+
+**Submodule Updates:**
+
+```
+[Submodule] Secrets-Repo aktualisiert - Neue API-Tokens
+
+- Codeberg Token erneuert
+- GitHub Token hinzugefügt
+- Recovery-Keys rotiert
+```
+
+**Hotfixes:**
+
+```
+[Hotfix][Security] SSH Port 22 → 61020
+
+KRITISCH: Brute-Force Angriffe auf Port 22
+- sshd_config angepasst
+- UFW Rules aktualisiert
+- SOFORT deployed auf n8-vps
+```
+
+### Commit-Workflow
 
 ```fish
-cd /mr-bytez
+# 1. Änderungen machen
+micro PROJECT_NOTES.md
 
-# Änderungen machen
-micro DEPLOYMENT.md
+# 2. Status prüfen
+git status
 
-# Committen
-git add .
-git commit -m "[deployment][docs] DEPLOYMENT.md aktualisiert"
+# 3. Staging
+git add PROJECT_NOTES.md
 
-# Pushen zu BEIDEN Remotes
-git push origin main      # GitHub
-git push codeberg main    # Codeberg
+# 4. Commit mit AUSFÜHRLICHER Message
+git commit -m "[Docs][PROJECT_NOTES] Abschnitt 8 hinzugefügt - Git Commit-Format
+
+- Standard-Kategorien definiert
+- Multi-Tag Syntax dokumentiert
+- Beispiele für gute/schlechte Commits
+- Wann welche Kategorie verwenden"
+
+# 5. Push
+git push origin main
+git push codeberg main
 ```
 
-**Workflow (Production auf n8-vps):**
+### Validierung vor Commit
+
+**Checklist:**
+
+- [ ] Mindestens eine Kategorie in `[...]`?
+- [ ] Beschreibung aussagekräftig? (nicht nur "Update" oder "Fix")
+- [ ] Bei Multi-File: Alle betroffenen Bereiche getaggt?
+- [ ] Bei Breaking Change: Deutlich markiert?
+- [ ] Bei Security: `[Security]` Tag vorhanden?
+
+**Tools (optional):**
 
 ```fish
-cd /mr-bytez
-
-# NUR pullen (NIEMALS pushen!)
-git pull origin main
-
-# Bei Submodule-Updates
-cd shared/.secrets
-git pull origin main
-cd ../..
+# Git Hook für Commit-Message Validierung
+# TODO: Implementieren in .git/hooks/commit-msg
 ```
-
-**Regel:** n8-vps = **NIEMALS** `git push`!
-
-**Ausnahme:** Notfall-Hotfix direkt auf n8-vps
-
-```fish
-# Nur im Notfall (Server down, n8-kiste nicht erreichbar)
-# Danach SOFORT auf n8-kiste synchronisieren!
-ssh n8-kiste "cd /mr-bytez && git pull origin main"
-```
-
----
-
-## 14) symlinks.db Pflege
-
-`shared/deployment/symlinks.db` muss bei **JEDEM** neuen Symlink aktualisiert werden!
-
-**Format:** JSON mit Metadaten
-
-**Wichtig:**
-
-- Bei neuem Deployment: Eintrag in symlinks.db
-- Bei Pfad-Änderung: symlinks.db updaten
-- Vor Commit: symlinks.db validieren (JSON-Syntax)
-
-**Struktur (Beispiel):**
-
-```json
-{
-  "comment": "Fish Shell v2.0 - System-weite Config",
-  "target": "/etc/fish",
-  "source": "/mr-bytez/shared/etc/fish",
-  "type": "directory",
-  "permissions": "0755",
-  "owner": "root:root",
-  "requires_sudo": true
-}
-```
-
-**Workflow bei neuem Symlink:**
-
-```fish
-# 1. Symlink deployen
-sudo ln -sf /opt/mr-bytez/current/shared/etc/foo /etc/foo
-
-# 2. symlinks.db updaten (manuell)
-micro shared/deployment/symlinks.db
-# → Eintrag hinzufügen (JSON-Format beachten!)
-
-# 3. Validieren (optional)
-python -m json.tool shared/deployment/symlinks.db > /dev/null
-# → Kein Output = valides JSON
-
-# 4. Commit mit BEIDEN Änderungen
-git add shared/deployment/symlinks.db
-git commit -m "[deployment] Neuer Symlink /etc/foo + symlinks.db update"
-```
-
-**Validierung vor Commit:**
-
-```fish
-# JSON-Syntax prüfen
-python -m json.tool shared/deployment/symlinks.db
-
-# Oder mit jq (falls installiert)
-jq . shared/deployment/symlinks.db
-```
-
-**Wichtig:** symlinks.db ist die **Single Source of Truth** für Deployments!
 
 ---
 
