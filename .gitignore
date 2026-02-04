@@ -41,3 +41,23 @@ Thumbs.db
 *.tmp
 *.bak
 *.orig
+
+# Secrets Scan Reports (temporär)
+secrets-scan-report.md
+*-scan-report.md
+*.scan-report.md
+
+# Fish Shell
+*.fish~
+*.fish.bak
+
+# TypeScript
+*.tsbuildinfo
+dist/
+out/
+
+# Coverage
+coverage/
+.nyc_output/
+.coverage
+htmlcov/
