@@ -20,7 +20,7 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
     
     # Host und Pfade
     set -l host (hostname)
-    set -l shared_base /mr-bytez/shared/usr/local/share/fish
+    set -l shared_base /mr-bytez/shared/etc/fish
     set -l host_base /mr-bytez/projects/infrastructure/$host/root/home/mrohwer/.config/fish
     
     # ─────────────────────────────────────────────────────────────────
@@ -121,7 +121,7 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         
         # Wichtige Symlinks prüfen
         set -l links \
-            "/usr/local/share/fish:$shared_base" \
+            "/etc/fish:$shared_base" \
             "$HOME/.config/fish/conf.d:$host_base/conf.d"
         
         for link_pair in $links

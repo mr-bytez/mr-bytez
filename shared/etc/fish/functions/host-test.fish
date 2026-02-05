@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Function – host-test                                          ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     shared/usr/local/share/fish/functions/host-test.fish             ║
+# ║  Pfad:     shared/etc/fish/functions/host-test.fish             ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.2.0                                                             ║
 # ║  Erstellt: 2026-01-28                                                        ║
@@ -271,9 +271,9 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     echo ""
 
     printf "  %-14s " "Shared:"
-    if test -d /usr/local/share/fish/conf.d
+    if test -d /etc/fish
         set_color green
-        echo "✔ /usr/local/share/fish/"
+        echo "✔ /etc/fish/"
         set_color normal
     else
         set_color red

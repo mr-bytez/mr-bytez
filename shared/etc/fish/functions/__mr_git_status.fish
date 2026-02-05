@@ -1,6 +1,6 @@
 # ============================================
 # __mr_git_status.fish - Git Status Helper
-# Pfad: shared/usr/local/share/fish/functions/
+# Pfad: shared/etc/fish/functions/
 # Author: Michael Rohwer
 # Created: 2026-01-23
 # Version: 1.0.0

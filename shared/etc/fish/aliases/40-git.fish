@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Aliases – Git                                                 ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/aliases/40-git.fish        ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/40-git.fish        ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.0.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║

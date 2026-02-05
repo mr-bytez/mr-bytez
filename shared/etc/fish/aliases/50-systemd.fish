@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Aliases – Systemd & Journalctl                                ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/aliases/50-systemd.fish    ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/50-systemd.fish    ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  2.0.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║

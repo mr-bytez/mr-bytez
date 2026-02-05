@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Aliases – Docker                                              ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/aliases/30-docker.fish     ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/30-docker.fish     ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.0.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║

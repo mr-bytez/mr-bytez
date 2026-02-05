@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Configuration Loader v2.1                                     ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/conf.d/00-loader.fish      ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/conf.d/00-loader.fish      ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  2.1.0                                                             ║
 # ║  Erstellt: 2026-01-26                                                        ║

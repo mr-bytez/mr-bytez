@@ -19,15 +19,15 @@ function fish_right_prompt
             
             # Fehler? Rot + Symbol
             if test $last_status -ne 0
-                set_color $MR_BG_ERROR
+                set_color $MR_COLOR_BG_ERROR
                 echo -n $sep
-                set_color --bold -b $MR_BG_ERROR $MR_TEXT_PRIMARY
+                set_color --bold -b $MR_COLOR_BG_ERROR $MR_COLOR_TEXT_TIME
                 echo -n " $MR_ICON_ERROR $MR_ICON_TIMER "$duration_sec"s "
             else
                 # Erfolg? Grün + Haken
-                set_color $MR_BG_SUCCESS
+                set_color $MR_COLOR_BG_SUCCESS
                 echo -n $sep
-                set_color --bold -b $MR_BG_SUCCESS $MR_TEXT_SUCCESS
+                set_color --bold -b $MR_COLOR_BG_SUCCESS $MR_COLOR_TEXT_SUCCESS
                 echo -n " $MR_ICON_SUCCESS $MR_ICON_TIMER "$duration_sec"s "
             end        
         end
@@ -37,9 +37,9 @@ function fish_right_prompt
     # ZEIT (bold!)
     # ============================================
     
-    set_color $MR_BG_TIME
+    set_color $MR_COLOR_BG_TIME
     echo -n $sep
-    set_color --bold -b $MR_BG_TIME $MR_TEXT_PRIMARY
+    set_color --bold -b $MR_COLOR_BG_TIME $MR_COLOR_TEXT_TIME
     echo -n " "(date "+%H:%M:%S")" "
     
     set_color normal

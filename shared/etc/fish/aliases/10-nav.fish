@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Aliases – Navigation                                          ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/aliases/10-nav.fish        ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/10-nav.fish        ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.0.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║

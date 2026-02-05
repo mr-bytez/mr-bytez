@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Theme Switcher                                                ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/functions/theme.fish       ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/functions/theme.fish       ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.0.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║
@@ -10,7 +10,7 @@
 
 function theme --description "🎨 Fish Theme Manager"
     # ── Konfiguration ────────────────────────────────────────────────────────
-    set -l theme_base /mr-bytez/shared/usr/local/share/fish/themes
+    set -l theme_base /mr-bytez/shared/etc/fish/themes
     set -l theme_file ~/.config/fish/.active_theme
     
     # Fallback-Pfad falls mr-bytez nicht existiert (für lokale Entwicklung)
@@ -105,7 +105,7 @@ function __theme_show_current --description "Zeigt aktuelles Theme"
 end
 
 function __theme_list --description "Listet verfügbare Themes"
-    set -l theme_base /mr-bytez/shared/usr/local/share/fish/themes
+    set -l theme_base /mr-bytez/shared/etc/fish/themes
     if not test -d $theme_base
         set theme_base (dirname (status filename))/../themes
     end
@@ -156,7 +156,7 @@ function __theme_list --description "Listet verfügbare Themes"
 end
 
 function __theme_set --argument name --description "Setzt Theme"
-    set -l theme_base /mr-bytez/shared/usr/local/share/fish/themes
+    set -l theme_base /mr-bytez/shared/etc/fish/themes
     set -l theme_file ~/.config/fish/.active_theme
     
     if not test -d $theme_base
@@ -200,7 +200,7 @@ function __theme_set --argument name --description "Setzt Theme"
 end
 
 function __theme_preview --argument name --description "Vorschau eines Themes"
-    set -l theme_base /mr-bytez/shared/usr/local/share/fish/themes
+    set -l theme_base /mr-bytez/shared/etc/fish/themes
     if not test -d $theme_base
         set theme_base (dirname (status filename))/../themes
     end
@@ -327,6 +327,6 @@ function __theme_help --description "Zeigt Hilfe"
     echo "   "$Y"theme_muted"$N"           Gedämpft (brblack)"
     echo
     echo $B"Theme-Pfad:"$N
-    echo "   "$D"/mr-bytez/shared/usr/local/share/fish/themes/"$N
+    echo "   "$D"/mr-bytez/shared/etc/fish/themes/"$N
     echo
 end

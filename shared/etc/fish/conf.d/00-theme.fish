@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  mr-bytez Fish Theme System                                                  ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/usr/local/share/fish/conf.d/00-theme.fish       ║
+# ║  Pfad:     /mr-bytez/shared/etc/fish/conf.d/00-theme.fish       ║
 # ║  Autor:    Michael Rohwer                                                    ║
 # ║  Version:  1.1.0                                                             ║
 # ║  Erstellt: 2026-01-25                                                        ║
