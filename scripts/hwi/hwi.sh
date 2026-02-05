@@ -17,7 +17,7 @@ set -euo pipefail
 # KONFIGURATION
 # ═══════════════════════════════════════════════════════
 
-SCRIPT_VERSION="3.0.0"
+SCRIPT_VERSION="3.1.0"
 REAL_USER=${SUDO_USER:-$(whoami)}
 REAL_HOME=$(eval echo ~${REAL_USER})
 DATE_ONLY=$(date +%Y%m%d)
@@ -337,7 +337,7 @@ get_ram_info() {
     # RAM Detection mit Fallback auf decode-dimms bei "Unknown"
 
     # Versuch 1: dmidecode (schnell)
-    local ram_data=$(sudo dmidecode -t memory 2>/dev/null)
+    local ram_data=$(dmidecode -t memory 2>/dev/null)
 
     # Total Size
     local total_mb=$(echo "$ram_data" | command grep "^\s*Size:" | command grep -E "[0-9]+ [GM]i?B" | \
@@ -365,8 +365,8 @@ get_ram_info() {
     # Fallback auf decode-dimms falls "Unknown" ODER für Timings
     if [[ "$manufacturer" == "Unknown" ]] || [[ -z "$manufacturer" ]]; then
         if command -v decode-dimms &>/dev/null; then
-            sudo modprobe eeprom 2>/dev/null
-            local dimms_data=$(sudo decode-dimms 2>/dev/null)
+            modprobe eeprom 2>/dev/null
+            local dimms_data=$(decode-dimms 2>/dev/null)
             manufacturer=$(echo "$dimms_data" | command grep "^Module Manufacturer" | head -n1 | awk -F'  +' '{print $2}')
             local part_number=$(echo "$dimms_data" | command grep "^Part Number" | head -n1 | awk -F'  +' '{print $2}')
             local speed_numeric=$(echo "$ram_speed" | awk '{print $1}')
@@ -381,8 +381,8 @@ get_ram_info() {
     else
         # Auch bei bekanntem Manufacturer Timings holen
         if command -v decode-dimms &>/dev/null; then
-            sudo modprobe eeprom 2>/dev/null
-            local dimms_data=$(sudo decode-dimms 2>/dev/null)
+            modprobe eeprom 2>/dev/null
+            local dimms_data=$(decode-dimms 2>/dev/null)
             local speed_numeric=$(echo "$ram_speed" | awk '{print $1}')
             timings=$(echo "$dimms_data" | command grep "AA-RCD-RP-RAS.*DDR4-${speed_numeric}" | awk '{print $NF}')
         fi
@@ -912,7 +912,7 @@ print_welcome_header() {
     echo ""
     echo -e "${CYAN}╔═══════════════════════════════════════════════════════╗${NC}"
     echo -e "${CYAN}║                                                       ║${NC}"
-    echo -e "${CYAN}║${NC}  ${BOLD}${BLUE}🖥  HARDWARE INFO SCRIPT (hwi)${NC}  ${CYAN}v${SCRIPT_VERSION}${NC}          ${CYAN}║${NC}"
+    echo -e "${CYAN}║${NC}  ${BOLD}${BLUE}🖥  HARDWARE INFO SCRIPT (hwi)${NC}  ${CYAN}v${SCRIPT_VERSION}${NC}                ${CYAN}║${NC}"
     echo -e "${CYAN}║                                                       ║${NC}"
     echo -e "${CYAN}╚═══════════════════════════════════════════════════════╝${NC}"
     echo ""
@@ -921,7 +921,7 @@ print_welcome_header() {
     echo -e "   ${CYAN}•${NC} ${DIM}Datum:${NC} ${WHITE}$(date '+%Y-%m-%d %H:%M:%S')${NC}"
     echo -e "   ${CYAN}•${NC} ${DIM}User:${NC}  ${WHITE}${REAL_USER}${NC}"
     echo ""
-    echo -e "${BOLD}${YELLOW}✨ Features v3.0.0:${NC}"
+    echo -e "${BOLD}${YELLOW}✨ Features v${SCRIPT_VERSION}:${NC}"
     echo -e "   ${CYAN}➜${NC} Multi-Distro (Arch/Debian/Ubuntu/Mint)"
     echo -e "   ${CYAN}➜${NC} Flexible Output-Modi (Standard/Custom/mr-bytez)"
     echo -e "   ${CYAN}➜${NC} Erweiterte SMART-Daten (Hours/Written/Health%)"
