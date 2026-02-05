@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Hardware Info Script (hwi)
-# Version: 3.0.0
+# Version: 3.1.0
 # Beschreibung: Multi-Distro Hardware-Audit mit flexiblem Output
 # Speicherort: ~/.local/bin/hwi.sh
 # Output:
@@ -334,33 +334,64 @@ get_all_gpus_info() {
 }
 
 get_ram_info() {
-    # RAM Total durch Summierung aller Module
-    local ram_total_bytes=0
-    local ram_modules=0
+    # RAM Detection mit Fallback auf decode-dimms bei "Unknown"
 
-    while read -r size_line; do
-        # Match sowohl GB als auch GiB (dmidecode nutzt GiB!)
-        if [[ $size_line =~ ([0-9]+)[[:space:]]*(MB|GB|MiB|GiB) ]]; then
-            local size_value="${BASH_REMATCH[1]}"
-            local size_unit="${BASH_REMATCH[2]}"
+    # Versuch 1: dmidecode (schnell)
+    local ram_data=$(sudo dmidecode -t memory 2>/dev/null)
 
-            # GiB und GB sind praktisch gleich (1 GiB = 1.073741824 GB)
-            if [[ "$size_unit" == "GB" ]] || [[ "$size_unit" == "GiB" ]]; then
-                ram_total_bytes=$((ram_total_bytes + size_value * 1073741824))
-            elif [[ "$size_unit" == "MB" ]] || [[ "$size_unit" == "MiB" ]]; then
-                ram_total_bytes=$((ram_total_bytes + size_value * 1048576))
+    # Total Size
+    local total_mb=$(echo "$ram_data" | command grep "^\s*Size:" | command grep -E "[0-9]+ [GM]i?B" | \
+        awk '{
+            if ($3 ~ /GiB?/) sum += $2 * 1024;
+            else if ($3 ~ /MiB?/) sum += $2;
+        } END {print sum}')
+    local total_gb=$(awk "BEGIN {printf \"%.0f\", $total_mb / 1024}")
+
+    # Module Count
+    local module_count=$(echo "$ram_data" | command grep "^\s*Size:" | command grep -E "[0-9]+ [GM]i?B" | wc -l)
+
+    # Type (DDR3/DDR4/DDR5)
+    local ram_type=$(echo "$ram_data" | command grep "^\s*Type:" | command grep -v "Error\|Unknown\|Other" | head -n1 | awk '{print $2}')
+
+    # Speed
+    local ram_speed=$(echo "$ram_data" | command grep "^\s*Speed:" | command grep -E "[0-9]+" | head -n1 | awk '{print $2, $3}')
+
+    # Manufacturer (dmidecode)
+    local manufacturer=$(echo "$ram_data" | command grep "^\s*Manufacturer:" | command grep -v "NO DIMM" | head -n1 | awk '{print $2}')
+
+    # Timings (via decode-dimms)
+    local timings="N/A"
+
+    # Fallback auf decode-dimms falls "Unknown" ODER für Timings
+    if [[ "$manufacturer" == "Unknown" ]] || [[ -z "$manufacturer" ]]; then
+        if command -v decode-dimms &>/dev/null; then
+            sudo modprobe eeprom 2>/dev/null
+            local dimms_data=$(sudo decode-dimms 2>/dev/null)
+            manufacturer=$(echo "$dimms_data" | command grep "^Module Manufacturer" | head -n1 | awk -F'  +' '{print $2}')
+            local part_number=$(echo "$dimms_data" | command grep "^Part Number" | head -n1 | awk -F'  +' '{print $2}')
+            local speed_numeric=$(echo "$ram_speed" | awk '{print $1}')
+            timings=$(echo "$dimms_data" | command grep "^AA-RCD-RP-RAS (cycles)" | head -n1 | awk '{print $NF}')
+            [[ -z "$manufacturer" ]] && manufacturer="Generic"
+            if [[ -n "$part_number" ]] && [[ "$part_number" != "Unknown" ]]; then
+                manufacturer="$manufacturer ($part_number)"
             fi
-
-            ram_modules=$((ram_modules + 1))
+        else
+            manufacturer="Generic (dmidecode Unknown)"
         fi
-    done < <(dmidecode -t memory 2>/dev/null | command grep "Size:" | command grep -v "No Module Installed")
+    else
+        # Auch bei bekanntem Manufacturer Timings holen
+        if command -v decode-dimms &>/dev/null; then
+            sudo modprobe eeprom 2>/dev/null
+            local dimms_data=$(sudo decode-dimms 2>/dev/null)
+            local speed_numeric=$(echo "$ram_speed" | awk '{print $1}')
+            timings=$(echo "$dimms_data" | command grep "AA-RCD-RP-RAS.*DDR4-${speed_numeric}" | awk '{print $NF}')
+        fi
+    fi
 
-    local ram_total_gb=$((ram_total_bytes / 1073741824))
-    local ram_manufacturer=$(dmidecode -t memory 2>/dev/null | command grep "Manufacturer:" | command grep -v "NO DIMM" | head -n1 | cut -d: -f2 | xargs || echo "Unknown")
-    local ram_speed=$(dmidecode -t memory 2>/dev/null | command grep "Speed:" | command grep "MT/s" | head -n1 | cut -d: -f2 | xargs || echo "Unknown")
-    local ram_type=$(dmidecode -t memory 2>/dev/null | command grep "Type:" | command grep -v "Error Correction" | command grep -v "Unknown" | head -n1 | cut -d: -f2 | xargs || echo "Unknown")
+    [[ -z "$timings" ]] && timings="N/A"
 
-    echo "${ram_total_gb}|${ram_modules}|${ram_manufacturer}|${ram_speed}|${ram_type}"
+    # Output: total_gb|module_count|manufacturer|ram_speed|ram_type|timings (ALTE Reihenfolge!)
+    echo "${total_gb}|${module_count}|${manufacturer}|${ram_speed}|${ram_type}|${timings}"
 }
 
 get_storage_overview() {
@@ -402,7 +433,7 @@ get_disk_smart_info() {
     local smart_output=$(smartctl -a /dev/$device 2>/dev/null || echo "")
 
     if [[ -z "$smart_output" ]]; then
-        echo "Unknown|Unknown|Unknown|0|0|100"
+        echo "Unknown|Unknown|Unknown|0|0|0|0|0|0|100"
         return
     fi
 
@@ -418,21 +449,56 @@ get_disk_smart_info() {
     # Firmware
     local firmware=$(echo "$smart_output" | command grep "Firmware Version:" | cut -d: -f2 | xargs || echo "Unknown")
 
-    # Power-On Hours (Punkte als Tausender-Trennzeichen entfernen!)
+    # Power-On Hours
     local power_hours=$(echo "$smart_output" | command grep "Power_On_Hours" | awk '{print $10}' | tr -d '.' | tr -d ',' || echo "0")
     if [[ "$power_hours" == "0" ]] || [[ -z "$power_hours" ]]; then
         power_hours=$(echo "$smart_output" | command grep "Power On Hours:" | awk '{print $4}' | tr -d '.' | tr -d ',' || echo "0")
     fi
 
-    # Data Written (Punkte als Tausender-Trennzeichen entfernen!)
+    # Temperature
+    local temp=$(echo "$smart_output" | command grep "Temperature:" | awk '{print $2}' || echo "0")
+    if [[ "$temp" == "0" ]] || [[ -z "$temp" ]]; then
+        temp=$(echo "$smart_output" | command grep "Temperature_Celsius" | awk '{print $10}' || echo "0")
+    fi
+
+    # Data Written - UNTERSCHEIDUNG NVMe vs SATA
     local data_written_bytes=0
     local data_units=$(echo "$smart_output" | command grep "Data Units Written:" | awk '{print $4}' | tr -d '.' | tr -d ',' || echo "0")
     if [[ "$data_units" != "0" ]] && [[ -n "$data_units" ]]; then
-        # 1 Data Unit = 512 KB = 524288 Bytes
+        # NVMe: 1 Data Unit = 512 KB
         data_written_bytes=$((data_units * 524288))
+    else
+        # SATA: Total_LBAs_Written (512 Byte Sektoren)
+        local lbas_written=$(echo "$smart_output" | command grep "Total_LBAs_Written" | awk '{print $10}' | tr -d '.' | tr -d ',' || echo "0")
+        if [[ "$lbas_written" != "0" ]] && [[ -n "$lbas_written" ]]; then
+            data_written_bytes=$((lbas_written * 512))
+        fi
     fi
 
-    # Health % (Percentage Used → invertieren)
+    # NVMe-spezifische Werte
+    local media_errors=0
+    local critical_warning=0
+    if [[ $device == nvme* ]]; then
+        media_errors=$(echo "$smart_output" | command grep "Media and Data Integrity Errors:" | awk '{print $6}' || echo "0")
+        critical_warning=$(echo "$smart_output" | command grep "Critical Warning:" | awk '{print $3}' || echo "0x00")
+        # Wenn Critical Warning != 0x00 → Problem!
+        [[ "$critical_warning" != "0x00" ]] && critical_warning=1 || critical_warning=0
+    fi
+
+    # SSD/HDD-spezifische Werte
+    local reallocated=0
+    local pending=0
+    local crc_errors=0
+    local program_fail=0
+
+    if [[ $device != nvme* ]]; then
+        reallocated=$(echo "$smart_output" | command grep "Reallocated_Sector_Ct" | awk '{print $10}' || echo "0")
+        pending=$(echo "$smart_output" | command grep "Current_Pending_Sector" | awk '{print $10}' || echo "0")
+        crc_errors=$(echo "$smart_output" | command grep "UDMA_CRC_Error_Count" | awk '{print $10}' || echo "0")
+        program_fail=$(echo "$smart_output" | command grep "Program_Fail_Count" | awk '{print $10}' || echo "0")
+    fi
+
+    # Health % (NVMe: Percentage Used invertieren)
     local health=100
     local health_attr=$(echo "$smart_output" | command grep "Percentage Used:" | awk '{print $3}' | tr -d '%' || echo "")
     if [[ -n "$health_attr" ]]; then
@@ -444,7 +510,8 @@ get_disk_smart_info() {
         vendor=$(echo "$model" | awk '{print $1}')
     fi
 
-    echo "${vendor}|${model}|${firmware}|${power_hours}|${data_written_bytes}|${health}"
+    # Output: vendor|model|firmware|hours|written|temp|realloc|pending|media_err|crc|program_fail|critical_warn|health
+    echo "${vendor}|${model}|${firmware}|${power_hours}|${data_written_bytes}|${temp}|${reallocated}|${pending}|${media_errors}|${crc_errors}|${program_fail}|${health}"
 }
 
 # ═══════════════════════════════════════════════════════
@@ -502,13 +569,13 @@ print_terminal_output() {
     echo ""
 
     # RAM
-    IFS='|' read -r ram_total_gb ram_modules ram_manufacturer ram_speed ram_type <<< "$(get_ram_info)"
-
+    IFS='|' read -r ram_total_gb ram_modules ram_manufacturer ram_speed ram_type timings <<< "$(get_ram_info)"
     echo -e "${BOLD}${MAGENTA}🧠 RAM${NC}"
     echo -e "${DIM}├─ Total:${NC} ${WHITE}${ram_total_gb} GB${NC}"
     echo -e "${DIM}├─ Hersteller:${NC} ${WHITE}${ram_manufacturer}${NC} ${DIM}(${ram_modules}x Module)${NC}"
     echo -e "${DIM}├─ Typ:${NC} ${WHITE}${ram_type}${NC}"
-    echo -e "${DIM}└─ Speed:${NC} ${WHITE}${ram_speed}${NC}\n"
+    echo -e "${DIM}├─ Speed:${NC} ${WHITE}${ram_speed}${NC}"
+    echo -e "${DIM}└─ Timings:${NC} ${WHITE}${timings}${NC}\n"
 
     # Storage Overview
     IFS='|' read -r nvme_count nvme_size ssd_count ssd_size hdd_count hdd_size <<< "$(get_storage_overview)"
@@ -526,22 +593,44 @@ print_terminal_output() {
     local nvme_list=$(LC_ALL=C lsblk -d -o NAME,TYPE 2>/dev/null | command grep "disk" | command grep "nvme" | awk '{print $1}')
     if [[ -n "$nvme_list" ]]; then
         echo -e "${CYAN}━━━ NVMe Devices ━━━${NC}"
-        printf "${DIM}%-8s %-22s %-10s %-10s %-9s %-9s %-7s${NC}\n" "Device" "Model" "Firmware" "Größe" "Hours" "Written" "Health"
-        echo -e "${DIM}$(printf '%.0s─' {1..85})${NC}"
+        printf "${DIM}%-9s %-24s %-11s %-9s %-10s %-10s %-7s %-7s %-5s %-7s${NC}\n" \
+            "Device" "Model" "Firmware" "Größe" "Hours" "Written" "Temp" "Media" "Crit" "Health"
+        echo -e "${DIM}$(printf '%.0s─' {1..105})${NC}"
 
         for disk in $nvme_list; do
-            IFS='|' read -r vendor model firmware hours written_bytes health <<< "$(get_disk_smart_info "$disk")"
+            IFS='|' read -r vendor model firmware hours written_bytes temp realloc pending media_err crc prog_fail health \
+                <<< "$(get_disk_smart_info "$disk")"
+
             local size=$(LC_ALL=C lsblk -b -d -o SIZE /dev/$disk 2>/dev/null | tail -n1 | tr -d '.' | tr -d ',')
             local size_human=$(format_bytes_to_size "$size")
             local written_human=$(format_bytes_to_size "$written_bytes")
+
+            # Hours Farbe
+            local hours_color="${GREEN}"
+            [[ $hours -gt 40000 ]] && hours_color="${YELLOW}"
+            [[ $hours -gt 70000 ]] && hours_color="${MAGENTA}"
+            [[ $hours -gt 90000 ]] && hours_color="${RED}"
+
+            # Temp Farbe
+            local temp_color="${GREEN}"
+            [[ $temp -gt 50 ]] && temp_color="${YELLOW}"
+            [[ $temp -gt 70 ]] && temp_color="${RED}"
 
             # Health Farbe
             local health_color="${GREEN}"
             [[ $health -lt 90 ]] && health_color="${YELLOW}"
             [[ $health -lt 80 ]] && health_color="${RED}"
 
-            printf "%-8s ${WHITE}%-22s${NC} ${DIM}%-10s${NC} %-10s %-9s %-9s ${health_color}%3s%%${NC}\n" \
-                "$disk" "${model:0:22}" "$firmware" "$size_human" "${hours}h" "$written_human" "$health"
+            # Media Errors Farbe
+            local media_color="${GREEN}"
+            [[ $media_err -gt 0 ]] && media_color="${RED}"
+
+            # Critical Warning Farbe (prog_fail wird wiederverwendet)
+            local crit_color="${GREEN}"
+            [[ $prog_fail -gt 0 ]] && crit_color="${RED}"
+
+            printf "%-9s ${WHITE}%-24s${NC} ${DIM}%-11s${NC} %-9s ${hours_color}%-10s${NC} %-10s ${temp_color}%-7s${NC} ${media_color}%-7s${NC} ${crit_color}%-5s${NC} ${health_color}%-7s${NC}\n" \
+                "$disk" "${model:0:24}" "$firmware" "$size_human" "${hours}h" "$written_human" "${temp}°C" "$media_err" "$prog_fail" "${health}%"
         done
         echo ""
     fi
@@ -550,21 +639,45 @@ print_terminal_output() {
     local ssd_list=$(LC_ALL=C lsblk -d -o NAME,TYPE 2>/dev/null | command grep "disk" | command grep -v "nvme" | command grep -v "zram" | awk '{print $1}' | while read d; do [[ $(cat /sys/block/$d/queue/rotational 2>/dev/null || echo "1") -eq 0 ]] && echo $d; done)
     if [[ -n "$ssd_list" ]]; then
         echo -e "${CYAN}━━━ SSD Devices ━━━${NC}"
-        printf "${DIM}%-8s %-22s %-10s %-10s %-9s %-9s %-7s${NC}\n" "Device" "Model" "Firmware" "Größe" "Hours" "Written" "Health"
-        echo -e "${DIM}$(printf '%.0s─' {1..85})${NC}"
+        printf "${DIM}%-9s %-24s %-11s %-9s %-10s %-10s %-7s %-7s %-7s %-7s${NC}\n" \
+            "Device" "Model" "Firmware" "Größe" "Hours" "Written" "Temp" "Realloc" "ProgF" "Health"
+        echo -e "${DIM}$(printf '%.0s─' {1..110})${NC}"
 
         for disk in $ssd_list; do
-            IFS='|' read -r vendor model firmware hours written_bytes health <<< "$(get_disk_smart_info "$disk")"
+            IFS='|' read -r vendor model firmware hours written_bytes temp realloc pending media_err crc prog_fail health \
+                <<< "$(get_disk_smart_info "$disk")"
+
             local size=$(LC_ALL=C lsblk -b -d -o SIZE /dev/$disk 2>/dev/null | tail -n1 | tr -d '.' | tr -d ',')
             local size_human=$(format_bytes_to_size "$size")
             local written_human=$(format_bytes_to_size "$written_bytes")
 
+            # Hours Farbe
+            local hours_color="${GREEN}"
+            [[ $hours -gt 20000 ]] && hours_color="${YELLOW}"
+            [[ $hours -gt 40000 ]] && hours_color="${MAGENTA}"
+            [[ $hours -gt 60000 ]] && hours_color="${RED}"
+
+            # Temp Farbe
+            local temp_color="${GREEN}"
+            [[ $temp -gt 50 ]] && temp_color="${YELLOW}"
+            [[ $temp -gt 70 ]] && temp_color="${RED}"
+
+            # Reallocated Farbe
+            local realloc_color="${GREEN}"
+            [[ $realloc -gt 0 ]] && realloc_color="${RED}"
+
+            # Program Fail Farbe
+            local prog_color="${GREEN}"
+            [[ $prog_fail -gt 0 ]] && prog_color="${YELLOW}"
+            [[ $prog_fail -gt 100 ]] && prog_color="${RED}"
+
+            # Health Farbe
             local health_color="${GREEN}"
             [[ $health -lt 90 ]] && health_color="${YELLOW}"
             [[ $health -lt 80 ]] && health_color="${RED}"
 
-            printf "%-8s ${WHITE}%-22s${NC} ${DIM}%-10s${NC} %-10s %-9s %-9s ${health_color}%3s%%${NC}\n" \
-                "$disk" "${model:0:22}" "$firmware" "$size_human" "${hours}h" "$written_human" "$health"
+            printf "%-9s ${WHITE}%-24s${NC} ${DIM}%-11s${NC} %-9s ${hours_color}%-10s${NC} %-10s ${temp_color}%-7s${NC} ${realloc_color}%-7s${NC} ${prog_color}%-7s${NC} ${health_color}%-7s${NC}\n" \
+                "$disk" "${model:0:24}" "$firmware" "$size_human" "${hours}h" "$written_human" "${temp}°C" "$realloc" "$prog_fail" "${health}%"
         done
         echo ""
     fi
@@ -573,20 +686,49 @@ print_terminal_output() {
     local hdd_list=$(LC_ALL=C lsblk -d -o NAME,TYPE 2>/dev/null | command grep "disk" | command grep -v "nvme" | command grep -v "zram" | awk '{print $1}' | while read d; do [[ $(cat /sys/block/$d/queue/rotational 2>/dev/null || echo "0") -eq 1 ]] && echo $d; done)
     if [[ -n "$hdd_list" ]]; then
         echo -e "${CYAN}━━━ HDD Devices ━━━${NC}"
-        printf "${DIM}%-8s %-22s %-10s %-10s %-9s %-7s${NC}\n" "Device" "Model" "Firmware" "Größe" "Hours" "Health"
-        echo -e "${DIM}$(printf '%.0s─' {1..75})${NC}"
+        printf "${DIM}%-9s %-24s %-11s %-9s %-10s %-7s %-8s %-8s %-8s %-7s${NC}\n" \
+            "Device" "Model" "Firmware" "Größe" "Hours" "Temp" "Realloc" "Pending" "CRC" "Health"
+        echo -e "${DIM}$(printf '%.0s─' {1..105})${NC}"
 
         for disk in $hdd_list; do
-            IFS='|' read -r vendor model firmware hours written_bytes health <<< "$(get_disk_smart_info "$disk")"
+            IFS='|' read -r vendor model firmware hours written_bytes temp realloc pending media_err crc prog_fail health \
+                <<< "$(get_disk_smart_info "$disk")"
+
             local size=$(LC_ALL=C lsblk -b -d -o SIZE /dev/$disk 2>/dev/null | tail -n1 | tr -d '.' | tr -d ',')
             local size_human=$(format_bytes_to_size "$size")
 
+            # Hours Farbe
+            local hours_color="${GREEN}"
+            [[ $hours -gt 40000 ]] && hours_color="${YELLOW}"
+            [[ $hours -gt 70000 ]] && hours_color="${MAGENTA}"
+            [[ $hours -gt 90000 ]] && hours_color="${RED}"
+
+            # Temp Farbe
+            local temp_color="${GREEN}"
+            [[ $temp -gt 45 ]] && temp_color="${YELLOW}"
+            [[ $temp -gt 55 ]] && temp_color="${RED}"
+
+            # Reallocated Farbe
+            local realloc_color="${GREEN}"
+            [[ $realloc -gt 0 ]] && realloc_color="${YELLOW}"
+            [[ $realloc -gt 10 ]] && realloc_color="${RED}"
+
+            # Pending Farbe
+            local pending_color="${GREEN}"
+            [[ $pending -gt 0 ]] && pending_color="${RED}"
+
+            # CRC Farbe
+            local crc_color="${GREEN}"
+            [[ $crc -gt 0 ]] && crc_color="${YELLOW}"
+            [[ $crc -gt 100 ]] && crc_color="${RED}"
+
+            # Health Farbe
             local health_color="${GREEN}"
             [[ $health -lt 90 ]] && health_color="${YELLOW}"
             [[ $health -lt 80 ]] && health_color="${RED}"
 
-            printf "%-8s ${WHITE}%-22s${NC} ${DIM}%-10s${NC} %-10s %-9s ${health_color}%3s%%${NC}\n" \
-                "$disk" "${model:0:22}" "$firmware" "$size_human" "${hours}h" "$health"
+            printf "%-9s ${WHITE}%-24s${NC} ${DIM}%-11s${NC} %-9s ${hours_color}%-10s${NC} ${temp_color}%-7s${NC} ${realloc_color}%-8s${NC} ${pending_color}%-8s${NC} ${crc_color}%-8s${NC} ${health_color}%-7s${NC}\n" \
+                "$disk" "${model:0:24}" "$firmware" "$size_human" "${hours}h" "${temp}°C" "$realloc" "$pending" "$crc" "${health}%"
         done
         echo ""
     fi
