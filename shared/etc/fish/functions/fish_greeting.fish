@@ -14,13 +14,20 @@ function fish_greeting
         if type -q fastfetch
             fastfetch && echo ""
         end
-        
+
         # 2. MOTD
-        if test -f /etc/motd
-            echo ""
-            cat /etc/motd
-        end
-        
+        #if test -f /etc/motd
+        #    echo ""
+        #    cat /etc/motd
+        #end
+        echo ""
+        set_color brblack;   echo "              ▄▄▄      ▄▄▄ ▄▄▄▄▄▄▄        ▄▄▄▄▄▄▄                     ▄▄▄▄▄▄▄▄▄"
+        set_color brblack;   echo "              ████▄  ▄████ ███▀▀███▄      ███▀▀███▄        ██         ▀▀▀▀▀████"
+        set_color brblack;   echo "              ███▀████▀███ ███▄▄███▀      ███▄▄███▀ ██ ██ ▀██▀▀ ▄█▀█▄    ▄███▀ "
+        set_color brblack;   echo "              ███  ▀▀  ███ ███▀▀██▄ ▀▀▀▀▀ ███  ███▄ ██▄██  ██   ██▄█▀  ▄███▀   "
+        set_color brblack;   echo "              ███      ███ ███  ▀███      ████████▀  ▀██▀  ██   ▀█▄▄▄ █████████"
+        set_color brblack;   echo "                                                      ██                       "
+        set_color brblack;   echo "                                                       ▀▀▀                     "
         # 3. Slogan
         echo ""
         set_color cyan;   echo -n "🚀 "; set_color normal; echo "Escape the Cloud. Embrace the Arch."

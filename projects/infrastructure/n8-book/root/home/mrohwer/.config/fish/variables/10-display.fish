@@ -5,8 +5,8 @@
 # ══════════════════════════════════════════════════════════════════════════════
 
 # Standard-Skalierung für 1920p
-set -gx GDK_SCALE 1
-set -gx QT_SCALE_FACTOR 1
+#set -gx GDK_SCALE 1
+#set -gx QT_SCALE_FACTOR 1
 
 # Host-Test-Variable
 set -gx N8_HOST_TEST "n8-book-variable-works"
