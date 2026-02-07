@@ -1,3 +1,3 @@
-[submodule "shared/.secrets"]
-	path = shared/.secrets
-	url = git@github.com:mr-bytez/mr-bytez-secrets.git
+[submodule "shared/home/mrohwer/.secrets"]
+	path = shared/home/mrohwer/.secrets
+	url = https://github.com/mr-bytez/mr-bytez-secrets.git
