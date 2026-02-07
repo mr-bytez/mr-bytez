@@ -49,12 +49,12 @@ string replace -a \r '' | string trim
 
 ## 4) Secrets-Policy
 
-- Secrets liegen ausschließlich im privaten Submodule: `shared/.secrets`.
+- Secrets liegen ausschließlich im privaten Submodule: `shared/home/mrohwer/.secrets`.
 - Im Hauptrepo: **keine** Klartext-Secrets.
 - Im Secrets-Repo: nur **verschlüsselte** Dateien (z. B. `*.age`) + Metadaten (`*.info`) + Doku.
 - Secrets **niemals** per Symlink ins System deployen.
 
-Referenz: `shared/.secrets/SECRETS.md`
+Referenz: `shared/home/mrohwer/.secrets/SECRETS.md`
 
 ---
 

@@ -178,7 +178,7 @@ Fish Loader bleibt unverändert — `hostname` matched direkt.
 
 ### Strategie
 
-- Alle Secrets in `shared/.secrets/` Submodule (Age-verschlüsselt)
+- Alle Secrets in `shared/home/mrohwer/.secrets/` Submodule (Age-verschlüsselt)
 - Container clont Submodule, entschlüsselt mit `derive_key.fish` + Master-Password
 - **Kein Klartext** im Container-Image oder in Environment-Variablen
 
@@ -188,7 +188,7 @@ Fish Loader bleibt unverändert — `hostname` matched direkt.
 1. Container startet
 2. gh auth login (Browser-Flow auf GUI-Host)
    ODER Token aus Secrets-Submodule (Headless)
-3. gh repo clone mr-bytez/mr-bytez-secrets → shared/.secrets/
+3. gh repo clone mr-bytez/mr-bytez-secrets → shared/home/mrohwer/.secrets/
 4. derive_key.fish secrets --with-host → Age-Passphrase
 5. Secrets entschlüsseln
 ```

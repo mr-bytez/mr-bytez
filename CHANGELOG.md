@@ -84,7 +84,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ### Notes
 - [Repo] Split: v1-Repo parallel nutzbar (`/mr-bytez-v1_fish_micro_secrets`)
   - Anker-Switch ermöglicht schnellen Wechsel
-- [Secrets] Secrets bleiben in privatem Submodule `shared/.secrets` (Age-encrypted)
+- [Secrets] Secrets bleiben in privatem Submodule `shared/home/mrohwer/.secrets` (Age-encrypted)
 
 ---
 
@@ -145,7 +145,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Added
 - [Secrets] **Age-Encryption Management**
-  - Secrets als privates Submodule: `shared/.secrets`
+  - Secrets als privates Submodule: `shared/home/mrohwer/.secrets`
   - Master-Password Derivation: `shared/deployment/derive_key.fish`
   - Deployment-Metadaten: `shared/deployment/symlinks.db`
 - [Secrets] **SSH-Key für Codeberg**
@@ -165,7 +165,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ### Changed
 - [Git] `.gitignore` für Age-verschlüsselte Secrets angepasst
   - `*.age` explizit ausgeschlossen
-  - `shared/.secrets/*` Pattern hinzugefügt
+  - `shared/home/mrohwer/.secrets/*` Pattern hinzugefügt
 - [Docs] **README.md** Status aktualisiert
   - Phase 1 als abgeschlossen markiert
   - Secrets-Management dokumentiert

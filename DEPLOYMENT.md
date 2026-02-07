@@ -99,10 +99,10 @@ sudo chown -R mrohwer:mrohwer /mr-bytez
 gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
 
 # Alten Submodule-Ordner entfernen (falls vorhanden)
-rm -rf /mr-bytez/shared/.secrets
+rm -rf /mr-bytez/shared/home/mrohwer/.secrets
 
 # Geclontes Repo an richtige Stelle verschieben
-mv /tmp/secrets-clone /mr-bytez/shared/.secrets
+mv /tmp/secrets-clone /mr-bytez/shared/home/mrohwer/.secrets
 
 # Submodule-Status updaten (optional)
 cd /mr-bytez
@@ -244,7 +244,7 @@ Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config`
 
 ### Wo liegen Secrets?
 
-- ausschließlich im **privaten** Submodule: `shared/.secrets`
+- ausschließlich im **privaten** Submodule: `shared/home/mrohwer/.secrets`
 - nur **verschlüsselt** (Age), plus Metadaten (`*.info`)
 
 ### Wichtige Regeln
@@ -257,7 +257,7 @@ Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config`
 
 Details:
 
-- `shared/.secrets/SECRETS.md`
+- `shared/home/mrohwer/.secrets/SECRETS.md`
 - `PROJECT_NOTES.md`
 
 ---
@@ -308,7 +308,7 @@ cd /mr-bytez
 git pull --ff-only
 
 # Secrets Submodule updaten (falls geändert)
-cd shared/.secrets
+cd shared/home/mrohwer/.secrets
 git pull --ff-only
 cd ../..
 ```
@@ -360,15 +360,15 @@ exit
 
 ### Submodule Probleme
 
-**Symptom:** `shared/.secrets` leer oder Fehler bei `git submodule update`
+**Symptom:** `shared/home/mrohwer/.secrets` leer oder Fehler bei `git submodule update`
 
 **Fix:**
 
 ```fish
 # Manuell clonen mit gh (hat Auth!)
 gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
-rm -rf /mr-bytez/shared/.secrets
-mv /tmp/secrets-clone /mr-bytez/shared/.secrets
+rm -rf /mr-bytez/shared/home/mrohwer/.secrets
+mv /tmp/secrets-clone /mr-bytez/shared/home/mrohwer/.secrets
 ```
 
 ### GitHub CLI Auth verloren

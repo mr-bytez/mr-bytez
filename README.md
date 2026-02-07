@@ -38,7 +38,7 @@ Enthält:
 
 - ausschließlich **Age-verschlüsselte** Secrets (`*.age`) + Metadaten (`*.info`) + Doku (`SECRETS.md`)
 
-> Im Main-Repo ist das Secrets-Repo als Submodule eingebunden (z. B. `shared/.secrets`).
+> Im Main-Repo ist das Secrets-Repo als Submodule eingebunden (z. B. `shared/home/mrohwer/.secrets`).
 
 ---
 
@@ -74,8 +74,8 @@ Enthält:
 - [x] GitHub Repo (`mr-bytez/mr-bytez`) privat angelegt
 - [x] Codeberg Repo (`n8lauscher/mr-bytez`) privat angelegt
 - [x] Multi-Remote Setup (GitHub + Codeberg) etabliert
-- [x] Secrets als **privates Submodule** `shared/.secrets` (Age-encrypted)
-- [x] Secrets-Doku: `shared/.secrets/SECRETS.md`
+- [x] Secrets als **privates Submodule** `shared/home/mrohwer/.secrets` (Age-encrypted)
+- [x] Secrets-Doku: `shared/home/mrohwer/.secrets/SECRETS.md`
 - [x] Master-Password Derivation: `shared/deployment/derive_key.fish`
 - [x] Deployment-Metadaten: `shared/deployment/symlinks.db`
 - [x] Projekt-Hinweise (Fish/Tokens): `PROJECT_NOTES.md`
@@ -115,8 +115,8 @@ Die README ist bewusst nur der Überblick.
 ## Security / Secrets
 
 - Keine Klartext-Secrets im public Repo.
-- Secrets liegen ausschließlich im privaten Submodule `shared/.secrets`.
-- Token/Key-Handling (inkl. `cat`-Alias-Falle) steht in `PROJECT_NOTES.md` und `shared/.secrets/SECRETS.md`.
+- Secrets liegen ausschließlich im privaten Submodule `shared/home/mrohwer/.secrets`.
+- Token/Key-Handling (inkl. `cat`-Alias-Falle) steht in `PROJECT_NOTES.md` und `shared/home/mrohwer/.secrets/SECRETS.md`.
 
 ---
 
@@ -130,7 +130,7 @@ Die README ist bewusst nur der Überblick.
 ## Dokumentation
 
 - **Deployment:** `DEPLOYMENT.md`
-- **Secrets:** `shared/.secrets/SECRETS.md`
+- **Secrets:** `shared/home/mrohwer/.secrets/SECRETS.md`
 - **Project Notes:** `PROJECT_NOTES.md`
 - **Planung:** `ROADMAP.md`
 - **Historie:** `CHANGELOG.md`

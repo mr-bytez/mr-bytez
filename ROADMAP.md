@@ -329,7 +329,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 **Repo & Split:**
 - Main-Repo `mr-bytez` als public Repo (GitHub + Codeberg)
 - Secrets-Repo `mr-bytez-secrets` als private Repo
-- Secrets als Submodule: `shared/.secrets`
+- Secrets als Submodule: `shared/home/mrohwer/.secrets`
 - Multi-Remote Setup (GitHub + Codeberg)
 
 **Deployment-Foundation:**

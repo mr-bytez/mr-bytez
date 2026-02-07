@@ -123,7 +123,7 @@ Output:   43 Zeichen (256 Bit Entropie)
 
 ## Siehe auch
 
-- `SECRETS.md` - Übersicht aller Secrets (in `/mr-bytez/shared/.secrets/`)
+- `SECRETS.md` - Übersicht aller Secrets (in `/mr-bytez/shared/home/mrohwer/.secrets/`)
 - `restore.fish` - Disaster Recovery Script (in `/mr-bytez/shared/deployment/`)
 
 > **Hinweis:** Diese Dokumente werden im Rahmen des Repository-Setups erstellt.
