@@ -1,6 +1,6 @@
 ═══════════════════════════════════════════════════════
   HARDWARE AUDIT - n8-kiste
-  Datum: 2026-02-05 23:41:37
+  Datum: 2026-02-07 23:31:28
   Distribution: Arch Linux
   Kernel: 6.18.7-arch1-1
 ═══════════════════════════════════════════════════════
@@ -40,24 +40,24 @@ GPU 1:
 ━━━ NVMe Devices ━━━
 Device   Model                     Firmware     Größe    Hours      Written    Health 
 ──────────────────────────────────────────────────────────────────────────────────────────
-nvme1n1  Samsung SSD 970 EVO Plus  4B2QEXM7     1.81 TB    4729h      20.14 TB   40|0|0|0|0|0|100%
-nvme0n1  Samsung SSD 970 EVO Plus  1B2QEXM7     233 GB     106h       764 GB     33|0|0|0|0|0|100%
+nvme1n1  Samsung SSD 970 EVO Plus  4B2QEXM7     1.81 TB    4777h      20.32 TB   41|0|0|0|0|0|100%
+nvme0n1  Samsung SSD 970 EVO Plus  1B2QEXM7     233 GB     106h       797 GB     34|0|0|0|0|0|100%
 
 ━━━ SSD Devices ━━━
 Device   Model                     Firmware     Größe    Hours      Written    Health 
 ──────────────────────────────────────────────────────────────────────────────────────────
-sdd      CT1000BX500SSD1           M6CR061      932 GB     17889h     2.79 TB    29|0|0|0|1|0|100%
+sdd      CT1000BX500SSD1           M6CR061      932 GB     17936h     2.80 TB    30|0|0|0|1|0|100%
 
 ━━━ HDD Devices ━━━
 Device   Model                     Firmware     Größe    Hours      Health 
 ────────────────────────────────────────────────────────────────────────────────
-sda      TOSHIBA MG11ACA24TE       0102         21.82 TB   2574h      37|0|0|0|0|0|100%
-sdb      TOSHIBA MG11ACA24TE       0102         21.82 TB   2562h      36|0|0|0|0|0|100%
-sdc      ST4000VN008-2DR166        SC60         3.63 TB    16506h     27|0|0|0|0|0|100%
-sde      WDC WD121KRYZ-01W0RB0     01.01H01     10.91 TB   68994h     38|0|0|0|0|0|100%
-sdf      WDC WD121KRYZ-01W0RB0     01.01H01     10.91 TB   68861h     38|0|0|0|0|0|100%
+sda      TOSHIBA MG11ACA24TE       0102         21.82 TB   2621h      36|0|0|0|0|0|100%
+sdb      TOSHIBA MG11ACA24TE       0102         21.82 TB   2610h      34|0|0|0|0|0|100%
+sdc      ST4000VN008-2DR166        SC60         3.63 TB    16554h     28|0|0|0|0|0|100%
+sde      WDC WD121KRYZ-01W0RB0     01.01H01     10.91 TB   69042h     36|0|0|0|0|0|100%
+sdf      WDC WD121KRYZ-01W0RB0     01.01H01     10.91 TB   68909h     41|0|0|0|0|0|100%
 
 ⚠  WARNUNGEN
-├─ sde: 68994h Power-On (7.8+ Jahre) - Backup empfohlen
-├─ sdf: 68861h Power-On (7.8+ Jahre) - Backup empfohlen
+├─ sde: 69042h Power-On (7.8+ Jahre) - Backup empfohlen
+├─ sdf: 68909h Power-On (7.8+ Jahre) - Backup empfohlen
 
