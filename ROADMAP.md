@@ -72,7 +72,7 @@
 Jedes Projekt buendelt verwandte B-Tasks (Root-Aufgaben) und D-Tasks (Sub-Tasks).
 
 **Inventur:** 40 Aufgaben aus 6 Handoff-Dateien + bestehenden Roadmaps kategorisiert.
-Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
+Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 ---
 
@@ -95,7 +95,7 @@ Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
 - D9: symlinks.db verschieben
 - D13: Credentials n8-archstick aktualisieren
 
-**Details:** `todo_aus_chats.../HANDOFF_2026-02-08.md` (Aufgabe 1), `.claude/ROADMAP.md` (Phase 4)
+**Details:** `.claude/context/handoffs/HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md` (Aufgabe 1), `.claude/ROADMAP.md` (Phase 4)
 
 **Status:** Geplant
 **ETA:** Februar 2026
@@ -124,7 +124,7 @@ Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
 - B7: mr-bytez-info.fish (nutzt neue Metadaten-Tags)
 - B17: VLC Desktop-Paketliste (Sub-Task von B5)
 
-**Details:** `todo_aus_chats.../fish-config-refactoring-arbeitsanweisung.md`
+**Details:** `.claude/context/handoffs/HANDOFF_[Fish][Refactor]_fish-dry-refactoring.md`
 
 **Status:** Geplant
 **ETA:** Februar-Maerz 2026
@@ -183,7 +183,7 @@ Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
 - B12: Chat-Namer Skill (kann MCP-Integration nutzen)
 - D17: Automatische Context-Synchronisation
 
-**Details:** `todo_aus_chats.../MR-ByteZ_DNS_Handoff_2026-02-09.md` (Traefik/DNS)
+**Details:** `.claude/context/handoffs/HANDOFF_[DNS][Infra]_dns-hetzner-traefik.md` (Traefik/DNS)
 **Chat:** [MCP Server Implementation](https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54)
 
 **Status:** Geplant nach A3
@@ -209,7 +209,7 @@ Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
 - D7: IP-Adressen-Mapping definieren
 - B3: README Struktur-Baum nochmal pruefen (nach History-Rewrite)
 
-**Details:** `todo_aus_chats.../2026-02-04-security-git-filter-handoff.md`
+**Details:** `.claude/context/handoffs/HANDOFF_[Security][Git]_git-filter-cleanup.md`
 **Chat:** [Sensitive Data Cleanup](https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104)
 
 **Status:** Geplant nach A3
@@ -348,7 +348,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | D16 | Recovery-Runbook | A3/B13 | Phase 4 (alt) |
 | D17 | Automatische Context-Sync | A4 | `.claude/ROADMAP.md` Phase 5 |
 
-Alle Quellen mit Pfad `HANDOFF_*` oder `*-handoff.md` liegen unter `todo_aus_chats_noch_nicht_in_roadmap_integriert/`.
+Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
@@ -358,7 +358,7 @@ Alle Quellen mit Pfad `HANDOFF_*` oder `*-handoff.md` liegen unter `todo_aus_cha
 - Operative Schritte gehoeren in `DEPLOYMENT.md`
 - Policies in `.claude/context/`
 - Details zu A-Projekten in den jeweiligen Handoff-Dateien (siehe Verweise)
-- Inventur aller Aufgaben: `todo_aus_chats.../INVENTUR.md`
+- Aktive Handoffs: `.claude/context/handoffs/`
 
 ---
 

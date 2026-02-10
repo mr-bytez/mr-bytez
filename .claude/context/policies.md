@@ -59,3 +59,38 @@ Für zentrale Markdown-Dateien (README.md, DEPLOYMENT.md, CHANGELOG.md, ROADMAP.
 - Git-Workflow → `.claude/context/git.md`
 - Deployment → `.claude/context/deployment.md`
 - Dokumentation → `.claude/context/documentation.md`
+
+---
+
+## Handoff-Policy
+
+**Zweck:** Handoffs dokumentieren offene Aufgaben am Chat-Ende fuer Folge-Chats.
+
+**Ablageort:** `.claude/context/handoffs/` (aktive Handoffs)
+**Archiv:** `.claude/archive/handoffs/` (nur wenn explizit gewuenscht)
+
+**Dateiname:** `HANDOFF_[Tag1][Tag2]_kurzbeschreibung.md`
+Tags aus context/tags.md, Beschreibung kurz und praegnant.
+Beispiel: `HANDOFF_[Security][Git]_git-filter-cleanup.md`
+
+**Wann erstellen:**
+- Nur wenn offene Aufgaben am Chat-Ende existieren
+- Kein Handoff wenn alles erledigt ist
+
+**Inhalt:**
+- Zusammenfassung (was wurde gemacht, was ist offen)
+- Offene TODOs mit konkreten Schritten
+- Betroffene Dateien im Repo
+- Chat-Referenz (Link zum Vorgaenger-Chat)
+- Delegation: Explizit angeben ob Aufgaben an Claude Code delegierbar sind
+
+**Lifecycle:**
+1. **Aktiv** — Offene Aufgaben, liegt in `.claude/context/handoffs/`
+2. **Erledigt** — Claude fragt: loeschen oder archivieren?
+   - Default: Loeschen (wenn Inhalte in Roadmap/Context integriert)
+   - Archivieren nur auf expliziten Wunsch → `.claude/archive/handoffs/`
+
+**Selbst-Verifikation:**
+- Claude prueft bei jedem Chat-Start ob relevante Handoffs existieren
+- Claude schlaegt proaktiv vor in `.claude/context/handoffs/` nachzuschauen
+- Gilt auch ausserhalb von Ketten-Chats wenn Thema passt

@@ -113,5 +113,11 @@ A3: Claude Dev Container → shared/stacks/mrbz-dev/
 A4: MCP Server → projects/infrastructure/mcp-server/
 A5: Sensitive Data Cleanup → .claude/projects/sensitive-data-cleanup/
 
-Handoff-Dateien (Referenz fuer offene Aufgaben):
-→ todo_aus_chats_noch_nicht_in_roadmap_integriert/
+Handoff-Policy:
+→ .claude/context/policies.md (Details)
+Ablageort aktive Handoffs: .claude/context/handoffs/
+Archiv: .claude/archive/handoffs/ (nur auf Wunsch)
+Dateiname: HANDOFF_[Tag1][Tag2]_kurzbeschreibung.md (Tags aus context/tags.md)
+Selbst-Verifikation: Bei jedem Chat-Start pruefen ob relevante Handoffs existieren.
+Proaktiv vorschlagen dort nachzuschauen — auch bei neuen Themen ohne Kette.
+Bei erledigten Handoffs: User fragen ob loeschen oder archivieren.

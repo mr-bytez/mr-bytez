@@ -7,6 +7,23 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.1] - 2026-02-11
+
+### Added
+- [Docs][Structure] Handoff-Policy definiert und in policies.md integriert
+- [Structure] Handoff-Ordner umstrukturiert: todo_aus_chats.../ → .claude/context/handoffs/
+- [Structure] 5 offene Handoffs verschoben und nach Tag-Konvention umbenannt
+
+### Changed
+- [Docs] Projektanweisungen aktualisiert (neuer Handoff-Ablageort)
+- [Docs] ROADMAP.md — alle Handoff-Verweise auf neue Pfade aktualisiert
+
+### Removed
+- [Cleanup] 3 erledigte Handoffs geloescht (X01-1, INVENTUR, ARBEITSANWEISUNG_ROADMAP)
+- [Structure] Alter Ordner `todo_aus_chats_noch_nicht_in_roadmap_integriert/` entfernt
+
+---
+
 ## [0.7.0] - 2026-02-10
 
 ### Added
