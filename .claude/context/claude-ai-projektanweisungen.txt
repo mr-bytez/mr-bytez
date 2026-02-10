@@ -1,0 +1,117 @@
+Dieses Dokument ist versioniert im Repo:
+→ .claude/context/claude-ai-projektanweisungen.md
+Bei groesseren Aenderungen am Projekt (neue Hosts, neue Patterns, Struktur-Umbau)
+muss dieses Dokument reviewt und angepasst werden.
+Aenderungen dort committen, dann hier in die Projektanweisungen uebernehmen.
+
+Projekt: mr-bytez Meta-Repository
+Arch Linux Infrastruktur ueber mehrere Hosts, Self-Hosted, keine Cloud-Abhaengigkeiten.
+Repo-Root: /mr-bytez auf allen Hosts, Anker: /opt/mr-bytez/current → /mr-bytez
+
+Repositories:
+→ mr-bytez (Haupt-Repo, GitHub + Codeberg)
+→ mr-bytez-secrets (Privates Submodule, eingebunden unter shared/home/mrohwer/.secrets/)
+  Age-verschluesselt, Master-Password Derivation mit Hostname-Salt
+  Eigene Restrukturierung geplant (A1 in Roadmap)
+
+Source of Truth: .claude/context/ im Repo
+Alle Regeln, Tags, Konventionen liegen dort. Bei Fragen zuerst durchsuchen.
+Context-Dateien Uebersicht:
+→ .claude/context/tags.md (Tag-Registry, 67 Tags, 3-Zeichen-Index)
+→ .claude/context/git.md (Commit-Format, Remotes, Chat-Link Regel)
+→ .claude/context/documentation.md (Chat-Benennung v2, 5-3-3 Pattern, Header)
+→ .claude/context/structure.md (Repo-Aufbau, Projekt-Typen, CLAUDE.md Schema)
+→ .claude/context/infrastructure.md (Hosts, Netzwerk, Deployment-Status)
+→ .claude/context/security.md (Secrets, Age-Encryption, Sanitization)
+→ .claude/context/docker.md (Container-Naming mrbz-*, Stacks, Compose)
+→ .claude/context/shell.md (Fish Konventionen, Loader)
+
+Chat-Benennung v2:
+→ .claude/context/documentation.md + .claude/context/tags.md
+Format: MR-ByteZ #<IDX><Nr>.<Chat> [Tag1][Tag2] - Beschreibung - keywords --- YYYY-MM-DD-HH-MM
+- IDX = 3-Zeichen-Index aus context/tags.md (z.B. DOC, FSH, STR, DKR)
+- Ketten-System: Folge-Chats hochzaehlen (.1, .2, .3)
+- Tags: Min 2, Max 4 aus context/tags.md, Reihenfolge grob nach fein
+- Keine Phasen-Tags (kein Diskussion, Planung, Debug)
+- Zeichenlimit: Min 100, Max 250
+- Datum: Chat-Startzeit selbst ermitteln via recent_chats (UTC + 1h CET / +2h CEST)
+- NICHT den User nach der Uhrzeit fragen
+
+Git-Workflow:
+→ .claude/context/git.md
+- Zwei Remotes: origin (GitHub mr-bytez/mr-bytez), codeberg (Codeberg n8lauscher/mr-bytez)
+- Push IMMER zu beiden Remotes
+- Commits nur auf n8-kiste, n8-vps ist read-only
+- Commit-Format: [Tag1][Tag2] Beschreibung, Tags aus context/tags.md
+- Ausfuehrliche Messages: was, warum, wo
+- Chat-Link bei strategischen Commits: Chat: https://claude.ai/chat/<id>
+
+Aufgaben-Delegation:
+- Strategisches im Chat besprechen (Planung, Architektur, Reviews)
+- Mechanisches an Claude Code delegieren (Datei-Edits, Struktur, Commits)
+- Selbststaendig vorschlagen wenn Delegation sinnvoll
+- Bei Datei-Aenderungen: Zeilennummer + Zeile davor/danach fuer Kontext
+
+Fish Shell Aliases (aktiv, bitte in Befehlen verwenden):
+→ shared/etc/fish/aliases/10-nav.fish (Navigation)
+→ shared/etc/fish/aliases/20-eza.fish (Listing)
+→ shared/etc/fish/aliases/30-docker.fish (Docker)
+→ shared/etc/fish/aliases/40-git.fish (Git)
+→ shared/etc/fish/aliases/90-misc.fish (System, Editoren, Suche)
+Navigation: .. ... mrbz (cd /mr-bytez) mb (cd /mr-bytez) hm (cd ~)
+Listing (eza): ls ll la lt ld lf lg lk lm lp lr lta
+Docker: dps dco dcu dcd dcr dcp dcl
+Git: gs ga gc gp gl gd gb gco
+System: top (htop) cpu (lscpu) mem (free -h) path reload
+Editoren: e (micro) v (vim)
+Sicherheit: rm cp mv mkdir chmod chown ln sind alle verbose/interaktiv
+Wichtig: grep ist als Funktion definiert (command grep fuer Scripts!)
+Diagnose: mr-bytez-info zeigt alle Aliases, Funktionen, Variablen, Struktur
+→ shared/etc/fish/functions/mr-bytez-info.fish
+
+Fish Loader-System:
+→ shared/etc/fish/conf.d/00-loader.fish
+→ .claude/context/shell.md
+Hierarchie: 00-09 Theme, 10-69 Shared, 70-79 Host-Kategorie, 80-89 Host-spezifisch, 90-99 User-Tweaks
+Debug: set -gx FISH_LOADER_DEBUG 1
+
+Hosts:
+→ .claude/context/infrastructure.md
+- n8-kiste: Dev/Storage, commits hier, Fish+Micro+Claude Code deployed
+- n8-vps: Hetzner Production, read-only, Docker Stacks geplant
+- n8-station: Workstation, deployed
+- n8-book: Mobile Workstation, deployed
+- n8-archstick: Portable USB Arch, deployed
+- n8-bookchen, n8-maxx, n8-broker: Teilweise deployed
+- mrbz-dev: Geplanter Claude Dev Container
+
+5-3-3 Pattern:
+→ .claude/context/documentation.md + .claude/context/structure.md
+5 Docs (README, CLAUDE, CHANGELOG, ROADMAP, DEPLOYMENT)
+3 Ordner (context/, skills/, configs/)
+3 Ebenen (Root, .claude/, Projekte)
+
+Docker:
+→ .claude/context/docker.md
+Container-Naming: mrbz-* Prefix, Format mrbz-<stack>-<service>
+Stack-Location: shared/stacks/<n>/ oder projects/infrastructure/<host>/stacks/
+Geplant: mrbz-dev, mrbz-mcp, mrbz-qdrant, Traefik
+→ .claude/archive/mrbz-dev-plan.md (Dev Container Architektur)
+
+Security:
+→ .claude/context/security.md
+Age-Encryption mit Master-Password Derivation + Hostname-Salt
+Secrets-Submodule: shared/home/mrohwer/.secrets/ (eigenes Repo: mr-bytez-secrets)
+SSH-Port: 61020 (nicht 22!)
+
+Aktive Roadmap (Reihenfolge):
+→ ROADMAP.md (Root)
+C1+C2: Policies (Chat-Benennung v2, Tag-Registry) — aktuell
+A1: Secrets-Repo Restrukturierung → mr-bytez-secrets
+A2: Fish DRY-Refactoring → shared/etc/fish/
+A3: Claude Dev Container → shared/stacks/mrbz-dev/
+A4: MCP Server → projects/infrastructure/mcp-server/
+A5: Sensitive Data Cleanup → .claude/projects/sensitive-data-cleanup/
+
+Handoff-Dateien (Referenz fuer offene Aufgaben):
+→ todo_aus_chats_noch_nicht_in_roadmap_integriert/
