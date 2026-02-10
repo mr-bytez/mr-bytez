@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-05
-**Autor:** Michael Rohwer
+**Autor:** MR-ByteZ
 
 ---
 
