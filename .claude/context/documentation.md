@@ -106,28 +106,54 @@ Vollständige Beschreibung → `.claude/context/structure.md`
 
 ## Chat-Benennung (Claude.ai)
 
-**Aktuelles Format (v1):**
-```
-MR-ByteZ - [kategorie] - Beschreibung - Keywords --- YYYY-MM-DD-HH-MM
-```
+### Format v2
 
-**Neues Format (v2, in Arbeit):**
 ```
-MR-ByteZ #<ID>.<Nr> [Tag1][Tag2] - Beschreibung - Keywords --- YYYY-MM-DD-HH-MM
+MR-ByteZ #<IDX><Nr>.<Chat> [Tag1][Tag2][Tag3][Tag4] - Beschreibung - keywords --- YYYY-MM-DD-HH-MM
 ```
 
-Neu in v2:
-- Ketten-ID (`#F01.1`, `#D03.2`) verknuepft zusammengehoerige Chats
-- Tags aus gemeinsamem Pool mit Git-Commits (siehe `context/git.md`)
-- Status ergibt sich implizit aus der letzten Chat-Nummer in der Kette
-- Auto-Vorschlag nach Turn 5-6
+Wobei:
+- `<IDX>` = 3-Zeichen-Index aus `context/tags.md` (Haupt-Tag der Kette)
+- `<Nr>` = Projektnummer (01, 02, ...)
+- `<Chat>` = Chat-Nummer in der Kette (.1, .2, .3)
+- Tags: Min 2, Max 4 — aus `context/tags.md`
+- Tag-Reihenfolge: Grob → Fein (breiteste Kategorie zuerst)
+- Keine Phasen-Tags (kein [Diskussion], [Planung], [Debug])
+- Zeichenlimit: Min 100, Max 250
+- Beschreibung: Sprechend und bei Suche findbar
+- Keywords: Wichtige Begriffe, Tools, Themen
 
-**Regeln (unveraendert):**
-- Minimum: 100 Zeichen, Maximum: 250 Zeichen
-- Sprechend und bei Suche findbar
-- Wichtige Begriffe/Tools/Themen im Namen
-- IMMER Erstellungsdatum + Uhrzeit verwenden
-- Datum/Uhrzeit: Claude ermittelt Startzeit selbst via recent_chats Tool (UTC → Berlin CET +1h / CEST +2h). NICHT den User fragen!
+### Datum/Uhrzeit
 
-**Details + offene Entscheidungen:** `todo_aus_chats.../HANDOFF_X01-1_Chat-Benennungssystem.md`
-**Arbeitsanweisung v2:** Noch nicht geschrieben (geplant in Folge-Chat #X01.2)
+- IMMER Erstellungsdatum + Uhrzeit des Chats verwenden (NICHT letztes Bearbeitungsdatum!)
+- Format: YYYY-MM-DD-HH-MM (24h)
+- Claude ermittelt Startzeit selbst via recent_chats Tool (UTC → Berlin CET +1h / CEST +2h)
+- NICHT den User nach der Uhrzeit fragen!
+
+### Ketten-System
+
+Zusammengehoerige Chats werden ueber die Ketten-ID verknuepft:
+- `#STR01.1` → Structure-Projekt 01, Chat 1
+- `#STR01.2` → Structure-Projekt 01, Chat 2 (Fortsetzung)
+- `#FSH01.1` → Fish-Projekt 01, Chat 1
+
+Der Ketten-Prefix ist der 3-Zeichen-Index des **Haupt-Tags** aus `context/tags.md`.
+Beim Folge-Chat: Nummer hochzaehlen (.1 → .2 → .3).
+Status ergibt sich implizit — der letzte Chat in der Kette = aktueller Stand.
+
+### Tag-Verwaltung
+
+Beim Benennen eines neuen Chats:
+1. `context/tags.md` pruefen ob passende Tags vorhanden
+2. Fehlende Tags vorschlagen + via Claude Code in tags.md eintragen lassen
+3. Min 2, Max 4 Tags waehlen — lieber praezise mit 4 als vage mit 2
+
+### Beispiele
+
+```
+MR-ByteZ #STR01.3 [Structure][Docs][Roadmap][ClaudeCode] - Inventur Kategorisierung ABCD Roadmap Restrukturierung - 40-aufgaben timing-matrix phase-3-umbau --- 2026-02-10-18-05
+MR-ByteZ #FSH01.1 [Fish][Config][Prompt] - Prompt System v2 Grundstruktur - keybindings abbr theme gruvbox --- 2026-02-07-14-30
+MR-ByteZ #SEC01.1 [Security][Git] - Sensitive Data Cleanup Konzept - clean-smudge filter hostname mapping --- 2026-02-04-03-00
+MR-ByteZ #DKR01.1 [Docker][Traefik][DNS] - SSL und Wildcard Setup n8-vps - acme letsencrypt reverse-proxy --- 2026-02-09-15-00
+MR-ByteZ #MCP01.1 [MCP][Docker][Traefik][Security] - MCP Server Phase 1 Development - typescript qdrant tools --- 2026-03-01-10-00
+```

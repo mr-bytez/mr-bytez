@@ -27,6 +27,10 @@ git push origin main && git push codeberg main
 - n8-vps ist **read-only** (nur `git pull`)
 - Ausführlichkeit ist **Pflicht**
 - Commit-Message muss beantworten: **was**, **warum**, **wo**
+- Bei groesseren/strategischen Commits: Chat-Link in die Commit-Message
+  Format letzte Zeile: `Chat: https://claude.ai/chat/<id>`
+  Ermoeglicht Rueckverfolgung warum eine Aenderung gemacht wurde
+  Bei kleinen Fixes (Typo, Quick-Fix) nicht noetig
 
 ---
 
@@ -44,24 +48,26 @@ git push origin main && git push codeberg main
 
 ## Kategorien
 
-| Kategorie | Verwendung |
-|-----------|------------|
-| `[Docs]` | README, DEPLOYMENT, CHANGELOG, ROADMAP, ADRs |
-| `[Config]` | Systemweite Configs, Environment-Variablen, Symlinks |
-| `[Fish]` | Fish Shell Configs, Functions, Aliases, Prompt, Theme |
-| `[Docker]` | docker-compose.yml, Dockerfiles, Stacks |
-| `[Security]` | Secrets, Permissions, SSH, Firewall |
-| `[Fix]` | Bug-Fixes, Syntax-Korrekturen, Permission-Fixes |
-| `[Feature]` | Neue Funktionalität, Commands, Scripts, Services |
-| `[Refactor]` | Code-Umstrukturierung ohne Funktionsänderung |
-| `[Deploy]` | Deployment-Scripts, symlinks.db, System-Integration |
-| `[Test]` | Tests hinzufügen oder ändern |
-| `[Release]` | Version-Bumps, Git-Tags, Production-Deployment |
-| `[Submodule]` | Submodule-Updates |
-| `[Cleanup]` | Aufräumarbeiten, Linting |
-| `[Hotfix]` | Notfall-Fix in Production |
-| `[Structure]` | Ordner-/Dateistruktur, Migration |
-| `[WIP]` | Work in Progress (nur für Feature-Branches!) |
+| Kategorie | Index | Verwendung |
+|-----------|-------|------------|
+| `[Docs]` | DOC | README, DEPLOYMENT, CHANGELOG, ROADMAP, ADRs |
+| `[Config]` | CFG | Systemweite Configs, Environment-Variablen, Symlinks |
+| `[Fish]` | FSH | Fish Shell Configs, Functions, Aliases, Prompt, Theme |
+| `[Docker]` | DKR | docker-compose.yml, Dockerfiles, Stacks |
+| `[Security]` | SEC | Secrets, Permissions, SSH, Firewall |
+| `[Fix]` | FIX | Bug-Fixes, Syntax-Korrekturen, Permission-Fixes |
+| `[Feature]` | FEA | Neue Funktionalität, Commands, Scripts, Services |
+| `[Refactor]` | REF | Code-Umstrukturierung ohne Funktionsänderung |
+| `[Deploy]` | DEP | Deployment-Scripts, symlinks.db, System-Integration |
+| `[Test]` | TST | Tests hinzufügen oder ändern |
+| `[Release]` | REL | Version-Bumps, Git-Tags, Production-Deployment |
+| `[Submodule]` | SUB | Submodule-Updates |
+| `[Cleanup]` | CLN | Aufräumarbeiten, Linting |
+| `[Hotfix]` | HOT | Notfall-Fix in Production |
+| `[Structure]` | STR | Ordner-/Dateistruktur, Migration |
+| `[WIP]` | WIP | Work in Progress (nur für Feature-Branches!) |
+
+> Vollstaendige Tag-Registry mit allen Tags: `context/tags.md`
 
 ---
 
@@ -121,14 +127,13 @@ Updated Fish config
 
 ---
 
-## TAG_REGISTRY (geplant)
+## TAG_REGISTRY
 
-Eine zentrale Registry aller verwendeten Tags (fuer Commits UND Chat-Benennung) ist geplant.
-Verhindert Inkonsistenzen wie `[Wireguard]` vs. `[WG]` vs. `[VPN]`.
+Die zentrale Tag-Registry liegt in `context/tags.md`.
+Alle Tags fuer Commits UND Chat-Benennung werden dort gepflegt.
+Jeder Tag hat einen eindeutigen 3-Zeichen-Index.
 
-**Ablageort:** Noch offen — entweder hier in `git.md` oder eigene Datei `context/tags.md`
-**Details:** `todo_aus_chats.../HANDOFF_X01-1_Chat-Benennungssystem.md`
-**Umsetzung:** Geplant in Folge-Chat #X01.2
+> Vollstaendige Registry: `context/tags.md`
 
 ---
 
