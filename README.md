@@ -3,7 +3,7 @@
 **Version:** 0.5.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-04\
+**Aktualisiert:** 2026-02-09\
 **Autor:** Michael Rohwer
 
 ---
@@ -84,7 +84,7 @@ Enthält:
 
 - [x] Fish Shell v2.x (Loader/Theme/Aliases/Functions) unter `shared/usr/local/share/fish/`
 - [x] Host-spezifische Fish-Overrides (u. a. n8-kiste, n8-station, n8-book, n8-bookchen, n8-maxx, n8-broker, n8-vps, n8-archstick)
-- [x] Micro Editor Konfiguration unter `shared/usr/local/share/micro/`
+- [x] Micro Editor Konfiguration unter `shared/usr/local/share/micro/` (Gruvbox, external Clipboard via xclip)
 - [x] Stabiler Deployment-Anker: `/opt/mr-bytez/current -> /mr-bytez`
 - [x] System-Symlinks laufen über den Anker (kein Symlink-Wildwuchs)
   - `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`

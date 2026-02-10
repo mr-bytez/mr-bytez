@@ -1,9 +1,9 @@
 # ROADMAP.md
 
-**Projekt:** mr-bytez Meta-Repository  
-**Zweck:** Roadmap & Meilensteine (Phasen-basiert + kompakte Übersicht)  
-**Erstellt:** 2026-01-22  
-**Aktualisiert:** 2026-02-04  
+**Projekt:** mr-bytez Meta-Repository
+**Zweck:** Roadmap & Meilensteine (Phasen-basiert + kompakte Übersicht)
+**Erstellt:** 2026-01-22
+**Aktualisiert:** 2026-02-09
 
 ---
 
@@ -31,7 +31,7 @@
 - [x] derive_key.fish (Master-Password Derivation)
 - [x] symlinks.db (Deployment-Datenbank)
 
-**Status:** ✅ Abgeschlossen  
+**Status:** ✅ Abgeschlossen
 **Abgeschlossen:** 2026-01-23
 
 ---
@@ -48,7 +48,7 @@
   - [x] Modulare Aliases (10-90)
   - [x] Host-spezifische Configs (8 Hosts)
   - [x] Powerline Prompt mit Git/Docker Status
-- [x] Micro Editor-Konfiguration
+- [x] Micro Editor-Konfiguration (Gruvbox, external Clipboard via xclip)
 - [x] Symlink-Strategie vollständig dokumentiert (Anker-Modell)
   - [x] Stabiler Anker: `/opt/mr-bytez/current -> /mr-bytez`
   - [x] System-Symlinks laufen über den Anker (Fish/Micro)
@@ -64,7 +64,7 @@
 - [ ] Submodule: n8-vps (Codeberg privat)
 - [ ] Submodule: n8-kiste (Codeberg privat)
 
-**Status:** In Progress  
+**Status:** In Progress
 **ETA:** Februar 2026
 
 ---
@@ -124,7 +124,7 @@
 
 **Referenz:** [Chat: Claude Dev Container](https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd)
 
-**Status:** 🔴 HÖCHSTE PRIORITÄT - Nächster Schritt!  
+**Status:** 🔴 HÖCHSTE PRIORITÄT - Nächster Schritt!
 **ETA:** Februar 2026 (Woche 1-2)
 
 ---
@@ -175,7 +175,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 **Referenz:** [Chat: MCP Server Implementation](https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54)
 
-**Status:** Geplant nach Dev Container  
+**Status:** Geplant nach Dev Container
 **ETA:** März 2026
 
 ---
@@ -208,7 +208,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 **Referenz:** [Chat: Sensitive Data Cleanup](https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104)
 
-**Status:** Geplant nach Dev Container  
+**Status:** Geplant nach Dev Container
 **ETA:** März 2026
 
 ---
@@ -233,7 +233,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
   - [ ] Permissions-Check
   - [ ] Submodule-State-Validation
 
-**Status:** Geplant nach Dev Container  
+**Status:** Geplant nach Dev Container
 **ETA:** März 2026
 
 ---
@@ -263,7 +263,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 **Referenz:** [Chat: Chat-Namer Skill](https://claude.ai/chat/54ddc814-8f3c-4efd-884f-23714d332ab1)
 
-**Status:** Low Priority  
+**Status:** Low Priority
 **ETA:** Q2 2026 oder später
 
 ---
@@ -277,7 +277,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 - [ ] Auto-Backup zu Codeberg (Cronjob)
 - [ ] Webhosting Backup (Hetzner)
 
-**Status:** Teilweise done, Rest geplant  
+**Status:** Teilweise done, Rest geplant
 **ETA:** März-April 2026
 
 ---
@@ -297,7 +297,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 5. Chat-Namer Skill (optional)
 ```
 
-**Status:** Foundation Ready to Start!  
+**Status:** Foundation Ready to Start!
 **ETA Phase 3:** Februar-März 2026
 
 ---
@@ -317,7 +317,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 - [ ] Recovery-Runbook (kompakt): „neuer Host → Zugriff → Secrets → Deployment"
 - [ ] Secrets-Inventar (`*.info`) vollständig und konsistent halten
 
-**Status:** Geplant  
+**Status:** Geplant
 **ETA:** Q2 2026
 
 ---
@@ -393,18 +393,18 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 Detaillierte Informationen zu geplanten Features finden sich in folgenden Chats:
 
-1. **Claude Dev Container:**  
+1. **Claude Dev Container:**
    https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd
 
-2. **Chat-Namer Skill:**  
+2. **Chat-Namer Skill:**
    https://claude.ai/chat/54ddc814-8f3c-4efd-884f-23714d332ab1
 
-3. **Sensitive Data Cleanup:**  
+3. **Sensitive Data Cleanup:**
    https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104
 
-4. **MCP Server Implementation:**  
+4. **MCP Server Implementation:**
    https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-04
+**Letzte Aktualisierung:** 2026-02-09

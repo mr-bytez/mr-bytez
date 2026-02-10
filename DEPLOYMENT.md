@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-02-04
+**Stand:** 2026-02-09
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -120,7 +120,22 @@ ls -la /opt/mr-bytez/
 # → current -> /mr-bytez
 ```
 
-### 5. Systemweite Konfigurationen einhängen
+### 5. Paket-Dependencies installieren
+
+```fish
+# Micro Editor: Clipboard-Support (PFLICHT!)
+# X11:
+sudo pacman -S xclip
+
+# Wayland (alternativ):
+# sudo pacman -S wl-clipboard
+```
+
+> **WICHTIG:** Ohne `xclip` (X11) oder `wl-clipboard` (Wayland) funktioniert
+> Kopieren/Einfügen in micro NICHT! Die Clipboard-Methode `external` in
+> `settings.json` setzt ein installiertes Clipboard-Tool voraus.
+
+### 6. Systemweite Konfigurationen einhängen
 
 **Fish (systemweit nach /etc/fish):**
 
@@ -147,7 +162,7 @@ sudo ln -sfn /opt/mr-bytez/current/shared/usr/local/share/micro /usr/local/share
 ls -la /usr/local/share/micro
 ```
 
-### 6. User Fish Config & Micro Settings deployen
+### 7. User Fish Config & Micro Settings deployen
 
 **Fish User Config:**
 
@@ -176,13 +191,13 @@ ln -sf /usr/local/share/micro/bindings.json ~/.config/micro/bindings.json
 ls -la ~/.config/micro/
 ```
 
-### 7. Default Shell zu Fish ändern
+### 8. Default Shell zu Fish ändern
 
 ```fish
 sudo chsh -s /usr/bin/fish mrohwer
 ```
 
-### 8. Neu einloggen & testen
+### 9. Neu einloggen & testen
 
 ```fish
 exit
@@ -194,7 +209,7 @@ exit
 - ✅ Fastfetch mit mr-bytez ASCII Art
 - ✅ Fish Config geladen (siehe Debug-Output)
 - ✅ Alle Aliases funktionieren (`ll`, `gst`, `dps`)
-- ✅ Micro mit Gruvbox-Theme & OSC52-Clipboard
+- ✅ Micro mit Gruvbox-Theme & external Clipboard (xclip/wl-clipboard)
 
 ---
 
@@ -358,6 +373,26 @@ sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
 exit
 ```
 
+### Micro Clipboard funktioniert nicht
+
+**Symptom:** Ctrl+Shift+C/V kopiert/fügt nicht ein in micro
+
+**Ursache:** `xclip` (X11) oder `wl-clipboard` (Wayland) nicht installiert
+
+**Fix:**
+
+```fish
+# X11:
+sudo pacman -S xclip
+
+# Wayland:
+sudo pacman -S wl-clipboard
+
+# Prüfen ob clipboard-Methode korrekt:
+command grep clipboard /usr/local/share/micro/settings.json
+# → "clipboard": "external"
+```
+
 ### Submodule Probleme
 
 **Symptom:** `shared/home/mrohwer/.secrets` leer oder Fehler bei `git submodule update`
@@ -394,6 +429,7 @@ Wenn du an einer der folgenden Stellen etwas änderst, muss es hier dokumentiert
 - Änderungen an Secrets-Handling
 - Ausnahmen (z. B. „Template-only" Regeln)
 - GitHub CLI Workflow
+- Paket-Dependencies (xclip, wl-clipboard, etc.)
 
 ---
 
@@ -424,6 +460,14 @@ git pull origin main      # Nur pullen!
 
 ## Changelog
 
+**2026-02-09:**
+- Micro Clipboard: `terminal` (OSC52) → `external` (xclip) gewechselt
+- `xclip` als Paket-Dependency dokumentiert (neuer Schritt 5)
+- Wayland-Alternative `wl-clipboard` dokumentiert
+- Troubleshooting: Micro Clipboard Sektion hinzugefügt
+- Quickstart-Nummerierung angepasst (1-9 statt 1-8)
+- Dokumentationspflicht: Paket-Dependencies ergänzt
+
 **2026-02-04:**
 - Fish-Config von `/usr/local/share/fish/` nach `/etc/fish/` verschoben
 - GitHub CLI Workflow statt SSH Clone hinzugefügt
@@ -439,4 +483,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-02-04
+**Stand:** 2026-02-09

@@ -7,6 +7,25 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.6.1] - 2026-02-09
+
+### Changed
+- [Micro] Clipboard-Methode von `terminal` (OSC52) auf `external` (xclip) gewechselt
+  - `shared/usr/local/share/micro/settings.json` aktualisiert
+  - Grund: OSC52 nicht zuverlässig über alle Terminal-Emulatoren hinweg
+  - Lösung: `xclip` als System-Dependency, Micro nutzt externes Clipboard
+
+### Added
+- [Deploy] `xclip` als Paket-Dependency für Micro Editor dokumentiert
+  - Voraussetzung für Ctrl+Shift+C/V in micro (X11)
+  - Wayland-Alternative: `wl-clipboard` (bei Bedarf)
+
+### Notes
+- [Workflow] Bei Deployment auf neue Hosts: `sudo pacman -S xclip` NICHT vergessen!
+- [Compat] Wayland-Hosts brauchen `wl-clipboard` statt `xclip`
+
+---
+
 ## [0.6.0] - 2026-02-04
 
 ### Changed
@@ -226,10 +245,10 @@ git push origin v0.6.0
 git push codeberg v0.6.0
 ```
 
-**Alle Releases:** 
+**Alle Releases:**
 - GitHub: https://github.com/mr-bytez/mr-bytez/releases
 - Codeberg: https://codeberg.org/n8lauscher/mr-bytez/tags
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-04
+**Letzte Aktualisierung:** 2026-02-09

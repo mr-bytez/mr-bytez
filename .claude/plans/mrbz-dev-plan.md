@@ -1,8 +1,9 @@
 # mrbz-dev – Architektur & Implementierungsplan
 
-**Projekt:** mr-bytez Development Stack  
-**Scope:** Docker-basierte Entwicklungsumgebung für alle mr-bytez Hosts  
-**Erstellt:** 2026-02-04  
+**Projekt:** mr-bytez Development Stack
+**Scope:** Docker-basierte Entwicklungsumgebung für alle mr-bytez Hosts
+**Erstellt:** 2026-02-04
+**Aktualisiert:** 2026-02-09
 **Status:** Architektur finalisiert, Phase 1 Implementation steht an
 
 ---
@@ -285,6 +286,7 @@ shared/stacks/mrbz-dev/
 - `fish`, `micro`, `git`, `github-cli`
 - `eza`, `bat`, `fastfetch`, `duf`, `dust`, `htop`
 - `tree`, `jq`, `ripgrep`, `fd`
+- `xclip` (Clipboard-Support für micro, X11)
 
 **AI CLI (Phase 1 nur Claude Code):**
 
@@ -316,7 +318,7 @@ shared/stacks/mrbz-dev/
 - ✅ Alle mr-bytez Aliases funktionieren (`ll`, `gs`, `dps`)
 - ✅ Fish Loader erkennt `mrbz-dev` Host
 - ✅ Fastfetch + Greeting mit mr-bytez ASCII Art
-- ✅ Micro mit Gruvbox Theme
+- ✅ Micro mit Gruvbox Theme & external Clipboard (xclip)
 - ✅ `claude` CLI funktioniert
 - ✅ VS Code Dev Container attacht korrekt
 - ✅ Git Workflow: commit/push aus Container, pull auf Host
