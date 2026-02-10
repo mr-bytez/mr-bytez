@@ -49,11 +49,11 @@
 
 ## Phase 4: Nutzung & Erweiterung 📌 GEPLANT
 
-- [ ] Secrets-Submodule auf 5-3-3 Pattern migrieren
-- [ ] `symlinks.db` ins private Submodule verschieben
-- [ ] Skills entwickeln (`.claude/skills/`)
-- [ ] Configs anlegen (`.claude/configs/`)
-- [ ] Projekt-Level `.claude/` für n8-kiste, n8-vps, mrbz-dev befüllen
+- [ ] Secrets-Submodule auf 5-3-3 Pattern migrieren → Projekt A1 in Root `ROADMAP.md`
+- [ ] `symlinks.db` ins private Submodule verschieben → D9 unter A1
+- [ ] Skills entwickeln (`.claude/skills/`) → inkrementell pro A-Projekt
+- [ ] Configs anlegen (`.claude/configs/`) → inkrementell pro A-Projekt
+- [ ] Projekt-Level `.claude/` befuellen → inkrementell pro A-Projekt (A2: Fish, A3: mrbz-dev, A4: MCP)
 
 **ETA:** Q1-Q2 2026
 
@@ -61,9 +61,16 @@
 
 ## Phase 5: Automatisierung 📌 GEPLANT
 
-- [ ] MCP Server Integration
-- [ ] Claude Development Container (`.claude/` Mount)
-- [ ] Pre-Commit Hooks für Doku-Konsistenz
-- [ ] Automatische Context-Synchronisation
+- [ ] MCP Server Integration → Projekt A4 in Root `ROADMAP.md`
+- [ ] Claude Development Container (`.claude/` Mount) → Projekt A3 in Root `ROADMAP.md`
+- [ ] Pre-Commit Hooks fuer Doku-Konsistenz → B11 unter A3
+- [ ] Automatische Context-Synchronisation → D17 unter A4
 
 **ETA:** Q2 2026
+
+---
+
+## Gesamtbild
+
+Fuer die vollstaendige Projekt-Uebersicht (A1-A5, B-Tasks, D-Tasks, Timing-Matrix):
+→ Siehe Root `ROADMAP.md`

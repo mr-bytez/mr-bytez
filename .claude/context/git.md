@@ -121,6 +121,17 @@ Updated Fish config
 
 ---
 
+## TAG_REGISTRY (geplant)
+
+Eine zentrale Registry aller verwendeten Tags (fuer Commits UND Chat-Benennung) ist geplant.
+Verhindert Inkonsistenzen wie `[Wireguard]` vs. `[WG]` vs. `[VPN]`.
+
+**Ablageort:** Noch offen — entweder hier in `git.md` oder eigene Datei `context/tags.md`
+**Details:** `todo_aus_chats.../HANDOFF_X01-1_Chat-Benennungssystem.md`
+**Umsetzung:** Geplant in Folge-Chat #X01.2
+
+---
+
 ## Workflow
 
 ```fish

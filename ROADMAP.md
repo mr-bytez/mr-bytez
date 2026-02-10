@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 **Projekt:** mr-bytez Meta-Repository
-**Zweck:** Roadmap & Meilensteine (Phasen-basiert + kompakte Übersicht)
+**Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
 **Aktualisiert:** 2026-02-10
 
@@ -10,7 +10,7 @@
 ## Leitbild
 
 - Zentrale Verwaltung aller Hosts, Configs & Secrets
-- Polyrepo-Ansatz (Submodules für Projekte)
+- Polyrepo-Ansatz (Submodules fuer Projekte)
 - Single Source of Truth im Live-System unter `/mr-bytez`
 
 ---
@@ -40,7 +40,7 @@
 
 **Ziel:** Shared Configs & Submodules
 
-### Milestones
+### ✅ Done
 
 - [x] Fish-Config v2.1 (shared/etc/fish/)
   - [x] Hierarchischer Loader (00-loader.fish)
@@ -49,256 +49,193 @@
   - [x] Host-spezifische Configs (8 Hosts)
   - [x] Powerline Prompt mit Git/Docker Status
 - [x] Micro Editor-Konfiguration (Gruvbox, external Clipboard via xclip)
-- [x] Symlink-Strategie vollständig dokumentiert (Anker-Modell)
+- [x] Symlink-Strategie vollstaendig dokumentiert (Anker-Modell)
   - [x] Stabiler Anker: `/opt/mr-bytez/current -> /mr-bytez`
-  - [x] System-Symlinks laufen über den Anker (Fish/Micro)
+  - [x] System-Symlinks laufen ueber den Anker (Fish/Micro)
   - [x] SSH-Policy: `~/.ssh/config` wird nicht deployt (nur Template)
-- [ ] Bash-Config (Äquivalent zur Fish-Config)
-  - [ ] Aliases, Variablen, Funktionen
-  - [ ] Hierarchische Struktur (shared → host-spezifisch)
-- [ ] mr-bytez-info.fish (Selbstdokumentierendes Hilfe-System)
-  - [ ] Metadaten-Tags: @alias, @var, @func, @file, @category, @scope
-  - [ ] Dynamisches Parsing aller Config-Dateien
-  - [ ] Ausgabe pro Host: aktive Aliase, Variablen, Funktionen
-- [ ] Docs-Struktur (shared/home/mrohwer/Documents/)
-- [ ] Submodule: n8-vps (Codeberg privat)
-- [ ] Submodule: n8-kiste (Codeberg privat)
 
-**Status:** In Progress
+### Offen (jetzt in A-Projekten)
+
+- [ ] Bash-Config → B6 unter Projekt A2
+- [ ] mr-bytez-info.fish → B7 unter Projekt A2
+- [ ] Docs-Struktur → B8 unter Projekt A3
+- [ ] Submodule: n8-vps → B9 unter Projekt A1
+- [ ] Submodule: n8-kiste → B10 unter Projekt A1
+
+**Status:** Done-Anteil abgeschlossen, offene Tasks in Phase 3 integriert
+
+---
+
+## Phase 3: Projekte & Automation (Q1-Q2 2026) 📌
+
+**Strategie:** 5 eigenstaendige Projekte (A1-A5), jeweils mit 5-3-3 Pattern.
+Jedes Projekt buendelt verwandte B-Tasks (Root-Aufgaben) und D-Tasks (Sub-Tasks).
+
+**Inventur:** 40 Aufgaben aus 6 Handoff-Dateien + bestehenden Roadmaps kategorisiert.
+Details: `todo_aus_chats_noch_nicht_in_roadmap_integriert/INVENTUR.md`
+
+---
+
+### A1: Secrets-Repo Restrukturierung
+
+**Prioritaet:** HOECHSTE — Basis fuer Host-Submodules und SSH-Deployment
+**Abhaengigkeiten:** Keine
+**5-3-3 Ort:** Im Secrets-Repo selbst (`mr-bytez-secrets`) — hier nur Verweis
+
+**Umfang:**
+- Secrets-Submodule (`shared/home/mrohwer/.secrets`) auf 5-3-3 Pattern migrieren
+- symlinks.db ins private Submodule verschieben
+- Eigene CLAUDE.md, ROADMAP.md, README.md, CHANGELOG.md
+- Secrets-Inventar vollstaendig und konsistent
+
+**Mitlaufende Tasks:**
+- B1: SSH-Config Secrets-Deployment
+- B9: Submodule n8-vps einrichten
+- B10: Submodule n8-kiste einrichten
+- D9: symlinks.db verschieben
+- D13: Credentials n8-archstick aktualisieren
+
+**Details:** `todo_aus_chats.../HANDOFF_2026-02-08.md` (Aufgabe 1), `.claude/ROADMAP.md` (Phase 4)
+
+**Status:** Geplant
 **ETA:** Februar 2026
 
 ---
 
-## Phase 3: Automation & Integration (Q1 2026) 📌
+### A2: Fish DRY-Refactoring
 
-**Ziel:** Development Foundation, dann Automation & Tooling
+**Prioritaet:** Hoch — betrifft alle 8 Hosts, reduziert Duplikation
+**Abhaengigkeiten:** Keine
+**5-3-3 Ort:** `shared/etc/fish/`
 
-**Strategie:** Foundation ZUERST aufbauen, dann darauf entwickeln!
+**Umfang:**
+- Komplettes DRY-Refactoring der Fish Shell Config
+- Neues Nummerierungsschema 000-200 (Shared/Host)
+- Feature-Flags (`MR_HAS_GUI`, `MR_IS_DEV`, `MR_DISPLAY_TYPE`)
+- Shared Conditionals, Loader-Umbau
+- 7-Phasen-Plan
 
----
+**Mitlaufende Tasks:**
+- B2: /etc/hosts Dokumentation
+- B3: README Struktur-Baum pruefen/fixen
+- B4: Git-Config Shared
+- B5: SMB-Shares Deployment (nach A2)
+- B6: Bash-Config (parallel planen)
+- B7: mr-bytez-info.fish (nutzt neue Metadaten-Tags)
+- B17: VLC Desktop-Paketliste (Sub-Task von B5)
 
-### 🏗️ Priorität 1: FOUNDATION (ZUERST - Blocker für alles andere!)
+**Details:** `todo_aus_chats.../fish-config-refactoring-arbeitsanweisung.md`
 
-**Impact:** 🔥🔥🔥 **KRITISCH** - Ermöglicht ALLE anderen Entwicklungen!
-
-#### Claude Development Container (Docker Stack)
-
-**Warum ZUERST?**
-- ✅ Isolierte Entwicklungsumgebung (kein Host-Chaos!)
-- ✅ Reproduzierbar auf ALLEN Hosts (n8-kiste, n8-station, n8-book)
-- ✅ Claude Code arbeitet SAUBER im Container
-- ✅ Basis für MCP Server Development
-- ✅ Basis für alle weiteren Tools
-- ✅ Keine Abhängigkeiten - kann SOFORT umgesetzt werden!
-
-**Abhängigkeiten:** ❌ KEINE - Ready to start!
-
-**Milestones:**
-- [ ] **Docker Stack Struktur**
-  - [ ] `projects/infrastructure/n8-kiste/stacks/claude-dev/`
-  - [ ] docker-compose.yml
-  - [ ] Dockerfile (optimiert für Claude Code)
-  - [ ] .devcontainer/devcontainer.json (VS Code Support)
-- [ ] **Container Features**
-  - [ ] Node.js + TypeScript (für MCP Development)
-  - [ ] Python 3.12+ (für Scripts)
-  - [ ] Fish Shell (wie auf Host)
-  - [ ] Git + gh CLI
-  - [ ] Basis-Tools (micro, eza, fastfetch)
-- [ ] **Volume Mounts**
-  - [ ] /mr-bytez (Repo Read/Write)
-  - [ ] ~/.ssh (SSH-Keys, read-only)
-  - [ ] ~/.config (User-Configs)
-- [ ] **Integration**
-  - [ ] Claude Code CLI funktioniert im Container
-  - [ ] VS Code Dev Container Support
-  - [ ] Fish Shell wie auf Host konfiguriert
-- [ ] **Deployment**
-  - [ ] Als Git Submodule verwaltet
-  - [ ] FHS-konform in `/opt/mr-bytez/stacks/`
-  - [ ] systemd Service (optional, für Auto-Start)
-- [ ] **Dokumentation**
-  - [ ] README.md im Stack
-  - [ ] Deployment-Guide
-  - [ ] Troubleshooting
-
-**Referenz:** [Chat: Claude Dev Container](https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd)
-
-**Status:** 🔴 HÖCHSTE PRIORITÄT - Nächster Schritt!
-**ETA:** Februar 2026 (Woche 1-2)
+**Status:** Geplant
+**ETA:** Februar-Maerz 2026
 
 ---
 
-### 🔧 Priorität 2: DEVELOPMENT (Nach Foundation)
+### A3: Claude Dev Container
 
-**Impact:** 🔥🔥 HOCH - Wichtige Features, aber brauchen Foundation!
+**Prioritaet:** Hoch — isolierte Entwicklungsumgebung fuer A4 und A5
+**Abhaengigkeiten:** Keine
+**5-3-3 Ort:** `shared/stacks/mrbz-dev/`
 
-**Abhängigkeiten:** ✅ Claude Dev Container MUSS existieren!
+**Umfang:**
+- Docker Stack (Dockerfile, docker-compose.yml, .devcontainer)
+- Arch Linux Container mit Fish, Claude Code, Tools
+- mr-bytez Integration (Anker, Symlinks)
+- VS Code Dev Container Support
 
-#### MCP Server für n8-vps (Production RAG + Docker Management)
+**Mitlaufende Tasks:**
+- B8: Docs-Struktur (im Container testen)
+- B11: Pre-Commit Hooks (im Container entwickeln)
+- B13: Backup & Recovery (restore.fish im Container testen)
+- D12: Projekt-Level .claude/ fuer mrbz-dev
+- D15: Rollback-Playbook
+- D16: Recovery-Runbook
 
-**Warum NACH Dev Container?**
-- ⚠️ Braucht TypeScript Development-Umgebung
-- ⚠️ Braucht sichere Test-Umgebung
-- ⚠️ Komplexes Projekt - Container vereinfacht Development
+**Details:** `.claude/archive/mrbz-dev-plan.md`
+**Chat:** [Claude Dev Container](https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd)
 
-**Milestones:**
-- [ ] **Phase 1: Development im Container (n8-kiste)**
-  - [ ] TypeScript MCP Server implementieren
-  - [ ] Filesystem Tool (Dateizugriff)
-  - [ ] Docker Tool (status/logs/start/stop/compose)
-  - [ ] Git Tool (Repository-Verwaltung)
-  - [ ] Database Tool (PostgreSQL/Redis Zugriff)
-  - [ ] RAG Tool (Qdrant Vector Search)
-  - [ ] Lokale Tests & Debugging IM CONTAINER
-- [ ] **Phase 2: Production Deployment (n8-vps)**
-  - [ ] Native Installation (systemd Service)
-  - [ ] Qdrant als Docker Container
-  - [ ] Traefik Reverse Proxy (mcp.mr-bytez.de)
-  - [ ] Bearer Token Authentication
-  - [ ] Später: Authentik OAuth2 Integration
+**Status:** Geplant
+**ETA:** Maerz 2026
 
-**Architektur:**
+---
+
+### A4: MCP Server
+
+**Prioritaet:** Mittel — braucht Dev Container (A3)
+**Abhaengigkeiten:** A3 (Claude Dev Container)
+**5-3-3 Ort:** `projects/infrastructure/mcp-server/`
+
+**Umfang:**
+- TypeScript MCP Server mit 5 Tools (Filesystem, Docker, Git, Database, RAG)
+- Qdrant Vector DB, Traefik Reverse Proxy
+- Bearer Token Auth → Authentik OAuth2
+- Production Deployment auf n8-vps
+
+**Prerequisite: Traefik Setup (B14)**
+- DNS Wildcard Records: ✅ erledigt
+- API-Token Age-Verschluesselung (D3)
+- Traefik ACME DNS-01 (D14)
+- DNS TTL hochsetzen (D1)
+- PTR-Records setzen (D2)
+- Alte API-Tokens aufraeumen (D4)
+
+**Mitlaufende Tasks:**
+- B12: Chat-Namer Skill (kann MCP-Integration nutzen)
+- D17: Automatische Context-Synchronisation
+
+**Details:** `todo_aus_chats.../MR-ByteZ_DNS_Handoff_2026-02-09.md` (Traefik/DNS)
+**Chat:** [MCP Server Implementation](https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54)
+
+**Status:** Geplant nach A3
+**ETA:** Maerz-April 2026
+
+---
+
+### A5: Sensitive Data Cleanup
+
+**Prioritaet:** Mittel — braucht Dev Container (A3) zum sicheren Testen
+**Abhaengigkeiten:** A3 (Claude Dev Container)
+**5-3-3 Ort:** `.claude/projects/sensitive-data-cleanup/`
+
+**Umfang:**
+- Pattern-Scanner Script (Fish)
+- Clean/Smudge Filter (bidirektional, .gitattributes)
+- Hostname/Username/IP Mapping
+- Git History Bereinigung (git filter-repo) — Entscheidung noch offen
+
+**Mitlaufende Tasks:**
+- D5: Clean/Smudge Filter implementieren
+- D6: Pattern-Scanner Script erstellen
+- D7: IP-Adressen-Mapping definieren
+- B3: README Struktur-Baum nochmal pruefen (nach History-Rewrite)
+
+**Details:** `todo_aus_chats.../2026-02-04-security-git-filter-handoff.md`
+**Chat:** [Sensitive Data Cleanup](https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104)
+
+**Status:** Geplant nach A3
+**ETA:** April 2026
+
+---
+
+## Timing-Matrix
+
 ```
-Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Native)
-                                                              ├─ Filesystem Tool
-                                                              ├─ Docker Tool
-                                                              ├─ Git Tool
-                                                              ├─ Database Tool
-                                                              └─ RAG Tool (Qdrant)
-```
-
-**Tech-Stack:**
-- MCP Server: TypeScript, Native Installation, systemd
-- Vector DB: Qdrant (Docker Container, Hybrid Search)
-- Auth: Bearer Token → später Authentik OAuth2
-
-**Referenz:** [Chat: MCP Server Implementation](https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54)
-
-**Status:** Geplant nach Dev Container
-**ETA:** März 2026
-
----
-
-#### Sensitive Data Cleanup (Git History Bereinigung)
-
-**Warum NACH Dev Container?**
-- ⚠️ Braucht sichere Test-Umgebung (git filter-repo!)
-- ⚠️ Gefährliche Operation - besser im Container testen
-- ⚠️ Script-Development braucht Fish-Umgebung
-
-**Milestones:**
-- [ ] **Pattern-Analyse im Container**
-  - [ ] `mr-bytez-scan-sensitive.fish` Script erstellen
-  - [ ] Bestandsaufnahme durchführen
-  - [ ] Pattern definieren (Username, Hostnamen, IPs)
-- [ ] **Ersetzungs-Strategie**
-  - [ ] Username: `mrohwer` → `mr-bytez-admin`
-  - [ ] Hostnamen:
-    - `n8-kiste` → `mr-bytez-server-file`
-    - `n8-vps` → `mr-bytez-server-vps`
-    - `n8-station` → `vpn-client-workstation`
-    - `n8-book` → `vpn-client-notebook`
-  - [ ] IP-Adressen identifizieren & maskieren
-- [ ] **Git History Bereinigung**
-  - [ ] IM CONTAINER testen mit git filter-repo
-  - [ ] Backup erstellen
-  - [ ] Entscheidung: History-Bereinigung vs. nur ab jetzt
-  - [ ] Force-Push koordinieren
-
-**Referenz:** [Chat: Sensitive Data Cleanup](https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104)
-
-**Status:** Geplant nach Dev Container
-**ETA:** März 2026
-
----
-
-#### Pre-Commit Hooks & Code Quality
-
-**Warum NACH Dev Container?**
-- ⚠️ Hook-Development braucht Test-Umgebung
-- ⚠️ Linting/Formatting im Container testen
-
-**Milestones:**
-- [ ] **Pre-Commit Hooks entwickeln IM CONTAINER**
-  - [ ] Format-Checks (Fish, Markdown, YAML)
-  - [ ] Lint-Checks (shellcheck, markdownlint)
-  - [ ] Secrets-Detection (nie Klartext committen!)
-  - [ ] Symlink-Validation
-- [ ] **CI-Checks**
-  - [ ] Markdown Links & Format
-  - [ ] Grundlegende Repo-Policies
-- [ ] **Deploy-Checks**
-  - [ ] Symlink-Validation
-  - [ ] Permissions-Check
-  - [ ] Submodule-State-Validation
-
-**Status:** Geplant nach Dev Container
-**ETA:** März 2026
-
----
-
-### 🎨 Priorität 3: ENHANCEMENT (Nice-to-have)
-
-**Impact:** 🔥 MEDIUM - Nützlich, aber nicht kritisch
-
-**Abhängigkeiten:** ✅ Dev Container hilfreich, aber nicht zwingend
-
-#### Chat-Namer Skill (Claude.ai Web/Desktop)
-
-**Warum niedrige Priorität?**
-- ℹ️ Nur Convenience-Feature
-- ℹ️ Manuelle Benennung funktioniert auch
-- ℹ️ Keine Blocker für andere Features
-
-**Milestones:**
-- [ ] Skill-Struktur: `.claude/skills/chat-namer/`
-- [ ] Template für Namens-Generierung
-- [ ] Format: `MR-ByteZ - [kategorie] - Beschreibung - Keywords --- YYYY-MM-DD-HH-MM`
-- [ ] Beispiel-Namen & Kategorien
-- [ ] **Plattformen:**
-  - ✅ Claude.ai Web Interface
-  - ✅ Claude Desktop App
-  - ❌ Claude Code CLI (keine manuellen Chat-Namen)
-
-**Referenz:** [Chat: Chat-Namer Skill](https://claude.ai/chat/54ddc814-8f3c-4efd-884f-23714d332ab1)
-
-**Status:** Low Priority
-**ETA:** Q2 2026 oder später
-
----
-
-#### Backup & Recovery Automation
-
-**Milestones:**
-- [x] GitHub als zusätzliches Remote (Multi-Remote Push)
-- [ ] MCP GitHub Server (siehe MCP Server oben)
-- [ ] restore.fish Script (Disaster Recovery)
-- [ ] Auto-Backup zu Codeberg (Cronjob)
-- [ ] Webhosting Backup (Hetzner)
-
-**Status:** Teilweise done, Rest geplant
-**ETA:** März-April 2026
-
----
-
-## Phase 3 - Zusammenfassung
-
-**Kritischer Pfad:**
-```
-1. Claude Dev Container (ZUERST!) ← 🔴 Nächster Schritt!
-    ↓
-2. MCP Server Development (im Container)
-    ↓
-3. Sensitive Data Cleanup (im Container testen)
-    ↓
-4. Pre-Commit Hooks (im Container entwickeln)
-    ↓
-5. Chat-Namer Skill (optional)
+C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) — sofort, verbessert Workflow
+  ↓
+A1 Secrets-Repo Restrukturierung + B1, B9, B10, D9, D13
+  ↓
+A2 Fish DRY-Refactoring + B2, B3, B4, B6, B7 → danach B5+B17
+  ↓
+A3 Claude Dev Container + B8, B11, B13, D12, D15, D16
+  ↓
+A4 MCP Server + B14 (Traefik zuerst!), D1-D4, D14, D17 → danach B12
+  ↓
+A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 ```
 
-**Status:** Foundation Ready to Start!
-**ETA Phase 3:** Februar-März 2026
+**Inkrementell (kein fester Zeitpunkt):**
+- D10: Skills entwickeln — pro A-Projekt
+- D11: Configs anlegen — pro A-Projekt
 
 ---
 
@@ -308,21 +245,17 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 ### Milestones
 
-- [ ] Submodule: n8-station
-- [ ] Submodule: n8-book
-- [ ] Submodule: blog.mr-bytez.de (öffentlich)
-- [ ] Submodule: shop.mr-bytez.de (öffentlich)
-- [ ] Dokumentation vervollständigen
-- [ ] Rollback-Playbook (Dokumentation + Routine)
-- [ ] Recovery-Runbook (kompakt): „neuer Host → Zugriff → Secrets → Deployment"
-- [ ] Secrets-Inventar (`*.info`) vollständig und konsistent halten
+- [ ] B15: Submodule n8-station
+- [ ] B15: Submodule n8-book
+- [ ] B16: blog.mr-bytez.de (oeffentlich)
+- [ ] B16: shop.mr-bytez.de (oeffentlich)
 
 **Status:** Geplant
 **ETA:** Q2 2026
 
 ---
 
-## Kompakt-Übersicht
+## Kompakt-Uebersicht
 
 ### ✅ Done
 
@@ -334,13 +267,13 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 **Deployment-Foundation:**
 - Stabiler Anker: `/opt/mr-bytez/current -> /mr-bytez`
-- System-Symlinks über Anker (Fish, Micro)
+- System-Symlinks ueber Anker (Fish, Micro)
 - SSH-Policy: `~/.ssh/config` nicht aus Repo (nur Template)
 
 **Policies & Doku-Baseline:**
 - Fish-first Policy (keine Bash-Heredocs, Files via `printf`)
 - Token/Key-Policy (cat/bat Alias-Falle)
-- "Wichtige MD-Dateien nur additiv ändern" Policy
+- "Wichtige MD-Dateien nur additiv aendern" Policy
 
 **.claude/ Migration:**
 - `.claude/` Struktur nach 5-3-3 Pattern
@@ -348,71 +281,99 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 - `CLAUDE.md` als zentrale Steuerung
 - Root-Dateien bereinigt (keine verwaisten Referenzen)
 
-### ✅ Done (Doku-Konsolidierung)
+**DNS-Infrastruktur:**
+- Wildcard A+AAAA Records fuer `*.mr-bytez.de` → n8-vps
+- Hetzner Console API + hcloud CLI eingerichtet
+- CAA Records fuer Let's Encrypt (issue + issuewild)
 
-- [x] PROJECT_NOTES.md aufgeteilt in `.claude/context/` (11 Dateien)
-- [x] .claude/ Struktur nach 5-3-3 Pattern implementiert
-- [x] CLAUDE.md, CHANGELOG.md, ROADMAP.md für .claude/ erstellt
-- [x] Root-Dateien aktualisiert (README, CHANGELOG, ROADMAP, DEPLOYMENT)
-- [x] .gitignore erweitert (Sanitization-Patterns)
-- [x] Root CLAUDE.md entfernt (war /init-Artefakt)
+### 📌 Projekte (Phase 3) — Nach Reihenfolge
 
-### 🛠️ In Progress
+| Projekt | Beschreibung | Abhaengigkeit | ETA |
+|---------|-------------|---------------|-----|
+| **A1** Secrets-Repo | 5-3-3 Migration, SSH-Config, Submodules | Keine | Feb 2026 |
+| **A2** Fish DRY | Nummerierung 000-200, Feature-Flags, 8 Hosts | Keine | Feb-Maerz 2026 |
+| **A3** Dev Container | Docker Stack, Claude Code, VS Code | Keine | Maerz 2026 |
+| **A4** MCP Server | TypeScript, Traefik, RAG, n8-vps | A3 | Maerz-Apr 2026 |
+| **A5** Data Cleanup | Clean/Smudge Filter, History Rewrite | A3 | Apr 2026 |
 
-**Projects/Submodules:**
-- `projects/` Struktur definieren
-- Erste Host-/Service-Repos als Submodule
+### 📅 Expansion (Phase 4)
 
-### 📌 Planned - Nach Priorität geordnet
+- Submodule n8-station, n8-book
+- Web-Projekte blog/shop
 
-**🔴 HÖCHSTE PRIORITÄT (Foundation - ZUERST!):**
-- Claude Development Container (Docker Stack)
-  - Blocker für alles andere!
-  - Keine Abhängigkeiten
-  - Ready to start!
+---
 
-**🟠 HOHE PRIORITÄT (Nach Foundation):**
-- MCP Server für n8-vps (RAG + Docker Management)
-  - Braucht Dev Container
-- Sensitive Data Cleanup (Git History)
-  - Braucht sichere Test-Umgebung
-- Pre-Commit Hooks & CI
-  - Braucht Dev Container
+## B-Tasks Zuordnung (Referenz)
 
-**🟡 MITTLERE PRIORITÄT (Enhancement):**
-- Chat-Namer Skill (Claude.ai)
-  - Nice-to-have, nicht kritisch
-- Backup & Recovery Automation
-  - Teilweise done, Rest geplant
+| # | Aufgabe | Projekt | Quelle |
+|---|---------|---------|--------|
+| B1 | SSH-Config Secrets-Deployment | A1 | `HANDOFF_2026-02-08.md`, Aufgabe 1 |
+| B2 | /etc/hosts Dokumentation | A2 | `HANDOFF_2026-02-08.md`, Aufgabe 2 |
+| B3 | README Struktur-Baum | A2 + A5 | `HANDOFF_2026-02-08.md`, Aufgabe 3 |
+| B4 | Git-Config Shared | A2 | `HANDOFF_2026-02-08.md`, Aufgabe 4 |
+| B5 | SMB-Shares Deployment | A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
+| B6 | Bash-Config | A2 | Phase 2 (offen) |
+| B7 | mr-bytez-info.fish | A2 | Phase 2 (offen) |
+| B8 | Docs-Struktur | A3 | Phase 2 (offen) |
+| B9 | Submodule n8-vps | A1 | Phase 2 (offen) |
+| B10 | Submodule n8-kiste | A1 | Phase 2 (offen) |
+| B11 | Pre-Commit Hooks | A3 | Phase 3 (alt) |
+| B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
+| B13 | Backup & Recovery | A3 | Phase 3 (alt) |
+| B14 | Traefik Setup | A4 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| B15 | Submodule n8-station/n8-book | Phase 4 | Phase 4 |
+| B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
+| B17 | VLC Desktop-Paketliste | B5/A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
 
-**📅 SPÄTER (Phase 4):**
-- Weitere Hosts & Web-Projekte
+---
+
+## D-Tasks Zuordnung (Referenz)
+
+| # | Sub-Task | Projekt | Quelle |
+|---|----------|---------|--------|
+| D1 | DNS TTL hochsetzen | A4/B14 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| D2 | PTR-Records setzen | A4/B14 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| D3 | API-Token Age-Verschluesselung | A4/B14 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| D4 | Alte API-Tokens aufraeumen | A4/B14 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| D5 | Clean/Smudge Filter | A5 | `2026-02-04-security-git-filter-handoff.md` |
+| D6 | Pattern-Scanner Script | A5 | `2026-02-04-security-git-filter-handoff.md` |
+| D7 | IP-Adressen-Mapping | A5 | `2026-02-04-security-git-filter-handoff.md` |
+| D9 | symlinks.db verschieben | A1 | `.claude/ROADMAP.md` Phase 4 |
+| D10 | Skills entwickeln | Inkrementell | Pro A-Projekt |
+| D11 | Configs anlegen | Inkrementell | Pro A-Projekt |
+| D12 | Projekt-Level .claude/ | A3 | Fuer mrbz-dev |
+| D13 | Credentials n8-archstick | A1 | `HANDOFF_SMB_DEPLOYMENT.md` |
+| D14 | Traefik ACME DNS-01 | A4/B14 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| D15 | Rollback-Playbook | A3/B13 | Phase 4 (alt) |
+| D16 | Recovery-Runbook | A3/B13 | Phase 4 (alt) |
+| D17 | Automatische Context-Sync | A4 | `.claude/ROADMAP.md` Phase 5 |
+
+Alle Quellen mit Pfad `HANDOFF_*` oder `*-handoff.md` liegen unter `todo_aus_chats_noch_nicht_in_roadmap_integriert/`.
 
 ---
 
 ## Notizen
 
 - Dieses Dokument ist bewusst high-level
-- Operative Schritte gehören in `DEPLOYMENT.md`
+- Operative Schritte gehoeren in `DEPLOYMENT.md`
 - Policies in `.claude/context/`
-- Details zu geplanten Features siehe Chat-Referenzen
+- Details zu A-Projekten in den jeweiligen Handoff-Dateien (siehe Verweise)
+- Inventur aller Aufgaben: `todo_aus_chats.../INVENTUR.md`
 
 ---
 
 ## Chat-Referenzen
 
-Detaillierte Informationen zu geplanten Features finden sich in folgenden Chats:
-
-1. **Claude Dev Container:**
+1. **Claude Dev Container (A3):**
    https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd
 
-2. **Chat-Namer Skill:**
+2. **Chat-Namer Skill (B12):**
    https://claude.ai/chat/54ddc814-8f3c-4efd-884f-23714d332ab1
 
-3. **Sensitive Data Cleanup:**
+3. **Sensitive Data Cleanup (A5):**
    https://claude.ai/chat/29873ea9-d1f6-4d0e-80e3-098e1e3c4104
 
-4. **MCP Server Implementation:**
+4. **MCP Server Implementation (A4):**
    https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54
 
 ---

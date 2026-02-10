@@ -106,12 +106,27 @@ Vollständige Beschreibung → `.claude/context/structure.md`
 
 ## Chat-Benennung (Claude.ai)
 
-Format für jeden neuen Chat:
+**Aktuelles Format (v1):**
 ```
 MR-ByteZ - [kategorie] - Beschreibung - Keywords --- YYYY-MM-DD-HH-MM
 ```
 
+**Neues Format (v2, in Arbeit):**
+```
+MR-ByteZ #<ID>.<Nr> [Tag1][Tag2] - Beschreibung - Keywords --- YYYY-MM-DD-HH-MM
+```
+
+Neu in v2:
+- Ketten-ID (`#F01.1`, `#D03.2`) verknuepft zusammengehoerige Chats
+- Tags aus gemeinsamem Pool mit Git-Commits (siehe `context/git.md`)
+- Status ergibt sich implizit aus der letzten Chat-Nummer in der Kette
+- Auto-Vorschlag nach Turn 5-6
+
+**Regeln (unveraendert):**
 - Minimum: 100 Zeichen, Maximum: 250 Zeichen
 - Sprechend und bei Suche findbar
 - Wichtige Begriffe/Tools/Themen im Namen
 - IMMER Erstellungsdatum + Uhrzeit verwenden
+
+**Details + offene Entscheidungen:** `todo_aus_chats.../HANDOFF_X01-1_Chat-Benennungssystem.md`
+**Arbeitsanweisung v2:** Noch nicht geschrieben (geplant in Folge-Chat #X01.2)
