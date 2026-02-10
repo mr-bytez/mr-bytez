@@ -6,4 +6,4 @@
 
 TODO: Befuellen wenn Projekt startet.
 
-**Referenz:** `todo_aus_chats_noch_nicht_in_roadmap_integriert/2026-02-04-security-git-filter-handoff.md`
+**Referenz:** `.claude/context/handoffs/HANDOFF_[Security][Git]_git-filter-cleanup.md`

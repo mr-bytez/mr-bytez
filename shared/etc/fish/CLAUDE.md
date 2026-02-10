@@ -6,4 +6,4 @@
 
 TODO: Befuellen wenn Projekt startet.
 
-**Referenz:** `todo_aus_chats_noch_nicht_in_roadmap_integriert/fish-config-refactoring-arbeitsanweisung.md`
+**Referenz:** `.claude/context/handoffs/HANDOFF_[Fish][Refactor]_fish-dry-refactoring.md`
