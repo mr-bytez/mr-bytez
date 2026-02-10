@@ -23,6 +23,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs] `.gitignore` erweitert: Sanitization-Patterns
 - [Docs] Inventur aller 40 offenen Aufgaben aus 6 Handoff-Dateien (`INVENTUR.md`)
 - [Docs] Arbeitsregeln: Chat-Zeitermittlung via recent_chats Tool, Aenderungskontext, Aufgaben-Delegation
+- [Structure] `.claude/tasks/` Task-Queue fuer Claude.ai → Claude Code Uebergabe
+  - `README.md` mit Workflow-Dokumentation
+- [Config] `.claude/context/tags.md` — Zentrale Tag-Registry (67 Tags, 3-Zeichen-Index)
+  - Generische Tags (41) + Dienst-spezifische Tags (26)
+  - Jeder Tag mit Index, Bedeutung, Verwendungsbereich, Seit-Datum
+- [Docs] `.claude/context/claude-ai-projektanweisungen.txt` — Versionierte Claude.ai Projektanweisungen
 
 ### Changed
 - [Structure] `PROJECT_NOTES.md` aufgeteilt in `.claude/context/` (11 Dateien)
@@ -33,8 +39,10 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs] Root `README.md` aktualisiert (PROJECT_NOTES Referenz → .claude/context/)
 - [Docs] Root `DEPLOYMENT.md` aktualisiert (PROJECT_NOTES Referenz entfernt)
 - [Docs] Autor ueberall: MR-ByteZ (statt Michael Rohwer)
-- [Docs] Chat-Benennung v2 in `context/documentation.md` (Ketten-IDs, Tag-Pool)
-- [Docs] TAG_REGISTRY (geplant) in `context/git.md` vermerkt
+- [Docs] Chat-Benennung v2 komplett in `context/documentation.md` (Format, Datum, Ketten-System, Tag-Verwaltung, Beispiele)
+- [Config] TAG_REGISTRY in `context/git.md` finalisiert — Verweis auf `tags.md`
+- [Config] Kategorien-Tabelle in `context/git.md` um Index-Spalte erweitert
+- [Config] Neue Commit-Regel: Chat-Link bei strategischen Commits
 
 ### Removed
 - [Structure] `PROJECT_NOTES.md` (aufgeteilt in `.claude/context/`)
