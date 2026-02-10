@@ -127,6 +127,7 @@ Neu in v2:
 - Sprechend und bei Suche findbar
 - Wichtige Begriffe/Tools/Themen im Namen
 - IMMER Erstellungsdatum + Uhrzeit verwenden
+- Datum/Uhrzeit: Claude ermittelt Startzeit selbst via recent_chats Tool (UTC → Berlin CET +1h / CEST +2h). NICHT den User fragen!
 
 **Details + offene Entscheidungen:** `todo_aus_chats.../HANDOFF_X01-1_Chat-Benennungssystem.md`
 **Arbeitsanweisung v2:** Noch nicht geschrieben (geplant in Folge-Chat #X01.2)

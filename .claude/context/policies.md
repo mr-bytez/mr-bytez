@@ -45,6 +45,13 @@ Für zentrale Markdown-Dateien (README.md, DEPLOYMENT.md, CHANGELOG.md, ROADMAP.
 
 ---
 
+## Arbeitsweise mit Claude
+
+- Bei Datei-Aenderungen: Immer Zeilennummer + Zeile davor und danach angeben fuer eindeutigen Kontext
+- Aufgaben-Delegation: Strategisches im Chat besprechen, Mechanisches (Datei-Edits, Struktur-Anlage) an Claude Code delegieren
+
+---
+
 ## Verwandte Policies
 
 - Secrets & Security → `.claude/context/security.md`
