@@ -13,18 +13,28 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Structure] `.claude/` Struktur nach 5-3-3 Pattern implementiert
   - `context/` mit 11 Policy-Dateien (aus PROJECT_NOTES.md + neue)
   - `archive/`, `skills/`, `configs/` Ordner angelegt
-  - `CLAUDE.md` als zentrale Steuerung für Claude Code & Claude.ai
-  - `CHANGELOG.md` und `ROADMAP.md` für .claude/-spezifische Historie
-- [Docs] `.gitignore` erweitert: Sanitization-Patterns (*sanitization*, *matrix*, *-real.md, *.unsanitized)
+  - `CLAUDE.md` als zentrale Steuerung fuer Claude Code & Claude.ai
+  - `CHANGELOG.md` und `ROADMAP.md` fuer .claude/-spezifische Historie
+- [Structure] 5-3-3 Placeholder fuer 4 A-Projekte erstellt
+  - `shared/etc/fish/` (A2: Fish DRY-Refactoring)
+  - `shared/stacks/mrbz-dev/` (A3: Claude Dev Container)
+  - `projects/infrastructure/mcp-server/` (A4: MCP Server)
+  - `.claude/projects/sensitive-data-cleanup/` (A5: Data Cleanup)
+- [Docs] `.gitignore` erweitert: Sanitization-Patterns
+- [Docs] Inventur aller 40 offenen Aufgaben aus 6 Handoff-Dateien (`INVENTUR.md`)
+- [Docs] Arbeitsregeln: Chat-Zeitermittlung via recent_chats Tool, Aenderungskontext, Aufgaben-Delegation
 
 ### Changed
 - [Structure] `PROJECT_NOTES.md` aufgeteilt in `.claude/context/` (11 Dateien)
 - [Structure] `.claude/plans/` → `.claude/archive/` umbenannt
 - [Structure] `.claude/README.md` aktualisiert (neue Struktur)
+- [Docs] Root `ROADMAP.md` komplett umstrukturiert: 5 A-Projekte (A1-A5), B/D-Task-Zuordnung, Timing-Matrix
+- [Docs] `.claude/ROADMAP.md` Phase 4+5 mit Verweisen auf Root-ROADMAP
 - [Docs] Root `README.md` aktualisiert (PROJECT_NOTES Referenz → .claude/context/)
 - [Docs] Root `DEPLOYMENT.md` aktualisiert (PROJECT_NOTES Referenz entfernt)
-- [Docs] Root `ROADMAP.md` aktualisiert (Phase 2 Migration als erledigt)
-- [Docs] Autor überall: MR-ByteZ (statt Michael Rohwer)
+- [Docs] Autor ueberall: MR-ByteZ (statt Michael Rohwer)
+- [Docs] Chat-Benennung v2 in `context/documentation.md` (Ketten-IDs, Tag-Pool)
+- [Docs] TAG_REGISTRY (geplant) in `context/git.md` vermerkt
 
 ### Removed
 - [Structure] `PROJECT_NOTES.md` (aufgeteilt in `.claude/context/`)
@@ -33,8 +43,9 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ### Notes
 - [Migration] Phase 2+3 der .claude/ Migration abgeschlossen
-- [Pattern] 5-3-3 Pattern: 5 Docs, 3 Ordner, 3 Ebenen — konsistent überall
-- [Workflow] Alle Policies jetzt in `.claude/context/` statt einer großen PROJECT_NOTES.md
+- [Pattern] 5-3-3 Pattern: 5 Docs, 3 Ordner, 3 Ebenen — konsistent ueberall
+- [Workflow] Alle Policies jetzt in `.claude/context/` statt einer grossen PROJECT_NOTES.md
+- [Workflow] 40 Aufgaben in 4 Kategorien (A/B/C/D) inventarisiert und Projekten zugeordnet
 
 ---
 
