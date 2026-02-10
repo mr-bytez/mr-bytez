@@ -7,6 +7,37 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.0] - 2026-02-10
+
+### Added
+- [Structure] `.claude/` Struktur nach 5-3-3 Pattern implementiert
+  - `context/` mit 11 Policy-Dateien (aus PROJECT_NOTES.md + neue)
+  - `archive/`, `skills/`, `configs/` Ordner angelegt
+  - `CLAUDE.md` als zentrale Steuerung für Claude Code & Claude.ai
+  - `CHANGELOG.md` und `ROADMAP.md` für .claude/-spezifische Historie
+- [Docs] `.gitignore` erweitert: Sanitization-Patterns (*sanitization*, *matrix*, *-real.md, *.unsanitized)
+
+### Changed
+- [Structure] `PROJECT_NOTES.md` aufgeteilt in `.claude/context/` (11 Dateien)
+- [Structure] `.claude/plans/` → `.claude/archive/` umbenannt
+- [Structure] `.claude/README.md` aktualisiert (neue Struktur)
+- [Docs] Root `README.md` aktualisiert (PROJECT_NOTES Referenz → .claude/context/)
+- [Docs] Root `DEPLOYMENT.md` aktualisiert (PROJECT_NOTES Referenz entfernt)
+- [Docs] Root `ROADMAP.md` aktualisiert (Phase 2 Migration als erledigt)
+- [Docs] Autor überall: MR-ByteZ (statt Michael Rohwer)
+
+### Removed
+- [Structure] `PROJECT_NOTES.md` (aufgeteilt in `.claude/context/`)
+- [Structure] Root `CLAUDE.md` (war /init-Artefakt, ersetzt durch `.claude/CLAUDE.md`)
+- [Cleanup] `.gitignore.bak` entfernt
+
+### Notes
+- [Migration] Phase 2+3 der .claude/ Migration abgeschlossen
+- [Pattern] 5-3-3 Pattern: 5 Docs, 3 Ordner, 3 Ebenen — konsistent überall
+- [Workflow] Alle Policies jetzt in `.claude/context/` statt einer großen PROJECT_NOTES.md
+
+---
+
 ## [0.6.1] - 2026-02-09
 
 ### Changed
@@ -251,4 +282,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-09
+**Letzte Aktualisierung:** 2026-02-10

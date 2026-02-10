@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-02-09
+**Stand:** 2026-02-10
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -273,7 +273,7 @@ Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config`
 Details:
 
 - `shared/home/mrohwer/.secrets/SECRETS.md`
-- `PROJECT_NOTES.md`
+- `.claude/context/security.md`
 
 ---
 
@@ -483,4 +483,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-02-09
+**Stand:** 2026-02-10

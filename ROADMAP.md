@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Phasen-basiert + kompakte Übersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-02-09
+**Aktualisiert:** 2026-02-10
 
 ---
 
@@ -342,12 +342,22 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 - Token/Key-Policy (cat/bat Alias-Falle)
 - "Wichtige MD-Dateien nur additiv ändern" Policy
 
-### 🛠️ In Progress
+**.claude/ Migration:**
+- `.claude/` Struktur nach 5-3-3 Pattern
+- `PROJECT_NOTES.md` aufgeteilt in 11 context/ Dateien
+- `CLAUDE.md` als zentrale Steuerung
+- Root-Dateien bereinigt (keine verwaisten Referenzen)
 
-**Doku-Konsolidierung:**
-- README.md / DEPLOYMENT.md / PROJECT_NOTES.md finalisieren
-- CHANGELOG.md aktualisieren
-- ROADMAP.md (dieses Dokument) pflegen
+### ✅ Done (Doku-Konsolidierung)
+
+- [x] PROJECT_NOTES.md aufgeteilt in `.claude/context/` (11 Dateien)
+- [x] .claude/ Struktur nach 5-3-3 Pattern implementiert
+- [x] CLAUDE.md, CHANGELOG.md, ROADMAP.md für .claude/ erstellt
+- [x] Root-Dateien aktualisiert (README, CHANGELOG, ROADMAP, DEPLOYMENT)
+- [x] .gitignore erweitert (Sanitization-Patterns)
+- [x] Root CLAUDE.md entfernt (war /init-Artefakt)
+
+### 🛠️ In Progress
 
 **Projects/Submodules:**
 - `projects/` Struktur definieren
@@ -384,7 +394,7 @@ Internet → Traefik (mcp.mr-bytez.de) → Bearer Token Auth → MCP Server (Nat
 
 - Dieses Dokument ist bewusst high-level
 - Operative Schritte gehören in `DEPLOYMENT.md`
-- Policies in `PROJECT_NOTES.md`
+- Policies in `.claude/context/`
 - Details zu geplanten Features siehe Chat-Referenzen
 
 ---
@@ -407,4 +417,4 @@ Detaillierte Informationen zu geplanten Features finden sich in folgenden Chats:
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-09
+**Letzte Aktualisierung:** 2026-02-10

@@ -1,10 +1,10 @@
 # mr-bytez
 
-**Version:** 0.5.0\
+**Version:** 0.7.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-09\
-**Autor:** Michael Rohwer
+**Aktualisiert:** 2026-02-10\
+**Autor:** MR-ByteZ
 
 ---
 
@@ -55,11 +55,12 @@ Enthält:
 │   ├── .secrets/                # Private Secrets (Age-Encrypted) -> Submodule
 │   └── deployment/              # Deployment-Metadaten (symlinks.db, derive_key.fish, …)
 ├── projects/                    # Projekte/Hosts (Submodules)
-├── .claude/                     # AI/Claude Integration (optional)
+├── .claude/                     # AI-Context, Policies & Konventionen
+│   ├── CLAUDE.md                # Zentrale Steuerung für Claude Code
+│   └── context/                 # Policies (11 Dateien)
 ├── .config/                     # Repo-weite Configs
 ├── README.md
 ├── DEPLOYMENT.md                # Deployment-Guide
-├── PROJECT_NOTES.md
 ├── ROADMAP.md
 └── CHANGELOG.md
 ```
@@ -78,7 +79,7 @@ Enthält:
 - [x] Secrets-Doku: `shared/home/mrohwer/.secrets/SECRETS.md`
 - [x] Master-Password Derivation: `shared/deployment/derive_key.fish`
 - [x] Deployment-Metadaten: `shared/deployment/symlinks.db`
-- [x] Projekt-Hinweise (Fish/Tokens): `PROJECT_NOTES.md`
+- [x] Projekt-Hinweise (Fish/Tokens): `.claude/context/`
 
 ### Phase 2: Host-Setup (in progress) 🛠️
 
@@ -107,8 +108,8 @@ Enthält:
 
 Die README ist bewusst nur der Überblick.
 
-- Deployment-Mechanik (Anker, Symlinks, Rollback, Troubleshooting) steht in ``.
-- Verbindliche Regeln/Policies stehen in ``.
+- Deployment-Mechanik (Anker, Symlinks, Rollback, Troubleshooting) steht in `DEPLOYMENT.md`.
+- Verbindliche Regeln/Policies stehen in `.claude/context/`.
 
 ---
 
@@ -116,7 +117,7 @@ Die README ist bewusst nur der Überblick.
 
 - Keine Klartext-Secrets im public Repo.
 - Secrets liegen ausschließlich im privaten Submodule `shared/home/mrohwer/.secrets`.
-- Token/Key-Handling (inkl. `cat`-Alias-Falle) steht in `PROJECT_NOTES.md` und `shared/home/mrohwer/.secrets/SECRETS.md`.
+- Token/Key-Handling (inkl. `cat`-Alias-Falle) steht in `.claude/context/security.md` und `shared/home/mrohwer/.secrets/SECRETS.md`.
 
 ---
 
@@ -127,11 +128,25 @@ Die README ist bewusst nur der Überblick.
 
 ---
 
-## Dokumentation
+## Dokumentation & Policies
+
+Alle Arbeitskonventionen und Policies sind in `.claude/context/` dokumentiert:
+
+| Datei | Inhalt |
+|-------|--------|
+| `policies.md` | Grundprinzipien, Repo-Regeln |
+| `shell.md` | Fish-first Shell-Konventionen |
+| `security.md` | Secrets, Tokens, Sanitization |
+| `git.md` | Commit-Format, Branches |
+| `deployment.md` | Symlinks, Anker-System |
+| `documentation.md` | Doku-Workflow, Templates |
+
+Einstieg für Claude Code / Claude.ai: `.claude/CLAUDE.md`
+
+**Weitere Dateien:**
 
 - **Deployment:** `DEPLOYMENT.md`
 - **Secrets:** `shared/home/mrohwer/.secrets/SECRETS.md`
-- **Project Notes:** `PROJECT_NOTES.md`
 - **Planung:** `ROADMAP.md`
 - **Historie:** `CHANGELOG.md`
 
@@ -139,7 +154,7 @@ Die README ist bewusst nur der Überblick.
 
 ## Kontakt
 
-**Autor:** Michael Rohwer\
+**Autor:** MR-ByteZ\
 **Email:** [mail@mr-bytez.de](mailto\:mail@mr-bytez.de)
 
 ---

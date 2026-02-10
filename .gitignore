@@ -65,3 +65,11 @@ htmlcov/
 # Web-Projekte (Shopware Migrationen etc.)
 # Enthalten mehrere GB an Shop-Daten - NICHT tracken!
 projects/web/
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Sanitization (NIEMALS committen!)
+# ══════════════════════════════════════════════════════════════════════════════
+*sanitization*
+*matrix*
+*-real.md
+*.unsanitized
