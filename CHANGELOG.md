@@ -13,6 +13,11 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs][Structure] Handoff-Policy definiert und in policies.md integriert
 - [Structure] Handoff-Ordner umstrukturiert: todo_aus_chats.../ → .claude/context/handoffs/
 - [Structure] 5 offene Handoffs verschoben und nach Tag-Konvention umbenannt
+- [Config] Zwei neue Tags: `[Community]` (COM) und `[Learn]` (LRN) in tags.md
+- [Docs] HANDOFF_[Learn][Stack]_mr-bytez-learn-projektplan.md erstellt
+
+### Fixed
+- [Docs] Veraltete Handoff-Verweise in 5 Projekt-Placeholdern korrigiert (5-3-3)
 
 ### Changed
 - [Docs] Projektanweisungen aktualisiert (neuer Handoff-Ablageort)
