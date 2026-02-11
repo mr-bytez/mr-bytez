@@ -45,6 +45,10 @@ Git-Workflow:
 - Commit-Format: [Tag1][Tag2] Beschreibung, Tags aus context/tags.md
 - Ausfuehrliche Messages: was, warum, wo
 - Chat-Link bei strategischen Commits: Chat: https://claude.ai/chat/<id>
+- CHANGELOG-Regel: CHANGELOG (und ggf. ROADMAP) VOR dem Commit aktualisieren!
+  Alles in EINEM Commit, kein separater Folge-Commit fuer CHANGELOG
+- Handoff-Bereinigung: Erledigte Handoffs VOR dem Commit loeschen/archivieren!
+  Gehoert in denselben Commit wie die erledigten Aenderungen
 
 Aufgaben-Delegation:
 - Strategisches im Chat besprechen (Planung, Architektur, Reviews)

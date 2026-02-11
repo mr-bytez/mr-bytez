@@ -7,6 +7,29 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.3] - 2026-02-11
+
+### Changed
+- [Docs][Structure] tasks/ Ordner aufgeloest (redundant mit Handoff-System)
+  - `structure.md`: tasks/-Verweis entfernt, Typ 3 Community-Projekte ergaenzt,
+    Wann-was-wohin Tabelle erweitert (Handoffs, Projektanweisungen)
+  - `integration.md`: Claude Code Context-Management (Kontextfenster, /clear, /compact,
+    Session-State Pattern, Subagents, CLAUDE.md schlank halten) + MCP Server Kandidaten
+    (Sequential Thinking, Context7, GitHub MCP)
+  - `policies.md`: Delegation-Abschnitt bei Handoff-Policy ergaenzt
+  - `git.md`: CHANGELOG-Regel ergaenzt (VOR dem Commit aktualisieren, ein Commit)
+  - `.claude/README.md`: Aktualisiert-Datum
+- [Config] Zwei neue Workflow-Regeln in `git.md` verankert:
+  - CHANGELOG/ROADMAP immer VOR dem Commit aktualisieren, nie als separater Folge-Commit
+  - Erledigte Handoffs VOR dem Commit loeschen/archivieren (selber Commit)
+- [Config] Handoff-Lifecycle in `policies.md` praezisiert (Bereinigung im selben Commit)
+
+### Removed
+- [Structure] `.claude/tasks/` geloescht (Workflow laeuft ueber Handoff-System)
+- [Cleanup] Erledigten Handoff geloescht: HANDOFF_[Docs][Structure]_tasks-konsolidierung-integration-update.md
+
+---
+
 ## [0.7.2] - 2026-02-11
 
 ### Changed

@@ -119,6 +119,87 @@ Claude.ai
 
 ---
 
+## Claude Code — Context-Management
+
+### Context Window (Kontextfenster)
+
+- Standard: 200k Tokens (alle Modelle)
+- Context = Nachrichten + Antworten + gelesene Dateien + Tool-Outputs + Thinking
+- Performance degradiert deutlich ab ~70% Auslastung
+- Auto-Compact (automatische Verdichtung) triggert bei ca. 75%
+
+### Wann /clear oder neuen Chat starten
+
+- Context-Meter (Kontextanzeige unten rechts) bei >70%
+- Themenwechsel (anderes Projekt/andere Aufgabe)
+- Claude faengt an Sachen zu vergessen oder Loops (Schleifen) zu bauen
+- Nach jedem abgeschlossenen Milestone (Meilenstein)
+
+### Befehle
+
+| Befehl | Zweck |
+|--------|-------|
+| `/clear` | Context komplett zuruecksetzen (zwischen Aufgaben) |
+| `/compact <Anweisung>` | Gezielt verdichten, z.B. `/compact Fokus auf Fish-Aenderungen` |
+| `Esc + Esc` / `/rewind` | Checkpoint (Sicherungspunkt) waehlen, ab dort zusammenfassen |
+
+### Session-State Pattern (Sitzungszustand-Muster)
+
+Bei langen Sessions Fortschritt in Datei sichern statt Context vollaufen lassen:
+
+1. `Schreib den aktuellen Fortschritt in session-notes.md`
+2. `/clear`
+3. `@session-notes.md` — Weiter wo wir aufgehoert haben
+
+### Subagents (Unter-Agenten)
+
+Fuer Recherche-Aufgaben Subagents nutzen — laufen in separatem Context:
+
+```
+Nutze einen Subagent um unser Fish-Alias-System zu analysieren
+und berichte die Ergebnisse zurueck.
+```
+
+Haelt den Haupt-Context sauber fuer die eigentliche Implementierung.
+
+### CLAUDE.md schlank halten
+
+Jede Zeile in CLAUDE.md wird bei JEDER Nachricht erneut verarbeitet.
+Nur essentielle Regeln und Verweise dort ablegen, Details in context/*.md.
+
+---
+
+## MCP Server — Kandidaten
+
+Ergaenzend zum geplanten eigenen MCP Server (siehe unten) gibt es
+fertige MCP Server die sofort nutzbar sind:
+
+| Server | Zweck | Prioritaet | API-Key noetig? |
+|--------|-------|------------|-----------------|
+| Sequential Thinking | Strukturierter Denkprozess fuer komplexe Architektur | Hoch | Nein |
+| Context7 | Echtzeit-Dokumentation aus Quell-Repos | Mittel | Nein |
+| GitHub MCP | PRs, Issues, CI/CD direkt aus Claude Code | Mittel | Ja (PAT) |
+
+### Installation (Beispiel)
+
+```fish
+# Sequential Thinking — kein API-Key, sofort einsetzbar
+claude mcp add sequential-thinking --scope user -- npx -y @modelcontextprotocol/server-sequential-thinking
+```
+
+### Verwaltung
+
+```fish
+claude mcp list           # Alle konfigurierten Server anzeigen (Server auflisten)
+claude mcp get <n>     # Details zu einem Server (Server-Details abrufen)
+claude mcp remove <n>  # Server entfernen
+/mcp                      # Status innerhalb Claude Code pruefen
+```
+
+**Detailplanung eigener MCP Server:** → `ROADMAP.md` (A4)
+
+---
+
 ## MCP Server (Geplant)
 
 - TypeScript MCP Server für n8-vps Production

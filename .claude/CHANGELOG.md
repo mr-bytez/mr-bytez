@@ -5,6 +5,23 @@
 
 ---
 
+## [1.2.0] - 2026-02-11
+
+### Changed
+- `context/structure.md`: tasks/-Verweis entfernt, Typ 3 Community-Projekte,
+  Wann-was-wohin erweitert
+- `context/integration.md`: Context-Management + MCP Server Kandidaten
+- `context/policies.md`: Delegation-Abschnitt bei Handoff-Policy
+- `context/git.md`: CHANGELOG-Regel + Handoff-Bereinigung (VOR Commit) + Validierungs-Checkliste
+- `context/policies.md`: Handoff-Lifecycle praezisiert (Bereinigung im selben Commit)
+- `context/claude-ai-projektanweisungen.txt`: Beide neue Regeln ergaenzt
+- `README.md`: Aktualisiert-Datum
+
+### Removed
+- `tasks/` Ordner komplett geloescht (redundant mit Handoff-System)
+
+---
+
 ## [1.1.0] - 2026-02-10
 
 ### Added

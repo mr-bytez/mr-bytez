@@ -124,6 +124,7 @@ Updated Fish config
 - [ ] Bei Multi-File: Alle Bereiche getaggt?
 - [ ] Bei Breaking Change: Deutlich markiert?
 - [ ] Bei Security: `[Security]` Tag vorhanden?
+- [ ] CHANGELOG aktualisiert (im selben Commit)?
 
 ---
 
@@ -147,15 +148,36 @@ git status
 # 3. Staging
 git add .
 
-# 4. Commit mit AUSFÜHRLICHER Message
+# 4. CHANGELOG (und ggf. ROADMAP) aktualisieren
+#    IMMER VOR dem Commit! Nie als separater Folge-Commit.
+
+# 5. Commit mit AUSFÜHRLICHER Message
 git commit -m "[Kategorie] Beschreibung
 
 - Detail 1
 - Detail 2"
 
-# 5. Push zu beiden Remotes
+# 6. Push zu beiden Remotes
 git push origin main && git push codeberg main
 
-# 6. Claude.ai Sync (wenn relevant)
+# 7. Claude.ai Sync (wenn relevant)
 # Project Knowledge → Zahnrad → "Sync now"
 ```
+
+### CHANGELOG-Regel
+
+**CHANGELOG und ROADMAP werden VOR dem Commit aktualisiert — nicht danach!**
+
+- Alle Aenderungen (Code, Doku, CHANGELOG, ROADMAP) gehoeren in EINEN Commit
+- Kein separater "CHANGELOG aktualisiert"-Folge-Commit
+- Bei jedem Commit pruefen: Gehoert ein CHANGELOG-Eintrag dazu?
+- Root CHANGELOG: Fuer Repo-weite Aenderungen
+- .claude/CHANGELOG: Fuer .claude/-spezifische Aenderungen
+
+### Handoff-Bereinigung
+
+**Erledigte Handoffs werden VOR dem Commit abgeschlossen — nicht danach!**
+
+- Nach Erledigung aller Aufgaben: User fragen — loeschen oder archivieren?
+- Loeschen/Archivieren gehoert in denselben Commit wie die erledigten Aenderungen
+- Kein separater Folge-Commit fuer Handoff-Bereinigung

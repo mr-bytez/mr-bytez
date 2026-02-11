@@ -53,8 +53,7 @@ Projekte        → Pro Host/Stack
     ├── archive/               # Abgeschlossene Arbeit
     ├── skills/                # Globale AI-Skills
     ├── configs/               # Globale Configs
-    ├── projects/              # Projekt-spezifische .claude/ Kontexte
-    └── tasks/                 # Claude Code Task-Verwaltung
+    └── projects/              # Projekt-spezifische .claude/ Kontexte
 ```
 
 **Root hat KEIN DEPLOYMENT.md** (Deployment-Infos in .claude/context/deployment.md)
@@ -152,6 +151,24 @@ shared/stacks/mrbz-dev/
     └── home/mrohwer/.config/fish/
 ```
 
+### Typ 3: Community-Projekte
+
+**Location:** `projects/community/<projektname>/`
+
+Community-Projekte sind eigenstaendige Repositories die als
+Git Submodule eingebunden werden. Sie haben eine eigene 5-3-3 Struktur.
+
+```
+projects/community/mr-bytez-learn/
+├── (eigenes Repo mit eigener 5-3-3 Struktur)
+└── (eingebunden als Git Submodule)
+```
+
+**Aktuell geplant:**
+- mr-bytez-learn (Lernplattform, GPL v3)
+
+**Verweis:** `.claude/context/handoffs/HANDOFF_[Learn][Stack]_mr-bytez-learn-projektplan.md`
+
 ---
 
 ## Wann was wohin?
@@ -163,6 +180,8 @@ Arbeitsweise (Fish, Git)   → .claude/context/shell.md, git.md
 Security-Regeln            → .claude/context/security.md
 Hosts-Übersicht            → .claude/context/infrastructure.md
 Docker-Standards           → .claude/context/docker.md
+Handoffs (offene Aufgaben) → .claude/context/handoffs/
+Claude.ai Projektanweisungen → .claude/context/claude-ai-projektanweisungen.txt
 ```
 
 ### Projekt context/:

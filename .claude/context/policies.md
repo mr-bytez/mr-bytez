@@ -86,11 +86,19 @@ Beispiel: `HANDOFF_[Security][Git]_git-filter-cleanup.md`
 
 **Lifecycle:**
 1. **Aktiv** — Offene Aufgaben, liegt in `.claude/context/handoffs/`
-2. **Erledigt** — Claude fragt: loeschen oder archivieren?
+2. **Erledigt** — Claude fragt VOR dem Commit: loeschen oder archivieren?
    - Default: Loeschen (wenn Inhalte in Roadmap/Context integriert)
    - Archivieren nur auf expliziten Wunsch → `.claude/archive/handoffs/`
+   - Loeschen/Archivieren gehoert in denselben Commit wie die erledigten Aenderungen
+   - Kein separater Folge-Commit fuer Handoff-Bereinigung!
 
 **Selbst-Verifikation:**
 - Claude prueft bei jedem Chat-Start ob relevante Handoffs existieren
 - Claude schlaegt proaktiv vor in `.claude/context/handoffs/` nachzuschauen
 - Gilt auch ausserhalb von Ketten-Chats wenn Thema passt
+
+### Delegation an Claude Code
+
+Fuer direkte Claude Code Delegation wird der Handoff als Prompt-Vorlage genutzt.
+Der tasks/-Ordner wurde aufgeloest — alles laeuft ueber Handoffs.
+Wenn ein Handoff an Claude Code delegierbar ist, steht das im Feld "Delegation".

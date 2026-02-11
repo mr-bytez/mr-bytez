@@ -3,7 +3,7 @@
 **Pfad:** `.claude/`
 **Zweck:** Kontext, Policies und Konfiguration für Claude Code & Claude.ai
 **Erstellt:** 2026-02-04
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-11
 **Autor:** MR-ByteZ
 
 ---
