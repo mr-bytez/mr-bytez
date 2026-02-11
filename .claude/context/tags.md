@@ -26,6 +26,7 @@ Zentrale Registry fuer ALLE Tags — verwendet in Git-Commits UND Chat-Benennung
 | [Cleanup]   | CLN   | Aufraeumarbeiten, Linting             | Commits         | 2026-01 |
 | [ClaudeCode]| CLC   | Claude Code CLI Aufgaben              | Chats           | 2026-02 |
 | [Cloud]     | CLD   | Cloud-Services allgemein (Nextcloud, Immich, rclone) | Commits + Chats | 2026-02 |
+| [Community] | COM   | Community-Projekte, Outreach, Social  | Commits + Chats | 2026-02 |
 | [Config]    | CFG   | Konfigurationsdateien, Environment    | Commits + Chats | 2026-01 |
 | [Database]  | DBA   | Datenbanken allgemein (PostgreSQL, MariaDB, Redis) | Commits + Chats | 2026-02 |
 | [Deploy]    | DEP   | Deployment, symlinks.db               | Commits + Chats | 2026-01 |
@@ -39,6 +40,7 @@ Zentrale Registry fuer ALLE Tags — verwendet in Git-Commits UND Chat-Benennung
 | [Git]       | GIT   | Git-Workflow, Filter, History         | Commits + Chats | 2026-02 |
 | [Hardware]  | HRD   | Hardware-Info, System-Specs           | Commits + Chats | 2026-02 |
 | [Hotfix]    | HOT   | Notfall-Fix in Production             | Commits         | 2026-01 |
+| [Learn]     | LRN   | Lernplattform, Curriculum, Education  | Commits + Chats | 2026-02 |
 | [Mail]      | MAL   | Mail-Server allgemein, SMTP, IMAP     | Commits + Chats | 2026-02 |
 | [MCP]       | MCP   | MCP Server, Tools, RAG                | Commits + Chats | 2026-02 |
 | [Media]     | MDA   | Media-Server allgemein, Streaming     | Commits + Chats | 2026-02 |
