@@ -81,8 +81,9 @@ curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 - Installiert nach `~/.local/bin/claude`
-- PATH via `shared/etc/fish/variables/10-paths.fish` (fish_user_paths)
+- PATH via `shared/etc/fish/variables/10-paths.fish` (`~/.local/bin` in fish_user_paths)
 - Auth: OAuth mit Claude Max Plan
+- Modell: Claude Opus 4.6 (seit 05.02.2026)
 
 ### Einsatzgebiete
 
@@ -104,6 +105,17 @@ User
 Claude.ai
     ↓ Sync → sieht Ergebnis
 ```
+
+---
+
+## Claude Opus 4.6 — Features (seit 05.02.2026)
+
+| Feature | Deutsch | Beschreibung | Relevant fuer |
+|---------|---------|-------------|---------------|
+| **Effort Control** | Aufwandssteuerung | `/effort` in Claude Code: medium/high/max | Alltaegliche Nutzung |
+| **Agent Teams** | Agenten-Teams | Paralleles Arbeiten mit mehreren Agenten | A2 (Fish DRY-Refactoring) |
+| **Context Compaction** | Kontextverdichtung | Automatische Zusammenfassung bei langem Kontext | A4 (MCP Server) |
+| **1M Token Context Window** | Kontextfenster | 1 Million Tokens via API | RAG-Workflow mit Qdrant (A4) |
 
 ---
 

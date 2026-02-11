@@ -52,7 +52,9 @@ Projekte        → Pro Host/Stack
     ├── context/               # Globale Policies & Daten
     ├── archive/               # Abgeschlossene Arbeit
     ├── skills/                # Globale AI-Skills
-    └── configs/               # Globale Configs
+    ├── configs/               # Globale Configs
+    ├── projects/              # Projekt-spezifische .claude/ Kontexte
+    └── tasks/                 # Claude Code Task-Verwaltung
 ```
 
 **Root hat KEIN DEPLOYMENT.md** (Deployment-Infos in .claude/context/deployment.md)
@@ -71,9 +73,15 @@ context/
 ├── docker.md              # Container, Netzwerke, Naming (mrbz-*)
 ├── deployment.md          # Symlinks, Anker, Host-Setup
 ├── documentation.md       # Doku-Workflow, MD-Update-Regel
-├── integration.md         # Claude GitHub, MCP, Sync
+├── integration.md         # Claude GitHub, MCP, Sync, Opus 4.6
 ├── infrastructure.md      # Hosts-Matrix (sanitized), IPs, SSH
-└── structure.md           # Dieses Dokument
+├── structure.md           # Dieses Dokument
+├── tags.md                # Tag-Registry (Commits & Chat-Benennung)
+├── migration.md           # Alte → Neue Struktur (archiviert)
+├── claude-ai-projektanweisungen.txt  # Versionierte Projektanweisungen
+│
+└── handoffs/              # Aktive Handoff-Dokumente
+    └── HANDOFF_[Tag1][Tag2]_beschreibung.md
 ```
 
 ### Zweck:
@@ -287,4 +295,4 @@ Stack-Configs (Docker)     → shared/stacks/.../configs/
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-05
+**Letzte Aktualisierung:** 2026-02-11

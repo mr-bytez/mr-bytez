@@ -66,6 +66,7 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 | host-dev Config | `projects/infrastructure/n8-kiste/` |
 | host-vps Config | `projects/infrastructure/n8-vps/` |
 | container-dev Stack | `shared/stacks/mrbz-dev/` ⭐ NICHT in projects/ |
+| MCP Server | `projects/infrastructure/mcp-server/` |
 | Shared Configs | `shared/etc/fish/`, `shared/usr/local/share/micro/` |
 | Secrets | `shared/home/mrohwer/.secrets/` (Submodule) |
 | Scripts | `scripts/` (hwi, scan-secrets) |
