@@ -7,6 +7,25 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.2] - 2026-02-11
+
+### Changed
+- [Docs][Structure] Context-Audit: 3 Context-Dateien aktualisiert
+  - `structure.md`: 6 Deltas ergaenzt (tags.md, handoffs/, claude-ai-projektanweisungen.txt,
+    migration.md im Listing, .claude/projects/ und .claude/tasks/ Verzeichnisse)
+  - `integration.md`: Claude Opus 4.6 Features-Abschnitt (Effort Control, Agent Teams,
+    Context Compaction, 1M Token Window) + PATH-Detail + Modell-Info
+  - `infrastructure.md`: mcp-server Projekt-Location ergaenzt
+
+### Added
+- [Docs] Claude Opus 4.6 Features in `integration.md` dokumentiert (verfuegbar seit 05.02.2026)
+
+### Removed
+- [Cleanup] Erledigten Handoff geloescht: HANDOFF_[DOC][STR]_context-audit-opus46.md
+- [Structure] `migration.md` nach `.claude/archive/` verschoben (alle 11 Schritte erledigt)
+
+---
+
 ## [0.7.1] - 2026-02-11
 
 ### Added
@@ -323,4 +342,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-10
+**Letzte Aktualisierung:** 2026-02-11

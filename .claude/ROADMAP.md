@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-11
 **Autor:** MR-ByteZ
 
 ---
@@ -10,7 +10,7 @@
 ## Phase 1: Foundation ✅ DONE
 
 - [x] `.claude/` Struktur definiert (5-3-3 Pattern)
-- [x] Migration-Plan erstellt (`context/migration.md`)
+- [x] Migration-Plan erstellt (`archive/migration.md`, ehemals context/)
 - [x] Struktur-Definition erstellt (`context/structure.md`)
 
 **Abgeschlossen:** 2026-02-05

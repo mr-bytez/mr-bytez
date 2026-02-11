@@ -220,9 +220,9 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 ## Timing-Matrix
 
 ```
-C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) — sofort, verbessert Workflow
+C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
-A1 Secrets-Repo Restrukturierung + B1, B9, B10, D9, D13
+A1 Secrets-Repo Restrukturierung + B1, B9, B10, D9, D13  ← NAECHSTER SCHRITT
   ↓
 A2 Fish DRY-Refactoring + B2, B3, B4, B6, B7 → danach B5+B17
   ↓
@@ -280,6 +280,14 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 - `PROJECT_NOTES.md` aufgeteilt in 11 context/ Dateien
 - `CLAUDE.md` als zentrale Steuerung
 - Root-Dateien bereinigt (keine verwaisten Referenzen)
+
+**C1+C2 Policies:** ✅
+- Chat-Benennung v2 (Format, Ketten-System, Datum-Ermittlung)
+- Tag-Registry mit 67 Tags (3-Zeichen-Index, generisch + dienst-spezifisch)
+- Handoff-Policy definiert + Ordner umstrukturiert
+- Context-Audit: structure.md, integration.md, infrastructure.md aktualisiert
+- Opus 4.6 Features in integration.md dokumentiert
+- migration.md archiviert (alle Schritte erledigt)
 
 **DNS-Infrastruktur:**
 - Wildcard A+AAAA Records fuer `*.mr-bytez.de` → n8-vps
@@ -378,4 +386,4 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-10
+**Letzte Aktualisierung:** 2026-02-11
