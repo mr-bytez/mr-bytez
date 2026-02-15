@@ -110,8 +110,8 @@ SSH-Port: 61020 (nicht 22!)
 
 Aktive Roadmap (Reihenfolge):
 → ROADMAP.md (Root)
-C1+C2: Policies (Chat-Benennung v2, Tag-Registry) — aktuell
-A1: Secrets-Repo Restrukturierung → mr-bytez-secrets
+C1+C2: Policies (Chat-Benennung v2, Tag-Registry) — erledigt
+A1: Secrets-Repo Restrukturierung → mr-bytez-secrets — aktuell
 A2: Fish DRY-Refactoring → shared/etc/fish/
 A3: Claude Dev Container → shared/stacks/mrbz-dev/
 A4: MCP Server → projects/infrastructure/mcp-server/

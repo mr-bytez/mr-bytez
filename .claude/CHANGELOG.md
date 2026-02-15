@@ -5,6 +5,16 @@
 
 ---
 
+## [1.2.1] - 2026-02-11
+
+### Added
+- `context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
+
+### Changed
+- `context/claude-ai-projektanweisungen.txt`: C1+C2 erledigt, A1 aktuell
+
+---
+
 ## [1.2.0] - 2026-02-11
 
 ### Changed

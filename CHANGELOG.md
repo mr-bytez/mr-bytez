@@ -7,6 +7,16 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.4] - 2026-02-11
+
+### Added
+- [Docs][Secrets] Neuer Handoff: HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md
+
+### Changed
+- [Docs] Projektanweisungen aktualisiert: C1+C2 als erledigt, A1 als aktuell markiert
+
+---
+
 ## [0.7.3] - 2026-02-11
 
 ### Changed
