@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-02-10
+**Stand:** 2026-02-17
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -162,6 +162,19 @@ sudo ln -sfn /opt/mr-bytez/current/shared/usr/local/share/micro /usr/local/share
 ls -la /usr/local/share/micro
 ```
 
+**hwi — Hardware Info Script:**
+
+```fish
+sudo ln -sf /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh /usr/local/bin/hwi
+
+# Prüfen
+ls -la /usr/local/bin/hwi
+# → /usr/local/bin/hwi -> /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh
+```
+
+> **Was ist hwi?** Hardware-Audit-Script das detaillierte Hardware-Infos eines Hosts erfasst
+> und als `HARDWARE.md` ablegt. Details: `shared/usr/local/bin/hwi/`
+
 ### 7. User Fish Config & Micro Settings deployen
 
 **Fish User Config:**
@@ -210,6 +223,20 @@ exit
 - ✅ Fish Config geladen (siehe Debug-Output)
 - ✅ Alle Aliases funktionieren (`ll`, `gst`, `dps`)
 - ✅ Micro mit Gruvbox-Theme & external Clipboard (xclip/wl-clipboard)
+
+### 10. Hardware-Audit durchfuehren
+
+Nach jedem Host-Deployment einmal ausfuehren, um die Hardware zu dokumentieren:
+
+```fish
+sudo hwi mrbz
+# Erzeugt: /mr-bytez/projects/infrastructure/<hostname>/HARDWARE.md
+```
+
+> **WICHTIG:** `HARDWARE.md` enthaelt sensible Hardware-Details und wird
+> **NICHT committet** (in `.gitignore`). Die Datei bleibt nur lokal auf dem Host
+> und kann von Claude Code (lokal) gelesen werden — nicht von Claude.ai.
+> Details zum Script: `shared/usr/local/bin/hwi/`
 
 ---
 
@@ -353,6 +380,31 @@ Danach zeigen alle System-Symlinks automatisch auf die „neue" Version.
 
 ## Troubleshooting
 
+### Nach pacman -Syu: Fish Loader-Symlink pruefen
+
+**Symptom:** Nach einem System-Update (`pacman -Syu`) funktioniert Fish nicht mehr korrekt oder der Prompt fehlt.
+
+**Ursache:** Wenn `fish` ueber pacman aktualisiert wird, kann `/etc/fish/conf.d/` geleert oder ueberschrieben werden. Der Loader-Symlink `/etc/fish/conf.d/00-loader.fish` geht dabei verloren.
+
+**Fix:**
+
+```fish
+# Pruefen ob /etc/fish noch unser Symlink ist
+ls -la /etc/fish
+# Erwartet: /etc/fish -> /opt/mr-bytez/current/shared/etc/fish
+
+# Falls /etc/fish kein Symlink mehr ist:
+sudo mv /etc/fish /etc/fish.backup
+sudo ln -sfn /opt/mr-bytez/current/shared/etc/fish /etc/fish
+
+# Neu einloggen
+exit
+```
+
+**Empfehlung:** Nach jedem `pacman -Syu` kurz pruefen ob `/etc/fish` noch korrekt verlinkt ist.
+
+---
+
 ### Fish Prompt lädt nicht / Keine Farben
 
 **Symptom:** Normaler Bash-Prompt oder Fish ohne Powerline
@@ -483,4 +535,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-02-10
+**Stand:** 2026-02-17

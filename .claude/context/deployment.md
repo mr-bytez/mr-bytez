@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-17
 **Autor:** MR-ByteZ
 
 ---
@@ -28,6 +28,7 @@ Systemweit referenzieren wir **nicht direkt** `/mr-bytez`, sondern immer den sta
 |----------------|---------------------|------|
 | `/etc/fish` | `/opt/mr-bytez/current/shared/etc/fish` | ja |
 | `/usr/local/share/micro` | `/opt/mr-bytez/current/shared/usr/local/share/micro` | ja |
+| `/usr/local/bin/hwi` | `/opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh` | ja |
 
 ---
 
@@ -113,6 +114,22 @@ sudo ln -sfn /mr-bytez-v1_fish_micro_secrets /opt/mr-bytez/current
 ```
 
 Danach zeigen alle System-Symlinks automatisch auf die neue Version.
+
+---
+
+## Hinweis: pacman -Syu und Fish
+
+Nach einem System-Update (`pacman -Syu`) kann Fish aktualisiert werden.
+Dabei wird `/etc/fish/conf.d/` moeglicherweise geleert oder ueberschrieben.
+
+**Nach jedem `pacman -Syu` pruefen:**
+
+```fish
+ls -la /etc/fish
+# Muss Symlink sein: /etc/fish -> /opt/mr-bytez/current/shared/etc/fish
+```
+
+Falls nicht mehr korrekt → Symlink neu setzen (siehe `DEPLOYMENT.md` Troubleshooting).
 
 ---
 

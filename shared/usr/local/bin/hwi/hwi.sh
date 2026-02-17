@@ -1,15 +1,16 @@
 #!/bin/bash
 
 # Hardware Info Script (hwi)
-# Version: 3.1.0
+# Version: 3.1.1
 # Beschreibung: Multi-Distro Hardware-Audit mit flexiblem Output
-# Speicherort: ~/.local/bin/hwi.sh
+# Speicherort: /mr-bytez/shared/usr/local/bin/hwi/hwi.sh
+# Symlink: /usr/local/bin/hwi -> /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh
 # Output:
 #   - Standard: ~/hostname_hardware.md
 #   - Mit -o: /custom/path/hostname_hardware.md
 #   - Mit mrbz: /mr-bytez/projects/infrastructure/hostname/HARDWARE.md
-# Autor: mrohwer
-# Datum: 2025-02-05
+# Autor: MR-ByteZ
+# Datum: 2026-02-17
 
 set -euo pipefail
 
@@ -17,7 +18,7 @@ set -euo pipefail
 # KONFIGURATION
 # ═══════════════════════════════════════════════════════
 
-SCRIPT_VERSION="3.1.0"
+SCRIPT_VERSION="3.1.1"
 REAL_USER=${SUDO_USER:-$(whoami)}
 REAL_HOME=$(eval echo ~${REAL_USER})
 DATE_ONLY=$(date +%Y%m%d)

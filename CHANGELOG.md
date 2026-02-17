@@ -7,6 +7,30 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.5] - 2026-02-17
+
+### Changed
+- [Structure] hwi-Script verschoben: `scripts/hwi/` → `shared/usr/local/bin/hwi/`
+  - Spiegelt Linux-Verzeichnisstruktur (`/usr/local/bin/`)
+  - Konsistent mit `shared/etc/fish/` und `shared/usr/local/share/micro/`
+- [Deploy] hwi-Symlink nutzt jetzt den stabilen Anker `/opt/mr-bytez/current/`
+  - Alt: `/mr-bytez/scripts/hwi/hwi.sh` (direkt, ohne Anker)
+  - Neu: `/opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh`
+- [Deploy] hwi in Aktive-System-Symlinks-Tabelle ergaenzt (`.claude/context/deployment.md`)
+- [Docs] pacman -Syu Hinweis ergaenzt: Fish-Symlink nach System-Update pruefen
+  - `DEPLOYMENT.md` (Root): Troubleshooting-Sektion
+  - `.claude/context/deployment.md`: Neuer Abschnitt
+
+### Added
+- [Docs] 5-3-3 Docs fuer hwi vervollstaendigt: CLAUDE.md, CHANGELOG.md, ROADMAP.md
+- [Docs] README.md (hwi) aktualisiert: Autor, Repo-Pfad-Uebersicht
+- [Deploy] Neuer Deployment-Schritt 10: `sudo hwi mrbz` nach Host-Deployment ausfuehren
+- [Security] HARDWARE.md in `.gitignore` — sensible Hardware-Infos bleiben lokal
+  - Nur von Claude Code (lokal) lesbar, nicht von Claude.ai
+- [Docs] Root README.md: hwi-Symlink + Hardware-Audit in Struktur und Status ergaenzt
+
+---
+
 ## [0.7.4] - 2026-02-11
 
 ### Added

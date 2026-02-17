@@ -3,7 +3,7 @@
 **Version:** 0.7.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-10\
+**Aktualisiert:** 2026-02-17\
 **Autor:** MR-ByteZ
 
 ---
@@ -47,6 +47,7 @@ Enthält:
 ```text
 /mr-bytez/
 ├── shared/                      # Shared Resources (alle Hosts)
+│   ├── usr/local/bin/           # System-weite Scripts (hwi)
 │   ├── usr/local/share/         # System-weite Configs
 ├── etc/                         # System Configs
 │   └── fish/                    # Fish Shell v2.x (Loader, Theme, Aliases, Functions)
@@ -90,6 +91,11 @@ Enthält:
 - [x] System-Symlinks laufen über den Anker (kein Symlink-Wildwuchs)
   - `/etc/fish -> /opt/mr-bytez/current/shared/etc/fish`
   - `/usr/local/share/micro -> /opt/mr-bytez/current/shared/usr/local/share/micro`
+  - `/usr/local/bin/hwi -> /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh`
+- [x] Hardware-Audit Script (hwi) — erfasst Hardware-Infos pro Host
+  - Nach jedem Deployment: `sudo hwi mrbz` → erzeugt lokale `HARDWARE.md`
+  - HARDWARE.md ist gitignored (sensible Daten, nur lokal fuer Claude Code)
+  - Details: `shared/usr/local/bin/hwi/`
 - [x] SSH-Config wird **nicht** mehr aus dem Repo deployt (nur Template)
   - Repo enthält nur: `shared/home/mrohwer/.ssh/config.example`
 - [ ] Docs-Struktur weiter ausbauen (klarer “Start here”-Pfad)

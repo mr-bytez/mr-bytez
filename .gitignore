@@ -73,3 +73,11 @@ projects/web/
 *matrix*
 *-real.md
 *.unsanitized
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Hardware-Infos (privat, nur lokal fuer Claude Code)
+# ══════════════════════════════════════════════════════════════════════════════
+# Erzeugt von: sudo hwi mrbz
+# Pfad: projects/infrastructure/<hostname>/HARDWARE.md
+# Enthaelt sensible Hardware-Details — NUR lokal, NIE committen!
+HARDWARE.md
