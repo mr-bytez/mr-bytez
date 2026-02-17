@@ -12,7 +12,12 @@
 
 ---
 
+## Erledigt (Deployment)
+
+- ✅ n8-archstick: Symlink aktualisiert + `sudo hwi mrbz` ausgefuehrt
+- ✅ n8-kiste: Symlink auf Anker-Pfad aktualisiert
+
 ## Offen
 
-- 🔲 n8-archstick: hwi deployen
-- 🔲 Bestehende Symlinks auf n8-kiste + n8-station auf Anker-Pfad aktualisieren
+- 🔲 n8-station: Symlink auf Anker-Pfad aktualisieren + `sudo hwi mrbz` ausfuehren
+- 🔲 n8-kiste: `sudo hwi mrbz` erneut ausfuehren (HARDWARE.md hat noch altes Datum 07.02.)
