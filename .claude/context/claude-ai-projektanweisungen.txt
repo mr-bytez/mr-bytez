@@ -49,6 +49,8 @@ Git-Workflow:
   Alles in EINEM Commit, kein separater Folge-Commit fuer CHANGELOG
 - Handoff-Bereinigung: Erledigte Handoffs VOR dem Commit loeschen/archivieren!
   Gehoert in denselben Commit wie die erledigten Aenderungen
+- Keine Hash-Endlosschleife: Letzter Commit-Hash (Handoff-/CHANGELOG-Update)
+  wird NICHT nochmal nachgetragen. Handoffs dokumentieren inhaltliche Commits, nicht sich selbst.
 
 Aufgaben-Delegation:
 - Strategisches im Chat besprechen (Planung, Architektur, Reviews)
