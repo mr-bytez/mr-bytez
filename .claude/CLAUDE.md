@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-24
 **Autor:** MR-ByteZ
 
 ---
@@ -68,12 +68,7 @@ Dieses Repo folgt dem **5-3-3 Pattern** (5 Docs, 3 Ordner, 3 Ebenen).
 
 ---
 
-## Mandatory Policies (Kurzreferenz)
+## Policies
 
-- **Fish-first:** Keine Bash-Heredocs, `printf` statt `cat <<EOF`
-- **cat-Alias-Falle:** Immer `command cat` für Tokens/Keys
-- **Commits:** Nur auf n8-kiste, Push zu beiden Remotes (origin + codeberg)
-- **Docs-first:** Dokumentation VOR Code committen
-- **Additive-Only:** Zentrale MDs nur ergänzen, nicht kürzen
-- **Secrets:** Nur Age-verschlüsselt, nie Klartext im Repo
-- **Sprache:** Doku + Kommentare Deutsch, Variablen Englisch
+→ Siehe Root: `CLAUDE.md` — Alle Policies und Shell-Regeln
+→ Detail-Policies: `.claude/context/` (shell, git, security, docker, deployment, ...)

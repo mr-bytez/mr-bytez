@@ -7,6 +7,20 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.7.6] - 2026-02-24
+
+### Changed
+- [Docs][Config] Root CLAUDE.md ueberarbeitet — 4 Verbesserungen nach Review
+  - Co-Authored-By in Commits explizit unterdrueckt (Git-Workflow)
+  - CHANGELOG-Regel unter Zentrale Policies ergaenzt (haeufige Fehlerquelle)
+  - pacman -Syu Warning unter Shell-Regeln ergaenzt (Symlink-Pruefung)
+  - Redundante "Mandatory Policies" in .claude/CLAUDE.md durch Verweis auf Root ersetzt
+
+### Notes
+- [Config] 2 Vorschlaege bewusst abgelehnt (command-cat Erweiterung + Fish Quick-Ref) — bereits ausreichend dokumentiert, wuerde gegen Keine-Redundanz-Policy verstossen
+
+---
+
 ## [0.7.5] - 2026-02-17
 
 ### Changed

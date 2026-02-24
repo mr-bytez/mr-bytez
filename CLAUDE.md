@@ -18,6 +18,7 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - Variablen: `set -x VAR value` (nicht `export`)
 - Substitution: `(cmd)` (nicht `$(cmd)`)
 - Datei-Generierung: `printf '%s\n' 'Zeile1' 'Zeile2' > datei.txt`
+- **Nach `pacman -Syu`:** `/etc/fish` Symlink pruefen! (→ `.claude/context/deployment.md`)
 
 → Details: `.claude/context/shell.md`
 
@@ -29,6 +30,7 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - CHANGELOG + ROADMAP im selben Commit aktualisieren, kein Folge-Commit
 - Erledigte Handoffs im selben Commit loeschen/archivieren
 - Bei strategischen Commits: Chat-Link als letzte Zeile der Message
+- Kein Co-Authored-By in Commits — nicht erwuenscht, bitte unterdruecken
 
 → Details: `.claude/context/git.md`
 
@@ -44,6 +46,7 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - **Keine Redundanz:** Policies EINMAL in `.claude/context/` definieren, Projekte verweisen zurueck
 - **Secrets:** Nur Age-verschluesselt im Submodule `shared/home/mrohwer/.secrets/`, nie Klartext im Repo
 - **Deployment:** System-Symlinks zeigen auf `/opt/mr-bytez/current`, nie direkt auf `/mr-bytez`
+- **CHANGELOG-Regel:** CHANGELOG + ROADMAP VOR dem Commit aktualisieren, alles in EINEM Commit
 
 ## Handoffs
 
