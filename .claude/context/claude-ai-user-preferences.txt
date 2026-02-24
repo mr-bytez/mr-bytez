@@ -1,0 +1,76 @@
+Dieses Dokument ist versioniert im Repo:
+→ .claude/context/claude-ai-user-preferences.txt
+Bei groesseren Aenderungen an Praeferenzen muss dieses Dokument
+reviewt und angepasst werden.
+
+Haupt-Projekt: mr-bytez
+Mein aktives Projekt ist "mr-bytez" (Meta-Repository fuer Arch Linux Infrastruktur).
+Source of Truth fuer alle projektspezifischen Regeln: .claude/context/ im Repo.
+Projektanweisungen im Projekt enthalten die mr-bytez-spezifischen Details.
+Bei Fragen zu Repo-Struktur, Tags, Git-Workflow → immer zuerst dort nachschauen.
+
+Kommunikation:
+- Kurze, praegnante Antworten — keine unnoetige Ausfuehrlichkeit
+- Erst verstehen, dann umsetzen — bei Unklarheit nachfragen
+- NICHT raten — Optionen vorschlagen statt alleine entscheiden
+- Schritt fuer Schritt vorgehen, Output validieren bevor weiter
+- Erst ein Thema abschliessen, dann naechstes
+- Zusammenfassungen nach komplexen Phasen
+- Sprache: Deutsch fuer Erklaerungen und Kommentare im Code
+- Emojis im Chat willkommen fuer visuellen Kontext
+
+Code-Aenderungen:
+- Keine automatischen Dateierstellungen — nur auf explizite Anfrage
+- Kleine Aenderungen: Zeilennummer + Zeile davor/danach fuer Kontext
+- Format: "In dateiname Zeile X ersetzen" oder diff-aehnlich
+- Vollstaendiger Code nur bei groesseren Umstrukturierungen
+- Bei groesseren Refactorings: Vorher nachfragen und Umfang erklaeren
+
+Befehlsbloecke:
+- Befehle als Bloecke liefern (nicht einzeln), nur aufteilen wenn Output noetig
+- Befehle in EINEM Block zusammenfassen solange kein Output dazwischen noetig ist
+- NICHT mehrere separate Codeboxen nacheinander wenn sie ohne Output-Pruefung laufen koennen
+- Ziel: Minimale Copy+Paste-Aktionen fuer den User
+- Im Block untereinander, NICHT mit && verkettet
+- Codeboxen enthalten NUR ausfuehrbaren Code — KEINE Beschreibungen darin
+- Erklaerungen IMMER ausserhalb der Codeboxen
+- echo/printf oder set_color mit Beschreibung vor jedem Befehl
+- IMMER nach Output fragen waehrend Projekt laeuft
+
+Shell-Umgebung:
+Fish Shell (Standard):
+- NIEMALS EOF oder Bash-Heredoc verwenden (funktioniert nicht in Fish!)
+- Fish-Syntax: set -x VAR value, (command) statt $()
+- grep IMMER als "command grep" verwenden (wegen Alias!)
+- Datei-Erstellung: echo/printf fuer kleine Dateien, Editor fuer 20+ Zeilen
+Editor-Wahl:
+- System-Dateien mit sudo: micro (sudo micro /etc/config)
+- Normale Arbeit ohne sudo: code
+- Nach Editor-Bearbeitung: cat zur Validierung
+
+Code-Konventionen:
+Allgemein:
+- Semantisch korrekter, gut strukturierter Code
+- Ausfuehrliche Kommentare auf Deutsch
+- Klare Variablen-/Funktionsnamen
+- OOP bevorzugen (SOLID-Prinzipien)
+Fish: 4 Spaces, Funktionen in separate .fish Dateien
+Bash: 2 Spaces, set -euo pipefail, Shebang #!/bin/bash, "${variable}"
+YAML: 2 Spaces, NIEMALS Tabs
+Python: PEP 8, 4 Spaces, Type Hints, Docstrings
+PHP: PSR-12, 4 Spaces, declare(strict_types=1)
+Dockerfile: UPPERCASE Instructions, Multi-stage, Layer minimieren
+
+Security:
+- NUR Docker Secrets mit secretfile (keine Secrets in ENV oder Code)
+- Secrets via openssl rand -base64 32 (minimum 30 Zeichen)
+- Keys: 0400, Secrets: 0600, Public Configs: 0644, Scripts: 0755
+- Secrets nie committen (.gitignore!)
+
+Testing und Validierung:
+- Syntax-Check bei Configs
+- Service-Status nach Restart
+- Logs pruefen (journalctl)
+- Backup VOR groesseren Aenderungen
+- Troubleshooting: Logs, Permissions, Syntax, Status, Netzwerk
+- Arch Wiki als primaere Quelle (bei Arch Linux)

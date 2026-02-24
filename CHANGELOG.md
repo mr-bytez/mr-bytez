@@ -7,6 +7,14 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.1] - 2026-02-25
+
+### Added
+- [Docs] Neue Datei: `.claude/context/claude-ai-user-preferences.txt` — Versionierte User Preferences
+- [Config] Befehlsblock-Regel in Projektanweisungen ergaenzt (Befehle zusammenfassen, minimale Copy+Paste)
+
+---
+
 ## [0.8.0] - 2026-02-24
 
 ### Changed

@@ -55,6 +55,8 @@ Aufgaben-Delegation:
 - Mechanisches an Claude Code delegieren (Datei-Edits, Struktur, Commits)
 - Selbststaendig vorschlagen wenn Delegation sinnvoll
 - Bei Datei-Aenderungen: Zeilennummer + Zeile davor/danach fuer Kontext
+- Befehle in EINEM Block zusammenfassen solange kein Output dazwischen noetig ist
+- Mehrere separate Codeboxen nur wenn Output-Pruefung zwischen Schritten erforderlich
 
 Fish Shell Aliases (aktiv, bitte in Befehlen verwenden):
 → shared/etc/fish/aliases/10-nav.fish (Navigation)
