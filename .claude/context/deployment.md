@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-17
+**Aktualisiert:** 2026-02-24
 **Autor:** MR-ByteZ
 
 ---
@@ -34,7 +34,7 @@ Systemweit referenzieren wir **nicht direkt** `/mr-bytez`, sondern immer den sta
 
 ## symlinks.db
 
-Alle deployten Symlinks sind dokumentiert in `shared/deployment/symlinks.db` (JSON-Format).
+Alle deployten Symlinks sind dokumentiert in `.secrets/deployment/symlinks.db` (JSON-Format, im privaten Submodule).
 
 **Format:**
 ```json
@@ -51,7 +51,7 @@ Alle deployten Symlinks sind dokumentiert in `shared/deployment/symlinks.db` (JS
 
 **Bei neuen Deployments:**
 1. Policy prüfen (darf das deployed werden?)
-2. In `shared/deployment/symlinks.db` dokumentieren
+2. In `.secrets/deployment/symlinks.db` dokumentieren
 3. In `DEPLOYMENT.md` dokumentieren
 
 ---
@@ -66,10 +66,9 @@ Alle deployten Symlinks sind dokumentiert in `shared/deployment/symlinks.db` (JS
 
 ### Verboten
 
-- `~/.ssh/config` (User-State, hochsensibel) — nur Template!
 - Echte Home-Dateien/State-Dateien (Browser-Profile, Session-State)
-- Alles was Secrets indirekt exponieren könnte
-- SSH Private Keys aus Repo deployen
+- Alles was Secrets indirekt exponieren koennte
+- SSH Private Keys aus dem PUBLIC Repo deployen
 
 > **Merksatz:** Entwickler-State ≠ Repository-State
 
@@ -79,11 +78,12 @@ Details zu Secrets-Policy → `.claude/context/security.md`
 
 ## SSH-Konfiguration
 
-Es gibt **kein** Deployment von `~/.ssh/config` oder SSH-Keys aus dem Repo.
+SSH-Config und SSH-Keys werden ueber das **private Secrets-Repo** deployt (nicht aus dem public Repo).
 
-- Repo enthält nur: `shared/home/mrohwer/.ssh/config.example`
-- Lokal kopieren und host-spezifisch anpassen
-- GitHub CLI verwendet OAuth (kein SSH-Key nötig!)
+- Gemeinsame SSH-Config: `.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+- Deployment via Anker: `/opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+- Sanitized Template bleibt im Public Repo: `shared/home/mrohwer/.ssh/config.example`
+- GitHub CLI verwendet OAuth (kein SSH-Key noetig!)
 
 ---
 

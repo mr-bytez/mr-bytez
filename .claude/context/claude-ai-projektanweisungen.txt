@@ -10,7 +10,7 @@ Repo-Root: /mr-bytez auf allen Hosts, Anker: /opt/mr-bytez/current → /mr-bytez
 
 Repositories:
 → mr-bytez (Haupt-Repo, GitHub + Codeberg)
-→ mr-bytez-secrets (Privates Submodule, eingebunden unter shared/home/mrohwer/.secrets/)
+→ mr-bytez-secrets (Privates Submodule, eingebunden unter .secrets/)
   Age-verschluesselt, Master-Password Derivation mit Hostname-Salt
   Eigene Restrukturierung geplant (A1 in Roadmap)
 
@@ -105,8 +105,8 @@ Geplant: mrbz-dev, mrbz-mcp, mrbz-qdrant, Traefik
 Security:
 → .claude/context/security.md
 Age-Encryption mit Master-Password Derivation + Hostname-Salt
-Secrets-Submodule: shared/home/mrohwer/.secrets/ (eigenes Repo: mr-bytez-secrets)
-SSH-Port: 61020 (nicht 22!)
+Secrets-Submodule: .secrets/ (eigenes Repo: mr-bytez-secrets)
+SSH-Ports: host-spezifisch (n8-kiste: 61022, n8-vps: 61020, n8-station: 63022)
 
 Aktive Roadmap (Reihenfolge):
 → ROADMAP.md (Root)
@@ -125,3 +125,5 @@ Dateiname: HANDOFF_[Tag1][Tag2]_kurzbeschreibung.md (Tags aus context/tags.md)
 Selbst-Verifikation: Bei jedem Chat-Start pruefen ob relevante Handoffs existieren.
 Proaktiv vorschlagen dort nachzuschauen — auch bei neuen Themen ohne Kette.
 Bei erledigten Handoffs: User fragen ob loeschen oder archivieren.
+Bei teilweise erledigten Handoffs: Erledigte Aufgaben VOR dem Commit als erledigt markieren.
+Handoff-Aktualisierung gehoert in denselben Commit — kein separater Folge-Commit!

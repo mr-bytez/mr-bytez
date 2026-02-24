@@ -1,30 +1,53 @@
-# HANDOFF: A1 Secrets-Repo Restrukturierung — Phase 1
+# HANDOFF: A1 Secrets-Repo Restrukturierung — Verschlüsseltes Home-Backup
 
-**Chat-Referenz:** #DOC01.3 (Pre-A1 Feinschliff)
-**Chat-Link:** https://claude.ai/chat/91ec0fd5-6128-481d-a785-1568408de844
-**Datum:** 2026-02-11
-**Status:** Offen — Naechster Schritt in der Roadmap
+**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung)
+**Chat-Links:**
+- #SEC01.1: https://claude.ai/chat/1573b769-dc58-4a7c-bac6-7ccdc03d5639
+- #SEC01.2: https://claude.ai/chat/57a23402-e625-4bae-b2cf-615791e15f56
+**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2
+**Datum:** 2026-02-24
+**Status:** Phase 1 erledigt — Phase 2+3 offen
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---
 
-## Kontext
+## Vision
 
-A1 ist das naechste Projekt nach Abschluss von C1+C2 (Policies).
-Das Secrets-Repo `mr-bytez-secrets` wird auf das 5-3-3 Pattern migriert.
+Das Secrets-Repo `mr-bytez-secrets` wird zum **verschluesselten Home-User-Backup** —
+ein Single Source of Truth fuer alle persoenlichen Dateien, Secrets, Configs und
+System-Einstellungen von `mrohwer`, versioniert und verschluesselt in einer Age-Archivdatei.
 
-**Dieser Handoff deckt NUR Phase 1 ab:** Bestehende Repo-Inhalte sauber aufstellen.
-Phase 2 (Migration der ~70 lokalen Secrets aus ~/.secrets/) folgt in einem separaten Chat.
+**Leitprinzip:** Gleiche Logik wie das Hauptrepo — Root-Ordnerstruktur mit
+`shared/` (alle Hosts) + `infrastructure/<hostname>/` (host-spezifisch).
+Deployment ueber den bestehenden Anker `/opt/mr-bytez/current/.secrets/`.
+
+**Open Source Philosophie (Zukunft):**
+- Oeffentliches Repo (mr-bytez): Generische Templates, Tools, Blueprints (z.B. `mrbz-vps`)
+- Privates Repo (mr-bytez-secrets): Verschluesseltes Archiv + produktive Instanzen (z.B. `n8-vps`)
+
+**Vier-Ebenen-Architektur:**
+
+| Ebene | Was | Wo | Wie |
+|-------|-----|-----|-----|
+| 1 | Verschluesseltes Archiv | Git-Repo (mr-bytez-secrets) | age + tar, committed |
+| 2 | Entschluesselte Secrets/Configs | /mr-bytez/.secrets/mrohwer/ | gitignored, lokal |
+| 3 | System-Symlinks | ~/.ssh, ~/.gitconfig, /etc/hosts | ueber Anker |
+| 4 | Home-Daten (gross) | ~/Dokumente, ~/Bilder, ~/Downloads | rclone crypt → GDrive (Projekt A6) |
+
+Ebene 4 (rclone) ist ein separates Projekt (A6) — wird in der ROADMAP des Secrets-Repos
+als Ausblick dokumentiert, aber NICHT in A1 umgesetzt. Die rclone.conf Ablage im Archiv
+(`shared/home/mrohwer/.config/rclone/`) wird ebenfalls erst in A6 angelegt — kein Platzhalter
+in A1 (Prinzip: start minimal, scale when needed).
 
 ---
 
-## Aktueller Stand Secrets-Repo
+## Aktueller Stand Secrets-Repo (vor Migration)
 
 **Repo:** mr-bytez-secrets (privat)
 **Einbindung:** Submodule unter `shared/home/mrohwer/.secrets/`
 **Branch:** main
 **Letzter Commit:** `6891373` — 4 Commits insgesamt
-**Remotes:** origin (Codeberg? GitHub?) — im ersten Chat pruefen!
+**Remotes:** origin = GitHub (`mr-bytez/mr-bytez-secrets`), kein Codeberg (wird in Phase 1 ergaenzt)
 
 ### Aktuell versioniert (im Repo):
 
@@ -36,7 +59,13 @@ Phase 2 (Migration der ~70 lokalen Secrets aus ~/.secrets/) folgt in einem separ
 │   ├── github.token.age         # Age-verschluesselt
 │   └── github.token.info        # Metadaten
 ├── ssh/
-│   └── mrohwer/                 # Leer im Submodule
+│   └── mrohwer/
+│       ├── id_ed25519_codeberg.age
+│       ├── id_ed25519_codeberg.info
+│       ├── id_ed25519_codeberg.pub
+│       ├── id_ed25519_github.age
+│       ├── id_ed25519_github.info
+│       └── id_ed25519_github.pub
 ├── domains.csv                  # 98 Domains, 3 Spalten
 └── SECRETS.md                   # Dokumentation (Autor noch "Michael Rohwer")
 ```
@@ -44,170 +73,504 @@ Phase 2 (Migration der ~70 lokalen Secrets aus ~/.secrets/) folgt in einem separ
 ### Unversioniert (nur lokal auf n8-kiste):
 
 ```
-smb-n8-kiste.creds               # SMB-Credentials, muss geklaert werden
+smb-n8-kiste.creds               # SMB-Credentials (root:root, 43 Bytes) → .gitignore
 ```
 
-### NICHT Teil von Phase 1 (kommt in Phase 2):
+### Lokales ~/.secrets/ auf n8-kiste (NICHT das Submodule!):
 
-Auf n8-kiste unter `~/.secrets/` liegen ~70 weitere Dateien in Kategorien:
-ai/, backup/, cloud/, databases/, licenses/, personal/, services/,
-ssl/, tools/, vpn/ — diese werden ERST in Phase 2 migriert.
+Separates Verzeichnis mit ~70 Dateien in 12 Kategorien:
+`ai/`, `api/`, `backup/`, `cloud/`, `databases/`, `licenses/`, `personal/`,
+`services/`, `ssh/`, `ssl/`, `tools/`, `vpn/` + `generate_pwd.fish`
+→ Migration nach Phase 2
 
 ---
 
-## Ziel Phase 1
+## Architektur — Drei Ebenen (A1-Scope, ohne rclone)
 
-Das Secrets-Repo bekommt eine saubere 5-3-3 Struktur als Fundament
-fuer die spaetere Migration aller Secrets.
-
-### Zielstruktur:
+### Ebene 1: Privates Repo (mr-bytez-secrets, committed + gepusht)
 
 ```
-mr-bytez-secrets/
-├── README.md                    # Ueberblick, Recovery-Anleitung
-├── CLAUDE.md                    # KI-Steuerung, Verweise
-├── CHANGELOG.md                 # Historie
-├── ROADMAP.md                   # Planung (Phase 1 + Phase 2)
-├── SECRETS.md                   # Secrets-Inventar (aktualisiert)
+mr-bytez-secrets/                    # Submodule unter /mr-bytez/.secrets/
+├── mrohwer.tar.age                  # Verschluesseltes Archiv (Single Source of Truth)
+├── README.md                        # Ueberblick, Recovery-Anleitung
+├── CLAUDE.md                        # KI-Steuerung, Verweise
+├── CHANGELOG.md                     # Historie
+├── ROADMAP.md                       # Phasenplan (inkl. A6 rclone Ausblick)
+├── domains.csv                      # Domain-Inventar (kein Secret)
+├── .gitignore                       # Ignoriert mrohwer/ (entschluesselt)
 │
-├── .claude/                     # Minimal, kein eigener context/ noetig
-│   └── CLAUDE.md                # Verweis auf Root-Policies
+└── mrohwer/                         # ← GITIGNORED! Nur lokal entpackt!
+    └── (siehe Ebene 2)
+```
+
+### Ebene 2: Entschluesselt lokal (gitignored, nur auf dem Host)
+
+```
+/mr-bytez/.secrets/mrohwer/
 │
-├── api/                         # API-Tokens (bestehend)
-│   ├── codeberg.token.age
-│   ├── codeberg.token.info
-│   ├── github.token.age
-│   └── github.token.info
+├── shared/                              # Auf ALLEN Hosts deployt
+│   ├── home/
+│   │   └── mrohwer/
+│   │       ├── .ssh/
+│   │       │   ├── config               # Gemeinsame SSH-Config
+│   │       │   ├── id_ed25519_codeberg
+│   │       │   ├── id_ed25519_codeberg.pub
+│   │       │   ├── id_ed25519_github
+│   │       │   ├── id_ed25519_github.pub
+│   │       │   ├── id_ed25519_forgejo
+│   │       │   ├── id_ed25519_timme_grills
+│   │       │   └── id_ed25519_timme_xinro
+│   │       ├── .gitconfig               # Gemeinsame Git-Config (B4)
+│   │       ├── .config/                 # User-Configs
+│   │       ├── .secrets/                # API-Tokens, Credentials
+│   │       │   ├── api/
+│   │       │   │   ├── codeberg.token
+│   │       │   │   └── github.token
+│   │       │   ├── ai/
+│   │       │   ├── cloud/
+│   │       │   ├── databases/
+│   │       │   ├── services/
+│   │       │   ├── ssl/
+│   │       │   ├── vpn/
+│   │       │   └── ...
+│   │       ├── Dokumente/               # Platzhalter → A6 rclone mount
+│   │       └── Bilder/                  # Platzhalter → A6 rclone mount
+│   └── etc/
+│       └── (shared System-Configs falls noetig)
 │
-├── ssh/                         # SSH-Keys + Config (bestehend + B1)
-│   └── mrohwer/
-│       ├── config               # NEU: Gemeinsame SSH-Config (B1)
-│       ├── id_ed25519_codeberg  # Bereits vorhanden (lokal)
-│       ├── id_ed25519_codeberg.pub
-│       ├── id_ed25519_github    # Bereits vorhanden (lokal)
-│       └── id_ed25519_github.pub
-│
-├── domains.csv                  # Domain-Inventar (bestehend)
-│
-├── .gitignore                   # Klartext-Secrets ausschliessen
-│
-└── deployment/
-    └── symlinks.db              # NEU: Verschoben aus shared/deployment/ (D9)
+├── infrastructure/
+│   ├── n8-kiste/
+│   │   ├── home/mrohwer/
+│   │   │   └── .secrets/
+│   │   │       └── smb-n8-kiste.creds
+│   │   └── etc/
+│   │       └── hosts                    # /etc/hosts fuer n8-kiste (B2)
+│   ├── n8-vps/
+│   │   ├── home/mrohwer/...
+│   │   └── etc/hosts
+│   ├── n8-station/
+│   │   ├── home/mrohwer/...
+│   │   └── etc/hosts
+│   └── ... (weitere Hosts bei Deployment)
+```
+
+### Ebene 3: System-Symlinks (ueber den Anker)
+
+```
+~/.ssh/config    → /opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.ssh/config
+~/.gitconfig     → /opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.gitconfig
+/etc/hosts       → /opt/mr-bytez/current/.secrets/mrohwer/infrastructure/<hostname>/etc/hosts
+
+# Host-spezifische Secrets ueberschreiben/ergaenzen Shared:
+# Merge-Logik: DATEI-LEVEL — Host-Datei existiert? → nimm die. Sonst → nimm shared.
+# Kein Verzeichnis-Merge, kein Zeilen-Merge. Simple Logik, kein Fehlerrisiko.
 ```
 
 ---
 
-## Aufgaben
+## SSH-Konfiguration (verifiziert 2026-02-24)
 
-### Aufgabe 1: 5-3-3 Docs erstellen
+### SSH-Ports pro Host
 
-Im Secrets-Repo folgende Dateien erstellen:
+| Host | Port | IP | Netz |
+|------|------|----|------|
+| n8-kiste | 61022 | 10.10.10.1 | LAN |
+| n8-station | 63022 | 10.10.10.3 | LAN |
+| n8-vps | 61020 (+22) | 136.243.101.223 | WAN |
 
-- **README.md** — Ueberblick, Repo-Zweck, Recovery-Kurzanleitung, Verweis auf derive_key.fish
-- **CLAUDE.md** — Verweis auf Root `.claude/context/security.md` fuer Policies
-- **CHANGELOG.md** — Bisherige 4 Commits als Historie, neuer Eintrag fuer Migration
-- **ROADMAP.md** — Phase 1 (5-3-3 Setup) + Phase 2 (Secrets-Migration) als Ausblick
+**WICHTIG:** Die Projektanweisungen + infrastructure.md sagen pauschal "SSH-Port: 61020" —
+das stimmt NUR fuer n8-vps! Jeder Host hat seinen eigenen Port. Muss korrigiert werden!
 
-### Aufgabe 2: SECRETS.md aktualisieren
+### Aktueller SSH-Zugriff (funktioniert)
 
-- Autor: "Michael Rohwer" → "MR-ByteZ"
-- Aktualisierungsdatum auf heute
-- Inventar-Tabelle pruefen und aktualisieren
-- Abschnitt fuer Phase 2 vorbereiten (Platzhalter fuer kommende Kategorien)
+- n8-kiste → n8-vps ✅
+- n8-kiste → n8-station ✅ (LAN)
 
-### Aufgabe 3: smb-n8-kiste.creds klaeren
+**Kein Zugriff (noch):**
+- n8-vps → n8-kiste (kein VPN, kein Port-Forwarding)
+- n8-vps → n8-station (kein LAN-Zugriff)
+- n8-archstick, n8-book → spaeter (ROADMAP)
 
-Entscheidung treffen:
-- Option A: Age-verschluesseln und versionieren
-- Option B: In .gitignore aufnehmen (bleibt nur lokal)
-- Option C: In Phase 2 verschieben (erst spaeter einordnen)
+### Aktuelle SSH-Configs (Ist-Zustand)
 
-### Aufgabe 4: SSH-Config Deployment (B1)
+**n8-kiste (~/.ssh/config):**
+```
+# Codeberg (origin)
+Host codeberg.org
+   HostName codeberg.org
+   User git
+   IdentityFile ~/.secrets/ssh/id_ed25519_codeberg
+   IdentitiesOnly yes
 
-Aus bestehendem Handoff `HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md`:
+# GitHub (github)
+Host github.com
+   HostName github.com
+   User git
+   IdentityFile ~/.secrets/ssh/id_ed25519_github
+   IdentitiesOnly yes
 
-1. `ssh/mrohwer/config` erstellen im Secrets-Repo
-   - Gemeinsame SSH-Config fuer alle Hosts
-   - Eintraege: n8-kiste, n8-vps, Codeberg, GitHub
-   - Port 61020 (nicht 22!)
-2. SSH-Keys aus ~/.ssh/ ins Repo uebernehmen (falls noch nicht versioniert)
-3. Symlink-Deployment dokumentieren:
-   `ln -sf /opt/mr-bytez/current/shared/home/mrohwer/.secrets/ssh/mrohwer/config ~/.ssh/config`
-4. DEPLOYMENT.md im Hauptrepo aktualisieren (neuer Schritt)
-5. symlinks.db aktualisieren
+# n8-vps
+Host n8-vps
+   HostName 136.243.101.223
+   User mrohwer
+   Port 61020
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+   AddKeysToAgent yes
 
-### Aufgabe 5: symlinks.db verschieben (D9)
+# n8-station
+Host n8-station
+   HostName 10.10.10.3
+   User mrohwer
+   Port 63022
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+   AddKeysToAgent yes
 
-1. `shared/deployment/symlinks.db` → `shared/home/mrohwer/.secrets/deployment/symlinks.db`
-2. Alle Verweise aktualisieren:
-   - DEPLOYMENT.md
-   - .claude/context/deployment.md
-   - .claude/context/structure.md
-3. Symlink im Hauptrepo erstellen falls noetig fuer Rueckwaertskompatibilitaet
+# Timme Server - grills-reduziert.de Migration
+Host grills-reduziert.de
+   HostName k56w83.meinserver.io
+   User c448304-dev.xinro.de
+   Port 22
+   IdentityFile ~/.ssh/id_ed25519_timme_grills
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
 
-### Aufgabe 6: .gitignore erstellen
+# Timme Server - xinro.de Migration
+Host xinro.de
+   HostName k56w83.meinserver.io
+   User c448304-xinro.de
+   Port 22
+   IdentityFile ~/.ssh/id_ed25519_timme_xinro
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+```
 
-Im Secrets-Repo eine .gitignore die sicherstellt:
-- Keine unverschluesselten Secrets versehentlich committet werden
-- Klartext-Dateien die in Phase 2 kommen ausgeschlossen sind
-- Muster: `*.secret` (Klartext) erlaubt, aber bewusst gesteuert
+**n8-station (~/.ssh/config):**
+```
+# Forgejo auf n8-kiste
+Host forgejo
+   HostName 10.10.10.1
+   Port 61222
+   User forgejo
+   IdentityFile ~/.ssh/id_ed25519_forgejo
+   IdentitiesOnly yes
 
-### Aufgabe 7: Validierung + Commit
+# n8-kiste
+Host n8-kiste
+   HostName 10.10.10.1
+   Port 61022
+   User mrohwer
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+```
 
-1. Secrets-Repo: git status — nur erwartete Aenderungen?
-2. Hauptrepo: Submodule-Referenz aktualisieren
-3. Beide Repos committen + pushen
-4. CHANGELOG.md in beiden Repos aktualisieren (VOR dem Commit!)
-5. Bestehenden Handoff `HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md` loeschen
-   (B1 ist dann erledigt, B2-B4 in separate Handoffs falls noch offen)
+**n8-vps (~/.ssh/config):**
+```
+# n8-vps (Self-Referenz / lokale Scripts)
+Host n8-vps
+   HostName 136.243.101.223
+   User mrohwer
+   Port 61020
+   IdentityFile ~/.ssh/id_ed25519
+```
+
+### Ziel: Gemeinsame SSH-Config (B1)
+
+Wird unter `.secrets/mrohwer/shared/home/mrohwer/.ssh/config` erstellt.
+Konsolidiert alle Eintraege — jeder Host bekommt die gleiche Datei.
+IdentityFile-Pfade muessen auf den neuen Secrets-Pfad angepasst werden:
+`~/.secrets/ssh/...` → via Symlink oder direkt auf `.ssh/` im selben Verzeichnis.
+
+**Inhalt der gemeinsamen Config:**
+```
+# ============================================
+# SSH Config — mr-bytez Infrastruktur
+# Generiert: Phase 1 A1
+# Pfad: .secrets/mrohwer/shared/home/mrohwer/.ssh/config
+# Deployed via: /opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.ssh/config
+# ============================================
+
+# ── Git Remotes ─────────────────────────────
+
+Host codeberg.org
+   HostName codeberg.org
+   User git
+   IdentityFile ~/.ssh/id_ed25519_codeberg
+   IdentitiesOnly yes
+
+Host github.com
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/id_ed25519_github
+   IdentitiesOnly yes
+
+# ── Forgejo (n8-kiste) ─────────────────────
+
+Host forgejo
+   HostName 10.10.10.1
+   Port 61222
+   User forgejo
+   IdentityFile ~/.ssh/id_ed25519_forgejo
+   IdentitiesOnly yes
+
+# ── Hosts ───────────────────────────────────
+
+Host n8-kiste
+   HostName 10.10.10.1
+   User mrohwer
+   Port 61022
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+   AddKeysToAgent yes
+
+Host n8-vps
+   HostName 136.243.101.223
+   User mrohwer
+   Port 61020
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+   AddKeysToAgent yes
+
+Host n8-station
+   HostName 10.10.10.3
+   User mrohwer
+   Port 63022
+   IdentityFile ~/.ssh/id_ed25519
+   IdentitiesOnly yes
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+   AddKeysToAgent yes
+
+# ── Timme-Server (Shopware Migration) ──────
+
+Host grills-reduziert.de
+   HostName k56w83.meinserver.io
+   User c448304-dev.xinro.de
+   Port 22
+   IdentityFile ~/.ssh/id_ed25519_timme_grills
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+
+Host xinro.de
+   HostName k56w83.meinserver.io
+   User c448304-xinro.de
+   Port 22
+   IdentityFile ~/.ssh/id_ed25519_timme_xinro
+   ServerAliveInterval 60
+   ServerAliveCountMax 3
+```
 
 ---
 
-## Mitlaufende Tasks (Referenz)
+## Deployment-Workflow pro Host
 
-| Task | Beschreibung | In Phase 1? |
-|------|-------------|-------------|
-| B1 | SSH-Config Secrets-Deployment | ✅ Aufgabe 4 |
-| B9 | Submodule n8-vps einrichten | ❌ Phase 2 |
-| B10 | Submodule n8-kiste einrichten | ❌ Phase 2 |
-| D9 | symlinks.db verschieben | ✅ Aufgabe 5 |
-| D13 | Credentials n8-archstick | ❌ Phase 2 |
+```
+1. git pull (Hauptrepo + Submodule update)
+   cd /mr-bytez && git pull && git submodule update
 
----
+2. Archiv entschluesseln + entpacken
+   cd /mr-bytez/.secrets/
+   fish /mr-bytez/shared/deployment/derive_key.fish secrets --with-host
+   age -d -o mrohwer.tar mrohwer.tar.age  # Passphrase eingeben
+   tar -xf mrohwer.tar                    # → mrohwer/ entsteht
+   rm mrohwer.tar                         # Nur Archiv behalten
 
-## Offene Fragen (im A1-Chat klaeren)
-
-1. **Secrets-Repo Remotes:** Wo liegt das Repo? Nur Codeberg? Auch GitHub?
-   Pruefen mit: `cd shared/home/mrohwer/.secrets && git remote -v`
-2. **SSH-Keys im Repo:** Die Keys liegen lokal unter `~/.secrets/ssh/` —
-   sind die identisch mit `ssh/mrohwer/` im Submodule oder Kopien?
-3. **smb-n8-kiste.creds:** Age-verschluesseln oder gitignoren?
-4. **derive_key.fish Standort:** Bleibt in `shared/deployment/` oder
-   wandert auch ins Secrets-Repo? (Achtung: ist im PUBLIC Repo — bewusst!)
+3. Deploy-Script setzt Symlinks
+   fish /mr-bytez/.secrets/deploy.fish
+   # Holt: shared/* + infrastructure/<hostname>/*
+   # Setzt Symlinks ueber /opt/mr-bytez/current/.secrets/...
+   # Merge-Logik: Datei-Level (Host ueberschreibt Shared)
+```
 
 ---
 
-## Projektanweisungen-Update
+## Submodule-Aenderung
 
-VOR dem A1-Start muss in `claude-ai-projektanweisungen.txt` aktualisiert werden:
-- C1+C2: "erledigt" statt "aktuell"
-- A1: als "aktuell" markieren
+```
+# Alt:
+[submodule "shared/home/mrohwer/.secrets"]
+    path = shared/home/mrohwer/.secrets
+    url = https://github.com/mr-bytez/mr-bytez-secrets.git
 
-Dies kann als erster Schritt im A1-Chat via Claude Code erledigt werden.
+# Neu:
+[submodule ".secrets"]
+    path = .secrets
+    url = https://github.com/mr-bytez/mr-bytez-secrets.git
+```
+
+Betroffene Dateien im Hauptrepo:
+- `.gitmodules` (Pfad aendern)
+- `.gitignore` (`.secrets/mrohwer/` hinzufuegen)
+- Altes Submodule entfernen: `git rm shared/home/mrohwer/.secrets`
+- Neues Submodule hinzufuegen: `git submodule add <url> .secrets`
 
 ---
 
-## Betroffene Dateien (Hauptrepo)
+## Entscheidungen (in #SEC01.1 geklaert)
 
-- shared/deployment/symlinks.db (VERSCHIEBEN nach Secrets-Repo)
-- DEPLOYMENT.md (SSH-Config Schritt + symlinks.db Pfad)
-- .claude/context/deployment.md (symlinks.db Pfad)
-- .claude/context/structure.md (symlinks.db Pfad)
-- CHANGELOG.md (A1 dokumentieren)
-- ROADMAP.md (A1 Status aktualisieren)
-- .claude/context/claude-ai-projektanweisungen.txt (C1+C2 erledigt, A1 aktuell)
+| Frage | Entscheidung | Begruendung |
+|-------|-------------|-------------|
+| Secrets-Repo Remotes | Codeberg-Remote hinzufuegen | Konsistenz, Dual-Remote wie Hauptrepo |
+| SSH-Keys | Verschluesselt im Archiv = Backup | Entschluesselt nur lokal |
+| smb-n8-kiste.creds | .gitignore, spaeter ins Archiv | Host-spezifisch, kommt in infrastructure/n8-kiste/ |
+| derive_key.fish | Bleibt im PUBLIC Repo | Kein Secret, noetig fuer Disaster Recovery (Henne-Ei) |
+| generate_pwd.fish | Ins PUBLIC Repo verschieben (Phase 2) | Werkzeug wie derive_key.fish, keine Secrets |
+| symlinks.db | Bleibt als Checkliste erhalten | Nicht technisch steuernd, Doku/Uebersicht. Im Secrets-Repo weil private Pfade |
+| Submodule-Pfad | .secrets/ (Repo-Root) | Sauberer, Root-Struktur passt zum Modell |
+| /etc/hosts | Ins Secrets-Repo (infrastructure/) | Enthaelt private IPs + Hostnamen |
+| .gitconfig | Ins Secrets-Repo (shared/) | User-spezifisch, auf allen Hosts gleich |
+| config.example | Bleibt im Public Repo | Sanitized Vorlage ohne echte IPs, Referenz fuer neue Hosts |
+| Container produktiv | Privates Repo (Zukunft) | ROADMAP-Pattern, nicht Teil von A1 |
+| Archiv-Groesse | Kein Problem | Secrets/Configs < 1MB, Home-Daten ueber rclone (A6) |
+| Merge-Logik | Datei-Level | Host-Datei existiert? → nimm die. Sonst → shared. Kein Zeilen-Merge. |
+| rclone Cloud-Sync | Eigenes Projekt A6 | Nur in ROADMAP erwaehnen, keine Platzhalter in A1 |
+| SSH-Port Korrektur | Alle Hosts haben eigene Ports | infrastructure.md + Projektanweisungen korrigieren |
 
-## Betroffene Dateien (Secrets-Repo)
+---
+
+## Integrierte Tasks
+
+| Task | Beschreibung | Phase | Status |
+|------|-------------|-------|--------|
+| B1 | SSH-Config ins Secrets-Repo (shared/.ssh/config) | Phase 1 | ✅ Erledigt |
+| B2 | /etc/hosts aller Hosts dokumentieren (infrastructure/) | Phase 2 | Offen |
+| B4 | .gitconfig Shared (shared/.gitconfig) | Phase 1 | ✅ Erledigt |
+| B9 | Submodule n8-vps einrichten | Phase 3 | Offen |
+| B10 | Submodule n8-kiste einrichten | Phase 3 | Offen |
+| D9 | symlinks.db ins Secrets-Repo (als Checkliste) | Phase 1 | ✅ Erledigt |
+| D13 | Credentials n8-archstick | Phase 2 | Offen |
+
+---
+
+## Phasenplan
+
+### Phase 1: Fundament ✅ (erledigt in #SEC01.2)
+
+**Ziel:** Repo-Struktur aufsetzen, 5-3-3 Docs, Submodule verschieben.
+**Commit (Secrets-Repo):** `66f0099`
+**Commit (Hauptrepo):** `e53cfcd`
+
+**Aufgaben (alle ✅ erledigt in #SEC01.2):**
+
+1. ✅ **Codeberg-Remote hinzufuegen** — Manuell erstellt + gepusht
+2. ✅ **Submodule verschieben** — `shared/home/mrohwer/.secrets/` → `.secrets/`
+3. ✅ **5-3-3 Docs im Secrets-Repo** — README, CLAUDE, CHANGELOG, ROADMAP
+4. ✅ **SECRETS.md aktualisieren** — Autor MR-ByteZ, Pfade korrigiert
+5. ✅ **.gitignore erstellen** — mrohwer/, *.tar, smb-n8-kiste.creds
+6. ✅ **symlinks.db verschieben (D9)** — v1.2, ANSI bereinigt, Anker-Pfade
+7. ✅ **SSH-Config erstellen (B1)** — `.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+8. ✅ **.gitconfig erstellen (B4)** — mit init, core, push, pull, alias Sektionen
+9. ✅ **Bestehende .age-Dateien behalten** — Bleiben bis Phase 2
+10. ✅ **Validierung + Commit** — Beide Repos, beide Remotes
+11. ✅ **Context-Dateien aktualisieren** — 7 Dateien im Hauptrepo
+12. ✅ **ROADMAP.md aktualisieren** — A1 in Arbeit, A6 hinzugefuegt, B1+B4+D9 erledigt
+    - A6 als neues Projekt hinzufuegen:
+      **A6: Cloud-Sync (rclone crypt)**
+      - Home-Ordner (Dokumente, Bilder, Downloads) verschluesselt auf Google Drive (2TB)
+      - rclone crypt: Clientseitige Verschluesselung (Dateinamen + Inhalte)
+      - rclone.conf im Secrets-Archiv (OAuth-Tokens + crypt-Passphrase)
+      - systemd-User-Units fuer Auto-Mount beim Login
+      - Abhaengigkeit: A1 Phase 2 (Archiv-Modell muss stehen)
+
+---
+
+### Phase 2: Archiv-Modell umsetzen (#SEC01.3 oder spaeter)
+
+**Ziel:** Verschluesseltes Archiv erstellen, Deploy-Script, Secrets einsortieren.
+
+**Aufgaben:**
+
+1. **Pack-Script erstellen** (`pack-secrets.fish`)
+   - `mrohwer/` → `mrohwer.tar` → `mrohwer.tar.age`
+   - derive_key.fish fuer Passphrase
+   - Validierung: Archiv-Inhalt pruefen vor Verschluesselung
+
+2. **Unpack-Script erstellen** (`unpack-secrets.fish`)
+   - `mrohwer.tar.age` → `mrohwer.tar` → `mrohwer/`
+   - Cleanup: tar-Datei nach Entpacken loeschen
+
+3. **Deploy-Script erstellen** (`deploy.fish`)
+   - Liest `shared/` + `infrastructure/<hostname>/`
+   - Setzt Symlinks ueber Anker `/opt/mr-bytez/current/.secrets/`
+   - Merge-Logik: Datei-Level (Host-spezifisch ueberschreibt Shared)
+   - symlinks.db als Checkliste aktualisieren
+
+4. **Bestehende Secrets einsortieren**
+   - Einzelne .age-Dateien entschluesseln und in Archiv-Struktur einordnen
+   - api/codeberg.token, api/github.token → shared/home/mrohwer/.secrets/api/
+   - SSH-Keys → shared/home/mrohwer/.ssh/
+   - smb-n8-kiste.creds → infrastructure/n8-kiste/home/mrohwer/.secrets/
+
+5. **Lokale ~/.secrets/ migrieren (~70 Dateien)**
+   - Kategorien durchgehen: ai/, backup/, cloud/, databases/, etc.
+   - Pro Datei entscheiden: shared/ oder infrastructure/<host>/
+   - In Archiv-Struktur einordnen
+   - generate_pwd.fish → ins PUBLIC Repo verschieben: `shared/deployment/generate_pwd.fish`
+
+6. **/etc/hosts aller Hosts (B2)**
+   - n8-kiste, n8-vps, n8-station /etc/hosts erfassen
+   - Unter infrastructure/<hostname>/etc/hosts ablegen
+   - Bekannte Inhalte n8-kiste /etc/hosts:
+     ```
+     127.0.0.1   localhost
+     ::1         localhost
+     127.0.1.1   n8-kiste.local n8-kiste
+     10.10.10.1  n8-kiste.local n8-kiste
+     127.0.0.1 grills-reduziert.local
+     127.0.0.1 xinro.local
+     ```
+
+7. **Erstes Archiv packen + committen**
+   - mrohwer.tar.age erstellen
+   - Einzelne .age-Dateien entfernen (ersetzt durch Archiv)
+   - Validierung: Entpacken + Pruefen ob alles da ist
+
+8. **Credentials n8-archstick (D13)**
+   - n8-archstick Secrets in infrastructure/n8-archstick/ einordnen
+
+---
+
+### Phase 3: Multi-Host Deployment (spaeter)
+
+**Ziel:** Archiv auf allen Hosts nutzbar machen.
+
+**Aufgaben:**
+
+1. Submodule auf n8-vps einrichten (B9)
+2. Submodule auf n8-kiste verifizieren (B10)
+3. Deploy-Script auf allen Hosts testen
+4. Recovery-Runbook erstellen (Disaster Recovery Anleitung)
+5. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
+
+---
+
+## Betroffene Dateien
+
+### Hauptrepo (mr-bytez)
+
+- `.gitmodules` (Submodule-Pfad aendern)
+- `.gitignore` (`.secrets/mrohwer/` hinzufuegen)
+- `shared/deployment/symlinks.db` (VERSCHIEBEN nach .secrets/)
+- `DEPLOYMENT.md` (Submodule-Pfad, symlinks.db Pfad)
+- `CHANGELOG.md` (A1 dokumentieren)
+- `ROADMAP.md` (A1 Status + A6 hinzufuegen)
+- `.claude/context/security.md` (Archiv-Modell dokumentieren)
+- `.claude/context/deployment.md` (symlinks.db Pfad, Submodule-Pfad, SSH-Policy)
+- `.claude/context/structure.md` (Submodule-Pfad)
+- `.claude/context/infrastructure.md` (SSH-Port pro Host korrigieren)
+- `.claude/context/claude-ai-projektanweisungen.txt` (Submodule-Pfad, SSH-Port)
+- `.claude/context/handoffs/HANDOFF_[SMB][Deploy]_smb-shares-deployment.md` (Pfade)
+
+### Secrets-Repo (mr-bytez-secrets)
 
 - README.md (NEU)
 - CLAUDE.md (NEU)
@@ -215,5 +578,19 @@ Dies kann als erster Schritt im A1-Chat via Claude Code erledigt werden.
 - ROADMAP.md (NEU)
 - SECRETS.md (UPDATE)
 - .gitignore (NEU)
-- ssh/mrohwer/config (NEU, B1)
 - deployment/symlinks.db (NEU, verschoben aus Hauptrepo)
+- mrohwer/shared/home/mrohwer/.ssh/config (NEU, B1)
+- mrohwer/shared/home/mrohwer/.gitconfig (NEU, B4)
+
+### Zu loeschende Handoffs (nach Phase 1)
+
+- `HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md`
+  (B1+B4 erledigt, B2 in Phase 2, B3 separater Docs-Fix ohne Handoff)
+
+---
+
+## Chat-Benennung fuer Folge-Chats
+
+- #SEC01.2 — Phase 1 Umsetzung (Submodule, Docs, Struktur)
+- #SEC01.3 — Phase 2 Archiv-Modell (Pack/Unpack, Migration)
+- #SEC01.4 — Phase 3 Multi-Host Deployment

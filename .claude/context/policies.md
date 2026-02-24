@@ -91,6 +91,10 @@ Beispiel: `HANDOFF_[Security][Git]_git-filter-cleanup.md`
    - Archivieren nur auf expliziten Wunsch → `.claude/archive/handoffs/`
    - Loeschen/Archivieren gehoert in denselben Commit wie die erledigten Aenderungen
    - Kein separater Folge-Commit fuer Handoff-Bereinigung!
+3. **Aktualisiert** — Teilweise erledigte Aufgaben im Handoff markieren
+   - Task-Status aktualisieren (Offen → Erledigt), Header anpassen
+   - Gehoert in denselben Commit wie die erledigten Aenderungen
+   - Kein separater Folge-Commit fuer Handoff-Aktualisierung!
 
 **Selbst-Verifikation:**
 - Claude prueft bei jedem Chat-Start ob relevante Handoffs existieren

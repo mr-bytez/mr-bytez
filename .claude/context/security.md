@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-24
 **Autor:** MR-ByteZ
 
 ---
@@ -53,13 +53,21 @@ command cat token.txt | string replace -a \r '' | string trim
 
 ## Secrets-Policy
 
-- Secrets liegen ausschließlich im privaten Submodule: `shared/home/mrohwer/.secrets/`
+- Secrets liegen ausschliesslich im privaten Submodule: `.secrets/` (Repo-Root)
 - Im Hauptrepo: **keine** Klartext-Secrets
-- Im Secrets-Repo: nur **verschlüsselte** Dateien (z.B. `*.age`) + Metadaten (`*.info`) + Doku
-- Secrets **niemals** per Symlink ins System deployen
+- Im Secrets-Repo: verschluesselte Dateien (`*.age`), Metadaten (`*.info`), Doku + 5-3-3 Docs
 - Age-Encryption mit Master-Password Derivation (`shared/deployment/derive_key.fish`)
 
-**Details:** Siehe Dokumentation im Secrets-Submodule (`shared/home/mrohwer/.secrets/`)
+### Archiv-Modell (ab A1 Phase 2)
+
+Das Secrets-Repo wird zum verschluesselten Home-User-Backup:
+- `mrohwer.tar.age` — verschluesseltes Archiv (Single Source of Truth)
+- `mrohwer/` — entschluesselt lokal, gitignored
+- Struktur: `mrohwer/shared/` (alle Hosts) + `mrohwer/infrastructure/<hostname>/` (host-spezifisch)
+- Deployment ueber Anker: `/opt/mr-bytez/current/.secrets/mrohwer/...`
+- SSH-Config und .gitconfig werden via Secrets-Repo deployt (nicht mehr "nur Template")
+
+**Details:** `.secrets/README.md`, `.secrets/SECRETS.md`
 
 ---
 
@@ -79,6 +87,6 @@ command cat token.txt | string replace -a \r '' | string trim
 
 - Klartext-Secrets in Code oder Environment-Variablen
 - Secrets in Git-History (auch nicht gelöscht!)
-- SSH Private Keys aus Repo deployen
-- `~/.ssh/config` aus Repo deployen (nur Template!)
+- SSH Private Keys aus dem PUBLIC Repo deployen
+- Klartext-Secrets im PUBLIC Repo
 - Tokens/Keys mit `cat`-Alias lesen

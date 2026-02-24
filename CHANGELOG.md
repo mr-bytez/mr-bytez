@@ -7,6 +7,36 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.0] - 2026-02-24
+
+### Changed
+- [Structure][Secrets] Submodule verschoben: `shared/home/mrohwer/.secrets/` → `.secrets/` (Repo-Root)
+- [Deploy] symlinks.db verschoben: `shared/deployment/` → `.secrets/deployment/` (privates Submodule)
+  - ANSI-Farbcodes entfernt (bat-Alias-Falle!), Version 1.1 → 1.2
+  - Alle Source-Pfade auf Anker `/opt/mr-bytez/current/` aktualisiert
+  - SSH-Config + .gitconfig + hwi-Symlink ergaenzt
+- [Docs] 7 Context-Dateien aktualisiert: security.md, deployment.md, structure.md,
+  infrastructure.md, claude-ai-projektanweisungen.txt, DEPLOYMENT.md, SMB-Handoff
+- [Security] SSH-Policy geaendert: SSH-Config wird jetzt via Secrets-Repo deployt
+  (bisher: "nur Template, kein Deployment")
+- [Config] SSH-Port Korrektur: nicht pauschal "61020" sondern pro Host
+  (n8-kiste: 61022, n8-station: 63022, n8-vps: 61020)
+- [Docs] ROADMAP.md: A1 Phase 1 als erledigt, B1+B4+D9 als erledigt, A6 rclone hinzugefuegt
+
+### Added
+- [Secrets] 5-3-3 Docs im Secrets-Repo: README.md, CLAUDE.md, CHANGELOG.md, ROADMAP.md
+- [Secrets] .gitignore im Secrets-Repo (mrohwer/, *.tar, smb-n8-kiste.creds)
+- [Security] SSH-Config erstellt: `.secrets/mrohwer/shared/home/mrohwer/.ssh/config` (B1)
+- [Config] .gitconfig erstellt: `.secrets/mrohwer/shared/home/mrohwer/.gitconfig` (B4)
+- [Security] Archiv-Modell in security.md dokumentiert (Vier-Ebenen-Architektur)
+- [Git] Codeberg-Remote fuer Secrets-Repo (Dual-Remote wie Hauptrepo)
+
+### Removed
+- [Cleanup] Erledigten Handoff geloescht: HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md (B1+B4 erledigt)
+- [Cleanup] Erledigten Handoff geloescht: HANDOFF_[Deploy][Fish]_etc-fish-symlink-pacman-fix.md (in CLAUDE.md integriert)
+
+---
+
 ## [0.7.6] - 2026-02-24
 
 ### Changed

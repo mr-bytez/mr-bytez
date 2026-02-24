@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-24
 **Autor:** MR-ByteZ
 
 ---
@@ -34,9 +34,14 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 
 ### SSH
 
-- Standard SSH Port: **61020** (nicht 22!)
+- SSH-Ports sind **host-spezifisch** (nicht einheitlich!):
+  - n8-kiste: **61022**
+  - n8-vps: **61020** (+ 22 als Fallback)
+  - n8-station: **63022**
+  - Weitere Hosts: noch nicht konfiguriert
 - Auth: Key-basiert
-- GitHub CLI: OAuth (kein SSH-Key nötig)
+- GitHub CLI: OAuth (kein SSH-Key noetig)
+- SSH-Config: via Secrets-Repo (`.secrets/mrohwer/shared/home/mrohwer/.ssh/config`)
 
 ### WireGuard VPN
 
@@ -68,8 +73,8 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 | container-dev Stack | `shared/stacks/mrbz-dev/` ⭐ NICHT in projects/ |
 | MCP Server | `projects/infrastructure/mcp-server/` |
 | Shared Configs | `shared/etc/fish/`, `shared/usr/local/share/micro/` |
-| Secrets | `shared/home/mrohwer/.secrets/` (Submodule) |
-| Scripts | `scripts/` (hwi, scan-secrets) |
+| Secrets | `.secrets/` (Submodule, Repo-Root) |
+| Scripts | `shared/usr/local/bin/` (hwi) |
 
 ---
 

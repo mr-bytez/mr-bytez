@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-02-17
+**Stand:** 2026-02-24
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -99,10 +99,10 @@ sudo chown -R mrohwer:mrohwer /mr-bytez
 gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
 
 # Alten Submodule-Ordner entfernen (falls vorhanden)
-rm -rf /mr-bytez/shared/home/mrohwer/.secrets
+rm -rf /mr-bytez/.secrets
 
 # Geclontes Repo an richtige Stelle verschieben
-mv /tmp/secrets-clone /mr-bytez/shared/home/mrohwer/.secrets
+mv /tmp/secrets-clone /mr-bytez/.secrets
 
 # Submodule-Status updaten (optional)
 cd /mr-bytez
@@ -252,10 +252,9 @@ sudo hwi mrbz
 
 ### Verboten (bewusst)
 
-- `~/.ssh/config` (User-State, hochsensibel)
 - echte Home-Dateien/State-Dateien (Browser-Profile, Session-State, etc.)
-- alles, was Secrets indirekt exponieren könnte
-- SSH Private Keys (niemals aus Repo deployen!)
+- alles, was Secrets indirekt exponieren koennte
+- SSH Private Keys aus dem PUBLIC Repo deployen
 
 **Merksatz:**
 
@@ -263,22 +262,14 @@ sudo hwi mrbz
 
 ---
 
-## SSH-Konfiguration: NUR Template
+## SSH-Konfiguration
 
-Es gibt **kein** Deployment von `~/.ssh/config` oder SSH-Keys aus dem Repo.
+SSH-Config und SSH-Keys werden ueber das **private Secrets-Repo** deployt.
 
-Stattdessen liegt im Repo eine **Vorlage**:
-
-- `shared/home/mrohwer/.ssh/config.example`
-
-Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config` und passt sie host-spezifisch an.
-
-**Warum?**
-
-- verhindert „kaputte" SSH-Configs, wenn `/mr-bytez` mal kurz weg ist
-- verhindert Leaks durch versehentlich versionierte Hostdetails
-- hält Auth/Keys strikt lokal
-- **GitHub CLI verwendet OAuth (kein SSH-Key nötig!)**
+- Gemeinsame SSH-Config: `.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+- Deployment via Anker: `/opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+- Sanitized Template bleibt im Public Repo: `shared/home/mrohwer/.ssh/config.example`
+- **GitHub CLI verwendet OAuth (kein SSH-Key noetig!)**
 
 ---
 
@@ -286,7 +277,7 @@ Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config`
 
 ### Wo liegen Secrets?
 
-- ausschließlich im **privaten** Submodule: `shared/home/mrohwer/.secrets`
+- ausschliesslich im **privaten** Submodule: `.secrets/` (Repo-Root)
 - nur **verschlüsselt** (Age), plus Metadaten (`*.info`)
 
 ### Wichtige Regeln
@@ -299,14 +290,14 @@ Wenn du eine SSH-Konfig brauchst, kopierst du sie **lokal** nach `~/.ssh/config`
 
 Details:
 
-- `shared/home/mrohwer/.secrets/SECRETS.md`
+- `.secrets/SECRETS.md`
 - `.claude/context/security.md`
 
 ---
 
 ## symlinks.db
 
-`shared/deployment/symlinks.db` beschreibt **alle deployten Symlinks**.
+`.secrets/deployment/symlinks.db` beschreibt **alle deployten Symlinks** (im privaten Submodule).
 
 **Wichtig:**
 
@@ -334,7 +325,7 @@ Details:
 **Wenn du neue Deployments einführst:**
 
 - immer zuerst die Policy prüfen
-- dann in `symlinks.db` dokumentieren
+- dann in `.secrets/deployment/symlinks.db` dokumentieren
 - dann hier in DEPLOYMENT.md dokumentieren
 
 ---
@@ -349,10 +340,10 @@ cd /mr-bytez
 # Main Repo pullen
 git pull --ff-only
 
-# Secrets Submodule updaten (falls geändert)
-cd shared/home/mrohwer/.secrets
+# Secrets Submodule updaten (falls geaendert)
+cd .secrets
 git pull --ff-only
-cd ../..
+cd ..
 ```
 
 ### System-Links bleiben stabil
@@ -447,15 +438,15 @@ command grep clipboard /usr/local/share/micro/settings.json
 
 ### Submodule Probleme
 
-**Symptom:** `shared/home/mrohwer/.secrets` leer oder Fehler bei `git submodule update`
+**Symptom:** `.secrets/` leer oder Fehler bei `git submodule update`
 
 **Fix:**
 
 ```fish
 # Manuell clonen mit gh (hat Auth!)
 gh repo clone mr-bytez/mr-bytez-secrets /tmp/secrets-clone
-rm -rf /mr-bytez/shared/home/mrohwer/.secrets
-mv /tmp/secrets-clone /mr-bytez/shared/home/mrohwer/.secrets
+rm -rf /mr-bytez/.secrets
+mv /tmp/secrets-clone /mr-bytez/.secrets
 ```
 
 ### GitHub CLI Auth verloren
@@ -535,4 +526,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-02-17
+**Stand:** 2026-02-24

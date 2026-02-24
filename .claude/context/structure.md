@@ -314,4 +314,4 @@ Stack-Configs (Docker)     → shared/stacks/.../configs/
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-11
+**Letzte Aktualisierung:** 2026-02-24

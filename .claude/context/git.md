@@ -181,3 +181,12 @@ git push origin main && git push codeberg main
 - Nach Erledigung aller Aufgaben: User fragen — loeschen oder archivieren?
 - Loeschen/Archivieren gehoert in denselben Commit wie die erledigten Aenderungen
 - Kein separater Folge-Commit fuer Handoff-Bereinigung
+
+### Handoff-Aktualisierung
+
+**Erledigte Aufgaben im Handoff werden VOR dem Commit markiert — nicht danach!**
+
+- Task-Status im Handoff aktualisieren (Offen → Erledigt)
+- Handoff-Header aktualisieren (Status, Chat-Referenzen, Commit-Hashes)
+- Gehoert in denselben Commit wie die erledigten Aenderungen
+- Kein separater Folge-Commit fuer Handoff-Aktualisierung!

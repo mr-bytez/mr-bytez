@@ -49,13 +49,13 @@ SMB-Freigaben von n8-kiste sollen auf **allen mr-bytez Hosts** einheitlich als l
 ```fstab
 # ─────────────────────────────────────────────────────────────────────────────
 # SMB-Shares: n8-kiste (on-demand via systemd.automount)
-# Credentials: /mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds
+# Credentials: /mr-bytez/.secrets/smb-n8-kiste.creds
 # ─────────────────────────────────────────────────────────────────────────────
-//n8-kiste/videos-movies   /mnt/n8-kiste/filme        cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
-//n8-kiste/videos-series   /mnt/n8-kiste/serien       cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
-//n8-kiste/videos-tmp      /mnt/n8-kiste/tmp          cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
-//n8-kiste/jdown/sort      /mnt/n8-kiste/jd-sort      cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
-//n8-kiste/jdown/entpackt  /mnt/n8-kiste/jd-entpackt  cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
+//n8-kiste/videos-movies   /mnt/n8-kiste/filme        cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
+//n8-kiste/videos-series   /mnt/n8-kiste/serien       cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
+//n8-kiste/videos-tmp      /mnt/n8-kiste/tmp          cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
+//n8-kiste/jdown/sort      /mnt/n8-kiste/jd-sort      cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
+//n8-kiste/jdown/entpackt  /mnt/n8-kiste/jd-entpackt  cifs  noauto,_netdev,x-systemd.automount,x-systemd.idle-timeout=300,x-systemd.mount-timeout=3,credentials=/mr-bytez/.secrets/smb-n8-kiste.creds,vers=3.0,uid=1000,gid=1000  0  0
 ```
 
 #### Mount-Optionen erklärt
@@ -71,7 +71,7 @@ SMB-Freigaben von n8-kiste sollen auf **allen mr-bytez Hosts** einheitlich als l
 | `uid=1000,gid=1000` | Dateien gehören User mrohwer |
 
 ### 4. Credentials-Datei
-- **Pfad:** `/mr-bytez/shared/home/mrohwer/.secrets/smb-n8-kiste.creds`
+- **Pfad:** `/mr-bytez/.secrets/smb-n8-kiste.creds`
 - **Format:**
   ```
   username=mrohwer
@@ -198,7 +198,7 @@ Folgende Commits müssen gemacht werden:
 
 - Fish Shell ist die Standard-Shell → **KEIN heredoc/EOF verwenden!**
 - Repo liegt unter `/mr-bytez/`, Anker unter `/opt/mr-bytez/current`
-- Secrets im privaten Submodul: `/mr-bytez/shared/home/mrohwer/.secrets/`
+- Secrets im privaten Submodul: `/mr-bytez/.secrets/`
 - Commits nur auf n8-kiste, Push zu origin (GitHub) + codeberg
 - Commit-Format: `[Kategorie] Beschreibung` (siehe `.claude/context/git.md`)
 - Deploy-Scripts müssen idempotent sein

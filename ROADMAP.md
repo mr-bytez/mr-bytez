@@ -83,22 +83,35 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 **5-3-3 Ort:** Im Secrets-Repo selbst (`mr-bytez-secrets`) — hier nur Verweis
 
 **Umfang:**
-- Secrets-Submodule (`shared/home/mrohwer/.secrets`) auf 5-3-3 Pattern migrieren
+- Secrets-Submodule (`.secrets/`) auf 5-3-3 Pattern migrieren
 - symlinks.db ins private Submodule verschieben
 - Eigene CLAUDE.md, ROADMAP.md, README.md, CHANGELOG.md
 - Secrets-Inventar vollstaendig und konsistent
 
+**Phase 1 (erledigt):**
+- [x] Codeberg-Remote hinzugefuegt (Dual-Remote)
+- [x] Submodule verschoben: `shared/home/mrohwer/.secrets/` → `.secrets/`
+- [x] 5-3-3 Docs erstellt (README, CLAUDE, CHANGELOG, ROADMAP)
+- [x] SECRETS.md aktualisiert (Autor, Pfade)
+- [x] .gitignore erstellt
+- [x] symlinks.db verschoben + bereinigt (D9)
+- [x] SSH-Config erstellt (B1)
+- [x] .gitconfig erstellt (B4)
+- [x] Context-Dateien im Hauptrepo aktualisiert (7 Dateien)
+
+**Offene Phasen:**
+- Phase 2: Archiv-Modell (Pack/Unpack-Scripts, Secrets einsortieren, B2, D13)
+- Phase 3: Multi-Host Deployment (B9, B10)
+
 **Mitlaufende Tasks:**
-- B1: SSH-Config Secrets-Deployment
-- B9: Submodule n8-vps einrichten
-- B10: Submodule n8-kiste einrichten
-- D9: symlinks.db verschieben
-- D13: Credentials n8-archstick aktualisieren
+- B9: Submodule n8-vps einrichten (Phase 3)
+- B10: Submodule n8-kiste verifizieren (Phase 3)
+- D13: Credentials n8-archstick aktualisieren (Phase 2)
 
-**Details:** `.claude/context/handoffs/HANDOFF_[Deploy][SSH]_ssh-config-hosts-gitconfig.md` (Aufgabe 1), `.claude/ROADMAP.md` (Phase 4)
+**Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** Geplant
-**ETA:** Februar 2026
+**Status:** In Arbeit (Phase 1 erledigt, Phase 2+3 offen)
+**ETA:** Februar-Maerz 2026
 
 ---
 
@@ -222,9 +235,9 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 ```
 C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
-A1 Secrets-Repo Restrukturierung + B1, B9, B10, D9, D13  ← NAECHSTER SCHRITT
+A1 Secrets-Repo Restrukturierung + B1✅, B4✅, D9✅ — Phase 1 erledigt, Phase 2+3 offen (B9, B10, D13)
   ↓
-A2 Fish DRY-Refactoring + B2, B3, B4, B6, B7 → danach B5+B17
+A2 Fish DRY-Refactoring + B2, B3, B6, B7 → danach B5+B17
   ↓
 A3 Claude Dev Container + B8, B11, B13, D12, D15, D16
   ↓
@@ -236,6 +249,23 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 **Inkrementell (kein fester Zeitpunkt):**
 - D10: Skills entwickeln — pro A-Projekt
 - D11: Configs anlegen — pro A-Projekt
+
+---
+
+### A6: Cloud-Sync (rclone crypt)
+
+**Prioritaet:** Niedrig — nach A1 Phase 2
+**Abhaengigkeiten:** A1 Phase 2 (Archiv-Modell muss stehen)
+**5-3-3 Ort:** Im Secrets-Repo (`.secrets/`)
+
+**Umfang:**
+- Home-Ordner (Dokumente, Bilder, Downloads) verschluesselt auf Google Drive (2TB)
+- rclone crypt: Clientseitige Verschluesselung (Dateinamen + Inhalte)
+- rclone.conf im Secrets-Archiv (OAuth-Tokens + crypt-Passphrase)
+- systemd-User-Units fuer Auto-Mount beim Login
+
+**Status:** Geplant
+**ETA:** Q2 2026
 
 ---
 
@@ -315,10 +345,10 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 
 | # | Aufgabe | Projekt | Quelle |
 |---|---------|---------|--------|
-| B1 | SSH-Config Secrets-Deployment | A1 | `HANDOFF_2026-02-08.md`, Aufgabe 1 |
+| B1 | SSH-Config Secrets-Deployment | A1 | ✅ Phase 1 erledigt |
 | B2 | /etc/hosts Dokumentation | A2 | `HANDOFF_2026-02-08.md`, Aufgabe 2 |
 | B3 | README Struktur-Baum | A2 + A5 | `HANDOFF_2026-02-08.md`, Aufgabe 3 |
-| B4 | Git-Config Shared | A2 | `HANDOFF_2026-02-08.md`, Aufgabe 4 |
+| B4 | Git-Config Shared | A1 | ✅ Phase 1 erledigt |
 | B5 | SMB-Shares Deployment | A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
 | B6 | Bash-Config | A2 | Phase 2 (offen) |
 | B7 | mr-bytez-info.fish | A2 | Phase 2 (offen) |
@@ -346,7 +376,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | D5 | Clean/Smudge Filter | A5 | `2026-02-04-security-git-filter-handoff.md` |
 | D6 | Pattern-Scanner Script | A5 | `2026-02-04-security-git-filter-handoff.md` |
 | D7 | IP-Adressen-Mapping | A5 | `2026-02-04-security-git-filter-handoff.md` |
-| D9 | symlinks.db verschieben | A1 | `.claude/ROADMAP.md` Phase 4 |
+| D9 | symlinks.db verschieben | A1 | ✅ Phase 1 erledigt |
 | D10 | Skills entwickeln | Inkrementell | Pro A-Projekt |
 | D11 | Configs anlegen | Inkrementell | Pro A-Projekt |
 | D12 | Projekt-Level .claude/ | A3 | Fuer mrbz-dev |
@@ -386,4 +416,4 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-11
+**Letzte Aktualisierung:** 2026-02-24
