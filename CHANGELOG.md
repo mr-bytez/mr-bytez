@@ -13,6 +13,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs] Neue Datei: `.claude/context/claude-ai-user-preferences.txt` — Versionierte User Preferences
 - [Config] Befehlsblock-Regel in Projektanweisungen ergaenzt (Befehle zusammenfassen, minimale Copy+Paste)
 - [Docs] A1 Handoff — 0.8.1 Commit-Hashes ergaenzt (`7a6aec1`, `64454f4`, `34cbfd7`, `da04cd6`)
+- [Git] Neue Regel in git.md: Keine Hash-Endlosschleife — letzter Commit-Hash wird nicht nochmal nachgetragen
 
 ---
 

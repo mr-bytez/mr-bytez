@@ -190,3 +190,6 @@ git push origin main && git push codeberg main
 - Handoff-Header aktualisieren (Status, Chat-Referenzen, Commit-Hashes)
 - Gehoert in denselben Commit wie die erledigten Aenderungen
 - Kein separater Folge-Commit fuer Handoff-Aktualisierung!
+- **Keine Hash-Endlosschleife:** Der letzte Commit-Hash (Handoff-/CHANGELOG-Update)
+  wird NICHT nochmal im Handoff oder CHANGELOG nachgetragen.
+  Handoffs dokumentieren inhaltliche Commits, nicht sich selbst.
