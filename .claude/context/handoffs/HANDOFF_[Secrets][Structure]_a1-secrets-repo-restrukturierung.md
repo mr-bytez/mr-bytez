@@ -457,7 +457,7 @@ Betroffene Dateien im Hauptrepo:
 
 **Ziel:** Repo-Struktur aufsetzen, 5-3-3 Docs, Submodule verschieben.
 **Commit (Secrets-Repo):** `66f0099`
-**Commit (Hauptrepo):** `e53cfcd`, `7a6aec1` + `64454f4` + `34cbfd7` (0.8.1 — User Preferences, Policies, Handoff+CHANGELOG)
+**Commit (Hauptrepo):** `444f34e` (Phase 1), `7a6aec1` (0.8.1 — User Preferences + Policies)
 
 **Aufgaben (alle ✅ erledigt in #SEC01.2):**
 
