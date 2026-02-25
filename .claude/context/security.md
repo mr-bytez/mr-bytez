@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-24
+**Aktualisiert:** 2026-02-26
 **Autor:** MR-ByteZ
 
 ---
@@ -65,7 +65,38 @@ Das Secrets-Repo wird zum verschluesselten Home-User-Backup:
 - `mrohwer/` — entschluesselt lokal, gitignored
 - Struktur: `mrohwer/shared/` (alle Hosts) + `mrohwer/infrastructure/<hostname>/` (host-spezifisch)
 - Deployment ueber Anker: `/opt/mr-bytez/current/.secrets/mrohwer/...`
-- SSH-Config und .gitconfig werden via Secrets-Repo deployt (nicht mehr "nur Template")
+
+### Archiv-Workflow
+
+```
+1. Pack:    fish shared/deployment/pack-secrets.fish
+             mrohwer/ → mrohwer.tar → mrohwer.tar.age
+
+2. Unpack:  fish shared/deployment/unpack-secrets.fish
+             mrohwer.tar.age → mrohwer.tar → mrohwer/
+
+3. Deploy:  fish .secrets/deploy.fish [--dry-run]
+             Copy: ~/.ssh/*, ~/.secrets/*, /etc/hosts
+             Symlink: ~/.gitconfig (ueber Anker)
+             Merge-Logik: Host-spezifisch ueberschreibt Shared (Datei-Level)
+```
+
+### Passphrase-Derivation
+
+- **Archiv (mrohwer.tar.age):** `derive_key.fish secrets --with-host`
+  Salt "secrets" + Hostname → host-spezifische Passphrase
+- **Alte .age-Einzeldateien (Legacy):** `derive_key.fish secrets`
+  Salt "secrets" OHNE --with-host → generische Passphrase
+
+### deploy.fish v2.0 — Berechtigungen
+
+| Ziel | Methode | Perms | sudo |
+|------|---------|-------|------|
+| `~/.ssh/*` (nicht .pub) | Copy | 0600 | nein |
+| `~/.ssh/*.pub` | Copy | 0644 | nein |
+| `~/.secrets/*` (nicht .pub) | Copy | 0600 | nein |
+| `~/.gitconfig` | Symlink | — | nein |
+| `/etc/hosts` | Copy | 0644 | ja |
 
 **Details:** `.secrets/README.md`, `.secrets/SECRETS.md`
 

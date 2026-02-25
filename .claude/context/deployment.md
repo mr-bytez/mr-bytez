@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-24
+**Aktualisiert:** 2026-02-26
 **Autor:** MR-ByteZ
 
 ---
@@ -24,11 +24,34 @@ Systemweit referenzieren wir **nicht direkt** `/mr-bytez`, sondern immer den sta
 
 ## Aktive System-Symlinks
 
-| Ziel (System) | Quelle (über Anker) | sudo |
-|----------------|---------------------|------|
-| `/etc/fish` | `/opt/mr-bytez/current/shared/etc/fish` | ja |
-| `/usr/local/share/micro` | `/opt/mr-bytez/current/shared/usr/local/share/micro` | ja |
-| `/usr/local/bin/hwi` | `/opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh` | ja |
+| Ziel (System) | Quelle (über Anker) | sudo | Methode |
+|----------------|---------------------|------|---------|
+| `/etc/fish` | `/opt/mr-bytez/current/shared/etc/fish` | ja | Symlink |
+| `/usr/local/share/micro` | `/opt/mr-bytez/current/shared/usr/local/share/micro` | ja | Symlink |
+| `/usr/local/bin/hwi` | `/opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh` | ja | Symlink |
+
+## Secrets-Deployment (deploy.fish v2.0)
+
+`deploy.fish` im Secrets-Repo deployt Dateien aus dem entpackten Archiv (`mrohwer/`).
+Methode: **Copy** fuer alles ausser `.gitconfig` (dort **Symlink** ueber Anker).
+
+| Ziel (System) | Quelle (Archiv) | Methode | Perms | sudo |
+|----------------|-----------------|---------|-------|------|
+| `~/.ssh/*` | `mrohwer/shared/` oder `infrastructure/<host>/` | Copy | 0600 (.pub: 0644) | nein |
+| `~/.secrets/*` | `mrohwer/shared/` oder `infrastructure/<host>/` | Copy | 0600 | nein |
+| `~/.gitconfig` | `mrohwer/shared/home/mrohwer/.gitconfig` | Symlink | — | nein |
+| `/etc/hosts` | `mrohwer/infrastructure/<host>/etc/hosts` | Copy | 0644 | ja |
+
+**Merge-Logik:** Datei-Level — Host-Datei existiert? → nimm die. Sonst → shared.
+
+### Deployment-Workflow (Secrets)
+
+```
+1. git pull && git submodule update
+2. cd /mr-bytez/.secrets/
+3. fish /mr-bytez/shared/deployment/unpack-secrets.fish   # Archiv entpacken
+4. fish /mr-bytez/.secrets/deploy.fish [--dry-run]        # Dateien deployen
+```
 
 ---
 
@@ -79,9 +102,10 @@ Details zu Secrets-Policy → `.claude/context/security.md`
 ## SSH-Konfiguration
 
 SSH-Config und SSH-Keys werden ueber das **private Secrets-Repo** deployt (nicht aus dem public Repo).
+Deployment via `deploy.fish v2.0` (Copy-Methode, nicht Symlink).
 
 - Gemeinsame SSH-Config: `.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
-- Deployment via Anker: `/opt/mr-bytez/current/.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
+- Host-spezifische Keys: `.secrets/mrohwer/infrastructure/<hostname>/home/mrohwer/.ssh/`
 - Sanitized Template bleibt im Public Repo: `shared/home/mrohwer/.ssh/config.example`
 - GitHub CLI verwendet OAuth (kein SSH-Key noetig!)
 

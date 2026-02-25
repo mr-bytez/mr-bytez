@@ -44,7 +44,7 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - **Additive-Only:** Zentrale MDs (README, DEPLOYMENT, CHANGELOG, ROADMAP) nur ergaenzen, nicht kuerzen
 - **Docs-first:** Dokumentation VOR Code, alles in einem Commit
 - **Keine Redundanz:** Policies EINMAL in `.claude/context/` definieren, Projekte verweisen zurueck
-- **Secrets:** Nur Age-verschluesselt im Submodule `shared/home/mrohwer/.secrets/`, nie Klartext im Repo
+- **Secrets:** Nur Age-verschluesselt im Submodule `.secrets/`, nie Klartext im Repo
 - **Deployment:** System-Symlinks zeigen auf `/opt/mr-bytez/current`, nie direkt auf `/mr-bytez`
 - **CHANGELOG-Regel:** CHANGELOG + ROADMAP VOR dem Commit aktualisieren, alles in EINEM Commit
 

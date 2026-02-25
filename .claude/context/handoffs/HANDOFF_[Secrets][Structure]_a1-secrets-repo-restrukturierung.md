@@ -386,10 +386,11 @@ Host xinro.de
    tar -xf mrohwer.tar                    # → mrohwer/ entsteht
    rm mrohwer.tar                         # Nur Archiv behalten
 
-3. Deploy-Script setzt Symlinks
-   fish /mr-bytez/.secrets/deploy.fish
+3. Deploy-Script: Copy + Symlink (deploy.fish v2.0)
+   fish /mr-bytez/.secrets/deploy.fish [--dry-run]
    # Holt: shared/* + infrastructure/<hostname>/*
-   # Setzt Symlinks ueber /opt/mr-bytez/current/.secrets/...
+   # Copy: ~/.ssh/*, ~/.secrets/*, /etc/hosts
+   # Symlink: ~/.gitconfig (ueber Anker)
    # Merge-Logik: Datei-Level (Host ueberschreibt Shared)
 ```
 
