@@ -1,12 +1,14 @@
 # HANDOFF: A1 Secrets-Repo Restrukturierung — Verschlüsseltes Home-Backup
 
-**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung)
+**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung), #SEC01.3 (Phase 2 Archiv-Modell), #SEC01.4 (Phase 3 Deploy v2.0)
 **Chat-Links:**
 - #SEC01.1: https://claude.ai/chat/1573b769-dc58-4a7c-bac6-7ccdc03d5639
 - #SEC01.2: https://claude.ai/chat/57a23402-e625-4bae-b2cf-615791e15f56
-**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2
-**Datum:** 2026-02-24
-**Status:** Phase 1 erledigt — Phase 2+3 offen
+- #SEC01.3: https://claude.ai/chat/b9590cad-86a4-493a-adcd-8b2837d91fc7
+- #SEC01.4: https://claude.ai/chat/1616d1af-6021-4c46-ba65-ea9a0d06a2cf
+**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4
+**Datum:** 2026-02-26
+**Status:** Phase 1+2 erledigt — Phase 3 B10 erledigt, B9 offen
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---
@@ -445,7 +447,7 @@ Betroffene Dateien im Hauptrepo:
 | B2 | /etc/hosts aller Hosts dokumentieren (infrastructure/) | Phase 2 | ✅ Erledigt |
 | B4 | .gitconfig Shared (shared/.gitconfig) | Phase 1 | ✅ Erledigt |
 | B9 | Submodule n8-vps einrichten | Phase 3 | Offen |
-| B10 | Submodule n8-kiste einrichten | Phase 3 | Offen |
+| B10 | Submodule n8-kiste verifizieren + deploy | Phase 3 | ✅ Erledigt |
 | D9 | symlinks.db ins Secrets-Repo (als Checkliste) | Phase 1 | ✅ Erledigt |
 | D13 | Credentials n8-archstick | Phase 2 | Offen |
 
@@ -483,9 +485,22 @@ Betroffene Dateien im Hauptrepo:
 
 ---
 
-### Phase 2: Archiv-Modell umsetzen (#SEC01.3 oder spaeter)
+### Phase 2: Archiv-Modell ✅ (erledigt in #SEC01.3)
 
 **Ziel:** Verschluesseltes Archiv erstellen, Deploy-Script, Secrets einsortieren.
+
+**Commits (Secrets-Repo):**
+- `d8fc9aa` — deploy.fish + Test-Archiv
+- `0346088` — Secrets-Migration (91 Dateien), alte api/ssh entfernt
+- `c80f5f0` — /etc/hosts B2 (94 Dateien)
+- `958b58c` — SSH-Keys + authorized_keys (107 Dateien)
+
+**Commits (Hauptrepo):**
+- `00d1149` — Pack/Unpack/Deploy-Scripts
+- `a7bd219` — generate_pwd.fish + Docs
+- `17f4174` — /etc/hosts B2 + Docs
+- `e462023` — SSH-Keys + Docs
+- `6498606` — Cross-Repo-Regel ergaenzt
 
 **Aufgaben:**
 
@@ -522,23 +537,32 @@ Betroffene Dateien im Hauptrepo:
    - Unter infrastructure/<hostname>/etc/hosts im Archiv
 
 7. ✅ **Archiv gepackt + alte Einzeldateien entfernt**
-   - mrohwer.tar.age: 94 Dateien, 6,7 MB
    - api/ + ssh/ Verzeichnisse entfernt (git rm -r)
 
-8. **Credentials n8-archstick (D13)**
-   - n8-archstick Secrets in infrastructure/n8-archstick/ einordnen
+8. ✅ **SSH-Keys + authorized_keys aller Hosts migriert**
+   - n8-kiste: id_ed25519, forgejo, tinyssh_unlock + authorized_keys
+   - n8-station: id_ed25519, forgejo + authorized_keys
+   - n8-vps: authorized_keys
+   - authorized_keys bereinigt: alter RSA-Key entfernt (nur Ed25519)
+   - Archiv-Endstand: 107 Dateien, 6,8 MB
+
+9. **Credentials n8-archstick (D13)** — Offen, braucht physischen Zugang
 
 ---
 
-### Phase 3: Multi-Host Deployment (spaeter)
+### Phase 3: Multi-Host Deployment (in Arbeit)
 
 **Ziel:** Archiv auf allen Hosts nutzbar machen.
 
 **Aufgaben:**
 
-1. Submodule auf n8-vps einrichten (B9)
-2. Submodule auf n8-kiste verifizieren (B10)
-3. Deploy-Script auf allen Hosts testen
+1. Submodule auf n8-vps einrichten (B9) — Offen
+2. ✅ **Submodule auf n8-kiste verifizieren (B10)** — deploy.fish v2.0 erfolgreich auf n8-kiste
+   - deploy.fish v2.0.0: Copy+Symlink, Banner, Sektionen, Box-Zusammenfassung
+   - Alias-Schutz (command cp/chmod/chown), .pub 0644
+   - shared/lib/banner.fish: MR-ByteZ ASCII-Logo (Gruvbox yellow)
+   - 27 Dateien deployed (alle identisch → idempotent verifiziert)
+3. Deploy-Script auf allen Hosts testen — Offen (nach B9)
 4. Recovery-Runbook erstellen (Disaster Recovery Anleitung)
 5. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
 
@@ -584,4 +608,5 @@ Betroffene Dateien im Hauptrepo:
 
 - #SEC01.2 — Phase 1 Umsetzung (Submodule, Docs, Struktur)
 - #SEC01.3 — Phase 2 Archiv-Modell (Pack/Unpack, Migration)
-- #SEC01.4 — Phase 3 Multi-Host Deployment
+- #SEC01.4 — Phase 3 Deploy v2.0, B10 n8-kiste verifiziert
+- #SEC01.5 — Phase 3 Multi-Host Deployment (B9 n8-vps)

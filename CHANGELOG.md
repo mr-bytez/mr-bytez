@@ -33,6 +33,16 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - n8-vps: authorized_keys
   - authorized_keys bereinigt (alter RSA-Key entfernt, nur Ed25519)
   - Archiv: 107 Dateien, 6,8 MB
+- [Git][Docs] Cross-Repo-Regel in git.md + Projektanweisungen ergaenzt
+- [Docs][Secrets] A1 Handoff finalisiert: Phase 2 Commit-Hashes, Chat-Link #SEC01.3, Status aktualisiert
+- [Security][Deploy] deploy.fish v2.0.0 im Secrets-Repo — Copy+Symlink, Banner, Sektionen, Fixes
+  - Copy-Methode fuer SSH/Secrets/hosts, Symlink nur fuer .gitconfig
+  - MR-ByteZ ASCII-Banner (shared/lib/banner.fish), Sektions-Header, Box-Zusammenfassung
+  - Alias-Schutz (command cp/chmod/chown), .pub 0644 statt 0600
+- [Fish][Theme] shared/lib/banner.fish erstellt — MR-ByteZ Logo-Library (voll + --compact)
+- [Docs] Neuer Handoff: HANDOFF_[Fish][Theme]_script-formatting-library.md
+  - Vision: Zentrale shared/lib/format.fish fuer einheitliches Script-Look&Feel
+- [Docs] A1 Handoff aktualisiert: Phase 3 B10 erledigt (n8-kiste deployed)
 
 ---
 
@@ -482,4 +492,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-11
+**Letzte Aktualisierung:** 2026-02-26

@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-26
 
 ---
 
@@ -99,27 +99,29 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] .gitconfig erstellt (B4)
 - [x] Context-Dateien im Hauptrepo aktualisiert (7 Dateien)
 
-**Phase 2 (in Arbeit):**
+**Phase 2 (erledigt):**
 - [x] Pack-Script: pack-secrets.fish (shared/deployment/)
 - [x] Unpack-Script: unpack-secrets.fish (shared/deployment/)
-- [x] Deploy-Script: deploy.fish (.secrets/)
+- [x] Deploy-Script: deploy.fish v2.0.0 (.secrets/) — Copy+Symlink, Banner, Sektionen
 - [x] Bestehende .age-Dateien ins Archiv ueberfuehrt
 - [x] Lokale ~/.secrets/ migriert (91 Dateien, 6,7 MB Archiv)
 - [x] generate_pwd.fish ins PUBLIC Repo verschoben
 - [x] /etc/hosts fuer 3 Hosts erstellt (B2)
 - [ ] Credentials n8-archstick (D13)
 
-**Offene Phasen:**
-- Phase 3: Multi-Host Deployment (B9, B10)
+**Phase 3 (in Arbeit):**
+- [ ] Submodule n8-vps einrichten (B9)
+- [x] Submodule n8-kiste verifizieren (B10) — deploy.fish v2.0 erfolgreich
+- [ ] Deploy-Script auf allen Hosts testen
+- [ ] Recovery-Runbook erstellen
 
 **Mitlaufende Tasks:**
 - B9: Submodule n8-vps einrichten (Phase 3)
-- B10: Submodule n8-kiste verifizieren (Phase 3)
 - D13: Credentials n8-archstick aktualisieren (Phase 2)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** In Arbeit (Phase 1 erledigt, Phase 2 Scripts fertig, Migration offen)
+**Status:** In Arbeit (Phase 1+2 erledigt, Phase 3 B10 erledigt — B9 offen)
 **ETA:** Februar-Maerz 2026
 
 ---
@@ -244,7 +246,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 ```
 C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
-A1 Secrets-Repo Restrukturierung + B1✅, B4✅, D9✅ — Phase 1 erledigt, Phase 2 Scripts fertig (B9, B10, D13 offen)
+A1 Secrets-Repo Restrukturierung + B1✅, B4✅, B10✅, D9✅ — Phase 1+2 erledigt, Phase 3 in Arbeit (B9, D13 offen)
   ↓
 A2 Fish DRY-Refactoring + B2, B3, B6, B7 → danach B5+B17
   ↓
@@ -363,7 +365,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B7 | mr-bytez-info.fish | A2 | Phase 2 (offen) |
 | B8 | Docs-Struktur | A3 | Phase 2 (offen) |
 | B9 | Submodule n8-vps | A1 | Phase 2 (offen) |
-| B10 | Submodule n8-kiste | A1 | Phase 2 (offen) |
+| B10 | Submodule n8-kiste | A1 | ✅ Phase 3 erledigt |
 | B11 | Pre-Commit Hooks | A3 | Phase 3 (alt) |
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
 | B13 | Backup & Recovery | A3 | Phase 3 (alt) |
