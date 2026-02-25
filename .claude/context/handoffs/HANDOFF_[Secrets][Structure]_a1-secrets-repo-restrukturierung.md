@@ -504,17 +504,17 @@ Betroffene Dateien im Hauptrepo:
    - Merge-Logik: Datei-Level (Host-spezifisch ueberschreibt Shared)
    - Idempotent, sudo-Erkennung, Berechtigungen, --dry-run
 
-4. **Bestehende Secrets einsortieren**
-   - Einzelne .age-Dateien entschluesseln und in Archiv-Struktur einordnen
-   - api/codeberg.token, api/github.token → shared/home/mrohwer/.secrets/api/
-   - SSH-Keys → shared/home/mrohwer/.ssh/
-   - smb-n8-kiste.creds → infrastructure/n8-kiste/home/mrohwer/.secrets/
+4. ✅ **Bestehende Secrets einsortiert**
+   - 4 .age-Dateien entschluesselt: api/codeberg.token, api/github.token, SSH-Keys
+   - Eingeordnet in shared/home/mrohwer/.secrets/api/ und shared/home/mrohwer/.ssh/
+   - .pub-Dateien direkt kopiert (kein Entschluesseln noetig)
+   - Alte api/ + ssh/ Verzeichnisse mit git rm -r entfernt
 
-5. **Lokale ~/.secrets/ migrieren (~70 Dateien)**
-   - Kategorien durchgehen: ai/, backup/, cloud/, databases/, etc.
-   - Pro Datei entscheiden: shared/ oder infrastructure/<host>/
-   - In Archiv-Struktur einordnen
-   - generate_pwd.fish → ins PUBLIC Repo verschieben: `shared/deployment/generate_pwd.fish`
+5. ✅ **Lokale ~/.secrets/ migriert (91 Dateien)**
+   - shared/: ai, licenses, personal, cloud (rclone, protonmail, codeberg), vpn (mullvad), tools
+   - infrastructure/n8-vps/: services, databases, backup, cloud (hetzner, cloudflare), ssl, vpn
+   - generate_pwd.fish → `shared/deployment/generate_pwd.fish` (Public Repo)
+   - Geloescht: github_api.token.bak, altes n8kiste-Backup-Archiv
 
 6. **/etc/hosts aller Hosts (B2)**
    - n8-kiste, n8-vps, n8-station /etc/hosts erfassen

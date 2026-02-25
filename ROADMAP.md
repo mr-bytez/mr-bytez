@@ -103,10 +103,10 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] Pack-Script: pack-secrets.fish (shared/deployment/)
 - [x] Unpack-Script: unpack-secrets.fish (shared/deployment/)
 - [x] Deploy-Script: deploy.fish (.secrets/)
-- [ ] Bestehende .age-Dateien ins Archiv ueberfuehren
-- [ ] Lokale ~/.secrets/ migrieren (~70 Dateien)
+- [x] Bestehende .age-Dateien ins Archiv ueberfuehrt
+- [x] Lokale ~/.secrets/ migriert (91 Dateien, 6,7 MB Archiv)
+- [x] generate_pwd.fish ins PUBLIC Repo verschoben
 - [ ] /etc/hosts aller Hosts erfassen (B2)
-- [ ] Erstes Archiv packen + committen
 - [ ] Credentials n8-archstick (D13)
 
 **Offene Phasen:**

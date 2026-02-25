@@ -17,6 +17,13 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Deploy] deploy.fish Features: Hostname-Erkennung, idempotente Symlinks, sudo-Erkennung,
   Berechtigungen (0600 fuer SSH/.secrets), --dry-run, Schutz vor Ueberschreiben regulaerer Dateien
 - [Security] Roundtrip-Test erfolgreich: pack → unpack → diff identisch
+- [Security][Structure] Secrets-Migration abgeschlossen (A1 Phase 2, Aufgaben 4+5):
+  - 4 .age-Einzeldateien entschluesselt und ins Archiv ueberfuehrt (API-Tokens + SSH-Keys)
+  - ~70 Dateien aus lokaler ~/.secrets/ migriert (12 Kategorien → shared/ + infrastructure/n8-vps/)
+  - Archiv: 91 Dateien in mrohwer.tar.age (6,7 MB)
+  - Alte api/ + ssh/ Verzeichnisse aus Secrets-Repo entfernt (ersetzt durch Archiv)
+- [Tools] `shared/deployment/generate_pwd.fish` aus ~/.secrets/ ins Public Repo verschoben
+  (Disaster-Recovery-sicher, wie derive_key.fish)
 
 ---
 
