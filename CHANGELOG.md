@@ -27,6 +27,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Infra] /etc/hosts fuer 3 Hosts erstellt (B2): n8-kiste, n8-vps, n8-station
   - Konsistentes Template, FQDN mit `.mr-bytez.de`, im Archiv unter infrastructure/<hostname>/etc/hosts
   - Archiv aktualisiert: 94 Dateien
+- [Security][SSH] SSH-Keys + authorized_keys aller Hosts ins Archiv migriert
+  - n8-kiste: id_ed25519, forgejo, tinyssh_unlock + authorized_keys
+  - n8-station: id_ed25519, forgejo + authorized_keys
+  - n8-vps: authorized_keys
+  - authorized_keys bereinigt (alter RSA-Key entfernt, nur Ed25519)
+  - Archiv: 107 Dateien, 6,8 MB
 
 ---
 

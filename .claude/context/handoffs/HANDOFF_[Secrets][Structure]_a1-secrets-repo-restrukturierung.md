@@ -442,7 +442,7 @@ Betroffene Dateien im Hauptrepo:
 | Task | Beschreibung | Phase | Status |
 |------|-------------|-------|--------|
 | B1 | SSH-Config ins Secrets-Repo (shared/.ssh/config) | Phase 1 | ✅ Erledigt |
-| B2 | /etc/hosts aller Hosts dokumentieren (infrastructure/) | Phase 2 | Offen |
+| B2 | /etc/hosts aller Hosts dokumentieren (infrastructure/) | Phase 2 | ✅ Erledigt |
 | B4 | .gitconfig Shared (shared/.gitconfig) | Phase 1 | ✅ Erledigt |
 | B9 | Submodule n8-vps einrichten | Phase 3 | Offen |
 | B10 | Submodule n8-kiste einrichten | Phase 3 | Offen |
