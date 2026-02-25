@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-02-25
 **Autor:** MR-ByteZ
 
 ---
@@ -40,6 +40,29 @@ printf '%s\n' \
 
 - `cat` kann auf `bat` gemappt sein → `command cat` verwenden (→ `.claude/context/security.md`)
 - `grep` kann Alias haben → `command grep` verwenden
+
+### command-Prefix Pflicht in Scripts
+
+Fish-Aliases ueberschreiben Standard-Linux-Commands. In **allen Scripts** (.fish)
+muessen diese Commands mit `command`-Prefix verwendet werden:
+
+| Risiko | Command | Alias → | Problem |
+|--------|---------|---------|---------|
+| **HOCH** | `cat` | bat --color=auto | Anderes Output-Format, Farbcodes |
+| **HOCH** | `grep` | function mit Info-Zeile auf stdout | Bricht Pipes |
+| **HOCH** | `ls` | eza --icons | Anderes Format, Icons |
+| **HOCH** | `df` | duf | Komplett anderes Programm |
+| **HOCH** | `du` | dust | Komplett anderes Programm |
+| mittel | `rm` | rm -Iv | Interaktive Rueckfrage |
+| mittel | `cp` | cp -iv | Interaktive Rueckfrage |
+| mittel | `mv` | mv -iv | Interaktive Rueckfrage |
+
+**Regel:** `command cat`, `command grep`, `command ls` etc. in Scripts — IMMER.
+
+**Hintergrund:** cat-Alias mit `--color=always` hat ANSI-Farbcodes in authorized_keys
+geschrieben und SSH Key-Auth kaputt gemacht (Bug gefunden 2026-02-25, gefixt → `--color=auto`).
+
+→ Langfristige Loesung: A2 Fish DRY-Refactoring (Alias-Umbenennung)
 
 ---
 

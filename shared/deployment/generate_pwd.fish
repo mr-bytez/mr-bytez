@@ -162,7 +162,7 @@ function generate_pwd --description "🔐 Generiere sichere Passwörter in ~/.se
     set_color cyan
     echo "🔑 Passwort:"
     set_color yellow
-    echo "   "(cat $secret_file)
+    echo "   "(command cat $secret_file)
     set_color normal
     echo ""
     set_color cyan

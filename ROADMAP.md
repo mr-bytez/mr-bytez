@@ -119,13 +119,16 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] RECOVERY.md v1.1 erstellt (Disaster Recovery Anleitung)
 - [x] Deploy auf n8-vps verifiziert — SSH + Dual-Remote funktioniert
 - [x] Deploy auf n8-station — deploy.fish v0.3.0 (ohne-sudo Architektur)
+- [x] B15 Host-zu-Host SSH-Config — war bereits vorhanden (in Phase 1 erstellt)
+- [x] Ghost-Submodule bereinigt (n8-station)
+- [x] cat-Alias Sofort-Fix: --color=always → --color=auto, 2 Scripts command-Prefix gefixt
 
 **Mitlaufende Tasks:**
 - D13: Credentials n8-archstick aktualisieren (Phase 2)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** Phase 1+2+3 erledigt (alle 3 Hosts deployed + verifiziert)
+**Status:** Phase 1+2+3 erledigt (alle 3 Hosts deployed + verifiziert, B15 erledigt)
 **ETA:** Februar-Maerz 2026
 
 ---
@@ -143,6 +146,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - Shared Conditionals, Loader-Umbau
 - 7-Phasen-Plan
 - Paket-Inventur: pacman/yay/flatpak pro Host (Basis fuer Feature-Flags)
+- Alias-Naming-Konvention (cat → bcat, grep → ggrep o.ae.) — gefunden durch cat-Alias-Bug #SEC01.7
 
 **Mitlaufende Tasks:**
 - B2: /etc/hosts Dokumentation
@@ -375,7 +379,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
 | B13 | Backup & Recovery | A3 | Phase 3 (alt) |
 | B14 | Traefik Setup | A4 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
-| B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | Phase 3 |
+| B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | ✅ Bereits in Phase 1 erstellt |
 | B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
 | B17 | VLC Desktop-Paketliste | B5/A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
 
@@ -433,3 +437,5 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 ---
 
 **Letzte Aktualisierung:** 2026-02-25
+
+

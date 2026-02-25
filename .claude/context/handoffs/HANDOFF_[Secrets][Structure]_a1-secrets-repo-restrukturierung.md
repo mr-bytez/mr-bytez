@@ -1,15 +1,17 @@
 # HANDOFF: A1 Secrets-Repo Restrukturierung — Verschlüsseltes Home-Backup
 
-**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung), #SEC01.3 (Phase 2 Archiv-Modell), #SEC01.4 (Phase 3 Deploy v2.0), #SEC01.5 (Phase 3 Bugfixes + Abschluss)
+**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung), #SEC01.3 (Phase 2 Archiv-Modell), #SEC01.4 (Phase 3 Deploy v2.0), #SEC01.5 (Phase 3 Bugfixes + Abschluss), #SEC01.6 (Phase 3 Abschluss + Docs), #SEC01.7 (Alias-Audit + Ghost-Cleanup)
 **Chat-Links:**
 - #SEC01.1: https://claude.ai/chat/1573b769-dc58-4a7c-bac6-7ccdc03d5639
 - #SEC01.2: https://claude.ai/chat/57a23402-e625-4bae-b2cf-615791e15f56
 - #SEC01.3: https://claude.ai/chat/b9590cad-86a4-493a-adcd-8b2837d91fc7
 - #SEC01.4: https://claude.ai/chat/1616d1af-6021-4c46-ba65-ea9a0d06a2cf
-- #SEC01.5: https://claude.ai/chat/<sec01.5-chat-id>
-**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4 → #SEC01.5
-**Datum:** 2026-02-26
-**Status:** Phase 1+2 erledigt — Phase 3 B10 erledigt, B9 erledigt (Workaround in #SEC01.4)
+- #SEC01.5: https://claude.ai/chat/a0bbcb34-cb87-435e-a504-3b876cf52726
+- #SEC01.6: https://claude.ai/chat/07bd43ff-045b-4c6d-a94e-deaa39f2dcd3
+- #SEC01.7: https://claude.ai/chat/e9999483-ed49-49d9-9e8e-d14ebc17298e
+**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4 → #SEC01.5 → #SEC01.6 → #SEC01.7
+**Datum:** 2026-02-25
+**Status:** Phase 1+2+3 erledigt — B15 erledigt, alle 3 Hosts deployed + verifiziert (D13 offen)
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---
@@ -450,6 +452,7 @@ Betroffene Dateien im Hauptrepo:
 | B4 | .gitconfig Shared (shared/.gitconfig) | Phase 1 | ✅ Erledigt |
 | B9 | Submodule n8-vps einrichten | Phase 3 | ✅ Erledigt (Workaround #SEC01.4) |
 | B10 | Submodule n8-kiste verifizieren + deploy | Phase 3 | ✅ Erledigt |
+| B15 | Host-zu-Host SSH-Config | Phase 3 | ✅ Erledigt (war bereits in Phase 1 erstellt) |
 | D9 | symlinks.db ins Secrets-Repo (als Checkliste) | Phase 1 | ✅ Erledigt |
 | D13 | Credentials n8-archstick | Phase 2 | Offen |
 
@@ -584,6 +587,11 @@ Betroffene Dateien im Hauptrepo:
    - MR-ByteZ ASCII-Banner eingebaut
 10. ✅ **AddressFamily inet** in SSH-Config im Archiv (#SEC01.5)
     - Codeberg hat IPv6-Probleme auf n8-vps (Timeout ohne -4 Flag)
+11. ✅ **B15 Host-zu-Host SSH-Config** (#SEC01.7) — war bereits vorhanden (in Phase 1 erstellt)
+12. ✅ **Ghost-Submodule bereinigt** (#SEC01.7) — /mr-bytez/shared/.secrets/ auf n8-station entfernt
+13. ✅ **cat-Alias Sofort-Fix** (#SEC01.7) — --color=always → --color=auto, 2 Scripts command-Prefix gefixt
+    - generate_pwd.fish:165, 00-theme.fish:138 — `cat` → `command cat`
+    - Alias-Audit: Vollstaendige Risiko-Tabelle in shell.md dokumentiert
 
 **Lessons Learned:**
 - **#10 Codeberg IPv6:** n8-vps kann Codeberg nicht ueber IPv6 erreichen → AddressFamily inet in SSH-Config
@@ -591,6 +599,7 @@ Betroffene Dateien im Hauptrepo:
 - **#12 Nie unimplementierten Flag benutzen:** --with-username wurde in Docs referenziert bevor derive_key.fish das Flag unterstuetzte → Archiv mit falschem Salt gepackt
 - **#13 sudo-Ownership-Falle:** deploy.fish mit sudo ausfuehren → alle kopierten Home-Dateien gehoeren root → SSH-Keys unlesbar. Fix: Script ohne sudo ausfuehren, nur /etc/hosts intern mit sudo. Ownership-Vorbereitung am Anfang (einmaliger chown) fuer Altlasten.
 - **#14 Versionsnummern immer als Variable:** Hardcoded Versionsnummern in Bannern/Help-Texten fuehren zu Inkonsistenzen. Regel: `set script_version "X.Y.Z"` + ueberall `$script_version` referenzieren.
+- **#15 cat-Alias-Falle (--color=always):** cat=bat mit --color=always schreibt ANSI-Escape-Codes in JEDE Ausgabe, auch bei Pipe/Redirect. Hat authorized_keys auf n8-station korrumpiert → SSH Key-Auth kaputt. Fix: --color=auto. Langfristig: Aliases umbenennen (A2). Audit: 5 HOCH-Risiko Aliases (cat, grep, ls, df, du) identifiziert, command-Prefix Pflicht in shell.md dokumentiert.
 
 ---
 
@@ -636,3 +645,5 @@ Betroffene Dateien im Hauptrepo:
 - #SEC01.3 — Phase 2 Archiv-Modell (Pack/Unpack, Migration)
 - #SEC01.4 — Phase 3 Deploy v2.0, B10 n8-kiste verifiziert
 - #SEC01.5 — Phase 3 Multi-Host Deployment (B9 n8-vps)
+- #SEC01.6 — Phase 3 Abschluss (n8-station deployed, Script-Standardisierung)
+- #SEC01.7 — Alias-Audit, Ghost-Cleanup, cat-Bug-Fix, B15 erledigt

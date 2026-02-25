@@ -44,7 +44,7 @@ alias ip='ip -c'
 alias less='less -R'
 
 # ── bat: Syntax-Highlighting für cat ─────────────────────────────────────────
-alias cat='bat --paging=never --style=numbers --theme="gruvbox-dark" --tabs=4 --wrap=never --color=always'
+alias cat='bat --paging=never --style=numbers --theme="gruvbox-dark" --tabs=4 --wrap=never --color=auto'
 alias catn='cat --paging=auto' # Vollversion mit Zeilennummern & Paging
 
 # ══════════════════════════════════════════════════════════════════════════════

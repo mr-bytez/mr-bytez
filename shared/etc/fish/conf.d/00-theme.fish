@@ -135,7 +135,7 @@ function __theme_load --description "Lädt aktives Theme oder Fallback"
         # Prüfe ob Theme in Datei gespeichert
         set -l theme_file ~/.config/fish/.active_theme
         if test -f $theme_file
-            set -g FISH_THEME (cat $theme_file | string trim)
+            set -g FISH_THEME (command cat $theme_file | string trim)
         end
     end
 

@@ -7,6 +7,28 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.6] - 2026-02-25
+
+### Fixed
+- [Security][Fish] cat-Alias Sofort-Fix: `--color=always` → `--color=auto` in 90-misc.fish
+  - KRITISCHER BUG: --color=always schrieb ANSI-Farbcodes in Dateien bei Redirect/Pipe
+  - Hatte authorized_keys auf n8-station korrumpiert (SSH Key-Auth kaputt)
+- [Fish][Deploy] 2 Scripts mit fehlendem command-Prefix gefixt:
+  - generate_pwd.fish:165 — `cat` → `command cat`
+  - 00-theme.fish:138 — `cat` → `command cat`
+
+### Added
+- [Docs] shell.md: Neue Sektion "command-Prefix Pflicht" mit vollstaendiger Alias-Risiko-Tabelle
+  - 5 HOCH-Risiko Aliases (cat, grep, ls, df, du), 3 MITTEL (rm, cp, mv)
+  - Verweis auf A2 fuer langfristige Alias-Umbenennung
+
+### Changed
+- [Infra] Ghost-Submodule bereinigt: /mr-bytez/shared/.secrets/ auf n8-station entfernt
+- [Docs] Handoff A1: B15 erledigt (war bereits in SSH-Config vorhanden), Alias-Bug als Lesson Learned #15
+- [Docs] ROADMAP: B15 ✅, Alias-Naming unter A2 notiert
+
+---
+
 ## [0.8.5] - 2026-02-25
 
 ### Added
@@ -558,4 +580,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-26
+**Letzte Aktualisierung:** 2026-02-25
