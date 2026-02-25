@@ -118,14 +118,14 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] AddressFamily inet fuer Codeberg (IPv6-Problem auf n8-vps)
 - [x] RECOVERY.md v1.1 erstellt (Disaster Recovery Anleitung)
 - [x] Deploy auf n8-vps verifiziert — SSH + Dual-Remote funktioniert
-- [ ] Deploy auf n8-station
+- [x] Deploy auf n8-station — deploy.fish v0.3.0 (ohne-sudo Architektur)
 
 **Mitlaufende Tasks:**
 - D13: Credentials n8-archstick aktualisieren (Phase 2)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** In Arbeit (Phase 1+2+3 fast erledigt — nur n8-station Deployment offen)
+**Status:** Phase 1+2+3 erledigt (alle 3 Hosts deployed + verifiziert)
 **ETA:** Februar-Maerz 2026
 
 ---
@@ -291,8 +291,8 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 
 ### Milestones
 
-- [ ] B15: Submodule n8-station
-- [ ] B15: Submodule n8-book
+- [ ] B18: Submodule n8-station
+- [ ] B18: Submodule n8-book
 - [ ] B16: blog.mr-bytez.de (oeffentlich)
 - [ ] B16: shop.mr-bytez.de (oeffentlich)
 
@@ -375,7 +375,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
 | B13 | Backup & Recovery | A3 | Phase 3 (alt) |
 | B14 | Traefik Setup | A4 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
-| B15 | Submodule n8-station/n8-book | Phase 4 | Phase 4 |
+| B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | Phase 3 |
 | B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
 | B17 | VLC Desktop-Paketliste | B5/A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
 

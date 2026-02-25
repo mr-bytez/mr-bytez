@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 # ============================================
-# unpack-secrets.fish - Secrets-Archiv entpacken
+# unpack-secrets.fish — Secrets-Archiv entpacken
 # Pfad: /mr-bytez/shared/deployment/unpack-secrets.fish
 # Autor: MR-ByteZ
 # Erstellt: 2026-02-25
-# Version: 1.1.0
+# Version: siehe $script_version
 # Zweck: mrohwer.tar.age → mrohwer.tar → mrohwer/
 # ============================================
 
@@ -24,6 +24,7 @@ end
 # ── Konfiguration ────────────────────────────
 
 set script_name (basename (status filename))
+set script_version "0.2.0"
 set secrets_dir /mr-bytez/.secrets
 set source_dir mrohwer
 set tar_file mrohwer.tar
@@ -115,11 +116,11 @@ if type -q mr_bytez_banner
     mr_bytez_banner
     echo ""
     set_color brblack
-    echo "  unpack-secrets.fish v1.1.0"
+    echo "  unpack-secrets.fish v$script_version"
     echo "  Verschluesseltes Age-Archiv entpacken"
     set_color normal
 else
-    _msg "unpack-secrets.fish v1.1.0"
+    _msg "unpack-secrets.fish v$script_version"
     set_color brblack
     echo "  Verschluesseltes Age-Archiv entpacken"
     set_color normal

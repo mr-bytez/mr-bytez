@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-24
+**Aktualisiert:** 2026-02-25
 **Autor:** MR-ByteZ
 
 ---
@@ -50,7 +50,7 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 |------|----------------|-------------|-----------------|-------------|
 | n8-kiste | ✅ | ✅ | ✅ | ✅ (origin+codeberg) |
 | n8-vps | ✅ | ✅ | ✅ | ✅ (origin+codeberg) |
-| n8-station | ❌ | ❌ | ❌ | ❌ |
+| n8-station | ✅ | ✅ | ✅ | ✅ (origin+codeberg) |
 
 ### WireGuard VPN
 

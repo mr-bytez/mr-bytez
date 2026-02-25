@@ -569,7 +569,7 @@ Betroffene Dateien im Hauptrepo:
    - Archiv mit --with-username entpackt, deploy.fish erfolgreich
    - AddressFamily inet fuer Codeberg (IPv6-Problem)
    - SSH verifiziert: github + codeberg, Remotes auf SSH umgestellt, Dual-Remote
-4. Deploy-Script auf n8-station testen — Offen
+4. ✅ **n8-station deployed** (#SEC01.5) — deploy.fish v0.3.0 ohne sudo, SSH + Dual-Remote verifiziert
 5. ✅ **RECOVERY.md erstellt** v1.1 (#SEC01.5) — Disaster Recovery Anleitung
    - HTTPS-Clone Hinweis (Henne-Ei), AddressFamily inet, git stash
 6. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
@@ -589,6 +589,8 @@ Betroffene Dateien im Hauptrepo:
 - **#10 Codeberg IPv6:** n8-vps kann Codeberg nicht ueber IPv6 erreichen → AddressFamily inet in SSH-Config
 - **#11 unpack loescht vor Verify:** unpack-secrets.fish v1.0 loeschte mrohwer/ BEVOR die Passphrase geprueft wurde → Datenverlust bei falscher Passphrase. Fix: temp-Verzeichnis
 - **#12 Nie unimplementierten Flag benutzen:** --with-username wurde in Docs referenziert bevor derive_key.fish das Flag unterstuetzte → Archiv mit falschem Salt gepackt
+- **#13 sudo-Ownership-Falle:** deploy.fish mit sudo ausfuehren → alle kopierten Home-Dateien gehoeren root → SSH-Keys unlesbar. Fix: Script ohne sudo ausfuehren, nur /etc/hosts intern mit sudo. Ownership-Vorbereitung am Anfang (einmaliger chown) fuer Altlasten.
+- **#14 Versionsnummern immer als Variable:** Hardcoded Versionsnummern in Bannern/Help-Texten fuehren zu Inkonsistenzen. Regel: `set script_version "X.Y.Z"` + ueberall `$script_version` referenzieren.
 
 ---
 

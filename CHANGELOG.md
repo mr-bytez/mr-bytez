@@ -7,6 +7,30 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.5] - 2026-02-25
+
+### Added
+- [Docs] Neue Context-Datei: `.claude/context/versioning.md` — SemVer-Regeln fuer Scripts
+  - 0.x.y Phase (In Entwicklung), 1.0.0 Kriterien, Script-Konventionen
+  - Aktuelle Script-Versionen Tabelle (deploy 0.3.0, pack 0.1.0, unpack 0.2.0, derive_key 0.2.0)
+- [Infra] n8-station Secrets-Deployment verifiziert — SSH + Dual-Remote funktioniert
+
+### Changed
+- [Security][Deploy] deploy.fish v0.3.0 im Secrets-Repo — ohne-sudo Architektur:
+  - Script laeuft OHNE sudo, nur /etc/hosts intern mit sudo
+  - Ownership-Vorbereitung am Anfang (einmaliger chown bei Root-owned Dateien)
+  - Git Remotes Post-Deploy, .gitconfig Backup+Symlink, Ghost-Submodule Warnung
+- [Deploy] Script-Standardisierung fuer alle 4 Deployment-Scripte:
+  - Versionsvariable ($script_version) statt hardcoded Nummern
+  - MR-ByteZ ASCII-Banner eingebaut (pack-secrets.fish, derive_key.fish)
+  - Header-Kommentar vereinheitlicht ("Version: siehe $script_version")
+  - Korrekte SemVer: deploy 0.3.0, unpack 0.2.0, pack 0.1.0, derive_key 0.2.0
+- [Docs] Handoff A1: n8-station deployed, Lessons Learned #13 (sudo-Ownership), #14 (Versionsvariable)
+- [Docs] infrastructure.md: n8-station Secrets-Deployment Status ✅
+- [Docs] ROADMAP: A1 Phase 3 n8-station ✅, B15 Host-zu-Host SSH-Config
+
+---
+
 ## [0.8.4] - 2026-02-26
 
 ### Fixed

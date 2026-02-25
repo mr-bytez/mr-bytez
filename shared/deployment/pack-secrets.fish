@@ -1,16 +1,30 @@
 #!/usr/bin/env fish
 # ============================================
-# pack-secrets.fish - Secrets-Archiv packen
+# pack-secrets.fish — Secrets-Archiv packen
 # Pfad: /mr-bytez/shared/deployment/pack-secrets.fish
 # Autor: MR-ByteZ
 # Erstellt: 2026-02-25
-# Version: 1.0.0
+# Version: siehe $script_version
 # Zweck: mrohwer/ → mrohwer.tar → mrohwer.tar.age
 # ============================================
+
+# ── Banner laden ────────────────────────────
+
+set -l banner_path /mr-bytez/shared/lib/banner.fish
+if test -f "$banner_path"
+    source "$banner_path"
+else
+    # Fallback ueber Anker
+    set -l banner_anchor /opt/mr-bytez/current/shared/lib/banner.fish
+    if test -f "$banner_anchor"
+        source "$banner_anchor"
+    end
+end
 
 # ── Konfiguration ────────────────────────────
 
 set script_name (basename (status filename))
+set script_version "0.1.0"
 set secrets_dir /mr-bytez/.secrets
 set source_dir mrohwer
 set tar_file mrohwer.tar
@@ -95,11 +109,25 @@ while test $i -le (count $argv)
     set i (math $i + 1)
 end
 
-# ── Voraussetzungen pruefen ──────────────────
+# ── Banner ───────────────────────────────────
 
 echo ""
-_msg "pack-secrets.fish v1.0.0"
+if type -q mr_bytez_banner
+    mr_bytez_banner
+    echo ""
+    set_color brblack
+    echo "  pack-secrets.fish v$script_version"
+    echo "  Secrets-Verzeichnis in verschluesseltes Age-Archiv packen"
+    set_color normal
+else
+    _msg "pack-secrets.fish v$script_version"
+    set_color brblack
+    echo "  Secrets-Verzeichnis in verschluesseltes Age-Archiv packen"
+    set_color normal
+end
 echo ""
+
+# ── Voraussetzungen pruefen ──────────────────
 
 # Secrets-Verzeichnis pruefen
 if not test -d "$secrets_dir"

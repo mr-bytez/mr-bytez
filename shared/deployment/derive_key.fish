@@ -1,14 +1,51 @@
 #!/usr/bin/env fish
 # ============================================
-# derive_key.fish - Key-Derivation Script
+# derive_key.fish — Key-Derivation Script
 # Pfad: /mr-bytez/shared/deployment/derive_key.fish
-# Autor: Michael Rohwer
+# Autor: MR-ByteZ
 # Erstellt: 2026-01-23
-# Version: 1.1.0
+# Version: siehe $script_version
 # Zweck: PBKDF2 Key-Derivation aus Master-Password + Salt
 # ============================================
 
-# Argumente prüfen
+# ── Banner laden ────────────────────────────
+
+set -l banner_path /mr-bytez/shared/lib/banner.fish
+if test -f "$banner_path"
+    source "$banner_path"
+else
+    # Fallback ueber Anker
+    set -l banner_anchor /opt/mr-bytez/current/shared/lib/banner.fish
+    if test -f "$banner_anchor"
+        source "$banner_anchor"
+    end
+end
+
+# ── Konfiguration ────────────────────────────
+
+set script_version "0.2.0"
+
+# ── Banner ───────────────────────────────────
+
+echo ""
+if type -q mr_bytez_banner
+    mr_bytez_banner
+    echo ""
+    set_color brblack
+    echo "  derive_key.fish v$script_version"
+    echo "  PBKDF2 Key-Derivation aus Master-Password + Salt"
+    set_color normal
+else
+    set_color cyan
+    echo "→ derive_key.fish v$script_version"
+    set_color normal
+    set_color brblack
+    echo "  PBKDF2 Key-Derivation aus Master-Password + Salt"
+    set_color normal
+end
+echo ""
+
+# Argumente pruefen
 if test (count $argv) -lt 1
     set_color red
     echo "❌ Fehler: Salt erforderlich!"
