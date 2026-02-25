@@ -106,7 +106,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] Bestehende .age-Dateien ins Archiv ueberfuehrt
 - [x] Lokale ~/.secrets/ migriert (91 Dateien, 6,7 MB Archiv)
 - [x] generate_pwd.fish ins PUBLIC Repo verschoben
-- [ ] /etc/hosts aller Hosts erfassen (B2)
+- [x] /etc/hosts fuer 3 Hosts erstellt (B2)
 - [ ] Credentials n8-archstick (D13)
 
 **Offene Phasen:**
@@ -355,7 +355,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | # | Aufgabe | Projekt | Quelle |
 |---|---------|---------|--------|
 | B1 | SSH-Config Secrets-Deployment | A1 | ✅ Phase 1 erledigt |
-| B2 | /etc/hosts Dokumentation | A2 | `HANDOFF_2026-02-08.md`, Aufgabe 2 |
+| B2 | /etc/hosts Dokumentation | A1 | ✅ Phase 2 erledigt (3 Hosts) |
 | B3 | README Struktur-Baum | A2 + A5 | `HANDOFF_2026-02-08.md`, Aufgabe 3 |
 | B4 | Git-Config Shared | A1 | ✅ Phase 1 erledigt |
 | B5 | SMB-Shares Deployment | A2 | `HANDOFF_SMB_DEPLOYMENT.md` |

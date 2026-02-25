@@ -516,23 +516,14 @@ Betroffene Dateien im Hauptrepo:
    - generate_pwd.fish → `shared/deployment/generate_pwd.fish` (Public Repo)
    - Geloescht: github_api.token.bak, altes n8kiste-Backup-Archiv
 
-6. **/etc/hosts aller Hosts (B2)**
-   - n8-kiste, n8-vps, n8-station /etc/hosts erfassen
-   - Unter infrastructure/<hostname>/etc/hosts ablegen
-   - Bekannte Inhalte n8-kiste /etc/hosts:
-     ```
-     127.0.0.1   localhost
-     ::1         localhost
-     127.0.1.1   n8-kiste.local n8-kiste
-     10.10.10.1  n8-kiste.local n8-kiste
-     127.0.0.1 grills-reduziert.local
-     127.0.0.1 xinro.local
-     ```
+6. ✅ **/etc/hosts fuer 3 Hosts erstellt (B2)**
+   - n8-kiste (10.10.10.1 + Dev-Domains), n8-vps (136.243.101.223 + IPv6), n8-station (10.10.10.3)
+   - Konsistentes Template: Header, Loopback, FQDN `.mr-bytez.de`, LAN/Public IP
+   - Unter infrastructure/<hostname>/etc/hosts im Archiv
 
-7. **Erstes Archiv packen + committen**
-   - mrohwer.tar.age erstellen
-   - Einzelne .age-Dateien entfernen (ersetzt durch Archiv)
-   - Validierung: Entpacken + Pruefen ob alles da ist
+7. ✅ **Archiv gepackt + alte Einzeldateien entfernt**
+   - mrohwer.tar.age: 94 Dateien, 6,7 MB
+   - api/ + ssh/ Verzeichnisse entfernt (git rm -r)
 
 8. **Credentials n8-archstick (D13)**
    - n8-archstick Secrets in infrastructure/n8-archstick/ einordnen

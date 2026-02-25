@@ -24,6 +24,9 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Alte api/ + ssh/ Verzeichnisse aus Secrets-Repo entfernt (ersetzt durch Archiv)
 - [Tools] `shared/deployment/generate_pwd.fish` aus ~/.secrets/ ins Public Repo verschoben
   (Disaster-Recovery-sicher, wie derive_key.fish)
+- [Infra] /etc/hosts fuer 3 Hosts erstellt (B2): n8-kiste, n8-vps, n8-station
+  - Konsistentes Template, FQDN mit `.mr-bytez.de`, im Archiv unter infrastructure/<hostname>/etc/hosts
+  - Archiv aktualisiert: 94 Dateien
 
 ---
 
