@@ -489,20 +489,20 @@ Betroffene Dateien im Hauptrepo:
 
 **Aufgaben:**
 
-1. **Pack-Script erstellen** (`pack-secrets.fish`)
+1. ✅ **Pack-Script erstellt** (`pack-secrets.fish`) — `shared/deployment/pack-secrets.fish`
    - `mrohwer/` → `mrohwer.tar` → `mrohwer.tar.age`
-   - derive_key.fish fuer Passphrase
-   - Validierung: Archiv-Inhalt pruefen vor Verschluesselung
+   - derive_key.fish fuer Passphrase, Validierung vor Verschluesselung
+   - --dry-run, --secrets-dir, Ueberschreib-Abfrage
 
-2. **Unpack-Script erstellen** (`unpack-secrets.fish`)
+2. ✅ **Unpack-Script erstellt** (`unpack-secrets.fish`) — `shared/deployment/unpack-secrets.fish`
    - `mrohwer.tar.age` → `mrohwer.tar` → `mrohwer/`
-   - Cleanup: tar-Datei nach Entpacken loeschen
+   - Cleanup tar, Validierung nach Entpacken, --keep-tar Option
 
-3. **Deploy-Script erstellen** (`deploy.fish`)
+3. ✅ **Deploy-Script erstellt** (`deploy.fish`) — `.secrets/deploy.fish`
    - Liest `shared/` + `infrastructure/<hostname>/`
    - Setzt Symlinks ueber Anker `/opt/mr-bytez/current/.secrets/`
    - Merge-Logik: Datei-Level (Host-spezifisch ueberschreibt Shared)
-   - symlinks.db als Checkliste aktualisieren
+   - Idempotent, sudo-Erkennung, Berechtigungen, --dry-run
 
 4. **Bestehende Secrets einsortieren**
    - Einzelne .age-Dateien entschluesseln und in Archiv-Struktur einordnen

@@ -99,8 +99,17 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] .gitconfig erstellt (B4)
 - [x] Context-Dateien im Hauptrepo aktualisiert (7 Dateien)
 
+**Phase 2 (in Arbeit):**
+- [x] Pack-Script: pack-secrets.fish (shared/deployment/)
+- [x] Unpack-Script: unpack-secrets.fish (shared/deployment/)
+- [x] Deploy-Script: deploy.fish (.secrets/)
+- [ ] Bestehende .age-Dateien ins Archiv ueberfuehren
+- [ ] Lokale ~/.secrets/ migrieren (~70 Dateien)
+- [ ] /etc/hosts aller Hosts erfassen (B2)
+- [ ] Erstes Archiv packen + committen
+- [ ] Credentials n8-archstick (D13)
+
 **Offene Phasen:**
-- Phase 2: Archiv-Modell (Pack/Unpack-Scripts, Secrets einsortieren, B2, D13)
 - Phase 3: Multi-Host Deployment (B9, B10)
 
 **Mitlaufende Tasks:**
@@ -110,7 +119,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** In Arbeit (Phase 1 erledigt, Phase 2+3 offen)
+**Status:** In Arbeit (Phase 1 erledigt, Phase 2 Scripts fertig, Migration offen)
 **ETA:** Februar-Maerz 2026
 
 ---
@@ -235,7 +244,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 ```
 C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
-A1 Secrets-Repo Restrukturierung + B1✅, B4✅, D9✅ — Phase 1 erledigt, Phase 2+3 offen (B9, B10, D13)
+A1 Secrets-Repo Restrukturierung + B1✅, B4✅, D9✅ — Phase 1 erledigt, Phase 2 Scripts fertig (B9, B10, D13 offen)
   ↓
 A2 Fish DRY-Refactoring + B2, B3, B6, B7 → danach B5+B17
   ↓
@@ -416,4 +425,4 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-24
+**Letzte Aktualisierung:** 2026-02-25

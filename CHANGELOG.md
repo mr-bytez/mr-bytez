@@ -7,6 +7,19 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.2] - 2026-02-25
+
+### Added
+- [Security][Deploy] 3 Scripts fuer Secrets-Archiv-Workflow erstellt (A1 Phase 2, Aufgaben 1-3):
+  - `shared/deployment/pack-secrets.fish` — mrohwer/ → mrohwer.tar.age (Verschluesselung)
+  - `shared/deployment/unpack-secrets.fish` — mrohwer.tar.age → mrohwer/ (Entschluesselung)
+  - `.secrets/deploy.fish` — Symlinks ueber Anker setzen (Merge-Logik: Host > Shared)
+- [Deploy] deploy.fish Features: Hostname-Erkennung, idempotente Symlinks, sudo-Erkennung,
+  Berechtigungen (0600 fuer SSH/.secrets), --dry-run, Schutz vor Ueberschreiben regulaerer Dateien
+- [Security] Roundtrip-Test erfolgreich: pack → unpack → diff identisch
+
+---
+
 ## [0.8.1] - 2026-02-25
 
 ### Added
