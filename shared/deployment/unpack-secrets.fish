@@ -4,9 +4,22 @@
 # Pfad: /mr-bytez/shared/deployment/unpack-secrets.fish
 # Autor: MR-ByteZ
 # Erstellt: 2026-02-25
-# Version: 1.0.0
+# Version: 1.1.0
 # Zweck: mrohwer.tar.age → mrohwer.tar → mrohwer/
 # ============================================
+
+# ── Banner laden ────────────────────────────
+
+set -l banner_path /mr-bytez/shared/lib/banner.fish
+if test -f "$banner_path"
+    source "$banner_path"
+else
+    # Fallback ueber Anker
+    set -l banner_anchor /opt/mr-bytez/current/shared/lib/banner.fish
+    if test -f "$banner_anchor"
+        source "$banner_anchor"
+    end
+end
 
 # ── Konfiguration ────────────────────────────
 
@@ -57,9 +70,10 @@ function _usage
     echo ""
     echo "Workflow:"
     echo "  1. Entschluesselt mrohwer.tar.age → mrohwer.tar"
-    echo "  2. Entpackt mrohwer.tar → mrohwer/"
+    echo "  2. Entpackt mrohwer.tar → mrohwer.tmp/"
     echo "  3. Validiert entpackte Dateien"
-    echo "  4. Raeumt tar-Zwischendatei auf"
+    echo "  4. Erst bei Erfolg: altes mrohwer/ ersetzen"
+    echo "  5. Raeumt tar-Zwischendatei auf"
     echo ""
     echo "Passphrase generieren:"
     echo "  fish derive_key.fish secrets --with-username"
@@ -94,11 +108,25 @@ while test $i -le (count $argv)
     set i (math $i + 1)
 end
 
-# ── Voraussetzungen pruefen ──────────────────
+# ── Banner ───────────────────────────────────
 
 echo ""
-_msg "unpack-secrets.fish v1.0.0"
+if type -q mr_bytez_banner
+    mr_bytez_banner
+    echo ""
+    set_color brblack
+    echo "  unpack-secrets.fish v1.1.0"
+    echo "  Verschluesseltes Age-Archiv entpacken"
+    set_color normal
+else
+    _msg "unpack-secrets.fish v1.1.0"
+    set_color brblack
+    echo "  Verschluesseltes Age-Archiv entpacken"
+    set_color normal
+end
 echo ""
+
+# ── Voraussetzungen pruefen ──────────────────
 
 # Secrets-Verzeichnis pruefen
 if not test -d "$secrets_dir"
@@ -128,9 +156,11 @@ end
 
 # ── Bestehendes mrohwer/ pruefen ─────────────
 
+set has_existing false
 if test -d "$source_dir"
     set existing_count (find "$source_dir" -type f 2>/dev/null | wc -l | string trim)
     if test "$existing_count" -gt 0
+        set has_existing true
         _warn "Bestehendes Verzeichnis gefunden: $source_dir/ ($existing_count Dateien)"
         echo ""
         read -P "Ueberschreiben? [j/N] " confirm
@@ -139,12 +169,12 @@ if test -d "$source_dir"
             exit 0
         end
         echo ""
-        _msg "Entferne bestehendes $source_dir/..."
-        rm -rf "$source_dir"
     end
 end
 
 # ── Schritt 1: Age-Entschluesselung ─────────
+# WICHTIG: Erst entschluesseln + entpacken in temp, DANN altes Verzeichnis ersetzen
+# So gehen bei falscher Passphrase keine Daten verloren!
 
 _msg "Entschluessele Archiv..."
 echo "  Tipp: Passphrase generieren mit: fish derive_key.fish secrets --with-username"
@@ -170,25 +200,36 @@ end
 set tar_size (command du -h "$tar_file" | cut -f1)
 _success "Entschluesselt: $tar_file ($tar_size)"
 
-# ── Schritt 2: tar entpacken ────────────────
+# ── Schritt 2: In temp-Verzeichnis entpacken ──
 
-_msg "Entpacke Archiv..."
+set temp_dir "$source_dir.tmp"
 
-tar -xf "$tar_file"
+# Altes temp aufraeumen falls vorhanden
+if test -d "$temp_dir"
+    rm -rf "$temp_dir"
+end
+
+_msg "Entpacke Archiv in temporaeres Verzeichnis..."
+
+# tar entpackt nach mrohwer/ — wir entpacken in temp und benennen um
+mkdir -p "$temp_dir"
+tar -xf "$tar_file" -C "$temp_dir" --strip-components=1
 if test $status -ne 0
     _error "tar entpacken fehlgeschlagen!"
+    rm -rf "$temp_dir"
     rm -f "$tar_file"
     exit 1
 end
 
-if not test -d "$source_dir"
-    _error "Verzeichnis $source_dir/ wurde nicht erstellt!"
+set file_count (find "$temp_dir" -type f 2>/dev/null | wc -l | string trim)
+if test "$file_count" -eq 0
+    _error "Temporaeres Verzeichnis ist leer!"
+    rm -rf "$temp_dir"
     rm -f "$tar_file"
     exit 1
 end
 
-set file_count (find "$source_dir" -type f 2>/dev/null | wc -l | string trim)
-_success "Entpackt: $source_dir/ ($file_count Dateien)"
+_success "Entpackt: $temp_dir/ ($file_count Dateien)"
 
 # ── Schritt 3: Validierung ──────────────────
 
@@ -198,13 +239,30 @@ _msg "Validiere entpackte Dateien..."
 set tar_count (tar -tf "$tar_file" | command grep -c -v '/$')
 if test "$tar_count" -ne "$file_count"
     _error "Validierung fehlgeschlagen! Archiv: $tar_count Dateien, Entpackt: $file_count"
+    rm -rf "$temp_dir"
     rm -f "$tar_file"
     exit 1
 end
 
 _success "Validierung OK ($file_count Dateien)"
 
-# ── Schritt 4: Aufraumen ────────────────────
+# ── Schritt 4: Altes Verzeichnis ersetzen ────
+# Erst JETZT (nach erfolgreicher Validierung) das alte Verzeichnis loeschen
+
+if test "$has_existing" = true
+    _msg "Ersetze bestehendes $source_dir/ durch neue Version..."
+    rm -rf "$source_dir"
+end
+
+mv "$temp_dir" "$source_dir"
+if test $status -ne 0
+    _error "Konnte $temp_dir nicht nach $source_dir verschieben!"
+    exit 1
+end
+
+_success "Verzeichnis $source_dir/ aktualisiert"
+
+# ── Schritt 5: Aufraumen ────────────────────
 
 if test "$keep_tar" = true
     _msg "tar-Zwischendatei behalten: $tar_file ($tar_size)"

@@ -42,6 +42,15 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 - Auth: Key-basiert
 - GitHub CLI: OAuth (kein SSH-Key noetig)
 - SSH-Config: via Secrets-Repo (`.secrets/mrohwer/shared/home/mrohwer/.ssh/config`)
+- Codeberg SSH: `AddressFamily inet` gesetzt (IPv6-Problem auf n8-vps)
+
+### Secrets-Deployment Status
+
+| Host | Archiv entpackt | deploy.fish | SSH verifiziert | Dual-Remote |
+|------|----------------|-------------|-----------------|-------------|
+| n8-kiste | ✅ | ✅ | ✅ | ✅ (origin+codeberg) |
+| n8-vps | ✅ | ✅ | ✅ | ✅ (origin+codeberg) |
+| n8-station | ❌ | ❌ | ❌ | ❌ |
 
 ### WireGuard VPN
 

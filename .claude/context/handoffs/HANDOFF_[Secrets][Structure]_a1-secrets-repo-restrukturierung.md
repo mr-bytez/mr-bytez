@@ -565,15 +565,30 @@ Betroffene Dateien im Hauptrepo:
    - Alias-Schutz (command cp/chmod/chown), .pub 0644
    - shared/lib/banner.fish: MR-ByteZ ASCII-Logo (Gruvbox yellow)
    - 27 Dateien deployed (alle identisch → idempotent verifiziert)
-3. Deploy-Script auf allen Hosts testen — In Arbeit (#SEC01.5)
-4. Recovery-Runbook erstellen (RECOVERY.md) — In Arbeit (#SEC01.5)
-5. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
-6. ✅ **Passphrase-Fix:** --with-host → --with-username (#SEC01.5)
+3. ✅ **n8-vps deployed** (#SEC01.5)
+   - Archiv mit --with-username entpackt, deploy.fish erfolgreich
+   - AddressFamily inet fuer Codeberg (IPv6-Problem)
+   - SSH verifiziert: github + codeberg, Remotes auf SSH umgestellt, Dual-Remote
+4. Deploy-Script auf n8-station testen — Offen
+5. ✅ **RECOVERY.md erstellt** v1.1 (#SEC01.5) — Disaster Recovery Anleitung
+   - HTTPS-Clone Hinweis (Henne-Ei), AddressFamily inet, git stash
+6. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
+7. ✅ **Passphrase-Fix:** --with-host → --with-username (#SEC01.5)
    - derive_key.fish: --with-username Flag ergaenzt (nutzt `id -un` statt `hostname`)
    - Archiv mit --with-username Passphrase neu gepackt (gleiche Passphrase auf allen Hosts)
    - Doku korrigiert: pack/unpack-secrets.fish, security.md, derive_key.README.md
-7. ✅ **deploy.fish Bugfix:** sudo command cp/chmod/chown → sudo cp/chmod/chown (#SEC01.5)
+8. ✅ **deploy.fish Bugfix:** sudo command cp/chmod/chown → sudo cp/chmod/chown (#SEC01.5)
    - sudo kennt Fish-Builtins nicht, `command` war ueberfluessig und brach
+9. ✅ **unpack-secrets.fish v1.1 Bugfix:** temp-Verzeichnis statt direktes Loeschen (#SEC01.5)
+   - mrohwer/ wird erst nach erfolgreicher Validierung ersetzt (kein Datenverlust bei falscher Passphrase)
+   - MR-ByteZ ASCII-Banner eingebaut
+10. ✅ **AddressFamily inet** in SSH-Config im Archiv (#SEC01.5)
+    - Codeberg hat IPv6-Probleme auf n8-vps (Timeout ohne -4 Flag)
+
+**Lessons Learned:**
+- **#10 Codeberg IPv6:** n8-vps kann Codeberg nicht ueber IPv6 erreichen → AddressFamily inet in SSH-Config
+- **#11 unpack loescht vor Verify:** unpack-secrets.fish v1.0 loeschte mrohwer/ BEVOR die Passphrase geprueft wurde → Datenverlust bei falscher Passphrase. Fix: temp-Verzeichnis
+- **#12 Nie unimplementierten Flag benutzen:** --with-username wurde in Docs referenziert bevor derive_key.fish das Flag unterstuetzte → Archiv mit falschem Salt gepackt
 
 ---
 

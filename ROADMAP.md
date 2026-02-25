@@ -114,8 +114,10 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [x] Submodule n8-kiste verifizieren (B10) — deploy.fish v2.0 erfolgreich
 - [x] Passphrase-Fix: --with-host → --with-username (Archiv gleich auf allen Hosts)
 - [x] deploy.fish Bugfix: sudo command → sudo (Fish-Builtin-Kompatibilitaet)
-- [x] RECOVERY.md erstellt (Disaster Recovery Anleitung)
-- [ ] Deploy auf n8-vps verifizieren
+- [x] unpack-secrets.fish v1.1: temp-Verzeichnis (kein Datenverlust bei falscher Passphrase)
+- [x] AddressFamily inet fuer Codeberg (IPv6-Problem auf n8-vps)
+- [x] RECOVERY.md v1.1 erstellt (Disaster Recovery Anleitung)
+- [x] Deploy auf n8-vps verifiziert — SSH + Dual-Remote funktioniert
 - [ ] Deploy auf n8-station
 
 **Mitlaufende Tasks:**
@@ -123,7 +125,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** In Arbeit (Phase 1+2 erledigt, Phase 3 Bugfixes+Docs erledigt — Deployment-Verifizierung offen)
+**Status:** In Arbeit (Phase 1+2+3 fast erledigt — nur n8-station Deployment offen)
 **ETA:** Februar-Maerz 2026
 
 ---

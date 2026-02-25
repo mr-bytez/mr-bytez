@@ -7,6 +7,27 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.4] - 2026-02-26
+
+### Fixed
+- [Security][SSH] AddressFamily inet fuer Codeberg in SSH-Config im Archiv
+  - n8-vps: IPv6-Problem bei Codeberg SSH (Timeout ohne -4 Flag)
+- [Security][Deploy] unpack-secrets.fish v1.1 Bugfix: temp-Verzeichnis statt direktes Loeschen
+  - Altes mrohwer/ wird erst nach erfolgreicher Validierung ersetzt
+  - Bei falscher Passphrase bleiben bestehende Daten erhalten
+  - MR-ByteZ ASCII-Banner eingebaut (wie deploy.fish + pack-secrets.fish)
+
+### Added
+- [Infra] n8-vps Secrets-Deployment verifiziert — SSH + Dual-Remote funktioniert
+  - Archiv mit --with-username entpackt, deploy.fish erfolgreich, AddressFamily inet aktiv
+
+### Changed
+- [Docs] Handoff A1: n8-vps deployed, Lessons Learned #10 (Codeberg IPv6), #11 (unpack loescht vor Verify)
+- [Docs] infrastructure.md: n8-vps Secrets-Deployment Status
+- [Docs] RECOVERY.md v1.1: HTTPS-Clone Hinweis, AddressFamily inet, git stash
+
+---
+
 ## [0.8.3] - 2026-02-26
 
 ### Fixed
