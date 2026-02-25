@@ -174,6 +174,24 @@ git push origin main && git push codeberg main
 - Root CHANGELOG: Fuer Repo-weite Aenderungen
 - .claude/CHANGELOG: Fuer .claude/-spezifische Aenderungen
 
+### Cross-Repo-Regel (Submodules)
+
+**Aenderungen im Secrets-Repo muessen sich IMMER im Hauptrepo spiegeln!**
+
+Bei JEDEM Secrets-Repo Commit pruefen:
+1. **CHANGELOG.md (Hauptrepo)** — Braucht der Eintrag ein Update? (Fast immer: JA)
+2. **ROADMAP.md (Hauptrepo)** — Wurde ein Task/Aufgabe erledigt?
+3. **Handoff** — Wurde ein Handoff-Task erledigt?
+
+Umgekehrt genauso: Aenderungen im Hauptrepo die das Secrets-Repo betreffen
+→ .secrets/CHANGELOG.md und .secrets/ROADMAP.md pruefen.
+
+**Reihenfolge bei Cross-Repo-Commits:**
+1. Alle Docs in BEIDEN Repos aktualisieren (CHANGELOG, ROADMAP, Handoff)
+2. Secrets-Repo committen + pushen
+3. Hauptrepo committen (inkl. Submodule-Ref) + pushen
+4. Alles in JE EINEM Commit pro Repo — keine Folge-Commits!
+
 ### Handoff-Bereinigung
 
 **Erledigte Handoffs werden VOR dem Commit abgeschlossen — nicht danach!**

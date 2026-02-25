@@ -51,6 +51,9 @@ Git-Workflow:
   Gehoert in denselben Commit wie die erledigten Aenderungen
 - Keine Hash-Endlosschleife: Letzter Commit-Hash (Handoff-/CHANGELOG-Update)
   wird NICHT nochmal nachgetragen. Handoffs dokumentieren inhaltliche Commits, nicht sich selbst.
+- Cross-Repo-Regel: Bei Secrets-Repo Commits IMMER auch Hauptrepo CHANGELOG/ROADMAP/Handoff
+  pruefen und im selben Durchgang committen. Umgekehrt genauso. Alle Docs in BEIDEN Repos
+  VOR dem ersten Commit aktualisieren!
 
 Aufgaben-Delegation:
 - Strategisches im Chat besprechen (Planung, Architektur, Reviews)
