@@ -16,11 +16,13 @@ if test (count $argv) -lt 1
     echo ""
     echo "Verwendung:"
     echo "  derive_key.fish [SALT]              # Nur Salt"
-    echo "  derive_key.fish [SALT] --with-host  # Salt + Hostname"
+    echo "  derive_key.fish [SALT] --with-host      # Salt + Hostname"
+    echo "  derive_key.fish [SALT] --with-username  # Salt + Username"
     echo ""
     echo "Beispiele:"
     echo "  derive_key.fish secrets             # → PBKDF2(secrets + MasterPwd)"
-    echo "  derive_key.fish secrets --with-host # → PBKDF2(secrets + n8-kiste + MasterPwd)"
+    echo "  derive_key.fish secrets --with-host     # → PBKDF2(secrets + n8-kiste + MasterPwd)"
+    echo "  derive_key.fish secrets --with-username # → PBKDF2(secrets + mrohwer + MasterPwd)"
     echo "  derive_key.fish codeberg            # → PBKDF2(codeberg + MasterPwd)"
     exit 1
 end
@@ -29,11 +31,15 @@ end
 set salt $argv[1]
 set with_host false
 
-# --with-host Flag prüfen
+# --with-host / --with-username Flag prüfen
+set with_username false
 if test (count $argv) -ge 2
     if test "$argv[2]" = "--with-host"
         set with_host true
         set salt "$salt+"(hostname)
+    else if test "$argv[2]" = "--with-username"
+        set with_username true
+        set salt "$salt+"(id -un)
     end
 end
 
@@ -82,6 +88,8 @@ echo ""
 echo "Salt verwendet: $salt"
 if test "$with_host" = "true"
     echo "Hostname:       "(hostname)
+else if test "$with_username" = "true"
+    echo "Username:       "(id -un)
 end
 echo ""
 set_color yellow

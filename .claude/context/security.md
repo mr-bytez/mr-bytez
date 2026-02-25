@@ -83,10 +83,11 @@ Das Secrets-Repo wird zum verschluesselten Home-User-Backup:
 
 ### Passphrase-Derivation
 
-- **Archiv (mrohwer.tar.age):** `derive_key.fish secrets --with-host`
-  Salt "secrets" + Hostname → host-spezifische Passphrase
+- **Archiv (mrohwer.tar.age):** `derive_key.fish secrets --with-username`
+  Salt "secrets" + Username → user-spezifische Passphrase
 - **Alte .age-Einzeldateien (Legacy):** `derive_key.fish secrets`
-  Salt "secrets" OHNE --with-host → generische Passphrase
+  Salt "secrets" OHNE --with-username → generische Passphrase
+- **Legacy --with-host:** Nicht fuer Archiv verwenden! Erzeugt pro Host unterschiedliche Passphrase
 
 ### deploy.fish v2.0 — Berechtigungen
 

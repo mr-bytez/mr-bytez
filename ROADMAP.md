@@ -59,8 +59,8 @@
 - [ ] Bash-Config → B6 unter Projekt A2
 - [ ] mr-bytez-info.fish → B7 unter Projekt A2
 - [ ] Docs-Struktur → B8 unter Projekt A3
-- [ ] Submodule: n8-vps → B9 unter Projekt A1
-- [ ] Submodule: n8-kiste → B10 unter Projekt A1
+- [x] Submodule: n8-vps → B9 unter Projekt A1
+- [x] Submodule: n8-kiste → B10 unter Projekt A1
 
 **Status:** Done-Anteil abgeschlossen, offene Tasks in Phase 3 integriert
 
@@ -110,18 +110,20 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - [ ] Credentials n8-archstick (D13)
 
 **Phase 3 (in Arbeit):**
-- [ ] Submodule n8-vps einrichten (B9)
+- [x] Submodule n8-vps einrichten (B9) — Workaround: git clone statt Submodule-Init (#SEC01.4)
 - [x] Submodule n8-kiste verifizieren (B10) — deploy.fish v2.0 erfolgreich
-- [ ] Deploy-Script auf allen Hosts testen
-- [ ] Recovery-Runbook erstellen
+- [x] Passphrase-Fix: --with-host → --with-username (Archiv gleich auf allen Hosts)
+- [x] deploy.fish Bugfix: sudo command → sudo (Fish-Builtin-Kompatibilitaet)
+- [x] RECOVERY.md erstellt (Disaster Recovery Anleitung)
+- [ ] Deploy auf n8-vps verifizieren
+- [ ] Deploy auf n8-station
 
 **Mitlaufende Tasks:**
-- B9: Submodule n8-vps einrichten (Phase 3)
 - D13: Credentials n8-archstick aktualisieren (Phase 2)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** In Arbeit (Phase 1+2 erledigt, Phase 3 B10 erledigt — B9 offen)
+**Status:** In Arbeit (Phase 1+2 erledigt, Phase 3 Bugfixes+Docs erledigt — Deployment-Verifizierung offen)
 **ETA:** Februar-Maerz 2026
 
 ---
@@ -138,6 +140,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - Feature-Flags (`MR_HAS_GUI`, `MR_IS_DEV`, `MR_DISPLAY_TYPE`)
 - Shared Conditionals, Loader-Umbau
 - 7-Phasen-Plan
+- Paket-Inventur: pacman/yay/flatpak pro Host (Basis fuer Feature-Flags)
 
 **Mitlaufende Tasks:**
 - B2: /etc/hosts Dokumentation
@@ -246,7 +249,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 ```
 C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
-A1 Secrets-Repo Restrukturierung + B1✅, B4✅, B10✅, D9✅ — Phase 1+2 erledigt, Phase 3 in Arbeit (B9, D13 offen)
+A1 Secrets-Repo Restrukturierung + B1✅, B4✅, B9✅, B10✅, D9✅ — Phase 1+2 erledigt, Phase 3 in Arbeit (D13 offen)
   ↓
 A2 Fish DRY-Refactoring + B2, B3, B6, B7 → danach B5+B17
   ↓
@@ -364,7 +367,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B6 | Bash-Config | A2 | Phase 2 (offen) |
 | B7 | mr-bytez-info.fish | A2 | Phase 2 (offen) |
 | B8 | Docs-Struktur | A3 | Phase 2 (offen) |
-| B9 | Submodule n8-vps | A1 | Phase 2 (offen) |
+| B9 | Submodule n8-vps | A1 | ✅ Phase 3 erledigt (Workaround) |
 | B10 | Submodule n8-kiste | A1 | ✅ Phase 3 erledigt |
 | B11 | Pre-Commit Hooks | A3 | Phase 3 (alt) |
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |

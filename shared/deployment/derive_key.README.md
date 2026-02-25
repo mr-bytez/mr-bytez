@@ -22,20 +22,32 @@ fish derive_key.fish [SALT]
 
 # Erweitert: Salt + Hostname + Master-Password
 fish derive_key.fish [SALT] --with-host
+
+# Erweitert: Salt + Username + Master-Password
+fish derive_key.fish [SALT] --with-username
 ```
 
 ---
 
 ## Beispiele
 
-### Für Secrets-Verschlüsselung (empfohlen)
+### Für Secrets-Archiv (empfohlen)
 
 ```fish
-# Generiert Key für Secrets auf aktuellem Host
+# Generiert Key für mrohwer.tar.age (gleiche Passphrase auf allen Hosts)
+fish derive_key.fish secrets --with-username
+
+# Formel: PBKDF2(secrets + mrohwer + MasterPwd)
+# Output: z.B. "a7f3b2c9e8d1f4a5b6c7d8e9f0a1b2c3d4e5f6"
+```
+
+### Für host-spezifische Secrets (Legacy)
+
+```fish
+# Generiert Key pro Host (unterschiedliche Passphrase pro Host)
 fish derive_key.fish secrets --with-host
 
 # Formel: PBKDF2(secrets + n8-kiste + MasterPwd)
-# Output: z.B. "a7f3b2c9e8d1f4a5b6c7d8e9f0a1b2c3d4e5f6"
 ```
 
 ### Für Codeberg-Password
@@ -74,7 +86,7 @@ git clone https://codeberg.org/n8lauscher/mr-bytez.git
 cd mr-bytez/shared/deployment
 
 # 3. Key neu generieren
-fish derive_key.fish secrets --with-host
+fish derive_key.fish secrets --with-username
 
 # 4. Master-Password eingeben
 # → Du erhältst denselben Derived Key wie vorher!
@@ -93,7 +105,9 @@ age -d -i /path/to/secret.age
 ```
 Input:    [SALT] + [MASTER-PASSWORD]
           oder
-          [SALT] + [HOSTNAME] + [MASTER-PASSWORD]
+          [SALT] + [HOSTNAME] + [MASTER-PASSWORD]    (--with-host)
+          oder
+          [SALT] + [USERNAME] + [MASTER-PASSWORD]    (--with-username)
           ↓
        SHA256 + Base64
           ↓
@@ -105,6 +119,7 @@ Output:   43 Zeichen (256 Bit Entropie)
 - **Nicht rückrechenbar:** Vom Derived Key kann man nicht auf das Master-Password schließen
 - **Deterministisch:** Gleicher Input = Gleicher Output (wichtig für Recovery!)
 - **Einzigartig pro Host:** Mit `--with-host` ist jeder Host anders
+- **Einzigartig pro User:** Mit `--with-username` gleich auf allen Hosts des Users
 
 ---
 
@@ -116,7 +131,7 @@ Output:   43 Zeichen (256 Bit Entropie)
 
 ✅ **Dokumentieren OK:**
 - Das Salt (z.B. "secrets")
-- Ob --with-host verwendet wurde
+- Ob --with-host oder --with-username verwendet wurde
 - Für welchen Zweck der Key ist
 
 ---

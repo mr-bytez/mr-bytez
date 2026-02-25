@@ -62,7 +62,7 @@ function _usage
     echo "  4. Raeumt tar-Zwischendatei auf"
     echo ""
     echo "Passphrase generieren:"
-    echo "  fish derive_key.fish secrets --with-host"
+    echo "  fish derive_key.fish secrets --with-username"
     echo ""
 end
 
@@ -147,7 +147,7 @@ end
 # ── Schritt 1: Age-Entschluesselung ─────────
 
 _msg "Entschluessele Archiv..."
-echo "  Tipp: Passphrase generieren mit: fish derive_key.fish secrets --with-host"
+echo "  Tipp: Passphrase generieren mit: fish derive_key.fish secrets --with-username"
 echo ""
 
 # Alte Zwischendateien aufraeumen

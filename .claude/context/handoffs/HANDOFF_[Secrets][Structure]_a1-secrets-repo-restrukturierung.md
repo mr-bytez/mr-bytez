@@ -1,14 +1,15 @@
 # HANDOFF: A1 Secrets-Repo Restrukturierung — Verschlüsseltes Home-Backup
 
-**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung), #SEC01.3 (Phase 2 Archiv-Modell), #SEC01.4 (Phase 3 Deploy v2.0)
+**Chat-Referenz:** #SEC01.1 (Architektur & Planung), #SEC01.2 (Phase 1 Umsetzung), #SEC01.3 (Phase 2 Archiv-Modell), #SEC01.4 (Phase 3 Deploy v2.0), #SEC01.5 (Phase 3 Bugfixes + Abschluss)
 **Chat-Links:**
 - #SEC01.1: https://claude.ai/chat/1573b769-dc58-4a7c-bac6-7ccdc03d5639
 - #SEC01.2: https://claude.ai/chat/57a23402-e625-4bae-b2cf-615791e15f56
 - #SEC01.3: https://claude.ai/chat/b9590cad-86a4-493a-adcd-8b2837d91fc7
 - #SEC01.4: https://claude.ai/chat/1616d1af-6021-4c46-ba65-ea9a0d06a2cf
-**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4
+- #SEC01.5: https://claude.ai/chat/<sec01.5-chat-id>
+**Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4 → #SEC01.5
 **Datum:** 2026-02-26
-**Status:** Phase 1+2 erledigt — Phase 3 B10 erledigt, B9 offen
+**Status:** Phase 1+2 erledigt — Phase 3 B10 erledigt, B9 erledigt (Workaround in #SEC01.4)
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---
@@ -381,7 +382,7 @@ Host xinro.de
 
 2. Archiv entschluesseln + entpacken
    cd /mr-bytez/.secrets/
-   fish /mr-bytez/shared/deployment/derive_key.fish secrets --with-host
+   fish /mr-bytez/shared/deployment/derive_key.fish secrets --with-username
    age -d -o mrohwer.tar mrohwer.tar.age  # Passphrase eingeben
    tar -xf mrohwer.tar                    # → mrohwer/ entsteht
    rm mrohwer.tar                         # Nur Archiv behalten
@@ -447,7 +448,7 @@ Betroffene Dateien im Hauptrepo:
 | B1 | SSH-Config ins Secrets-Repo (shared/.ssh/config) | Phase 1 | ✅ Erledigt |
 | B2 | /etc/hosts aller Hosts dokumentieren (infrastructure/) | Phase 2 | ✅ Erledigt |
 | B4 | .gitconfig Shared (shared/.gitconfig) | Phase 1 | ✅ Erledigt |
-| B9 | Submodule n8-vps einrichten | Phase 3 | Offen |
+| B9 | Submodule n8-vps einrichten | Phase 3 | ✅ Erledigt (Workaround #SEC01.4) |
 | B10 | Submodule n8-kiste verifizieren + deploy | Phase 3 | ✅ Erledigt |
 | D9 | symlinks.db ins Secrets-Repo (als Checkliste) | Phase 1 | ✅ Erledigt |
 | D13 | Credentials n8-archstick | Phase 2 | Offen |
@@ -557,15 +558,22 @@ Betroffene Dateien im Hauptrepo:
 
 **Aufgaben:**
 
-1. Submodule auf n8-vps einrichten (B9) — Offen
+1. ✅ **Submodule auf n8-vps einrichten (B9)** — Workaround in #SEC01.4: git clone statt Submodule-Init
+   (n8-vps hat read-only HTTPS-Remotes, Submodule-URL zeigt auf GitHub HTTPS)
 2. ✅ **Submodule auf n8-kiste verifizieren (B10)** — deploy.fish v2.0 erfolgreich auf n8-kiste
    - deploy.fish v2.0.0: Copy+Symlink, Banner, Sektionen, Box-Zusammenfassung
    - Alias-Schutz (command cp/chmod/chown), .pub 0644
    - shared/lib/banner.fish: MR-ByteZ ASCII-Logo (Gruvbox yellow)
    - 27 Dateien deployed (alle identisch → idempotent verifiziert)
-3. Deploy-Script auf allen Hosts testen — Offen (nach B9)
-4. Recovery-Runbook erstellen (Disaster Recovery Anleitung)
+3. Deploy-Script auf allen Hosts testen — In Arbeit (#SEC01.5)
+4. Recovery-Runbook erstellen (RECOVERY.md) — In Arbeit (#SEC01.5)
 5. SSH-Zugriff erweitern: n8-archstick, n8-book (eigene Ports ermitteln)
+6. ✅ **Passphrase-Fix:** --with-host → --with-username (#SEC01.5)
+   - derive_key.fish: --with-username Flag ergaenzt (nutzt `id -un` statt `hostname`)
+   - Archiv mit --with-username Passphrase neu gepackt (gleiche Passphrase auf allen Hosts)
+   - Doku korrigiert: pack/unpack-secrets.fish, security.md, derive_key.README.md
+7. ✅ **deploy.fish Bugfix:** sudo command cp/chmod/chown → sudo cp/chmod/chown (#SEC01.5)
+   - sudo kennt Fish-Builtins nicht, `command` war ueberfluessig und brach
 
 ---
 

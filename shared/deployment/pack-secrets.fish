@@ -63,7 +63,7 @@ function _usage
     echo "  5. Raeumt tar-Zwischendatei auf"
     echo ""
     echo "Passphrase generieren:"
-    echo "  fish derive_key.fish secrets --with-host"
+    echo "  fish derive_key.fish secrets --with-username"
     echo ""
 end
 
@@ -197,7 +197,7 @@ _success "Archiv validiert ($tar_count Dateien)"
 
 echo ""
 _msg "Verschluessele mit age (Passphrase-Modus)..."
-echo "  Tipp: Passphrase generieren mit: fish derive_key.fish secrets --with-host"
+echo "  Tipp: Passphrase generieren mit: fish derive_key.fish secrets --with-username"
 echo ""
 
 # Alte .age-Datei entfernen falls vorhanden

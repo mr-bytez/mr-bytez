@@ -7,6 +7,27 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.8.3] - 2026-02-26
+
+### Fixed
+- [Security][Deploy] deploy.fish Bugfix: `sudo command cp/chmod/chown` → `sudo cp/chmod/chown`
+  - sudo kennt Fish-Builtins nicht, `command` vor cp/chmod/chown war unter sudo ueberfluessig/kaputt
+- [Security] Passphrase-Fix: `--with-host` → `--with-username` in allen Tipp-Zeilen
+  - pack-secrets.fish, unpack-secrets.fish, security.md, Handoff A1, derive_key.README.md
+
+### Added
+- [Security] derive_key.fish v1.1: `--with-username` Flag ergaenzt (Salt + Username statt Hostname)
+  - Archiv-Passphrase gleich auf allen Hosts (Username-basiert statt Host-basiert)
+  - `--with-host` bleibt fuer Legacy-Kompatibilitaet
+- [Docs] RECOVERY.md im Secrets-Repo erstellt (Disaster Recovery Anleitung)
+- [Docs] ROADMAP A2 um Paket-Inventur ergaenzt (pacman/yay/flatpak pro Host)
+
+### Changed
+- [Docs] Handoff A1 aktualisiert: B9 erledigt (Workaround #SEC01.4), Chat-Link #SEC01.5
+- [Docs] ROADMAP.md: A1 Phase 3 Bugfixes/Docs erledigt, B9 erledigt
+
+---
+
 ## [0.8.2] - 2026-02-25
 
 ### Added
