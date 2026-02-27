@@ -33,6 +33,7 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - Kein Co-Authored-By in Commits — nicht erwuenscht, bitte unterdruecken
 
 → Details: `.claude/context/git.md`
+→ Cross-Repo-Regel: `.claude/context/git.md`
 
 ## Sprache
 

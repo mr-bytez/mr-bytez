@@ -31,7 +31,7 @@
 
 → Grundprinzipien: `.claude/context/policies.md`
 → Fish-first Shell: `.claude/context/shell.md`
-→ Git-Workflow: `.claude/context/git.md`
+→ Git-Workflow + Cross-Repo-Regel: `.claude/context/git.md`
 → Secrets & Security: `.claude/context/security.md`
 → Deployment & Anker: `.claude/context/deployment.md`
 → Dokumentation: `.claude/context/documentation.md`

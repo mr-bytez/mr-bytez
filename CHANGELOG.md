@@ -32,6 +32,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - configs/ entfernt (nie genutzt, Konfigurationen liegen in context/)
   - projects/ entfernt (nie genutzt, Projekte liegen im Repo-Root)
 - [Docs] Alle Referenzen auf "5-3-3" durch "5-5-3" ersetzt (structure.md, documentation.md, claude-ai-projektanweisungen.txt, CLAUDE.md)
+- [Git] Cross-Repo Verzeichnis-Regel in `.claude/context/git.md` ergaenzt (pwd-Pflicht nach Secrets-Arbeit)
 
 ### Removed
 - [Structure] `.claude/configs/` geloescht (ungenutzt, ersetzt durch context/)

@@ -192,6 +192,14 @@ Umgekehrt genauso: Aenderungen im Hauptrepo die das Secrets-Repo betreffen
 3. Hauptrepo committen (inkl. Submodule-Ref) + pushen
 4. Alles in JE EINEM Commit pro Repo — keine Folge-Commits!
 
+### Verzeichnis-Wechsel bei Cross-Repo-Arbeit
+
+Bei Arbeiten am Secrets-Submodule (`.secrets/`) IMMER nach Abschluss zurueck ins Hauptrepo wechseln:
+1. `cd /mr-bytez/.secrets` → Secrets-Arbeit (commit, push)
+2. `cd /mr-bytez` → SOFORT danach zurueck!
+3. Hauptrepo-Commits und -Pushes NUR aus `/mr-bytez` ausfuehren, NIE aus Unterverzeichnissen
+4. Vor jedem `git commit`/`git push`: `pwd` pruefen!
+
 ### Handoff-Bereinigung
 
 **Erledigte Handoffs werden VOR dem Commit abgeschlossen — nicht danach!**
