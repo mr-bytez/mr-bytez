@@ -52,11 +52,16 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 
 Offene Aufgaben in `.claude/context/handoffs/`. Bei Chat-Start pruefen ob relevante Handoffs existieren.
 
+## Claude Code Automation
+
+→ `.claude/hooks/` — 7 Event-Hooks (Secrets-Guard, Fish-Syntax, Docs-Check, Dual-Push, ...)
+→ `.claude/agents/` — 4 Agents (docs, audit, deploy, scaffold)
+
 ## Zentrale Steuerung & Detail-Policies
 
 → `.claude/CLAUDE.md` — Zentrale Steuerung mit allen Verweisen
 → `.claude/context/` — Alle 11 Policy-Dateien (shell, git, security, docker, deployment, ...)
 → `.claude/context/tags.md` — Tag-Registry (67 Tags, 3-Zeichen-Index)
-→ `.claude/context/structure.md` — Repo-Aufbau, 5-3-3 Pattern, Verzeichnisstruktur
+→ `.claude/context/structure.md` — Repo-Aufbau, 5-5-3 Pattern, Verzeichnisstruktur
 → `.claude/context/infrastructure.md` — Hosts, Netzwerk, SSH
 → `ROADMAP.md` — Aktuelle Planung

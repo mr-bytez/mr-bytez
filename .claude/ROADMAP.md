@@ -9,7 +9,7 @@
 
 ## Phase 1: Foundation ✅ DONE
 
-- [x] `.claude/` Struktur definiert (5-3-3 Pattern)
+- [x] `.claude/` Struktur definiert (5-5-3 Pattern)
 - [x] Migration-Plan erstellt (`archive/migration.md`, ehemals context/)
 - [x] Struktur-Definition erstellt (`context/structure.md`)
 
@@ -49,10 +49,10 @@
 
 ## Phase 4: Nutzung & Erweiterung 📌 GEPLANT
 
-- [ ] Secrets-Submodule auf 5-3-3 Pattern migrieren → Projekt A1 in Root `ROADMAP.md`
+- [ ] Secrets-Submodule auf 5-5-3 Pattern migrieren → Projekt A1 in Root `ROADMAP.md`
 - [ ] `symlinks.db` ins private Submodule verschieben → D9 unter A1
 - [ ] Skills entwickeln (`.claude/skills/`) → inkrementell pro A-Projekt
-- [ ] Configs anlegen (`.claude/configs/`) → inkrementell pro A-Projekt
+- [ ] Hooks erweitern (`.claude/hooks/`) → inkrementell pro A-Projekt
 - [ ] Projekt-Level `.claude/` befuellen → inkrementell pro A-Projekt (A2: Fish, A3: mrbz-dev, A4: MCP)
 
 **ETA:** Q1-Q2 2026

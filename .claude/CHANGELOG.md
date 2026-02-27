@@ -5,6 +5,36 @@
 
 ---
 
+## [2.0.0] - 2026-02-27
+
+### Added
+- `hooks/` Ordner mit 7 Claude Code Event-Hooks:
+  - `session-start-info.sh` — SessionStart: offene Handoffs + Git-Status
+  - `secrets-guard.sh` — PreToolUse/Read: blockiert Secrets-Zugriff
+  - `fish-syntax-guard.sh` — PreToolUse/Bash: blockiert Heredocs/EOF
+  - `dual-push-reminder.sh` — PostToolUse/Bash: Codeberg-Push-Erinnerung
+  - `pre-commit-docs-check.sh` — PreToolUse/Bash: CHANGELOG/ROADMAP im Staging
+  - `handoff-lifecycle-check.sh` — PreToolUse/Bash: erledigte Handoffs bereinigt
+  - `bash-command-logger.sh` — PreToolUse/Bash: Audit-Trail in .claude/logs/
+- `agents/` Ordner mit 4 Claude Code Agents:
+  - `docs-agent.md` — Dokumentation pflegen (5-5-3, Additive-Only, Tags)
+  - `audit-agent.md` — Read-only Auditor (Bestandsaufnahmen, Reports)
+  - `deploy-agent.md` — Deployment auf Hosts (Anker-System, Fish-first)
+  - `scaffold-agent.md` — Neue Dateien mit korrektem Header/Banner erstellen
+
+### Changed
+- **5-3-3 → 5-5-3 Pattern:** 5 Docs, 5 Ordner (context, skills, hooks, agents, archive), 3 Ebenen
+- `CLAUDE.md`: Hooks + Agents Uebersicht mit Tabellen, Verweise-Tabelle aktualisiert
+- `context/structure.md` v2.0.0: Komplett auf 5-5-3 umgestellt
+- `context/documentation.md`: 5-3-3 Referenzen → 5-5-3
+- `context/claude-ai-projektanweisungen.txt`: 5-5-3, Hooks/Agents-Uebersicht ergaenzt
+
+### Removed
+- `configs/` Ordner geloescht (ungenutzt, Konfigurationen liegen in context/)
+- `projects/sensitive-data-cleanup/` geloescht (A5 Placeholder, nie genutzt)
+
+---
+
 ## [1.2.1] - 2026-02-11
 
 ### Added

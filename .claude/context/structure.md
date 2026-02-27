@@ -1,27 +1,30 @@
-# .claude/ Struktur — 5-3-3 Pattern
+# .claude/ Struktur — 5-5-3 Pattern
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Erstellt:** 2026-02-05
+**Aktualisiert:** 2026-02-27
 **Autor:** MR-ByteZ
 
 ---
 
-## Pattern: 5-3-3
+## Pattern: 5-5-3
 
-### 5 Dokumente (überall gleich):
+### 5 Dokumente (ueberall gleich):
 ```
-README.md       → Mensch: Übersicht (GitHub-Darstellung)
+README.md       → Mensch: Uebersicht (GitHub-Darstellung)
 CLAUDE.md       → KI: Zentrale Steuerung + Verweise
 CHANGELOG.md    → Historie (Was wurde gemacht)
-ROADMAP.md      → Planung (Was kommt als nächstes)
+ROADMAP.md      → Planung (Was kommt als naechstes)
 DEPLOYMENT.md   → Deployment-Anleitung
 ```
 
-### 3 Ordner (überall gleich):
+### 5 Ordner (.claude/):
 ```
 context/        → Details, Policies, Design-Docs
 skills/         → AI-Skills (Custom Prompts)
-configs/        → Konfigurationen (JSON, YAML)
+hooks/          → Claude Code Event-Hooks (Bash-Scripts)
+agents/         → Claude Code Agents (Spezialisierte Sub-Agenten)
+archive/        → Abgeschlossene Arbeit
 ```
 
 ### 3 Ebenen:
@@ -43,17 +46,17 @@ Projekte        → Pro Host/Stack
 ├── .gitignore
 ├── .gitmodules
 │
-└── .claude/               # ⭐ KI-Context ROOT
+└── .claude/               # KI-Context ROOT
     ├── README.md              # GitHub-Darstellung
-    ├── CLAUDE.md              # ⭐ Zentrale Steuerung
+    ├── CLAUDE.md              # Zentrale Steuerung
     ├── CHANGELOG.md           # .claude/ Historie
     ├── ROADMAP.md             # .claude/ Planung
     │
     ├── context/               # Globale Policies & Daten
-    ├── archive/               # Abgeschlossene Arbeit
-    ├── skills/                # Globale AI-Skills
-    ├── configs/               # Globale Configs
-    └── projects/              # Projekt-spezifische .claude/ Kontexte
+    ├── skills/                # AI-Skills (Custom Prompts)
+    ├── hooks/                 # Claude Code Event-Hooks (7 Scripts)
+    ├── agents/                # Claude Code Agents (4 Spezialisten)
+    └── archive/               # Abgeschlossene Arbeit
 ```
 
 **Root hat KEIN DEPLOYMENT.md** (Deployment-Infos in .claude/context/deployment.md)
@@ -156,11 +159,11 @@ shared/stacks/mrbz-dev/
 **Location:** `projects/community/<projektname>/`
 
 Community-Projekte sind eigenstaendige Repositories die als
-Git Submodule eingebunden werden. Sie haben eine eigene 5-3-3 Struktur.
+Git Submodule eingebunden werden. Sie haben eine eigene 5-5-3 Struktur.
 
 ```
 projects/community/mr-bytez-learn/
-├── (eigenes Repo mit eigener 5-3-3 Struktur)
+├── (eigenes Repo mit eigener 5-5-3 Struktur)
 └── (eingebunden als Git Submodule)
 ```
 
@@ -198,11 +201,22 @@ Globale AI-Skills          → .claude/skills/
 Projekt-Skills             → .../claude/skills/
 ```
 
-### configs/:
+### hooks/:
 ```
-Globale Configs            → .claude/configs/
-Projekt-Configs            → .../claude/configs/
-Stack-Configs (Docker)     → shared/stacks/.../configs/
+Claude Code Event-Hooks    → .claude/hooks/
+  PreToolUse (Bash)        → fish-syntax-guard, secrets-guard, pre-commit-docs-check,
+                              handoff-lifecycle-check, bash-command-logger
+  PostToolUse (Bash)       → dual-push-reminder
+  SessionStart             → session-start-info
+```
+
+### agents/:
+```
+Claude Code Agents         → .claude/agents/
+  docs-agent               → Dokumentation pflegen (5-5-3, Additive-Only)
+  audit-agent              → Read-only Bestandsaufnahmen und Reports
+  deploy-agent             → Deployment auf Hosts ueber Anker-System
+  scaffold-agent           → Neue Dateien mit korrektem Header erstellen
 ```
 
 ---
@@ -314,4 +328,4 @@ Stack-Configs (Docker)     → shared/stacks/.../configs/
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-24
+**Letzte Aktualisierung:** 2026-02-27

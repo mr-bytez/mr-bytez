@@ -45,7 +45,7 @@ Zentrale Registry fuer ALLE Tags — verwendet in Git-Commits UND Chat-Benennung
 | [MCP]       | MCP   | MCP Server, Tools, RAG                | Commits + Chats | 2026-02 |
 | [Media]     | MDA   | Media-Server allgemein, Streaming     | Commits + Chats | 2026-02 |
 | [Micro]     | MIC   | Micro Editor, Settings, Themes        | Commits + Chats | 2026-02 |
-| [Migration] | MIG   | Migrationen, 5-3-3, Umzuege           | Commits + Chats | 2026-02 |
+| [Migration] | MIG   | Migrationen, 5-5-3, Umzuege           | Commits + Chats | 2026-02 |
 | [Monitor]   | MON   | Monitoring allgemein, Alerts, Metriken | Commits + Chats | 2026-02 |
 | [Network]   | NET   | Netzwerk allgemein, Interfaces, Routing | Commits + Chats | 2026-02 |
 | [Prompt]    | PRM   | Prompt-System, Powerline              | Commits + Chats | 2026-02 |
@@ -56,7 +56,7 @@ Zentrale Registry fuer ALLE Tags — verwendet in Git-Commits UND Chat-Benennung
 | [Shop]      | SHP   | E-Commerce allgemein (Shopware, WooCommerce) | Commits + Chats | 2026-02 |
 | [SMB]       | SMB   | CIFS-Mounts, Samba-Shares             | Commits + Chats | 2026-02 |
 | [SSH]       | SSH   | SSH-Config, Keys, Tunnels             | Commits + Chats | 2026-02 |
-| [Structure] | STR   | Ordner-/Dateistruktur, 5-3-3         | Commits + Chats | 2026-02 |
+| [Structure] | STR   | Ordner-/Dateistruktur, 5-5-3         | Commits + Chats | 2026-02 |
 | [Submodule] | SUB   | Submodule-Updates                     | Commits         | 2026-01 |
 | [Symlink]   | SYM   | Symlink-Strategie, symlinks.db        | Commits + Chats | 2026-02 |
 | [Test]      | TST   | Tests                                 | Commits         | 2026-01 |

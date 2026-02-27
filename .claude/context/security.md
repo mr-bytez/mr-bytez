@@ -55,7 +55,7 @@ command cat token.txt | string replace -a \r '' | string trim
 
 - Secrets liegen ausschliesslich im privaten Submodule: `.secrets/` (Repo-Root)
 - Im Hauptrepo: **keine** Klartext-Secrets
-- Im Secrets-Repo: verschluesselte Dateien (`*.age`), Metadaten (`*.info`), Doku + 5-3-3 Docs
+- Im Secrets-Repo: verschluesselte Dateien (`*.age`), Metadaten (`*.info`), Doku + 5-5-3 Docs
 - Age-Encryption mit Master-Password Derivation (`shared/deployment/derive_key.fish`)
 
 ### Archiv-Modell (ab A1 Phase 2)

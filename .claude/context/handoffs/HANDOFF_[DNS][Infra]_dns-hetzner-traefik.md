@@ -2,7 +2,7 @@
 
 **Chat:** MR-ByteZ - [DNS] - Hetzner Console API Setup hcloud CLI - Wildcard *.mr-bytez.de A AAAA Records LetsEncrypt Traefik ACME DNS-01 TTL Optimierung Backup  
 **Datum:** 2026-02-09  
-**Status:** ✅ Abgeschlossen  
+**Status:** 🟡 DNS eingerichtet — Traefik + Optimierung offen
 
 ---
 

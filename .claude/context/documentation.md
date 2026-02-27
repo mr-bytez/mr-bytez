@@ -46,26 +46,28 @@ Für zentrale Markdown-Dateien gilt:
 
 ---
 
-## 5-3-3 Pattern
+## 5-5-3 Pattern
 
 Jedes Projekt/Verzeichnis folgt dem gleichen Muster:
 
 ### 5 Dokumente
 
 ```
-README.md       → Mensch: Übersicht (GitHub-Darstellung)
+README.md       → Mensch: Uebersicht (GitHub-Darstellung)
 CLAUDE.md       → KI: Zentrale Steuerung + Verweise
 CHANGELOG.md    → Historie (Was wurde gemacht)
-ROADMAP.md      → Planung (Was kommt als nächstes)
+ROADMAP.md      → Planung (Was kommt als naechstes)
 DEPLOYMENT.md   → Deployment-Anleitung
 ```
 
-### 3 Ordner
+### 5 Ordner (.claude/)
 
 ```
 context/        → Details, Policies, Design-Docs
 skills/         → AI-Skills (Custom Prompts)
-configs/        → Konfigurationen (JSON, YAML)
+hooks/          → Claude Code Event-Hooks (Bash-Scripts)
+agents/         → Claude Code Agents (Spezialisierte Sub-Agenten)
+archive/        → Abgeschlossene Arbeit
 ```
 
 ### 3 Ebenen
@@ -76,7 +78,7 @@ Root            → /mr-bytez/ (Gesamtes Repo)
 Projekte        → Pro Host/Stack
 ```
 
-Vollständige Beschreibung → `.claude/context/structure.md`
+Vollstaendige Beschreibung → `.claude/context/structure.md`
 
 ---
 

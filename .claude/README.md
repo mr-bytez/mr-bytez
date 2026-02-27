@@ -27,12 +27,13 @@
 │   ├── documentation.md       # Doku-Workflow, Templates
 │   ├── integration.md         # Claude GitHub, MCP, Sync
 │   ├── infrastructure.md      # Hosts-Matrix, IPs, SSH
-│   ├── structure.md           # 5-3-3 Pattern Definition
+│   ├── structure.md           # 5-5-3 Pattern Definition
 │   └── migration.md           # Migrationsplan Alt → Neu
 │
-├── archive/               # Abgeschlossene Pläne & Arbeit
-├── skills/                # AI-Skills (Custom Prompts)
-└── configs/               # Konfigurationen (JSON, YAML)
+├── hooks/                # Claude Code Hooks (7 Event-Scripts)
+├── agents/               # Claude Code Agents (4 Spezialisten)
+├── archive/              # Abgeschlossene Pläne & Arbeit
+└── skills/               # AI-Skills (Custom Prompts)
 ```
 
 ---

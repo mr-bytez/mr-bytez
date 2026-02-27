@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-24
+**Aktualisiert:** 2026-02-27
 **Autor:** MR-ByteZ
 
 ---
@@ -13,7 +13,8 @@
 |---------|------|
 | Context (Policies) | `.claude/context/` |
 | Skills (AI-Skills) | `.claude/skills/` |
-| Configs (Konfigurationen) | `.claude/configs/` |
+| Hooks (Event-Hooks) | `.claude/hooks/` |
+| Agents (Sub-Agenten) | `.claude/agents/` |
 | Archive (Abgeschlossenes) | `.claude/archive/` |
 
 ---
@@ -39,8 +40,37 @@
 
 ## Struktur-Pattern
 
-Dieses Repo folgt dem **5-3-3 Pattern** (5 Docs, 3 Ordner, 3 Ebenen).
-→ Vollständig dokumentiert in: `.claude/context/structure.md`
+Dieses Repo folgt dem **5-5-3 Pattern** (5 Docs, 5 Ordner, 3 Ebenen).
+→ Vollstaendig dokumentiert in: `.claude/context/structure.md`
+
+---
+
+## Claude Code Hooks (7)
+
+Event-basierte Automatisierung in `.claude/hooks/`:
+
+| Hook | Event | Zweck |
+|------|-------|-------|
+| `session-start-info.sh` | SessionStart | Zeigt offene Handoffs und Git-Status |
+| `secrets-guard.sh` | PreToolUse/Read | Blockiert Zugriff auf entschluesselte Secrets |
+| `fish-syntax-guard.sh` | PreToolUse/Bash | Blockiert Heredocs/EOF und Bash-Fallen |
+| `dual-push-reminder.sh` | PostToolUse/Bash | Erinnert nach git push an Codeberg |
+| `pre-commit-docs-check.sh` | PreToolUse/Bash | Prueft CHANGELOG/ROADMAP im Staging |
+| `handoff-lifecycle-check.sh` | PreToolUse/Bash | Prueft erledigte Handoffs |
+| `bash-command-logger.sh` | PreToolUse/Bash | Audit-Trail in `.claude/logs/` |
+
+---
+
+## Claude Code Agents (4)
+
+Spezialisierte Sub-Agenten in `.claude/agents/`:
+
+| Agent | Zweck |
+|-------|-------|
+| `docs-agent.md` | Dokumentation pflegen (5-5-3, Additive-Only, Tags) |
+| `audit-agent.md` | Read-only Auditor (Bestandsaufnahmen, Reports) |
+| `deploy-agent.md` | Deployment auf Hosts (Anker-System, Fish-first) |
+| `scaffold-agent.md` | Neue Dateien mit korrektem Header/Banner erstellen |
 
 ---
 

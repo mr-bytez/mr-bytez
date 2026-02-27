@@ -86,3 +86,9 @@ projects/web/
 # Pfad: projects/infrastructure/<hostname>/HARDWARE.md
 # Enthaelt sensible Hardware-Details — NUR lokal, NIE committen!
 HARDWARE.md
+
+# Claude Code Logs (generiert, nicht committen)
+.claude/logs/
+
+# Claude Code Settings (persönlich, nicht committen)
+.claude/settings.local.json

@@ -19,7 +19,7 @@ Alle Regeln, Tags, Konventionen liegen dort. Bei Fragen zuerst durchsuchen.
 Context-Dateien Uebersicht:
 → .claude/context/tags.md (Tag-Registry, 67 Tags, 3-Zeichen-Index)
 → .claude/context/git.md (Commit-Format, Remotes, Chat-Link Regel)
-→ .claude/context/documentation.md (Chat-Benennung v2, 5-3-3 Pattern, Header)
+→ .claude/context/documentation.md (Chat-Benennung v2, 5-5-3 Pattern, Header)
 → .claude/context/structure.md (Repo-Aufbau, Projekt-Typen, CLAUDE.md Schema)
 → .claude/context/infrastructure.md (Hosts, Netzwerk, Deployment-Status)
 → .claude/context/security.md (Secrets, Age-Encryption, Sanitization)
@@ -96,11 +96,28 @@ Hosts:
 - n8-bookchen, n8-maxx, n8-broker: Teilweise deployed
 - mrbz-dev: Geplanter Claude Dev Container
 
-5-3-3 Pattern:
+5-5-3 Pattern:
 → .claude/context/documentation.md + .claude/context/structure.md
 5 Docs (README, CLAUDE, CHANGELOG, ROADMAP, DEPLOYMENT)
-3 Ordner (context/, skills/, configs/)
+5 Ordner (context/, skills/, hooks/, agents/, archive/)
 3 Ebenen (Root, .claude/, Projekte)
+
+Claude Code Hooks (7):
+→ .claude/hooks/
+session-start-info.sh (SessionStart: offene Handoffs + Git-Status)
+secrets-guard.sh (PreToolUse/Read: blockiert Secrets-Zugriff)
+fish-syntax-guard.sh (PreToolUse/Bash: blockiert Heredocs/EOF)
+dual-push-reminder.sh (PostToolUse/Bash: erinnert an Codeberg-Push)
+pre-commit-docs-check.sh (PreToolUse/Bash: CHANGELOG/ROADMAP im Staging?)
+handoff-lifecycle-check.sh (PreToolUse/Bash: erledigte Handoffs bereinigt?)
+bash-command-logger.sh (PreToolUse/Bash: Audit-Trail in .claude/logs/)
+
+Claude Code Agents (4):
+→ .claude/agents/
+docs-agent.md — Dokumentation pflegen (5-5-3, Additive-Only, Tags)
+audit-agent.md — Read-only Auditor (Bestandsaufnahmen, Reports)
+deploy-agent.md — Deployment auf Hosts (Anker-System, Fish-first)
+scaffold-agent.md — Neue Dateien mit korrektem Header/Banner erstellen
 
 Docker:
 → .claude/context/docker.md
@@ -122,7 +139,7 @@ A1: Secrets-Repo Restrukturierung → mr-bytez-secrets — aktuell
 A2: Fish DRY-Refactoring → shared/etc/fish/
 A3: Claude Dev Container → shared/stacks/mrbz-dev/
 A4: MCP Server → projects/infrastructure/mcp-server/
-A5: Sensitive Data Cleanup → .claude/projects/sensitive-data-cleanup/
+A5: Sensitive Data Cleanup → Ort wird bei Projektstart festgelegt
 
 Handoff-Policy:
 → .claude/context/policies.md (Details)

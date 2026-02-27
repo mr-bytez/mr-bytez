@@ -3,7 +3,7 @@
 **Version:** 0.7.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-17\
+**Aktualisiert:** 2026-02-27\
 **Autor:** MR-ByteZ
 
 ---
@@ -56,9 +56,11 @@ Enthält:
 │   ├── .secrets/                # Private Secrets (Age-Encrypted) -> Submodule
 │   └── deployment/              # Deployment-Metadaten (symlinks.db, derive_key.fish, …)
 ├── projects/                    # Projekte/Hosts (Submodules)
-├── .claude/                     # AI-Context, Policies & Konventionen
-│   ├── CLAUDE.md                # Zentrale Steuerung für Claude Code
-│   └── context/                 # Policies (11 Dateien)
+├── .claude/                     # AI-Context, Policies, Automation
+│   ├── CLAUDE.md                # Zentrale Steuerung fuer Claude Code
+│   ├── context/                 # Policies (11 Dateien)
+│   ├── hooks/                   # Claude Code Event-Hooks (7 Scripts)
+│   └── agents/                  # Claude Code Agents (4 Spezialisten)
 ├── .config/                     # Repo-weite Configs
 ├── README.md
 ├── DEPLOYMENT.md                # Deployment-Guide
@@ -101,10 +103,12 @@ Enthält:
 - [ ] Docs-Struktur weiter ausbauen (klarer “Start here”-Pfad)
 - [ ] Projects/Submodules ergänzen (Hosts/Services als eigene Repos)
 
-### Phase 3: Automation (geplant)
+### Phase 3: Automation (in progress)
 
+- [x] Claude Code Hooks (7): Session-Start-Info, Secrets-Guard, Fish-Syntax-Guard, Dual-Push-Reminder, Pre-Commit-Docs-Check, Handoff-Lifecycle-Check, Bash-Command-Logger
+- [x] Claude Code Agents (4): docs-agent, audit-agent, deploy-agent, scaffold-agent
+- [x] 5-5-3 Pattern (erweitert von 5-3-3: hooks/ + agents/ statt configs/ + projects/)
 - [ ] Restore/Recovery Script (Fish)
-- [ ] Pre-Commit Hooks / Linting / Safety-Checks
 - [ ] Automatisches Sync/Update (Multi-Remote, Submodules)
 - [ ] MCP / AI-Integration (Claude/Codex Workflows)
 

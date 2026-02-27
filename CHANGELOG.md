@@ -7,6 +7,39 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.9.0] - 2026-02-27
+
+### Added
+- [ClaudeCode][Hooks] 7 Claude Code Hooks in `.claude/hooks/`:
+  - `session-start-info.sh` — Zeigt beim Session-Start offene Handoffs und Git-Status
+  - `secrets-guard.sh` — Blockiert Read-Zugriff auf entschluesselte Secrets
+  - `fish-syntax-guard.sh` — Blockiert Heredocs/EOF und typische Bash-Syntax-Fallen
+  - `dual-push-reminder.sh` — Erinnert nach git push origin an Codeberg-Push
+  - `pre-commit-docs-check.sh` — Prueft VOR git commit ob CHANGELOG/ROADMAP im Staging sind
+  - `handoff-lifecycle-check.sh` — Prueft ob erledigte Handoffs geloescht/archiviert wurden
+  - `bash-command-logger.sh` — Loggt alle Bash-Commands als Audit-Trail
+- [ClaudeCode][Agents] 4 Claude Code Agents in `.claude/agents/`:
+  - `docs-agent.md` — Dokumentation erstellen und pflegen nach 5-5-3 Pattern
+  - `audit-agent.md` — Read-only Auditor fuer Bestandsaufnahmen und Reports
+  - `deploy-agent.md` — Deployment auf Hosts ueber Anker-System
+  - `scaffold-agent.md` — Neue Dateien mit korrektem MR-ByteZ Header erstellen
+- [Config] .gitignore erweitert: `.claude/logs/`, `.claude/settings.local.json`
+
+### Changed
+- [Structure] **5-3-3 → 5-5-3 Pattern:** 2 neue Ordner (hooks/, agents/), 2 geloeschte (configs/, projects/)
+  - hooks/ — Claude Code Event-Hooks (PreToolUse, PostToolUse, SessionStart)
+  - agents/ — Spezialisierte Claude Code Agents (docs, audit, deploy, scaffold)
+  - configs/ entfernt (nie genutzt, Konfigurationen liegen in context/)
+  - projects/ entfernt (nie genutzt, Projekte liegen im Repo-Root)
+- [Docs] Alle Referenzen auf "5-3-3" durch "5-5-3" ersetzt (structure.md, documentation.md, claude-ai-projektanweisungen.txt, CLAUDE.md)
+
+### Removed
+- [Structure] `.claude/configs/` geloescht (ungenutzt, ersetzt durch context/)
+- [Structure] `.claude/projects/sensitive-data-cleanup/` geloescht (A5 Placeholder, nie genutzt)
+- [Structure] `docs/` (Root) geloescht (war leer)
+
+---
+
 ## [0.8.6] - 2026-02-25
 
 ### Fixed
@@ -580,4 +613,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-25
+**Letzte Aktualisierung:** 2026-02-27

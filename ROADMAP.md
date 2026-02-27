@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-02-26
+**Aktualisiert:** 2026-02-27
 
 ---
 
@@ -68,7 +68,7 @@
 
 ## Phase 3: Projekte & Automation (Q1-Q2 2026) 📌
 
-**Strategie:** 5 eigenstaendige Projekte (A1-A5), jeweils mit 5-3-3 Pattern.
+**Strategie:** 5 eigenstaendige Projekte (A1-A5), jeweils mit 5-5-3 Pattern.
 Jedes Projekt buendelt verwandte B-Tasks (Root-Aufgaben) und D-Tasks (Sub-Tasks).
 
 **Inventur:** 40 Aufgaben aus 6 Handoff-Dateien + bestehenden Roadmaps kategorisiert.
@@ -80,10 +80,10 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prioritaet:** HOECHSTE — Basis fuer Host-Submodules und SSH-Deployment
 **Abhaengigkeiten:** Keine
-**5-3-3 Ort:** Im Secrets-Repo selbst (`mr-bytez-secrets`) — hier nur Verweis
+**5-5-3 Ort:** Im Secrets-Repo selbst (`mr-bytez-secrets`) — hier nur Verweis
 
 **Umfang:**
-- Secrets-Submodule (`.secrets/`) auf 5-3-3 Pattern migrieren
+- Secrets-Submodule (`.secrets/`) auf 5-5-3 Pattern migrieren
 - symlinks.db ins private Submodule verschieben
 - Eigene CLAUDE.md, ROADMAP.md, README.md, CHANGELOG.md
 - Secrets-Inventar vollstaendig und konsistent
@@ -91,7 +91,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 **Phase 1 (erledigt):**
 - [x] Codeberg-Remote hinzugefuegt (Dual-Remote)
 - [x] Submodule verschoben: `shared/home/mrohwer/.secrets/` → `.secrets/`
-- [x] 5-3-3 Docs erstellt (README, CLAUDE, CHANGELOG, ROADMAP)
+- [x] 5-5-3 Docs erstellt (README, CLAUDE, CHANGELOG, ROADMAP)
 - [x] SECRETS.md aktualisiert (Autor, Pfade)
 - [x] .gitignore erstellt
 - [x] symlinks.db verschoben + bereinigt (D9)
@@ -137,7 +137,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prioritaet:** Hoch — betrifft alle 8 Hosts, reduziert Duplikation
 **Abhaengigkeiten:** Keine
-**5-3-3 Ort:** `shared/etc/fish/`
+**5-5-3 Ort:** `shared/etc/fish/`
 
 **Umfang:**
 - Komplettes DRY-Refactoring der Fish Shell Config
@@ -168,7 +168,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prioritaet:** Hoch — isolierte Entwicklungsumgebung fuer A4 und A5
 **Abhaengigkeiten:** Keine
-**5-3-3 Ort:** `shared/stacks/mrbz-dev/`
+**5-5-3 Ort:** `shared/stacks/mrbz-dev/`
 
 **Umfang:**
 - Docker Stack (Dockerfile, docker-compose.yml, .devcontainer)
@@ -196,7 +196,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prioritaet:** Mittel — braucht Dev Container (A3)
 **Abhaengigkeiten:** A3 (Claude Dev Container)
-**5-3-3 Ort:** `projects/infrastructure/mcp-server/`
+**5-5-3 Ort:** `projects/infrastructure/mcp-server/`
 
 **Umfang:**
 - TypeScript MCP Server mit 5 Tools (Filesystem, Docker, Git, Database, RAG)
@@ -228,7 +228,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prioritaet:** Mittel — braucht Dev Container (A3) zum sicheren Testen
 **Abhaengigkeiten:** A3 (Claude Dev Container)
-**5-3-3 Ort:** `.claude/projects/sensitive-data-cleanup/`
+**5-5-3 Ort:** `.claude/projects/` geloescht — Ort wird bei Projektstart festgelegt
 
 **Umfang:**
 - Pattern-Scanner Script (Fish)
@@ -276,7 +276,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 
 **Prioritaet:** Niedrig — nach A1 Phase 2
 **Abhaengigkeiten:** A1 Phase 2 (Archiv-Modell muss stehen)
-**5-3-3 Ort:** Im Secrets-Repo (`.secrets/`)
+**5-5-3 Ort:** Im Secrets-Repo (`.secrets/`)
 
 **Umfang:**
 - Home-Ordner (Dokumente, Bilder, Downloads) verschluesselt auf Google Drive (2TB)
@@ -326,10 +326,13 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 - "Wichtige MD-Dateien nur additiv aendern" Policy
 
 **.claude/ Migration:**
-- `.claude/` Struktur nach 5-3-3 Pattern
+- `.claude/` Struktur nach 5-5-3 Pattern (erweitert von 5-3-3)
 - `PROJECT_NOTES.md` aufgeteilt in 11 context/ Dateien
 - `CLAUDE.md` als zentrale Steuerung
 - Root-Dateien bereinigt (keine verwaisten Referenzen)
+- 7 Claude Code Hooks in `.claude/hooks/` (Session-Start, Secrets-Guard, Fish-Syntax, Dual-Push, Docs-Check, Handoff-Lifecycle, Bash-Logger)
+- 4 Claude Code Agents in `.claude/agents/` (docs, audit, deploy, scaffold)
+- configs/ + projects/ geloescht (ungenutzt), hooks/ + agents/ als Ersatz
 
 **C1+C2 Policies:** ✅
 - Chat-Benennung v2 (Format, Ketten-System, Datum-Ermittlung)
@@ -348,7 +351,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 
 | Projekt | Beschreibung | Abhaengigkeit | ETA |
 |---------|-------------|---------------|-----|
-| **A1** Secrets-Repo | 5-3-3 Migration, SSH-Config, Submodules | Keine | Feb 2026 |
+| **A1** Secrets-Repo | 5-5-3 Migration, SSH-Config, Submodules | Keine | Feb 2026 |
 | **A2** Fish DRY | Nummerierung 000-200, Feature-Flags, 8 Hosts | Keine | Feb-Maerz 2026 |
 | **A3** Dev Container | Docker Stack, Claude Code, VS Code | Keine | Maerz 2026 |
 | **A4** MCP Server | TypeScript, Traefik, RAG, n8-vps | A3 | Maerz-Apr 2026 |
@@ -436,6 +439,6 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-25
+**Letzte Aktualisierung:** 2026-02-27
 
 
