@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    session-start-info.sh
-# Pfad:     /mr-bytez/.claude/hooks/session-start-info.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Zeigt beim Session-Start offene Handoffs und Git-Status
-# Event:    SessionStart
+# Datei:       session-start-info.sh
+# Pfad:        /mr-bytez/.claude/hooks/session-start-info.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Zeigt beim Session-Start offene Handoffs und Git-Status
+# Event:       SessionStart
 
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-/mr-bytez}"
 HANDOFF_DIR="$PROJECT_DIR/.claude/context/handoffs"

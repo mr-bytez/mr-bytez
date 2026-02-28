@@ -1,0 +1,50 @@
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Paketliste                                 │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       min-packages.txt
+# Pfad:        shared/packages/min-packages.txt
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-28
+# Aktualisiert:2026-02-28
+# Zweck:       Basispakete fuer alle 8 Hosts
+
+# === pacman (offizielle Repos) ===
+
+# Shell + Grundlagen
+fish
+git
+gh
+age
+openssh
+
+# Modern CLI Tools
+bat
+eza
+micro
+jq
+tree
+fastfetch
+ripgrep
+less
+duf
+dust
+fzf
+ncdu
+
+# System-Tools
+htop
+curl
+wget
+tar
+gzip
+unzip
+rsync
+
+# === yay (AUR) ===
+
+# (keine AUR-Pakete in der Basisliste)
+
+# === flatpak ===
+
+# (keine Flatpaks in der Basisliste)

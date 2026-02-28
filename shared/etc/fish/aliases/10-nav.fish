@@ -2,9 +2,10 @@
 # ║  mr-bytez Fish Aliases – Navigation                                          ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/10-nav.fish        ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.0.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
+# ║  Autor:    MR-ByteZ                                                          ║
+# ║  Version:     0.3.1                                                          ║
+# ║  Erstellt:    2026-01-25                                                     ║
+# ║  Aktualisiert:2026-02-28                                                     ║
 # ║  Zweck:    Schnelle Navigation + sichere Datei-Operationen                  ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -23,16 +24,18 @@ alias .....='cd ../../../..'
 # ══════════════════════════════════════════════════════════════════════════════
 # Interaktive Bestätigung verhindert versehentliches Löschen/Überschreiben
 
-# ── rm: Interaktiv bei mehr als 3 Dateien ────────────────────────────────────
-# -I fragt nur bei rekursivem Löschen oder >3 Dateien (weniger nervig als -i)
-# ── rm: Interaktiv + verbose bei mehr als 3 Dateien ──────────────────────────
-alias rm='rm -Iv'
+# ── rmi: Interaktiv + verbose bei mehr als 3 Dateien ─────────────────────────
+# -I fragt nur bei rekursivem Loeschen oder >3 Dateien (weniger nervig als -i)
+# Original rm bleibt unveraendert (coreutils)
+alias rmi='rm -Iv'
 
-# ── cp: Fragt vor Überschreiben + zeigt Aktion ───────────────────────────────
-alias cp='cp -iv'
+# ── cpi: Fragt vor Ueberschreiben + zeigt Aktion ────────────────────────────
+# Original cp bleibt unveraendert (coreutils)
+alias cpi='cp -iv'
 
-# ── mv: Fragt vor Überschreiben + zeigt Aktion ───────────────────────────────
-alias mv='mv -iv'
+# ── mvi: Fragt vor Ueberschreiben + zeigt Aktion ────────────────────────────
+# Original mv bleibt unveraendert (coreutils)
+alias mvi='mv -iv'
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 🌳 VERZEICHNIS-ANSICHT

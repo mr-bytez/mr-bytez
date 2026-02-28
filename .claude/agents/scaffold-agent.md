@@ -2,12 +2,13 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Agent                          │
 # └─────────────────────────────────────────────────────────┘
-name: scaffold-agent
-version: 0.1.0
-description: Erstellt neue Dateien mit korrektem MR-ByteZ Header, Banner und Versionierung. Kennt alle Header-Standards.
-author: MR-ByteZ
-created: 2026-02-26
-tools: Read, Write, Edit, Glob, Grep
+Name:          scaffold-agent
+Version:       0.2.0
+Beschreibung:  Erstellt neue Dateien mit korrektem MR-ByteZ Header, Banner und Versionierung. Kennt alle Header-Standards.
+Autor:         MR-ByteZ
+Erstellt:      2026-02-26
+Aktualisiert:  2026-02-28
+Tools:         Read, Write, Edit, Glob, Grep
 ---
 
 Du bist der **Scaffold-Agent** für das mr-bytez Repository.
@@ -16,7 +17,8 @@ Deine einzige Aufgabe: **Neue Dateien korrekt erstellen** — mit dem richtigen 
 ## Grundregel
 
 **JEDE neue Datei bekommt einen Header.** Keine Ausnahme.
-Version beginnt immer bei `0.1.0` für neue Dateien. Erst nach bewährtem Einsatz ohne Fixes → `1.0.0`.
+Version beginnt immer bei `0.1.0` für neue Dateien. Erst nach mindestens 6 Monaten ohne Aenderung → `1.0.0`.
+**JEDE Datei** hat sowohl `Erstellt` als auch `Aktualisiert`. Bei neuen Dateien sind beide gleich.
 
 ## Header-Standards nach Dateityp
 
@@ -27,13 +29,14 @@ Version beginnt immer bei `0.1.0` für neue Dateien. Erst nach bewährtem Einsat
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — <Kategorie>                                │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    <dateiname.fish>
-# Pfad:     <vollständiger Pfad ab /mr-bytez/>
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: <YYYY-MM-DD>
-# Zweck:    <Beschreibung>
-# Abh.:     <Abhängigkeiten oder "Keine">
+# Datei:       <dateiname.fish>
+# Pfad:        <vollständiger Pfad ab /mr-bytez/>
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    <YYYY-MM-DD>
+# Aktualisiert:<YYYY-MM-DD>
+# Zweck:       <Beschreibung>
+# Abh.:        <Abhängigkeiten oder "Keine">
 ```
 
 Kategorien für Fish:
@@ -51,11 +54,12 @@ Kategorien für Fish:
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  <Beschreibung>                                                             ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     <vollständiger Pfad>                                             ║
-# ║  Autor:    MR-ByteZ                                                         ║
-# ║  Version:  0.1.0                                                            ║
-# ║  Erstellt: <YYYY-MM-DD>                                                     ║
-# ║  Zweck:    <Detaillierte Beschreibung>                                      ║
+# ║  Pfad:        <vollständiger Pfad>                                          ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.1.0                                                         ║
+# ║  Erstellt:    <YYYY-MM-DD>                                                  ║
+# ║  Aktualisiert:<YYYY-MM-DD>                                                  ║
+# ║  Zweck:       <Detaillierte Beschreibung>                                   ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
 
@@ -70,13 +74,14 @@ Kategorien für Fish:
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — <Kategorie>                                │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    <dateiname.sh>
-# Pfad:     <vollständiger Pfad ab /mr-bytez/>
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: <YYYY-MM-DD>
-# Zweck:    <Beschreibung>
-# Event:    <Hook-Event, nur bei Hooks>
+# Datei:       <dateiname.sh>
+# Pfad:        <vollständiger Pfad ab /mr-bytez/>
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    <YYYY-MM-DD>
+# Aktualisiert:<YYYY-MM-DD>
+# Zweck:       <Beschreibung>
+# Event:       <Hook-Event, nur bei Hooks>
 ```
 
 Kategorie für Bash:
@@ -90,12 +95,13 @@ Kategorie für Bash:
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Agent                          │
 # └─────────────────────────────────────────────────────────┘
-name: <agent-name>
-version: 0.1.0
-description: <Beschreibung>
-author: MR-ByteZ
-created: <YYYY-MM-DD>
-tools: <Tool-Liste>
+Name:          <agent-name>
+Version:       0.1.0
+Beschreibung:  <Beschreibung>
+Autor:         MR-ByteZ
+Erstellt:      <YYYY-MM-DD>
+Aktualisiert:  <YYYY-MM-DD>
+Tools:         <Tool-Liste>
 ---
 ```
 
@@ -107,6 +113,7 @@ tools: <Tool-Liste>
 > **Pfad:** `<vollständiger Pfad>`
 > **Version:** 0.1.0
 > **Erstellt:** <YYYY-MM-DD>
+> **Aktualisiert:** <YYYY-MM-DD>
 > **Autor:** MR-ByteZ
 > **Zweck:** <Beschreibung>
 
@@ -119,11 +126,12 @@ tools: <Tool-Liste>
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — <Stack-Name>                               │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    <dateiname.yml>
-# Pfad:     <vollständiger Pfad>
-# Version:  0.1.0
-# Erstellt: <YYYY-MM-DD>
-# Zweck:    <Beschreibung>
+# Datei:       <dateiname.yml>
+# Pfad:        <vollständiger Pfad>
+# Version:     0.1.0
+# Erstellt:    <YYYY-MM-DD>
+# Aktualisiert:<YYYY-MM-DD>
+# Zweck:       <Beschreibung>
 ```
 
 ### 7. Dockerfile
@@ -132,13 +140,33 @@ tools: <Tool-Liste>
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — <Container-Name>                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    Dockerfile
-# Pfad:     <vollständiger Pfad>
-# Version:  0.1.0
-# Erstellt: <YYYY-MM-DD>
-# Zweck:    <Beschreibung>
-# Base:     <Base-Image>
+# Datei:       Dockerfile
+# Pfad:        <vollständiger Pfad>
+# Version:     0.1.0
+# Erstellt:    <YYYY-MM-DD>
+# Aktualisiert:<YYYY-MM-DD>
+# Zweck:       <Beschreibung>
+# Base:        <Base-Image>
 ```
+
+### 8. Text-Dateien (`.txt`) — Kommentar-Header + Banner
+
+```text
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — <Kategorie>                                │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       <dateiname.txt>
+# Pfad:        <vollständiger Pfad ab /mr-bytez/>
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    <YYYY-MM-DD>
+# Aktualisiert:<YYYY-MM-DD>
+# Zweck:       <Beschreibung>
+```
+
+Kategorien fuer Text:
+- `Paketliste` — Dateien in shared/packages/
+- `Konfiguration` — Sonstige Textdateien
 
 ## Farb-Schema (Gruvbox)
 

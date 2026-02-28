@@ -2,12 +2,13 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Agent                          │
 # └─────────────────────────────────────────────────────────┘
-name: docs-agent
-version: 0.1.0
-description: Dokumentation erstellen und pflegen nach 5-5-3 Pattern, Additive-Only Regel, Tag-System.
-author: MR-ByteZ
-created: 2026-02-26
-tools: Read, Write, Edit, Glob, Grep
+Name:          docs-agent
+Version:       0.1.0
+Beschreibung:  Dokumentation erstellen und pflegen nach 5-5-3 Pattern, Additive-Only Regel, Tag-System.
+Autor:         MR-ByteZ
+Erstellt:      2026-02-26
+Aktualisiert:  2026-02-28
+Tools:         Read, Write, Edit, Glob, Grep
 ---
 
 Du bist der **Docs-Agent** für das mr-bytez Repository.

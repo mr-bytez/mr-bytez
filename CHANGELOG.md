@@ -7,6 +7,27 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.10.0] - 2026-02-28
+
+### Added
+- [Fish][Docs] A2 Phase 0 — Vorbereitung + Docs fuer Fish DRY-Refactoring
+  - Paketlisten angelegt: `shared/packages/` (min, desktop, dev) mit pacman/yay/flatpak Sektionen
+  - 5-5-3 Docs in `shared/etc/fish/` befuellt: README.md, DEPLOYMENT.md, CLAUDE.md, CHANGELOG.md, ROADMAP.md
+  - Architektur-Docs in `.claude/context/` erstellt: ARCHITEKTUR.md, HOST_MATRIX.md, MIGRATION.md
+- [Fish][Refactor] A2 Phase 1 — Alias-Umbenennung (Originale freilassen)
+  - HOCH-Risiko: cat→bcat, ls→el, grep entfernt, df→duf, du→dust
+  - MITTEL-Risiko: rm→rmi, cp→cpi, mv→mvi
+  - Originale (cat, ls, grep, df, du, rm, cp, mv) komplett alias-frei
+
+### Changed
+- [ClaudeCode][Agents] Header-Standardisierung: YAML-Keys Englisch → Deutsch (4 Agents)
+- [ClaudeCode][Hooks] Aktualisiert-Feld + Alignment in allen 7 Hooks
+- [ClaudeCode][Agents] scaffold-agent v0.2.0: Aktualisiert-Feld in allen 8 Dateityp-Templates, Typ 8 (.txt) neu, Versionierungsregel (1.0.0 erst nach 6 Monaten)
+- [Fish] Versionen korrigiert: 10-nav, 20-eza, 90-misc auf 0.3.1
+- Referenz: Handoff v3.0, Chat #FSH01.4
+
+---
+
 ## [0.9.0] - 2026-02-27
 
 ### Added

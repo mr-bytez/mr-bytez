@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    dual-push-reminder.sh
-# Pfad:     /mr-bytez/.claude/hooks/dual-push-reminder.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Erinnert nach git push origin an Codeberg-Push
-# Event:    PostToolUse (Matcher: Bash)
+# Datei:       dual-push-reminder.sh
+# Pfad:        /mr-bytez/.claude/hooks/dual-push-reminder.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Erinnert nach git push origin an Codeberg-Push
+# Event:       PostToolUse (Matcher: Bash)
 
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')

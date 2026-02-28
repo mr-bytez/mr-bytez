@@ -157,9 +157,9 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - B7: mr-bytez-info.fish (nutzt neue Metadaten-Tags)
 - B17: VLC Desktop-Paketliste (Sub-Task von B5)
 
-**Details:** `.claude/context/handoffs/HANDOFF_[Fish][Refactor]_fish-dry-refactoring.md`
+**Details:** `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring_v3.md`
 
-**Status:** Geplant
+**Status:** 🟡 Phase 0+1 abgeschlossen — Phase 2 als naechstes
 **ETA:** Februar-Maerz 2026
 
 ---

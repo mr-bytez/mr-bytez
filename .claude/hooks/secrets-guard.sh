@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    secrets-guard.sh
-# Pfad:     /mr-bytez/.claude/hooks/secrets-guard.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Blockiert Read-Zugriff auf entschlüsselte Secrets
-# Event:    PreToolUse (Matcher: Read)
+# Datei:       secrets-guard.sh
+# Pfad:        /mr-bytez/.claude/hooks/secrets-guard.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Blockiert Read-Zugriff auf entschluesselte Secrets
+# Event:       PreToolUse (Matcher: Read)
 
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')

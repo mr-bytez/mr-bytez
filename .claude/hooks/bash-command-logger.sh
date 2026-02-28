@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    bash-command-logger.sh
-# Pfad:     /mr-bytez/.claude/hooks/bash-command-logger.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Loggt alle Bash-Commands als Audit-Trail
-# Event:    PreToolUse (Matcher: Bash)
+# Datei:       bash-command-logger.sh
+# Pfad:        /mr-bytez/.claude/hooks/bash-command-logger.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Loggt alle Bash-Commands als Audit-Trail
+# Event:       PreToolUse (Matcher: Bash)
 
 # Log-Verzeichnis sicherstellen
 LOG_DIR="${CLAUDE_PROJECT_DIR:-.}/.claude/logs"

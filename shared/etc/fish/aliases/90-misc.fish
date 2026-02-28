@@ -2,9 +2,10 @@
 # ║  mr-bytez Fish Aliases – Misc                                                ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/90-misc.fish       ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.0.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
+# ║  Autor:    MR-ByteZ                                                          ║
+# ║  Version:     0.3.1                                                          ║
+# ║  Erstellt:    2026-01-25                                                     ║
+# ║  Aktualisiert:2026-02-28                                                     ║
 # ║  Zweck:    Diverse Komfort-Wraps und System-Shortcuts                       ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -12,23 +13,20 @@
 # 💾 SPEICHER & FESTPLATTEN
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ── df: Moderne Festplatten-Anzeige (duf) ────────────────────────────────────
+# ── duf: Moderne Festplatten-Anzeige ─────────────────────────────────────────
 #  -hide loops,binds = versteckt unwichtige Mounts (cleaner!)
-#  Original erreichbar via: command df -h
-alias df='duf -hide loops,binds'
+#  Original df bleibt unveraendert (coreutils)
+alias duf='command duf -hide loops,binds'
 
-# ── du: Moderne Ordner-Größe (dust) ──────────────────────────────────────────
-#  -r = reverse (größte oben), -d 3 = max 3 Ebenen tief
-#  Original erreichbar via: command du -h
-alias du='dust -r'
+# ── dust: Moderne Ordner-Groesse ────────────────────────────────────────────
+#  -r = reverse (groesste oben)
+#  Original du bleibt unveraendert (coreutils)
+alias dust='command dust -r'
 
 # ── dus: Ordner-Größe mit Summe ──────────────────────────────────────────────
 #  Beispiel: dus /var/log/*
 alias dus='command du -hsc'
 
-# ── duf: Moderne Festplatten-Anzeige (farbig) ────────────────────────────────
-#  Falls installiert: install duf
-# (kein Alias nötig, duf ist bereits perfekt)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 🎨 FARBIGE AUSGABEN
@@ -43,24 +41,17 @@ alias ip='ip -c'
 # ── less: Farben durchreichen (für Pipes) ────────────────────────────────────
 alias less='less -R'
 
-# ── bat: Syntax-Highlighting für cat ─────────────────────────────────────────
-alias cat='bat --paging=never --style=numbers --theme="gruvbox-dark" --tabs=4 --wrap=never --color=auto'
-alias catn='cat --paging=auto' # Vollversion mit Zeilennummern & Paging
+# ── bcat: Syntax-Highlighting (bat) ──────────────────────────────────────────
+# Original cat bleibt unveraendert (coreutils)
+alias bcat='bat --paging=never --style=numbers --theme="gruvbox-dark" --tabs=4 --wrap=never --color=auto'
+alias bcatn='bat --paging=auto --style=numbers --theme="gruvbox-dark" --tabs=4 --wrap=never --color=auto'
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 🔎 SUCHEN
 # ══════════════════════════════════════════════════════════════════════════════
 
-# grep: farbiges Hervorheben
-function grep --wraps=grep --description "grep farbig (--color=auto)"
-    if set -q THEME_QUIET; or set -q MISC_SILENT
-        # Silent mode
-    else
-        set_color cyan; echo -n "ℹ"; set_color normal
-        echo " grep: 🔎 farbiges Hervorheben (--color=auto)"
-    end
-    command grep --color=auto $argv
-end
+# grep: KEIN Alias — bleibt unveraenderte coreutils
+# Fuer moderne Suche: rg (ripgrep) direkt verwenden
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 📊 SYSTEM-MONITORING

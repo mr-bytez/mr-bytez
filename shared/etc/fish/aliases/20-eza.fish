@@ -2,9 +2,10 @@
 # ║  mr-bytez Fish Aliases – eza (Listing)                                       ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/20-eza.fish        ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.0.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
+# ║  Autor:    MR-ByteZ                                                          ║
+# ║  Version:     0.3.1                                                          ║
+# ║  Erstellt:    2026-01-25                                                     ║
+# ║  Aktualisiert:2026-02-28                                                     ║
 # ║  Zweck:    Komfortable Verzeichnislisten mit Icons, Sortierung, Baumansicht ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -12,8 +13,9 @@
 # 📋 STANDARD-LISTINGS
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ── ls: Einfache Liste mit Icons ─────────────────────────────────────────────
-alias ls='eza --icons --group-directories-first'
+# ── el: Einfache Liste mit Icons (eza) ───────────────────────────────────────
+# Original ls bleibt unveraendert (coreutils)
+alias el='eza --icons --group-directories-first'
 
 # ── ll: Lange Liste mit Git-Status, Permissions ──────────────────────────────
 alias ll='eza -la --icons --all --git --header --octal-permissions --group-directories-first --group --color-scale'

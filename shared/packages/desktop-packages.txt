@@ -1,0 +1,45 @@
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Paketliste                                 │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       desktop-packages.txt
+# Pfad:        shared/packages/desktop-packages.txt
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-28
+# Aktualisiert:2026-02-28
+# Zweck:       Desktop-Pakete fuer GUI-Hosts (MR_HAS_GUI)
+
+# === pacman (offizielle Repos) ===
+
+# Browser & Desktop
+firefox
+btop
+power-profiles-daemon
+wl-clipboard
+
+# Media
+vlc
+
+# === yay (AUR) ===
+
+# Browser
+brave-bin
+microsoft-edge-stable-bin
+
+# Editor
+visual-studio-code-bin
+
+# Media
+jdownloader2
+tinymediamanager-bin
+
+# === flatpak ===
+
+flatpak
+
+# Messenger
+org.telegram.desktop
+com.rtosta.zapzap
+
+# Media
+com.spotify.Client

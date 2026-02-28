@@ -1,7 +1,30 @@
 # Fish Shell — CHANGELOG
 
-**Status:** Geplant
-**Autor:** MR-ByteZ
-**Erstellt:** 2026-02-10
+> **Pfad:** `shared/etc/fish/CHANGELOG.md`
+> **Version:** 0.1.0
+> **Erstellt:** 2026-02-10
+> **Aktualisiert:** 2026-02-28
+> **Autor:** MR-ByteZ
 
-TODO: Befuellen wenn Projekt startet.
+> **Zweck:** Aenderungshistorie der Fish Shell Konfiguration
+
+---
+
+## [0.1.0] — 2026-02-28
+
+### Phase 0: Vorbereitung + Docs
+
+- Paketlisten angelegt: `shared/packages/` (min, desktop, dev)
+- 5-5-3 Docs befuellt: README.md, DEPLOYMENT.md, CLAUDE.md, CHANGELOG.md, ROADMAP.md
+- Architektur-Docs erstellt: ARCHITEKTUR.md, HOST_MATRIX.md, MIGRATION.md
+- Referenz: Handoff v3.0, Chat #FSH01.3
+
+## [Pre-0.1.0] — bis 2026-02-27
+
+### Bestehende Konfiguration
+
+- Loader v2.1.0 (`00-loader.fish`) mit mehrstufigem Lade-System
+- Theme v1.1.0 (`00-theme.fish`) mit Gruvbox-Farbschema
+- 8 Shared Aliases (10-nav bis 90-misc)
+- 8 Host-Konfigurationen mit duplizierten Desktop-Aliases (DRY-Verletzung)
+- 4 Audit-Reports erstellt (A2 Verifikation, Host-Inventur, Altes-Repo)

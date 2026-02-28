@@ -1,0 +1,28 @@
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Paketliste                                 │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       dev-packages.txt
+# Pfad:        shared/packages/dev-packages.txt
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-28
+# Aktualisiert:2026-02-28
+# Zweck:       Dev-Pakete fuer Dev-Hosts (MR_IS_DEV)
+
+# === pacman (offizielle Repos) ===
+
+docker
+docker-compose
+docker-buildx
+nodejs
+npm
+python
+base-devel
+
+# === yay (AUR) ===
+
+lazydocker
+
+# === flatpak ===
+
+# (keine Flatpaks in der Dev-Liste)

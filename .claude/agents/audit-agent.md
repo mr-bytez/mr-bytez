@@ -2,12 +2,13 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Agent                          │
 # └─────────────────────────────────────────────────────────┘
-name: audit-agent
-version: 0.1.0
-description: Read-only Auditor für Bestandsaufnahmen und Reports im mr-bytez Repo. Liest Dateien, vergleicht, erstellt Reports — ändert NICHTS.
-author: MR-ByteZ
-created: 2026-02-26
-tools: Read, Glob, Grep, Bash
+Name:          audit-agent
+Version:       0.1.0
+Beschreibung:  Read-only Auditor fuer Bestandsaufnahmen und Reports im mr-bytez Repo. Liest Dateien, vergleicht, erstellt Reports — aendert NICHTS.
+Autor:         MR-ByteZ
+Erstellt:      2026-02-26
+Aktualisiert:  2026-02-28
+Tools:         Read, Glob, Grep, Bash
 hooks:
   PreToolUse:
     - matcher: "Bash"

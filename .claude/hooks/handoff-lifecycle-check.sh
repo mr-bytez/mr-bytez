@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    handoff-lifecycle-check.sh
-# Pfad:     /mr-bytez/.claude/hooks/handoff-lifecycle-check.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Prüft ob erledigte Handoffs gelöscht/archiviert wurden
-# Event:    PreToolUse (Matcher: Bash)
+# Datei:       handoff-lifecycle-check.sh
+# Pfad:        /mr-bytez/.claude/hooks/handoff-lifecycle-check.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Prueft ob erledigte Handoffs geloescht/archiviert wurden
+# Event:       PreToolUse (Matcher: Bash)
 
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')

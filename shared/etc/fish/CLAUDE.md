@@ -1,9 +1,42 @@
-# Fish DRY-Refactoring
+# Fish DRY-Refactoring — Claude Code Kontext
 
-**Status:** Geplant
-**Autor:** MR-ByteZ
-**Erstellt:** 2026-02-10
+> **Pfad:** `shared/etc/fish/CLAUDE.md`
+> **Version:** 0.1.0
+> **Erstellt:** 2026-02-10
+> **Aktualisiert:** 2026-02-28
+> **Autor:** MR-ByteZ
 
-TODO: Befuellen wenn Projekt startet.
+> **Zweck:** Claude Code Kontext fuer Fish Shell Konfiguration
 
-**Referenz:** `.claude/context/handoffs/HANDOFF_[Fish][Refactor]_fish-dry-refactoring.md`
+---
+
+## Projekttyp
+
+Fish Shell DRY-Refactoring — Umstellung von duplizierten Host-Configs auf ein
+zentrales System mit Feature-Flags und Shared Conditionals.
+
+## Wichtige Regeln
+
+- **Fish-Syntax:** Kein `&&`, kein `export`, kein `$(cmd)`, kein Heredoc
+- **command cat/grep:** Immer `command cat` und `command grep` verwenden
+- **Alias-Sicherheit:** cat, ls, grep, df, du, rm, cp, mv = unveraenderte coreutils
+- **Nummerierung:** 000-099 Shared, 100-200 Host-spezifisch, 5er-Schritte
+- **Header:** Jede neue Datei bekommt den Standard-Header (scaffold-agent)
+- **Version:** Neue Dateien starten bei 0.1.0
+
+## Struktur
+
+```
+shared/etc/fish/
+├── aliases/     Shared Aliases (010-045)
+├── conf.d/      Loader (000) + Theme (005)
+├── functions/   Prompt, Helpers
+├── themes/      Gruvbox Theme
+└── variables/   Pfade
+```
+
+## Referenzen
+
+- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring_v3.md`
+- Shell-Policies: `.claude/context/shell.md`
+- Scaffold-Agent: `.claude/agents/scaffold-agent.md`

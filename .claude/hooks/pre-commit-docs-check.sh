@@ -2,13 +2,14 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Hook                           │
 # └─────────────────────────────────────────────────────────┘
-# Datei:    pre-commit-docs-check.sh
-# Pfad:     /mr-bytez/.claude/hooks/pre-commit-docs-check.sh
-# Autor:    MR-ByteZ
-# Version:  0.1.0
-# Erstellt: 2026-02-26
-# Zweck:    Prüft VOR git commit ob CHANGELOG/ROADMAP im Staging sind
-# Event:    PreToolUse (Matcher: Bash)
+# Datei:       pre-commit-docs-check.sh
+# Pfad:        /mr-bytez/.claude/hooks/pre-commit-docs-check.sh
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-02-26
+# Aktualisiert:2026-02-26
+# Zweck:       Prueft VOR git commit ob CHANGELOG/ROADMAP im Staging sind
+# Event:       PreToolUse (Matcher: Bash)
 
 INPUT=$(cat)
 COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')

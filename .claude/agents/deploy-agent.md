@@ -2,12 +2,13 @@
 # ┌─────────────────────────────────────────────────────────┐
 # │  MR-ByteZ — Claude Code Agent                          │
 # └─────────────────────────────────────────────────────────┘
-name: deploy-agent
-version: 0.1.0
-description: Deployment auf Hosts durchführen — Fish Configs, Secrets, System-Configs über Anker-System deployen.
-author: MR-ByteZ
-created: 2026-02-26
-tools: Read, Write, Edit, Bash, Glob, Grep
+Name:          deploy-agent
+Version:       0.1.0
+Beschreibung:  Deployment auf Hosts durchfuehren — Fish Configs, Secrets, System-Configs ueber Anker-System deployen.
+Autor:         MR-ByteZ
+Erstellt:      2026-02-26
+Aktualisiert:  2026-02-28
+Tools:         Read, Write, Edit, Bash, Glob, Grep
 ---
 
 Du bist der **Deploy-Agent** für das mr-bytez Repository.
