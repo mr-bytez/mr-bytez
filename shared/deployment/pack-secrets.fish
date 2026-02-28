@@ -8,16 +8,16 @@
 # Zweck: mrohwer/ → mrohwer.tar → mrohwer.tar.age
 # ============================================
 
-# ── Banner laden ────────────────────────────
+# ── Format-Library laden ───────────────────
 
-set -l banner_path /mr-bytez/shared/lib/banner.fish
-if test -f "$banner_path"
-    source "$banner_path"
+set -l format_path /mr-bytez/shared/lib/format.fish
+if test -f "$format_path"
+    source "$format_path"
 else
     # Fallback ueber Anker
-    set -l banner_anchor /opt/mr-bytez/current/shared/lib/banner.fish
-    if test -f "$banner_anchor"
-        source "$banner_anchor"
+    set -l format_anchor /opt/mr-bytez/current/shared/lib/format.fish
+    if test -f "$format_anchor"
+        source "$format_anchor"
     end
 end
 
@@ -30,30 +30,13 @@ set source_dir mrohwer
 set tar_file mrohwer.tar
 set age_file mrohwer.tar.age
 
-# ── Hilfsfunktionen ─────────────────────────
+# ── Hilfsfunktionen (aus format.fish, Fallback falls nicht verfuegbar) ─────
 
-function _msg
-    set_color cyan
-    echo "→ $argv"
-    set_color normal
-end
-
-function _success
-    set_color green
-    echo "✅ $argv"
-    set_color normal
-end
-
-function _error
-    set_color red
-    echo "❌ $argv" >&2
-    set_color normal
-end
-
-function _warn
-    set_color yellow
-    echo "⚠️  $argv"
-    set_color normal
+if not type -q _msg
+    function _msg; set_color cyan; echo "→ $argv"; set_color normal; end
+    function _success; set_color green; echo "✅ $argv"; set_color normal; end
+    function _error; set_color red; echo "❌ $argv" >&2; set_color normal; end
+    function _warn; set_color yellow; echo "⚠️  $argv"; set_color normal; end
 end
 
 # ── Usage ────────────────────────────────────

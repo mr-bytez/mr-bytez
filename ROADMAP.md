@@ -159,7 +159,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Details:** `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
 
-**Status:** 🟡 Phase 0+1+2 abgeschlossen (inkl. Hotfix) — Phase 3 als naechstes
+**Status:** 🟡 Phase 0+1+2+3 abgeschlossen — Phase 4 (Loader-Umbau) als naechstes
 **ETA:** Februar-Maerz 2026
 
 ---

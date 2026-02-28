@@ -7,6 +7,32 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.13.0] - 2026-02-28
+
+### Added
+- [Fish][Refactor] A2 Phase 3 — Conditionals + DRY + format.fish
+  - `shared/lib/format.fish` erstellt: Zentrale Formatting-Library (10 Funktionen)
+  - `050-gui.fish` erstellt: GUI-Conditionals mit Self-Check (MR_HAS_GUI)
+    - Updates mit Flatpak (upa, upall), Flatpak standalone (upfl, upflc, flathub)
+    - Cleanup (upclean), Check (upchk), Power-Management (zzz, zzzh, zzzx)
+  - `055-dev.fish` erstellt: DEV-Conditionals mit Self-Check (MR_IS_DEV), Platzhalter
+  - `upa` (Server-Version ohne Flatpak) in 035-pacman.fish ergaenzt
+  - Display-Variablen (GDK_SCALE, QT_SCALE_FACTOR) in 008-host-flags.fish konsolidiert
+  - 8x `80-n8-*.fish` → `110-n8-*.fish` umbenannt (git mv)
+  - Loader temporaer erweitert (80-89 → 80-199, wird in Phase 4 ersetzt)
+
+### Removed
+- 7x `70-desktop.fish` geloescht (aufgegangen in shared 050-gui.fish)
+- 1x `70-server.fish` geloescht (Duplikate in shared 020-docker/030-systemd/035-pacman)
+- 6x `10-display.fish` + 2x `10-host.fish` geloescht (konsolidiert in 008-host-flags.fish)
+
+### Changed
+- `pack-secrets.fish` + `unpack-secrets.fish`: Auf format.fish Library umgestellt
+- 008-host-flags.fish v0.2.0: Display-Skalierung pro Host ergaenzt
+- 035-pacman.fish v0.4.0: upa ergaenzt, Kommentare auf 050-gui.fish Verweis aktualisiert
+
+---
+
 ## [0.12.0] - 2026-02-28
 
 ### Fixed

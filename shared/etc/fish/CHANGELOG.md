@@ -10,6 +10,22 @@
 
 ---
 
+## [0.4.0] — 2026-02-28
+
+### Phase 3: Conditionals + DRY + format.fish
+
+- `shared/lib/format.fish` erstellt: Zentrale Formatting-Library (10 Funktionen, Gruvbox)
+- `050-gui.fish` erstellt: GUI-Conditionals mit Self-Check (MR_HAS_GUI)
+- `055-dev.fish` erstellt: DEV-Conditionals mit Self-Check (MR_IS_DEV), Platzhalter
+- `upa` (Server-Version ohne Flatpak) in 035-pacman.fish ergaenzt
+- 7x `70-desktop.fish` + 1x `70-server.fish` geloescht (→ shared 050-gui.fish)
+- 6x `10-display.fish` + 2x `10-host.fish` → in 008-host-flags.fish konsolidiert
+- 8x `80-n8-*.fish` → `110-n8-*.fish` umbenannt (neues Nummerierungsschema)
+- Loader temporaer erweitert (80-199, wird in Phase 4 durch einschleifig ersetzt)
+- `pack-secrets.fish` + `unpack-secrets.fish`: Auf format.fish Library umgestellt
+
+---
+
 ## [0.3.1] — 2026-02-28
 
 ### Phase 2 Hotfix: Loader-Fix + Header-Audit

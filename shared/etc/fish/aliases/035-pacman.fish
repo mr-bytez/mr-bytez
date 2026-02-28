@@ -3,20 +3,24 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:        shared/etc/fish/aliases/035-pacman.fish                       ║
 # ║  Autor:       MR-ByteZ                                                      ║
-# ║  Version:     0.3.1                                                         ║
+# ║  Version:     0.4.0                                                         ║
 # ║  Erstellt:    2026-01-25                                                    ║
 # ║  Aktualisiert:2026-02-28                                                    ║
 # ║  Zweck:       System-Updates fuer Arch + AUR (OHNE Flatpak)               ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
 # Hinweise:
-# - Diese Basis-Version ist für ALLE Hosts (inkl. headless Server)
-# - Desktop-Hosts überschreiben diese Aliases via 70-desktop.fish (MIT Flatpak)
-# - Für Repo-Check wird "pacman-contrib" benötigt (checkupdates)
+# - Diese Basis-Version ist fuer ALLE Hosts (inkl. headless Server)
+# - Desktop-Hosts ueberschreiben upa/upchk via 050-gui.fish (MIT Flatpak)
+# - Fuer Repo-Check wird "pacman-contrib" benoetigt (checkupdates)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # 🔄 STANDARD-UPDATES
 # ══════════════════════════════════════════════════════════════════════════════
+
+# upa: Interaktives Voll-Update (Repos + AUR) — OHNE --noconfirm
+# Desktop-Hosts ueberschreiben upa via 050-gui.fish (MIT Flatpak)
+alias upa='sudo pacman -Syu; and yay -Syu'
 
 # upp: Normales Repo-Update (ohne AUR)
 alias upp='sudo pacman -Syu --color=auto'
@@ -48,7 +52,7 @@ alias upc='sudo pacman -Sc && yay -Sc'
 # upchk: Nur prüfen, was ansteht (kein Install)
 #  - checkupdates (Repo; Paket pacman-contrib erforderlich)
 #  - yay -Qua (AUR)
-# Hinweis: Desktop-Override erweitert um Flatpak-Check
+# Hinweis: Desktop-Hosts ueberschreiben upchk via 050-gui.fish (+Flatpak)
 alias upchk='checkupdates; and yay -Qua'
 
 

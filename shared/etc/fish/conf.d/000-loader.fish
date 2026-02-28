@@ -13,7 +13,7 @@
 #   00-09  Theme + Basis (nur shared)
 #   10-69  Shared DANN Host (aliases, variables)
 #   70-79  Host Kategorie (Desktop/Server) - conf.d, aliases, variables
-#   80-89  Host-spezifisch (Overrides) - conf.d, aliases, variables
+#   80-199 Host-spezifisch (Overrides) - conf.d, aliases, variables (temporaer, Phase 4)
 #   90-99  User-Tweaks (shared + host)
 #
 # Debug-Modus:
@@ -173,15 +173,16 @@ if test -d $host_base/variables
 end
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 7⃣  HOST-SPEZIFISCH LADEN (80-89)
+# 7⃣  HOST-SPEZIFISCH LADEN (80-199)
+# HINWEIS: Temporaer auf 80-199 erweitert (Phase 3), wird in Phase 4 ersetzt
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Host conf.d (80-89)
+# Host conf.d (80-199)
 if test -d $host_base/conf.d
     for f in $host_base/conf.d/*.fish
         if test -f $f
             set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 90
+            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
                 __loader_debug "Host Config: "(basename $f)
                 source $f
             end
@@ -189,12 +190,12 @@ if test -d $host_base/conf.d
     end
 end
 
-# Host aliases (80-89)
+# Host aliases (80-199)
 if test -d $host_base/aliases
     for f in $host_base/aliases/*.fish
         if test -f $f
             set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 90
+            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
                 __loader_debug "Host Alias: "(basename $f)
                 source $f
             end
@@ -202,12 +203,12 @@ if test -d $host_base/aliases
     end
 end
 
-# Host variables (80-89)
+# Host variables (80-199)
 if test -d $host_base/variables
     for f in $host_base/variables/*.fish
         if test -f $f
             set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 90
+            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
                 __loader_debug "Host Variable: "(basename $f)
                 source $f
             end

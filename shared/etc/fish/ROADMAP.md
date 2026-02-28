@@ -10,26 +10,26 @@
 
 ---
 
-## Aktuelle Phase: 0 (Vorbereitung)
+## Aktuelle Phase: 4 (Loader-Umbau)
 
 ## Phasen-Uebersicht
 
 | Phase | Beschreibung | Status |
 |-------|-------------|--------|
-| 0 | Vorbereitung + Docs | 🟡 In Arbeit |
-| 1 | Alias-Umbenennung (cat→bcat, ls→el, ...) | ⬜ Geplant |
-| 2 | Nummerierung + Host-Flags (008-host-flags.fish) | ⬜ Geplant |
-| 3 | Conditionals + DRY (050-gui, 055-dev, format.fish) | ⬜ Geplant |
+| 0 | Vorbereitung + Docs | ✅ Erledigt |
+| 1 | Alias-Umbenennung (cat→bcat, ls→el, ...) | ✅ Erledigt |
+| 2 | Nummerierung + Host-Flags (008-host-flags.fish) | ✅ Erledigt |
+| 3 | Conditionals + DRY (050-gui, 055-dev, format.fish) | ✅ Erledigt |
 | 4 | Loader umbauen (000-loader.fish, einschleifig) | ⬜ Geplant |
 | 5 | Testen + Deploy (n8-kiste, n8-vps, n8-station, ...) | ⬜ Geplant |
 | 6 | Docs + Cleanup (shell.md, deployment.md, Skills) | ⬜ Geplant |
 
-## Naechste Schritte (Phase 1)
+## Naechste Schritte (Phase 4)
 
-- HOCH-Risiko Alias-Umbenennungen: cat→bcat, ls→el, grep→rg, df→duf, du→dust
-- MITTEL-Risiko: rm→rmi, cp→cpi, mv→mvi
-- Originale komplett alias-frei machen
-- Deploy + Test auf n8-kiste
+- 000-loader.fish: Neue Lade-Reihenfolge (eine Schleife, numerisch 000→200)
+- Temporaere 80-199 Erweiterung durch saubere Einschleifig-Logik ersetzen
+- Debug-Modus (FISH_LOADER_DEBUG) anpassen
+- mr-bytez-info.fish ans neue Schema anpassen (B7)
 
 ## Referenz
 

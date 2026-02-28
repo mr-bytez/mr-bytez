@@ -28,8 +28,8 @@ zentrales System mit Feature-Flags und Shared Conditionals.
 
 ```
 shared/etc/fish/
-├── aliases/     Shared Aliases (010-045)
-├── conf.d/      Loader (000) + Theme (005)
+├── aliases/     Shared Aliases (010-055)
+├── conf.d/      Loader (000) + Theme (005) + Host-Flags (008)
 ├── functions/   Prompt, Helpers
 ├── themes/      Gruvbox Theme
 └── variables/   Pfade

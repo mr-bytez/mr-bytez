@@ -1,9 +1,9 @@
 # HANDOFF: A2 Fish DRY-Refactoring
 
-**Version:** 3.0
+**Version:** 3.1
 **Erstellt:** 2026-01-31
 **Aktualisiert:** 2026-02-28
-**Status:** 🟡 Phase 0+1+2 abgeschlossen (inkl. Hotfix) — Phase 3 als naechstes
+**Status:** 🟡 Phase 0+1+2+3 abgeschlossen — Phase 4 als naechstes
 **Zweck:** DRY-Refactoring der Fish Shell Konfiguration aller 8 Hosts
 **Autor:** MR-ByteZ
 
@@ -299,13 +299,16 @@ Konsolidiert duplizierte Formatting-Funktionen aus:
 - [x] **Hotfix:** 14 Shared Fish-Dateien Header-Audit + Standardisierung
 - [x] **Hotfix:** Validierung bestanden (Flags, Aliases, coreutils)
 
-### Phase 3: Conditionals + DRY + format.fish (45 min)
-- [ ] format.fish Library erstellen (aus Secrets-Repo Funktionen)
-- [ ] 050-gui.fish erstellen (aus 7x 70-desktop.fish extrahiert)
-- [ ] 055-dev.fish erstellen (neue Dev-Conditionals)
-- [ ] 7x 70-desktop.fish loeschen + 1x 70-server.fish loeschen
-- [ ] 10-display.fish / 10-host.fish → in 008-host-flags.fish konsolidieren
-- [ ] 80-n8-*.fish → 110-n8-*.fish umbenennen
+### Phase 3: Conditionals + DRY + format.fish (45 min) ✅
+- [x] format.fish Library erstellt (shared/lib/format.fish, 10 Funktionen)
+- [x] 050-gui.fish erstellt (aus n8-kiste 70-desktop.fish + flathub)
+- [x] 055-dev.fish erstellt (Platzhalter mit Self-Check)
+- [x] upa (Server-Version) in 035-pacman.fish ergaenzt
+- [x] 7x 70-desktop.fish geloescht + 1x 70-server.fish geloescht
+- [x] 6x 10-display.fish + 2x 10-host.fish → in 008-host-flags.fish konsolidiert
+- [x] 8x 80-n8-*.fish → 110-n8-*.fish umbenannt (git mv)
+- [x] Loader temporaer erweitert (80-199, Phase 4 ersetzt)
+- [x] pack/unpack-secrets.fish auf format.fish umgestellt
 
 ### Phase 4: Loader umbauen (45 min)
 - [ ] 000-loader.fish: Neue Lade-Reihenfolge implementieren

@@ -1,11 +1,13 @@
-# ============================================
-# 50-n8kiste.fish - n8-kiste Host-Config
-# Pfad: projects/infrastructure/n8-kiste/root/home/mrohwer/.config/fish/conf.d/
-# Author: Michael Rohwer
-# Created: 2026-01-23
-# Version: 1.0.0
-# Purpose: n8-kiste spezifische Variablen und Aliases
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ Fish Config                                   │
+# │  Datei:    110-n8-kiste.fish                            │
+# │  Pfad:     aliases/110-n8-kiste.fish                    │
+# │  Zweck:    n8-kiste-spezifische Aliases                 │
+# │  Version:  0.1.0                                        │
+# │  Autor:    MR-ByteZ                                     │
+# │  Erstellt: 2026-01-23                                   │
+# │  Aktualisiert: 2026-02-28                               │
+# └─────────────────────────────────────────────────────────┘
 
 # ─────────────────────────────────────────
 # n8-kiste spezifische Variablen
