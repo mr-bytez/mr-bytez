@@ -3,29 +3,37 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:        shared/etc/fish/conf.d/000-loader.fish                        ║
 # ║  Autor:       MR-ByteZ                                                      ║
-# ║  Version:     0.3.1                                                         ║
+# ║  Version:     0.5.0                                                         ║
 # ║  Erstellt:    2026-01-26                                                    ║
 # ║  Aktualisiert:2026-02-28                                                    ║
-# ║  Zweck:       Laedt Shared + Host-spezifische Configs nach Nummerierung    ║
+# ║  Zweck:       Laedt Shared + Host-spezifische Configs (einschleifig)       ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
-# Lade-Reihenfolge (Nummer = Priorität, höher überschreibt):
-#   00-09  Theme + Basis (nur shared)
-#   10-69  Shared DANN Host (aliases, variables)
-#   70-79  Host Kategorie (Desktop/Server) - conf.d, aliases, variables
-#   80-199 Host-spezifisch (Overrides) - conf.d, aliases, variables (temporaer, Phase 4)
-#   90-99  User-Tweaks (shared + host)
+# Nummerierungsschema:
+#   000-099  Shared (alle Hosts)
+#            conf.d:    005-theme, 008-host-flags
+#            aliases:   010-nav, 015-eza, ..., 050-gui, 055-dev
+#            variables: 010-paths
+#   100-200  Host-spezifisch
+#            aliases:   110-n8-*.fish
+#
+# Lade-Reihenfolge (eine Schleife, 6 Verzeichnisse):
+#   Shared conf.d → Shared aliases → Shared variables →
+#   Host conf.d   → Host aliases   → Host variables
+#
+# Innerhalb jedes Verzeichnisses: Glob sortiert numerisch (zero-padded).
+# Shared (005-099) laedt immer VOR Host (100-200).
 #
 # Debug-Modus:
 #   set -g FISH_LOADER_DEBUG 1   → Zeigt geladene Dateien
 #
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ── Pfade ermitteln (mit realpath für Symlinks!) ─────────────────────────────
+# ── Pfade ermitteln (mit realpath fuer Symlinks!) ─────────────────────────
 set -l shared_base (dirname (realpath (status filename)))/..
 set -l host_base /mr-bytez/projects/infrastructure/(hostname)/root/home/(whoami)/.config/fish
 
-# ── Debug-Helper ─────────────────────────────────────────────────────────────
+# ── Debug-Helper ─────────────────────────────────────────────────────────
 function __loader_debug --argument msg
     if set -q FISH_LOADER_DEBUG; and test "$FISH_LOADER_DEBUG" = "1"
         set -l D (set_color brblack)
@@ -38,36 +46,30 @@ __loader_debug "Shared-Pfad: $shared_base"
 __loader_debug "Host-Pfad: $host_base"
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 1⃣  THEME-SYSTEM LADEN (00-09)
+# Einschleifiges Laden: Shared (000-099) → Host (100-200)
 # ══════════════════════════════════════════════════════════════════════════════
+#
+# 6 Verzeichnisse in fester Reihenfolge:
+#   1. Shared conf.d    (005-theme, 008-host-flags)
+#   2. Shared aliases   (010-055)
+#   3. Shared variables (010-paths)
+#   4. Host conf.d      (zukunftssicher, aktuell leer)
+#   5. Host aliases     (110-n8-*.fish)
+#   6. Host variables   (zukunftssicher, aktuell leer)
 
-set -l theme_file $shared_base/conf.d/005-theme.fish
-if test -f $theme_file
-    __loader_debug "Theme laden: 005-theme.fish"
-    source $theme_file
-end
+set -l source_dirs \
+    $shared_base/conf.d \
+    $shared_base/aliases \
+    $shared_base/variables \
+    $host_base/conf.d \
+    $host_base/aliases \
+    $host_base/variables
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 1.5⃣  HOST-FLAGS LADEN (008)
-# ══════════════════════════════════════════════════════════════════════════════
-# Muss VOR Aliases/Conditionals laden (008 < 050/055)
-
-set -l flags_file $shared_base/conf.d/008-host-flags.fish
-if test -f $flags_file
-    __loader_debug "Host-Flags laden: 008-host-flags.fish"
-    source $flags_file
-end
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 2⃣  SHARED ALIASES LADEN (10-69)
-# ══════════════════════════════════════════════════════════════════════════════
-
-if test -d $shared_base/aliases
-    for f in $shared_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 10; and test $num -lt 70
-                __loader_debug "Shared Alias: "(basename $f)
+for dir in $source_dirs
+    if test -d $dir
+        for f in $dir/*.fish
+            if test -f $f; and test (basename $f) != "000-loader.fish"
+                __loader_debug (basename $f)
                 source $f
             end
         end
@@ -75,53 +77,10 @@ if test -d $shared_base/aliases
 end
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 3⃣  SHARED VARIABLES LADEN (10-69)
+# Functions (fish_function_path — keine Nummerierung)
 # ══════════════════════════════════════════════════════════════════════════════
 
-if test -d $shared_base/variables
-    for f in $shared_base/variables/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 10; and test $num -lt 70
-                __loader_debug "Shared Variable: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 4⃣  HOST ALIASES + VARIABLES LADEN (10-69) - Ergänzend zu Shared
-# ══════════════════════════════════════════════════════════════════════════════
-
-if test -d $host_base/aliases
-    for f in $host_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 10; and test $num -lt 70
-                __loader_debug "Host Alias (10-69): "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-if test -d $host_base/variables
-    for f in $host_base/variables/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 10; and test $num -lt 70
-                __loader_debug "Host Variable (10-69): "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 5⃣  SHARED FUNCTIONS (fish_function_path)
-# ══════════════════════════════════════════════════════════════════════════════
-
+# Shared Functions (Prompt, Helpers, mr-bytez-info)
 if test -d $shared_base/functions
     if not contains $shared_base/functions $fish_function_path
         set -gp fish_function_path $shared_base/functions
@@ -129,94 +88,7 @@ if test -d $shared_base/functions
     end
 end
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 6⃣  HOST KATEGORIE LADEN (70-79) - Desktop/Server
-# ══════════════════════════════════════════════════════════════════════════════
-
-# Host conf.d (70-79)
-if test -d $host_base/conf.d
-    for f in $host_base/conf.d/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 70; and test $num -lt 80
-                __loader_debug "Host Kategorie conf.d: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host aliases (70-79)
-if test -d $host_base/aliases
-    for f in $host_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 70; and test $num -lt 80
-                __loader_debug "Host Kategorie alias: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host variables (70-79)
-if test -d $host_base/variables
-    for f in $host_base/variables/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 70; and test $num -lt 80
-                __loader_debug "Host Kategorie variable: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 7⃣  HOST-SPEZIFISCH LADEN (80-199)
-# HINWEIS: Temporaer auf 80-199 erweitert (Phase 3), wird in Phase 4 ersetzt
-# ══════════════════════════════════════════════════════════════════════════════
-
-# Host conf.d (80-199)
-if test -d $host_base/conf.d
-    for f in $host_base/conf.d/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
-                __loader_debug "Host Config: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host aliases (80-199)
-if test -d $host_base/aliases
-    for f in $host_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
-                __loader_debug "Host Alias: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host variables (80-199)
-if test -d $host_base/variables
-    for f in $host_base/variables/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 80; and test $num -lt 200
-                __loader_debug "Host Variable: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host functions (Vorrang vor shared)
+# Host Functions (Vorrang vor shared)
 if test -d $host_base/functions
     if not contains $host_base/functions $fish_function_path
         set -gp fish_function_path $host_base/functions
@@ -225,60 +97,13 @@ if test -d $host_base/functions
 end
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 8⃣  USER-TWEAKS LADEN (90-99) - Optional
-# ══════════════════════════════════════════════════════════════════════════════
-
-# Shared aliases 90-99 (z.B. 90-misc.fish)
-if test -d $shared_base/aliases
-    for f in $shared_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 90
-                __loader_debug "Shared Misc: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host conf.d 90-99
-if test -d $host_base/conf.d
-    for f in $host_base/conf.d/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 90
-                __loader_debug "Host Misc: "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# Host aliases 90-99
-if test -d $host_base/aliases
-    for f in $host_base/aliases/*.fish
-        if test -f $f
-            set -l num (string match -r '^\d+' (basename $f))
-            if test -n "$num"; and test $num -ge 90
-                __loader_debug "Host Alias (90+): "(basename $f)
-                source $f
-            end
-        end
-    end
-end
-
-# ══════════════════════════════════════════════════════════════════════════════
-# 🧹 AUFRÄUMEN
+# Aufraeumen + Done
 # ══════════════════════════════════════════════════════════════════════════════
 
 functions -e __loader_debug
 
-# ══════════════════════════════════════════════════════════════════════════════
-# ✅ LOADER ABGESCHLOSSEN
-# ══════════════════════════════════════════════════════════════════════════════
-
 if set -q FISH_LOADER_DEBUG; and test "$FISH_LOADER_DEBUG" = "1"
     set -l G (set_color green)
     set -l N (set_color normal)
-    echo $G"✔"$N" mr-bytez Fish-Config v2.1 geladen (Shared + Host)" >&2
+    echo $G"✔"$N" mr-bytez Fish-Config geladen (einschleifig, Shared + Host)" >&2
 end

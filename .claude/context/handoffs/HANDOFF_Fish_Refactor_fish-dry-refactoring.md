@@ -1,9 +1,9 @@
 # HANDOFF: A2 Fish DRY-Refactoring
 
-**Version:** 3.1
+**Version:** 3.2
 **Erstellt:** 2026-01-31
 **Aktualisiert:** 2026-02-28
-**Status:** 🟡 Phase 0+1+2+3 abgeschlossen — Phase 4 als naechstes
+**Status:** 🟡 Phase 0-4 abgeschlossen — Phase 5 als naechstes
 **Zweck:** DRY-Refactoring der Fish Shell Konfiguration aller 8 Hosts
 **Autor:** MR-ByteZ
 
@@ -310,12 +310,12 @@ Konsolidiert duplizierte Formatting-Funktionen aus:
 - [x] Loader temporaer erweitert (80-199, Phase 4 ersetzt)
 - [x] pack/unpack-secrets.fish auf format.fish umgestellt
 
-### Phase 4: Loader umbauen (45 min)
-- [ ] 000-loader.fish: Neue Lade-Reihenfolge implementieren
-- [ ] Eine Schleife, numerisch sortiert (000→200)
-- [ ] Testen: Flags vor Conditionals geladen?
-- [ ] Debug-Modus (FISH_LOADER_DEBUG) anpassen
-- [ ] mr-bytez-info.fish anpassen (B7)
+### Phase 4: Loader umbauen (45 min) ✅
+- [x] 000-loader.fish v0.5.0: Einschleifig (6 Dirs, kein Range-Filter)
+- [x] 10-paths.fish → 010-paths.fish umbenannt (zero-padded)
+- [x] Flags vor Conditionals: Shared conf.d (008) → Shared aliases (050/055) ✔
+- [x] Debug-Modus (FISH_LOADER_DEBUG) angepasst
+- [x] mr-bytez-info.fish v0.4.0 angepasst (Feature-Flags, MR_HAS_GUI-Check)
 
 ### Phase 5: Testen + Deploy (60-90 min)
 - [ ] n8-kiste testen (lokal, GUI+DEV)

@@ -10,6 +10,17 @@
 
 ---
 
+## [0.5.0] — 2026-02-28
+
+### Phase 4: Loader-Umbau (einschleifig)
+
+- 000-loader.fish v0.5.0: 8 Sektionen → 1 Schleife ueber 6 Verzeichnisse
+- Kein Range-Filter mehr — Glob-Sortierung + Zero-Padding reicht
+- `10-paths.fish` → `010-paths.fish` umbenannt (Konsistenz)
+- mr-bytez-info.fish v0.4.0: Feature-Flags in Diagnose, MR_HAS_GUI-Check
+
+---
+
 ## [0.4.0] — 2026-02-28
 
 ### Phase 3: Conditionals + DRY + format.fish

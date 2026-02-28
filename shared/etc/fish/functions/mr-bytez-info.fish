@@ -4,7 +4,7 @@
 # Datei:       mr-bytez-info.fish
 # Pfad:        shared/etc/fish/functions/mr-bytez-info.fish
 # Autor:       MR-ByteZ
-# Version:     0.3.1
+# Version:     0.4.0
 # Erstellt:    2026-01-26
 # Aktualisiert:2026-02-28
 # Zweck:       Zentrale Diagnose fuer Fish-Config
@@ -191,18 +191,37 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         end
         echo ""
         
-        # mr-bytez Variablen
-        echo "  $B""mr-bytez:$N"
-        if set -q N8_HOST_TEST
-            echo "    N8_HOST_TEST     = $G$N8_HOST_TEST$N"
+        # Feature-Flags (aus 008-host-flags.fish)
+        echo "  $B""Feature-Flags:$N"
+        if set -q MR_HAS_GUI
+            echo "    MR_HAS_GUI       = $G$MR_HAS_GUI$N"
+        else
+            echo "    MR_HAS_GUI       = $D(nicht gesetzt)$N"
         end
-        if set -q FISH_LOADER_DEBUG
-            echo "    FISH_LOADER_DEBUG = $G$FISH_LOADER_DEBUG$N"
+        if set -q MR_IS_DEV
+            echo "    MR_IS_DEV        = $G$MR_IS_DEV$N"
+        else
+            echo "    MR_IS_DEV        = $D(nicht gesetzt)$N"
+        end
+        if set -q MR_DISPLAY_TYPE
+            echo "    MR_DISPLAY_TYPE  = $G$MR_DISPLAY_TYPE$N"
+        else
+            echo "    MR_DISPLAY_TYPE  = $D(nicht gesetzt)$N"
         end
         echo ""
-        
+
+        # Loader
+        echo "  $B""Loader:$N"
+        if set -q FISH_LOADER_DEBUG
+            echo "    FISH_LOADER_DEBUG = $G$FISH_LOADER_DEBUG$N"
+        else
+            echo "    FISH_LOADER_DEBUG = $D(aus)$N"
+        end
+        echo ""
+
         if set -q _flag_verbose
-            echo "  $D""Tipp: Display-Variablen aus variables/10-display.fish$N"
+            echo "  $D""Tipp: Feature-Flags aus conf.d/008-host-flags.fish$N"
+            echo "  $D""Tipp: Display-Skalierung ebenfalls in 008-host-flags.fish$N"
             echo ""
         end
     end
@@ -219,7 +238,7 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         end
         echo ""
         
-        # Shared Aliases (10-69)
+        # Shared Aliases (010-055)
         echo "  $B""Shared (alle Hosts):$N"
         echo "    $M""Navigation:$N"
         echo "      ..        $D→$N cd .."
@@ -280,31 +299,28 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         echo "      yays      $D→$N yay -S"
         echo ""
         
-        # Host-spezifische Aliases (70-89)
+        # Host-spezifische Aliases (100-200)
         echo "  $B""Host ($host):$N"
-        
-        # Kategorie-Aliases (70-79)
-        switch $host
-            case "n8-vps"
-                echo "    $M""Server:$N"
-                echo "      upa       $D→$N sudo pacman -Syu && yay -Syu"
-                echo "      dps       $D→$N docker ps (formatiert)"
-                echo "      dlogs     $D→$N docker logs -f"
-                if set -q _flag_verbose
-                    echo "      $D# Server ohne Flatpak$N"
-                end
-            case "*"
-                echo "    $M""Desktop:$N"
-                echo "      upa       $D→$N pacman + yay + flatpak update"
-                echo "      upfl      $D→$N flatpak update"
-                echo "      flathub   $D→$N flatpak remote-add"
-                if set -q _flag_verbose
-                    echo "      $D# Desktop mit Flatpak-Integration$N"
-                end
+
+        # Conditionals (050-gui, 055-dev)
+        if test "$MR_HAS_GUI" = "true"
+            echo "    $M""GUI (050-gui.fish):$N"
+            echo "      upa       $D→$N pacman + yay + flatpak update"
+            echo "      upfl      $D→$N flatpak update"
+            echo "      zzz       $D→$N Lock + Suspend"
+            if set -q _flag_verbose
+                echo "      $D# Desktop mit Flatpak-Integration$N"
+            end
+        else
+            echo "    $M""Server (kein GUI):$N"
+            echo "      upa       $D→$N pacman + yay update (ohne Flatpak)"
+            if set -q _flag_verbose
+                echo "      $D# Headless — 050-gui.fish wird uebersprungen$N"
+            end
         end
         echo ""
-        
-        # Host-spezifische (80-89)
+
+        # Host-spezifische (110-n8-*.fish)
         echo "    $M""$host-spezifisch:$N"
         switch $host
             case "n8-kiste"

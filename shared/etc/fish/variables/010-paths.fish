@@ -1,7 +1,7 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  MR-ByteZ Fish Variables — User Paths                                      ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:        shared/etc/fish/variables/10-paths.fish                       ║
+# ║  Pfad:        shared/etc/fish/variables/010-paths.fish                      ║
 # ║  Autor:       MR-ByteZ                                                      ║
 # ║  Version:     0.3.1                                                         ║
 # ║  Erstellt:    2026-02-10                                                    ║

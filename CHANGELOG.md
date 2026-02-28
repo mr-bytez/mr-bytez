@@ -7,6 +7,18 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.14.0] - 2026-02-28
+
+### Changed
+- [Fish][Refactor] A2 Phase 4 — Loader-Umbau (einschleifig)
+  - 000-loader.fish v0.5.0: 8 Sektionen mit Range-Filtern → 1 Schleife ueber 6 Verzeichnisse
+  - Nummerierungsschema: Shared 000-099, Host 100-200, Glob sortiert automatisch
+  - `10-paths.fish` → `010-paths.fish` umbenannt (zero-padded, Konsistenz)
+  - mr-bytez-info.fish v0.4.0: Feature-Flags (MR_HAS_GUI/MR_IS_DEV/MR_DISPLAY_TYPE) in Diagnose
+  - mr-bytez-info.fish: Desktop/Server-Switch durch MR_HAS_GUI-Check ersetzt, N8_HOST_TEST entfernt
+
+---
+
 ## [0.13.0] - 2026-02-28
 
 ### Added
