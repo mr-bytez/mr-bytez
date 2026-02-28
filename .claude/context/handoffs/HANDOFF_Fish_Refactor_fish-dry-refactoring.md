@@ -3,7 +3,7 @@
 **Version:** 3.0
 **Erstellt:** 2026-01-31
 **Aktualisiert:** 2026-02-27
-**Status:** 🟡 Phase 0+1 abgeschlossen — Phase 2 als naechstes
+**Status:** 🟡 Phase 0+1+2 abgeschlossen — Phase 3 als naechstes
 **Zweck:** DRY-Refactoring der Fish Shell Konfiguration aller 8 Hosts
 **Autor:** MR-ByteZ
 
@@ -288,11 +288,11 @@ Konsolidiert duplizierte Formatting-Funktionen aus:
 - [x] command-Prefix Audit verifiziert (0 Treffer im gesamten Repo)
 - [ ] Deploy + Test auf n8-kiste (verschoben — nach Phase 2+3)
 
-### Phase 2: Nummerierung + Host-Flags (30 min)
-- [ ] 008-host-flags.fish erstellen (switch/case)
-- [ ] Shared-Dateien umbenennen (git mv): 10→010, 20→015, etc.
-- [ ] Conf.d umbenennen: 00-loader→000-loader, 00-theme→005-theme
-- [ ] Einheitliche Header + Version 0.1.0 in alle umbenannten Dateien
+### Phase 2: Nummerierung + Host-Flags (30 min) ✅
+- [x] 008-host-flags.fish erstellt (conf.d/, switch/case, alle 8 Hosts)
+- [x] Shared-Dateien umbenannt (git mv): 10→010, 20→015, 30→020, 40→025, 50→030, 60→035, 65→040, 90→045
+- [x] Conf.d umbenannt: 00-loader→000-loader, 00-theme→005-theme
+- [x] Einheitliche Header + Aktualisiert + Autor MR-ByteZ in allen 11 Dateien
 
 ### Phase 3: Conditionals + DRY + format.fish (45 min)
 - [ ] format.fish Library erstellen (aus Secrets-Repo Funktionen)

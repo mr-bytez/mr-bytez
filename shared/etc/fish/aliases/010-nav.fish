@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Aliases – Navigation                                          ║
+# ║  MR-ByteZ Fish Aliases — Navigation                                         ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/10-nav.fish        ║
-# ║  Autor:    MR-ByteZ                                                          ║
-# ║  Version:     0.3.1                                                          ║
-# ║  Erstellt:    2026-01-25                                                     ║
-# ║  Aktualisiert:2026-02-28                                                     ║
-# ║  Zweck:    Schnelle Navigation + sichere Datei-Operationen                  ║
+# ║  Pfad:        shared/etc/fish/aliases/010-nav.fish                          ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.2                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Schnelle Navigation + sichere Datei-Operationen              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ══════════════════════════════════════════════════════════════════════════════

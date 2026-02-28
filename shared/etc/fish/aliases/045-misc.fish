@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Aliases – Misc                                                ║
+# ║  MR-ByteZ Fish Aliases — Misc                                               ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/90-misc.fish       ║
-# ║  Autor:    MR-ByteZ                                                          ║
-# ║  Version:     0.3.1                                                          ║
-# ║  Erstellt:    2026-01-25                                                     ║
-# ║  Aktualisiert:2026-02-28                                                     ║
-# ║  Zweck:    Diverse Komfort-Wraps und System-Shortcuts                       ║
+# ║  Pfad:        shared/etc/fish/aliases/045-misc.fish                         ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.2                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Diverse Komfort-Wraps und System-Shortcuts                   ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ══════════════════════════════════════════════════════════════════════════════

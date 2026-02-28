@@ -1,11 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Aliases – Pacman & Yay (Headless-Basis)                      ║
+# ║  MR-ByteZ Fish Aliases — Pacman & Yay (Headless-Basis)                      ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/60-pacman.fish     ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.0.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
-# ║  Zweck:    System-Updates für Arch + AUR (OHNE Flatpak)                     ║
+# ║  Pfad:        shared/etc/fish/aliases/035-pacman.fish                       ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       System-Updates fuer Arch + AUR (OHNE Flatpak)               ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
 # Hinweise:

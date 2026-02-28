@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Aliases – eza (Listing)                                       ║
+# ║  MR-ByteZ Fish Aliases — eza (Listing)                                      ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/20-eza.fish        ║
-# ║  Autor:    MR-ByteZ                                                          ║
-# ║  Version:     0.3.1                                                          ║
-# ║  Erstellt:    2026-01-25                                                     ║
-# ║  Aktualisiert:2026-02-28                                                     ║
-# ║  Zweck:    Komfortable Verzeichnislisten mit Icons, Sortierung, Baumansicht ║
+# ║  Pfad:        shared/etc/fish/aliases/015-eza.fish                          ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.2                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Komfortable Verzeichnislisten mit Icons, Sortierung          ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ══════════════════════════════════════════════════════════════════════════════

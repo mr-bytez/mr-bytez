@@ -7,6 +7,17 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.11.0] - 2026-02-28
+
+### Added
+- [Fish][Refactor] A2 Phase 2 — Nummerierung + Host-Flags
+  - `008-host-flags.fish` erstellt: Feature-Flags per switch/case fuer alle 8 Hosts
+  - 8 Shared Aliases umbenannt: 10→010, 20→015, 30→020, 40→025, 50→030, 60→035, 65→040, 90→045
+  - 2 Conf.d umbenannt: 00-loader→000-loader, 00-theme→005-theme
+  - Einheitliche Header + Aktualisiert-Feld + Autor MR-ByteZ in allen 11 Dateien
+
+---
+
 ## [0.10.0] - 2026-02-28
 
 ### Added

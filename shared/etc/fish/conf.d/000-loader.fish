@@ -1,11 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Configuration Loader v2.1                                     ║
+# ║  MR-ByteZ Fish Configuration Loader                                         ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/conf.d/00-loader.fish      ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  2.1.0                                                             ║
-# ║  Erstellt: 2026-01-26                                                        ║
-# ║  Zweck:    Lädt Shared + Host-spezifische Configs nach Nummerierung         ║
+# ║  Pfad:        shared/etc/fish/conf.d/000-loader.fish                        ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-01-26                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Laedt Shared + Host-spezifische Configs nach Nummerierung    ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
 # Lade-Reihenfolge (Nummer = Priorität, höher überschreibt):

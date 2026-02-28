@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Theme System                                                  ║
+# ║  MR-ByteZ Fish Theme System                                                 ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/conf.d/00-theme.fish       ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.1.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
-# ║  Update:   2026-01-26 - MR_* Prompt-Variablen hinzugefügt                   ║
-# ║  Zweck:    Lädt Theme-Farben + Fallback + Helper-Funktionen                 ║
+# ║  Pfad:        shared/etc/fish/conf.d/005-theme.fish                         ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Laedt Theme-Farben + Fallback + Helper-Funktionen            ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ══════════════════════════════════════════════════════════════════════════════

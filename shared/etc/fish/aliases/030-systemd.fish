@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Aliases – Systemd & Journalctl                                ║
+# ║  MR-ByteZ Fish Aliases — Systemd & Journalctl                               ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/aliases/50-systemd.fish    ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  2.0.0                                                             ║
-# ║  Erstellt: 2026-01-25                                                        ║
-# ║  Geändert: 2026-01-27                                                        ║
-# ║  Zweck:    Komfort-Aliase für Systemd, Journalctl & Service-Management      ║
+# ║  Pfad:        shared/etc/fish/aliases/030-systemd.fish                      ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-01-25                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Komfort-Aliase fuer Systemd, Journalctl & Service-Management ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 #
 # Hinweise:
