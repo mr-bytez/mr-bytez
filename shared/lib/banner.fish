@@ -1,12 +1,15 @@
 #!/usr/bin/env fish
-# ============================================
-# banner.fish - MR-ByteZ Banner/Logo
-# Pfad: /mr-bytez/shared/lib/banner.fish
-# Autor: MR-ByteZ
-# Erstellt: 2026-02-25
-# Version: 1.0.0
-# Zweck: Logo-Ausgabe fuer Skripte
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Library                               │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       banner.fish
+# Pfad:        shared/lib/banner.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-02-25
+# Aktualisiert:2026-02-28
+# Zweck:       Logo-Ausgabe fuer Skripte
+# Abh.:        Keine
 
 set -g MRBYTEZ_VERSION "2.0.0"
 

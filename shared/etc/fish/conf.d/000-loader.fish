@@ -41,10 +41,21 @@ __loader_debug "Host-Pfad: $host_base"
 # 1⃣  THEME-SYSTEM LADEN (00-09)
 # ══════════════════════════════════════════════════════════════════════════════
 
-set -l theme_file $shared_base/conf.d/00-theme.fish
+set -l theme_file $shared_base/conf.d/005-theme.fish
 if test -f $theme_file
-    __loader_debug "Theme laden: 00-theme.fish"
+    __loader_debug "Theme laden: 005-theme.fish"
     source $theme_file
+end
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 1.5⃣  HOST-FLAGS LADEN (008)
+# ══════════════════════════════════════════════════════════════════════════════
+# Muss VOR Aliases/Conditionals laden (008 < 050/055)
+
+set -l flags_file $shared_base/conf.d/008-host-flags.fish
+if test -f $flags_file
+    __loader_debug "Host-Flags laden: 008-host-flags.fish"
+    source $flags_file
 end
 
 # ══════════════════════════════════════════════════════════════════════════════

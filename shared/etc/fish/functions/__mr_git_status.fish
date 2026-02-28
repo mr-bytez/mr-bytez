@@ -1,11 +1,14 @@
-# ============================================
-# __mr_git_status.fish - Git Status Helper
-# Pfad: shared/etc/fish/functions/
-# Author: Michael Rohwer
-# Created: 2026-01-23
-# Version: 1.0.0
-# Purpose: Gibt Git-Branch + Status-Symbole zurück
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       __mr_git_status.fish
+# Pfad:        shared/etc/fish/functions/__mr_git_status.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-23
+# Aktualisiert:2026-02-28
+# Zweck:       Git-Branch + Status-Symbole fuer Prompt
+# Abh.:        005-theme.fish
 
 function __mr_git_status
     # Prüfe ob wir in einem Git-Repo sind

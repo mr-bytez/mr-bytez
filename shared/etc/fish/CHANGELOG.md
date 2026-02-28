@@ -10,6 +10,20 @@
 
 ---
 
+## [0.3.1] — 2026-02-28
+
+### Phase 2 Hotfix: Loader-Fix + Header-Audit
+
+- 000-loader.fish: Theme-Referenz 00-theme→005-theme gefixt
+- 000-loader.fish: 008-host-flags.fish explizit eingebunden (wird VOR Aliases geladen)
+- mr-bytez-info.fish: Loader-Referenz 00-loader→000-loader gefixt
+- fish_prompt.fish + fish_right_prompt.fish: Theme-Referenz korrigiert
+- 14 Shared Fish-Dateien: Einheitliche 7-Feld Header (Datei/Pfad/Autor/Version/Erstellt/Aktualisiert/Zweck)
+- banner.fish: Header standardisiert
+- Validierung bestanden: Host-Flags, Alias-Sicherheit, coreutils frei
+
+---
+
 ## [0.1.0] — 2026-02-28
 
 ### Phase 0: Vorbereitung + Docs

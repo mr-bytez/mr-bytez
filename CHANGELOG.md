@@ -7,6 +7,19 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.12.0] - 2026-02-28
+
+### Fixed
+- [Fish][Hotfix] A2 Phase 2 Hotfix — Loader-Fix + Header-Audit
+  - 000-loader.fish: Theme-Referenz 00-theme→005-theme + 008-host-flags.fish eingebunden
+  - mr-bytez-info.fish: Loader-Referenz 00-loader→000-loader gefixt
+  - fish_prompt/fish_right_prompt: Theme-Referenz korrigiert
+  - 14 Shared Fish-Dateien: Einheitliche 7-Feld Header standardisiert
+  - banner.fish: Header standardisiert
+  - Validierung: Host-Flags, Alias-Sicherheit, coreutils frei — alles gruen
+
+---
+
 ## [0.11.0] - 2026-02-28
 
 ### Added

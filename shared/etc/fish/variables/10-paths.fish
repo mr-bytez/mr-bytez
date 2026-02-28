@@ -1,11 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Variables - User Paths                                        ║
+# ║  MR-ByteZ Fish Variables — User Paths                                      ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/variables/10-paths.fish    ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.0.0                                                             ║
-# ║  Erstellt: 2026-02-10                                                        ║
-# ║  Zweck:    User-PATH Erweiterungen für alle Hosts                           ║
+# ║  Pfad:        shared/etc/fish/variables/10-paths.fish                       ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-02-10                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       User-PATH Erweiterungen fuer alle Hosts                      ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ── ~/.local/bin (User-Tools: Claude Code, pip, etc.) ──────────────────────

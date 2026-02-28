@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-02-27
+**Aktualisiert:** 2026-02-28
 
 ---
 
@@ -157,9 +157,9 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - B7: mr-bytez-info.fish (nutzt neue Metadaten-Tags)
 - B17: VLC Desktop-Paketliste (Sub-Task von B5)
 
-**Details:** `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring_v3.md`
+**Details:** `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
 
-**Status:** 🟡 Phase 0+1+2 abgeschlossen — Phase 3 als naechstes
+**Status:** 🟡 Phase 0+1+2 abgeschlossen (inkl. Hotfix) — Phase 3 als naechstes
 **ETA:** Februar-Maerz 2026
 
 ---

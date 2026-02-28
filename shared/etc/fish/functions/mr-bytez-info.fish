@@ -1,8 +1,16 @@
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       mr-bytez-info.fish
+# Pfad:        shared/etc/fish/functions/mr-bytez-info.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-26
+# Aktualisiert:2026-02-28
+# Zweck:       Zentrale Diagnose fuer Fish-Config
+# Abh.:        000-loader.fish, 005-theme.fish
+
 function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
-    # ═══════════════════════════════════════════════════════════════
-    # mr-bytez-info - Zentrale Diagnose für Fish-Config
-    # Version: 1.0
-    # ═══════════════════════════════════════════════════════════════
     
     argparse "v/verbose" "a/aliases" "f/functions" "V/vars" "c/check" "s/structure" "h/help" -- $argv
     or return 1
@@ -148,10 +156,10 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         
         # Loader prüfen
         echo "  $B""Loader:$N"
-        if test -f $shared_base/conf.d/00-loader.fish
-            echo "    $G✔$N 00-loader.fish vorhanden"
+        if test -f $shared_base/conf.d/000-loader.fish
+            echo "    $G✔$N 000-loader.fish vorhanden"
         else
-            echo "    $R✘$N 00-loader.fish FEHLT!"
+            echo "    $R✘$N 000-loader.fish FEHLT!"
         end
         echo ""
         return 0

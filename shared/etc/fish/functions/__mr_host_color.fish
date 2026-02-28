@@ -1,12 +1,14 @@
-# ============================================
-# __mr_host_color.fish - Host-Farben Lookup
-# Pfad: shared/etc/fish/functions/
-# Author: Michael Rohwer
-# Created: 2026-01-23
-# Version: 2.0.0
-# Update: 2026-02-05 - Liest aus Theme, gibt BG + TEXT zurück
-# Purpose: Gibt [BG, TEXT] Farben für aktuellen Host zurück
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       __mr_host_color.fish
+# Pfad:        shared/etc/fish/functions/__mr_host_color.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-23
+# Aktualisiert:2026-02-28
+# Zweck:       Host-Farben [BG, TEXT] aus Theme fuer Prompt
+# Abh.:        005-theme.fish
 
 function __mr_host_color --description "Gibt Host-Farben [BG, TEXT] aus Theme zurück"
     # Hostname normalisieren: n8-kiste → KISTE (ohne n8- Prefix!)

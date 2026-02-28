@@ -1,9 +1,14 @@
-# ============================================
-# mr-bytez Fish Prompt (Powerline Style)
-# Version: 2.1.0
-# Deployment: shared/etc/fish/functions/
-# Benötigt: 00-theme.fish für Farben, Icons, Separatoren
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       fish_prompt.fish
+# Pfad:        shared/etc/fish/functions/fish_prompt.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-25
+# Aktualisiert:2026-02-28
+# Zweck:       Powerline Prompt mit Git/Docker Status
+# Abh.:        005-theme.fish (Farben, Icons, Separatoren)
 
 function fish_prompt
     # Host-Farben holen [BG, TEXT]

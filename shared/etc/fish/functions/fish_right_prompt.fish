@@ -1,9 +1,14 @@
-# ============================================
-# mr-bytez Fish Right Prompt
-# Version: 2.2.0
-# Deployment: shared/etc/fish/functions/
-# Benötigt: 00-theme.fish für Farben, Icons, Separatoren
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       fish_right_prompt.fish
+# Pfad:        shared/etc/fish/functions/fish_right_prompt.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-25
+# Aktualisiert:2026-02-28
+# Zweck:       Right Prompt (Zeitstempel, Vi-Mode)
+# Abh.:        005-theme.fish (Farben, Icons, Separatoren)
 
 function fish_right_prompt
     set -l sep $MR_SEP_RIGHT

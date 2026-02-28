@@ -1,12 +1,12 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Theme - Dark Tech Style                                            ║
+# ║  MR-ByteZ Fish Theme — Dark Tech Style                                     ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /mr-bytez/shared/etc/fish/themes/mr-bytez.fish                   ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  2.0.0                                                             ║
-# ║  Erstellt: 2026-01-26                                                        ║
-# ║  Update:   2026-02-05 - Konsistente Namensgebung                            ║
-# ║  Zweck:    Offizielles mr-bytez Dark Theme mit Host-spezifischen Farben     ║
+# ║  Pfad:        shared/etc/fish/themes/mr-bytez.fish                          ║
+# ║  Autor:       MR-ByteZ                                                      ║
+# ║  Version:     0.3.1                                                         ║
+# ║  Erstellt:    2026-01-26                                                    ║
+# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Zweck:       Offizielles mr-bytez Dark Theme mit Host-Farben              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ══════════════════════════════════════════════════════════════════════════════

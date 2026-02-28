@@ -1,12 +1,14 @@
-# ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Greeting                                                      ║
-# ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     .../fish/functions/fish_greeting.fish                            ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.1.0                                                             ║
-# ║  Erstellt: 2026-01-26                                                        ║
-# ║  Zweck:    Fastfetch + MOTD + Slogan                                        ║
-# ╚══════════════════════════════════════════════════════════════════════════════╝
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       fish_greeting.fish
+# Pfad:        shared/etc/fish/functions/fish_greeting.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-26
+# Aktualisiert:2026-02-28
+# Zweck:       Fastfetch + MOTD + Slogan
+# Abh.:        Keine
 
 function fish_greeting
     if status is-interactive

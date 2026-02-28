@@ -1,11 +1,14 @@
-# ============================================
-# __mr_docker_status.fish - Docker Status Helper
-# Pfad: shared/etc/fish/functions/
-# Author: Michael Rohwer
-# Created: 2026-01-23
-# Version: 1.0.0
-# Purpose: Gibt Anzahl laufender Docker-Container zurück
-# ============================================
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       __mr_docker_status.fish
+# Pfad:        shared/etc/fish/functions/__mr_docker_status.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-23
+# Aktualisiert:2026-02-28
+# Zweck:       Anzahl laufender Docker-Container fuer Prompt
+# Abh.:        Keine
 
 function __mr_docker_status
     # Prüfe ob Docker installiert und daemon läuft

@@ -2,8 +2,8 @@
 
 **Version:** 3.0
 **Erstellt:** 2026-01-31
-**Aktualisiert:** 2026-02-27
-**Status:** 🟡 Phase 0+1+2 abgeschlossen — Phase 3 als naechstes
+**Aktualisiert:** 2026-02-28
+**Status:** 🟡 Phase 0+1+2 abgeschlossen (inkl. Hotfix) — Phase 3 als naechstes
 **Zweck:** DRY-Refactoring der Fish Shell Konfiguration aller 8 Hosts
 **Autor:** MR-ByteZ
 
@@ -293,6 +293,11 @@ Konsolidiert duplizierte Formatting-Funktionen aus:
 - [x] Shared-Dateien umbenannt (git mv): 10→010, 20→015, 30→020, 40→025, 50→030, 60→035, 65→040, 90→045
 - [x] Conf.d umbenannt: 00-loader→000-loader, 00-theme→005-theme
 - [x] Einheitliche Header + Aktualisiert + Autor MR-ByteZ in allen 11 Dateien
+- [x] **Hotfix:** Loader Theme-Referenz 00-theme→005-theme gefixt
+- [x] **Hotfix:** 008-host-flags.fish explizit in Loader eingebunden
+- [x] **Hotfix:** mr-bytez-info.fish Loader-Referenz gefixt
+- [x] **Hotfix:** 14 Shared Fish-Dateien Header-Audit + Standardisierung
+- [x] **Hotfix:** Validierung bestanden (Flags, Aliases, coreutils)
 
 ### Phase 3: Conditionals + DRY + format.fish (45 min)
 - [ ] format.fish Library erstellen (aus Secrets-Repo Funktionen)

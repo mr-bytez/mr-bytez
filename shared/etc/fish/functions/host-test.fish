@@ -1,12 +1,14 @@
-# ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  mr-bytez Fish Function – host-test                                          ║
-# ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     shared/etc/fish/functions/host-test.fish             ║
-# ║  Autor:    Michael Rohwer                                                    ║
-# ║  Version:  1.2.0                                                             ║
-# ║  Erstellt: 2026-01-28                                                        ║
-# ║  Zweck:    Generische Host-Info Funktion für alle mr-bytez Hosts            ║
-# ╚══════════════════════════════════════════════════════════════════════════════╝
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Fish Function                              │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       host-test.fish
+# Pfad:        shared/etc/fish/functions/host-test.fish
+# Autor:       MR-ByteZ
+# Version:     0.3.1
+# Erstellt:    2026-01-28
+# Aktualisiert:2026-02-28
+# Zweck:       Generische Host-Info Funktion fuer alle mr-bytez Hosts
+# Abh.:        Keine
 
 function host-test --description "Zeigt umfassende Host-Informationen"
 
