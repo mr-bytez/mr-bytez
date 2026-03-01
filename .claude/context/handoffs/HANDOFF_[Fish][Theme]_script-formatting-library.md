@@ -2,9 +2,10 @@
 
 **Chat-Referenz:** #SEC01.4
 **Chat-Link:** https://claude.ai/chat/1616d1af-6021-4c46-ba65-ea9a0d06a2cf
-**Status:** Offen (Kosmetik, niedrige Prioritaet)
-**Passt zu:** A2 (Fish DRY-Refactoring)
+**Status:** Teilweise erledigt (A2 Phase 3) — Rest ist Kosmetik, niedrige Prioritaet
+**Passt zu:** A2 (Fish DRY-Refactoring) — Kern in Phase 3 umgesetzt
 **Abhaengigkeit:** Keine, kann jederzeit umgesetzt werden
+**Aktualisiert:** 2026-03-01
 
 ---
 
@@ -75,11 +76,13 @@ end
 
 ## Migration
 
-1. `shared/lib/format.fish` erstellen mit allen Funktionen
-2. `shared/lib/banner.fish` Inhalt nach `format.fish` verschieben
-3. `banner.fish` entfernen oder als Wrapper belassen (source format.fish)
-4. `deploy.fish` lokale Funktionen entfernen, format.fish sourcen
-5. Weitere Scripts schrittweise migrieren
+1. ~~`shared/lib/format.fish` erstellen mit allen Funktionen~~ ✅ A2 Phase 3
+2. ~~`shared/lib/banner.fish` Inhalt nach `format.fish` verschieben~~ → banner.fish bleibt separat, format.fish sourced es
+3. ~~`banner.fish` entfernen oder als Wrapper belassen~~ → Bleibt, format.fish sourced banner.fish
+4. `deploy.fish` lokale Funktionen entfernen, format.fish sourcen — **offen**
+5. ~~`pack-secrets.fish` + `unpack-secrets.fish` migriert~~ ✅ A2 Phase 3
+6. `derive_key.fish` migrieren — **offen**
+7. Regel in `shell.md` als Pflicht dokumentieren — **offen**
 
 ---
 

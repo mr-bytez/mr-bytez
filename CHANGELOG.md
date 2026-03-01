@@ -7,6 +7,22 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.15.2] - 2026-03-01
+
+### Removed
+- [Cleanup] 4 A2-Reports geloescht (Einmal-Artefakte, Ergebnisse umgesetzt):
+  REPORT_A2_VERIFIKATION, REPORT_A2_VERIFIKATION_TEIL2,
+  REPORT_HOST_CONFIG_INVENTUR, REPORT_ALTES_REPO_INVENTUR
+- [Cleanup] UEBERGABE_FSH01.3 geloescht (obsolete Chat-Uebergabe)
+- [Cleanup] TASK_HEADER_AUDIT geloescht (Fish-Dateien in A2 Phase 2 standardisiert,
+  Deployment-Scripts Kosmetik = niedrige Prio)
+
+### Changed
+- [Docs] Fish Theme Handoff aktualisiert: format.fish + pack/unpack-secrets Migration
+  als erledigt markiert (A2 Phase 3), Restpunkte dokumentiert (deploy.fish, derive_key.fish)
+
+---
+
 ## [0.15.1] - 2026-03-01
 
 ### Fixed

@@ -312,7 +312,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 **Repo & Split:**
 - Main-Repo `mr-bytez` als public Repo (GitHub + Codeberg)
 - Secrets-Repo `mr-bytez-secrets` als private Repo
-- Secrets als Submodule: `shared/home/mrohwer/.secrets`
+- Secrets als Submodule: `.secrets/`
 - Multi-Remote Setup (GitHub + Codeberg)
 
 **Deployment-Foundation:**
