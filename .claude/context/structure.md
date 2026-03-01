@@ -59,7 +59,7 @@ Projekte        → Pro Host/Stack
     └── archive/               # Abgeschlossene Arbeit
 ```
 
-**Root hat KEIN DEPLOYMENT.md** (Deployment-Infos in .claude/context/deployment.md)
+Root hat ein eigenes `DEPLOYMENT.md` (Live-System-Deployment, Symlinks, Anker). Deployment-Policies: `.claude/context/deployment.md`
 
 ---
 
@@ -122,9 +122,10 @@ projects/infrastructure/n8-kiste/
 │
 └── root/                      # Fish Configs für diesen Host
     └── home/mrohwer/.config/fish/
-        ├── aliases/
-        ├── variables/
-        └── functions/
+        ├── conf.d/        # Host conf.d (zukunftssicher)
+        ├── aliases/       # Host Aliases (110-n8-*.fish)
+        ├── variables/     # Host Variables (zukunftssicher)
+        └── functions/     # Host Functions (Vorrang vor shared)
 ```
 
 ### Typ 2: Docker Stacks (mrbz-dev)

@@ -3,10 +3,27 @@
 > **Pfad:** `shared/etc/fish/CHANGELOG.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-10
-> **Aktualisiert:** 2026-02-28
+> **Aktualisiert:** 2026-03-01
 > **Autor:** MR-ByteZ
 
 > **Zweck:** Aenderungshistorie der Fish Shell Konfiguration
+
+---
+
+## [0.6.0] — 2026-03-01
+
+### Phase 5+6: Tests bestanden, Docs finalisiert, B-Tasks erledigt
+
+- Phase 5: Tests bestanden auf n8-kiste, n8-vps, n8-station (PASS)
+- shell.md ueberarbeitet: Neues Nummerierungsschema, Feature-Flags, Self-Check, einschleifiger Loader
+- deployment.md aktualisiert: Neue Dateinamen, Lesson #28 (Renames → Symlink pruefen)
+- skills/ erstellt: NEUER_HOST.md, NEUES_CONDITIONAL.md, DEBUGGING.md
+- B3: Root-README Struktur-Baum aktualisiert (Secrets-Pfad, shared/lib/, shared/packages/)
+- B6: Minimale .bashrc erstellt (shared/etc/bash/.bashrc, Fish-Weiterleitung)
+- B7: mr-bytez-info.fish v0.5.0 — Alias-Listen komplett aktualisiert (IST-Stand Phase 1-4)
+- B17: VLC war bereits in desktop-packages.txt vorhanden
+- Fish README.md + ROADMAP.md + CLAUDE.md aktualisiert
+- Restposten: n8-book + n8-archstick (physischer Zugang noetig)
 
 ---
 

@@ -91,10 +91,10 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 
 ```
 projects/infrastructure/<hostname>/root/home/<user>/.config/fish/
-├── conf.d/      # Host conf.d (70-89)
-├── aliases/     # Host Aliases (70-89)
-├── variables/   # Host Variables (70-89)
-└── functions/   # Host Functions
+├── conf.d/      # Host conf.d (zukunftssicher, aktuell leer)
+├── aliases/     # Host Aliases (100-200, z.B. 110-n8-*.fish)
+├── variables/   # Host Variables (zukunftssicher, aktuell leer)
+└── functions/   # Host Functions (Vorrang vor shared)
 ```
 
 Der Fish Loader erkennt den Host via `hostname` und lädt automatisch die passenden Configs.

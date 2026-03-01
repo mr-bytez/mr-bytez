@@ -3,7 +3,7 @@
 > **Pfad:** `shared/etc/fish/CLAUDE.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-10
-> **Aktualisiert:** 2026-02-28
+> **Aktualisiert:** 2026-03-01
 > **Autor:** MR-ByteZ
 
 > **Zweck:** Claude Code Kontext fuer Fish Shell Konfiguration
@@ -37,6 +37,6 @@ shared/etc/fish/
 
 ## Referenzen
 
-- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring_v3.md`
+- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
 - Shell-Policies: `.claude/context/shell.md`
 - Scaffold-Agent: `.claude/agents/scaffold-agent.md`

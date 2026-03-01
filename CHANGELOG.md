@@ -7,6 +7,26 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.15.0] - 2026-03-01
+
+### Added
+- [Fish][Refactor][Docs] A2 Phase 5+6 — Tests bestanden, Docs finalisiert, B-Tasks erledigt
+  - Phase 5: Tests auf n8-kiste, n8-vps, n8-station bestanden (PASS)
+  - Phase 6: shell.md ueberarbeitet (neues Nummerierungsschema, Feature-Flags, Self-Check, einschleifiger Loader)
+  - Phase 6: deployment.md aktualisiert (neue Dateinamen, Lesson #28 Rename-Hinweis)
+  - Phase 6: skills/ erstellt: NEUER_HOST.md, NEUES_CONDITIONAL.md, DEBUGGING.md
+  - B3: Root-README Struktur-Baum aktualisiert (Secrets-Pfad, shared/lib/, shared/packages/)
+  - B6: Minimale .bashrc erstellt (shared/etc/bash/.bashrc, Fish-Weiterleitung + Bash-Fallback)
+  - B7: mr-bytez-info.fish v0.5.0 — Alias-Listen komplett auf IST-Stand (Phase 1-4)
+  - B17: VLC bereits in desktop-packages.txt vorhanden — kein Handlungsbedarf
+  - A2 abgeschlossen (Phase 0-6), Restposten: n8-book + n8-archstick (physischer Zugang)
+  - Audit: Veraltete Referenzen bereinigt (DEPLOYMENT.md, infrastructure.md, structure.md)
+    - DEPLOYMENT.md: 00-loader.fish → 000-loader.fish, Fish Shell v2.0 neutralisiert, Stand-Datum
+    - infrastructure.md: Nummerierungsschema 70-89 → 100-200 korrigiert
+    - structure.md: Falsche DEPLOYMENT.md-Aussage korrigiert, conf.d/ ergaenzt
+
+---
+
 ## [0.14.0] - 2026-02-28
 
 ### Changed
@@ -697,4 +717,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-27
+**Letzte Aktualisierung:** 2026-03-01

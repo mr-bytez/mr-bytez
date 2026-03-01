@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-26
+**Aktualisiert:** 2026-03-01
 **Autor:** MR-ByteZ
 
 ---
@@ -111,20 +111,48 @@ Deployment via `deploy.fish v2.0` (Copy-Methode, nicht Symlink).
 
 ---
 
+## Fish-Konfiguration (A2 DRY-Refactoring)
+
+Nach dem A2-Refactoring nutzt Fish ein neues Nummerierungsschema:
+
+| Bereich | Nummern | Beispiele |
+|---------|---------|-----------|
+| Shared | 000-099 | 000-loader, 005-theme, 008-host-flags, 010-nav, ..., 050-gui, 055-dev |
+| Host | 100-200 | 110-n8-kiste, 110-n8-vps, ... |
+
+Einschleifiger Loader (`000-loader.fish` v0.5.0) iteriert ueber 6 Verzeichnisse.
+Feature-Flags (`MR_HAS_GUI`, `MR_IS_DEV`, `MR_DISPLAY_TYPE`) steuern Conditionals.
+
+→ Vollstaendige Doku: `.claude/context/shell.md`
+
+### Lesson #28: Renames → Symlink + config.fish pruefen
+
+Bei Umbenennungen von Fish-Dateien (z.B. `00-loader.fish` → `000-loader.fish`):
+1. Symlink `/etc/fish` pruefen (muss auf Anker zeigen)
+2. `config.fish` Referenzen pruefen (falls vorhanden)
+3. Andere Scripts die alte Dateinamen referenzieren aktualisieren
+
+---
+
 ## Paket-Dependencies
 
-Auf jedem Host benötigt:
+Auf jedem Host benoetigt (Details: `shared/packages/`):
 
 ```fish
-# Basis
+# Basis (min-packages.txt)
 sudo pacman -S fish micro git github-cli
 
-# Clipboard-Support (PFLICHT für Micro!)
+# Clipboard-Support (PFLICHT fuer Micro!)
 sudo pacman -S xclip
 
 # Moderne CLI-Tools
 sudo pacman -S eza bat fastfetch duf dust htop tree jq ripgrep fd
 ```
+
+Paketlisten nach Kategorie:
+- `shared/packages/min-packages.txt` — Alle Hosts
+- `shared/packages/desktop-packages.txt` — GUI-Hosts (MR_HAS_GUI)
+- `shared/packages/dev-packages.txt` — Dev-Hosts (MR_IS_DEV)
 
 ---
 

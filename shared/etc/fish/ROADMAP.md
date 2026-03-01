@@ -1,16 +1,18 @@
 # Fish Shell — ROADMAP
 
 > **Pfad:** `shared/etc/fish/ROADMAP.md`
-> **Version:** 0.1.0
+> **Version:** 0.2.0
 > **Erstellt:** 2026-02-10
-> **Aktualisiert:** 2026-02-28
+> **Aktualisiert:** 2026-03-01
 > **Autor:** MR-ByteZ
 
 > **Zweck:** Planungsuebersicht fuer das Fish DRY-Refactoring (A2)
 
 ---
 
-## Aktuelle Phase: 5 (Testen + Deploy)
+## Status: ✅ Abgeschlossen
+
+A2 Fish DRY-Refactoring ist abgeschlossen (Phase 0-6).
 
 ## Phasen-Uebersicht
 
@@ -21,17 +23,15 @@
 | 2 | Nummerierung + Host-Flags (008-host-flags.fish) | ✅ Erledigt |
 | 3 | Conditionals + DRY (050-gui, 055-dev, format.fish) | ✅ Erledigt |
 | 4 | Loader umbauen (000-loader.fish, einschleifig) | ✅ Erledigt |
-| 5 | Testen + Deploy (n8-kiste, n8-vps, n8-station, ...) | ⬜ Geplant |
-| 6 | Docs + Cleanup (shell.md, deployment.md, Skills) | ⬜ Geplant |
+| 5 | Testen + Deploy (n8-kiste, n8-vps, n8-station) | ✅ Erledigt |
+| 6 | Docs + Cleanup (shell.md, deployment.md, Skills) | ✅ Erledigt |
 
-## Naechste Schritte (Phase 5)
+## Restposten
 
-- n8-kiste testen (lokal, GUI+DEV)
-- n8-vps testen (SSH, headless)
-- n8-station testen (SSH, GUI+DEV)
-- Restliche deployed Hosts (n8-book, n8-archstick)
-- deploy-agent fuer SSH-Deployment
+- n8-book + n8-archstick: Testen bei naechstem physischen Zugang
+- deploy-agent: Verschoben (nicht in A2 Scope, eigener Task)
 
 ## Referenz
 
-- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring_v3.md`
+- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
+- Shell-Policies: `.claude/context/shell.md`

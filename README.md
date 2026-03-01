@@ -3,7 +3,7 @@
 **Version:** 0.7.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-02-27\
+**Aktualisiert:** 2026-03-01\
 **Autor:** MR-ByteZ
 
 ---
@@ -47,18 +47,24 @@ Enthält:
 ```text
 /mr-bytez/
 ├── shared/                      # Shared Resources (alle Hosts)
+│   ├── etc/fish/                # Fish Shell (DRY, Feature-Flags, Loader v0.5.0)
+│   │   ├── conf.d/             # Loader (000), Theme (005), Host-Flags (008)
+│   │   ├── aliases/            # Shared Aliases (010-055, nummeriert)
+│   │   ├── functions/          # Prompt, Helpers, mr-bytez-info
+│   │   ├── themes/             # Gruvbox Theme
+│   │   └── skills/             # Schritt-fuer-Schritt Anleitungen
 │   ├── usr/local/bin/           # System-weite Scripts (hwi)
-│   ├── usr/local/share/         # System-weite Configs
-├── etc/                         # System Configs
-│   └── fish/                    # Fish Shell v2.x (Loader, Theme, Aliases, Functions)
-│   │   └── micro/               # Micro Editor Settings
+│   ├── usr/local/share/micro/   # Micro Editor Settings
+│   ├── lib/                     # Shared Libraries (format.fish)
+│   ├── packages/                # Paketlisten (min, desktop, dev)
 │   ├── home/                    # User-Templates (keine Live-Homes)
-│   ├── .secrets/                # Private Secrets (Age-Encrypted) -> Submodule
-│   └── deployment/              # Deployment-Metadaten (symlinks.db, derive_key.fish, …)
+│   └── deployment/              # Deployment-Scripts (pack, unpack, generate_pwd)
+├── .secrets/                    # Private Secrets (Age-Encrypted) -> Submodule
 ├── projects/                    # Projekte/Hosts (Submodules)
+│   └── infrastructure/          # Host-Configs (n8-kiste, n8-vps, ...)
 ├── .claude/                     # AI-Context, Policies, Automation
 │   ├── CLAUDE.md                # Zentrale Steuerung fuer Claude Code
-│   ├── context/                 # Policies (11 Dateien)
+│   ├── context/                 # Policies (11 Dateien) + Handoffs
 │   ├── hooks/                   # Claude Code Event-Hooks (7 Scripts)
 │   └── agents/                  # Claude Code Agents (4 Spezialisten)
 ├── .config/                     # Repo-weite Configs

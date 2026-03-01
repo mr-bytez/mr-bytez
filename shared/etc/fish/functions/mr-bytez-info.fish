@@ -4,9 +4,9 @@
 # Datei:       mr-bytez-info.fish
 # Pfad:        shared/etc/fish/functions/mr-bytez-info.fish
 # Autor:       MR-ByteZ
-# Version:     0.4.0
+# Version:     0.5.0
 # Erstellt:    2026-01-26
-# Aktualisiert:2026-02-28
+# Aktualisiert:2026-03-01
 # Zweck:       Zentrale Diagnose fuer Fish-Config
 # Abh.:        000-loader.fish, 005-theme.fish
 
@@ -240,63 +240,73 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         
         # Shared Aliases (010-055)
         echo "  $B""Shared (alle Hosts):$N"
-        echo "    $M""Navigation:$N"
+        echo "    $M""Navigation (010):$N"
         echo "      ..        $D→$N cd .."
         echo "      ...       $D→$N cd ../.."
-        echo "      cdr       $D→$N cd /"
-        echo "      cdhome    $D→$N cd ~"
+        echo "      hm        $D→$N cd ~"
+        echo "      mb        $D→$N cd /mr-bytez"
+        echo "      rmi       $D→$N rm -Iv (interaktiv)"
+        echo "      cpi       $D→$N cp -iv (interaktiv)"
+        echo "      mvi       $D→$N mv -iv (interaktiv)"
         if set -q _flag_verbose
-            echo "      $D# Schnelle Verzeichniswechsel$N"
+            echo "      $D# Originale rm/cp/mv = unveraenderte coreutils$N"
         end
         echo ""
-        
-        echo "    $M""Eza (ls):$N"
-        echo "      l         $D→$N eza -la"
-        echo "      ll        $D→$N eza -l"
-        echo "      la        $D→$N eza -a"
-        echo "      lt        $D→$N eza --tree"
+
+        echo "    $M""Eza (015):$N"
+        echo "      el        $D→$N eza --icons (Original ls = coreutils)"
+        echo "      ll        $D→$N eza -la --git --octal-permissions"
+        echo "      la        $D→$N eza -la --all"
+        echo "      lt        $D→$N eza Baumansicht"
+        echo "      ld/lf/lg  $D→$N Nur Dirs/Files/Git-aware"
         if set -q _flag_verbose
-            echo "      $D# Moderne ls-Alternative mit Icons$N"
+            echo "      $D# Weitere: lk (Groesse), lm (Datum), lp (Perms), lr (rekursiv)$N"
         end
         echo ""
-        
-        echo "    $M""Docker:$N"
+
+        echo "    $M""Docker (020):$N"
         echo "      dcu       $D→$N docker compose up -d"
         echo "      dcd       $D→$N docker compose down"
         echo "      dcr       $D→$N docker compose restart"
         echo "      dcp       $D→$N docker compose pull"
         echo "      dcl       $D→$N docker compose logs -f"
-        if set -q _flag_verbose
-            echo "      $D# Docker Compose Shortcuts$N"
-            echo "      $D# Beispiel: cd /srv/stacks/traefik && dcu$N"
-        end
         echo ""
-        
-        echo "    $M""Git:$N"
+
+        echo "    $M""Git (025):$N"
         echo "      gs        $D→$N git status"
         echo "      ga        $D→$N git add"
         echo "      gc        $D→$N git commit"
         echo "      gp        $D→$N git push"
         echo "      gl        $D→$N git pull"
         echo "      gd        $D→$N git diff"
-        if set -q _flag_verbose
-            echo "      $D# Git Workflow Shortcuts$N"
-            echo "      $D# Beispiel: ga . && gc -m \"message\" && gp$N"
-        end
         echo ""
-        
-        echo "    $M""Systemd:$N"
+
+        echo "    $M""Systemd (030):$N"
         echo "      scs       $D→$N systemctl status"
         echo "      scr       $D→$N systemctl restart"
         echo "      sce       $D→$N systemctl enable"
         echo "      jf        $D→$N journalctl -f"
         echo ""
-        
-        echo "    $M""Pacman:$N"
-        echo "      pacs      $D→$N pacman -S"
-        echo "      pacr      $D→$N pacman -R"
-        echo "      pacq      $D→$N pacman -Q"
-        echo "      yays      $D→$N yay -S"
+
+        echo "    $M""Pacman (035):$N"
+        echo "      upa       $D→$N pacman + yay update (Server-Basis)"
+        echo "      upp       $D→$N pacman -Syu (nur Repos)"
+        echo "      upchk     $D→$N Update-Check (kein Install)"
+        echo "      painstall $D→$N pacman -S"
+        echo "      paremove  $D→$N pacman -Rs"
+        echo "      pasearch  $D→$N pacman -Ss"
+        echo ""
+
+        echo "    $M""Misc (045):$N"
+        echo "      bcat      $D→$N bat (Syntax-Highlighting)"
+        echo "      duf       $D→$N duf (Festplatten, Original df = coreutils)"
+        echo "      dust      $D→$N dust -r (Ordner-Groesse, Original du = coreutils)"
+        echo "      e         $D→$N micro Editor"
+        echo "      top       $D→$N htop"
+        echo "      reload    $D→$N exec fish"
+        if set -q _flag_verbose
+            echo "      $D# Weitere: bcatn, dus, diff, ip, less, cpu, mem, v, path$N"
+        end
         echo ""
         
         # Host-spezifische Aliases (100-200)
@@ -306,14 +316,22 @@ function mr-bytez-info --description "mr-bytez Fish-Config Info und Diagnose"
         if test "$MR_HAS_GUI" = "true"
             echo "    $M""GUI (050-gui.fish):$N"
             echo "      upa       $D→$N pacman + yay + flatpak update"
+            echo "      upall     $D→$N Voll-Update --noconfirm"
             echo "      upfl      $D→$N flatpak update"
+            echo "      upflc     $D→$N flatpak cleanup + repair"
+            echo "      flathub   $D→$N flathub remote hinzufuegen"
+            echo "      upclean   $D→$N cleanup gesamt (Repo/AUR/Flatpak)"
+            echo "      upchk     $D→$N Update-Check mit Flatpak"
             echo "      zzz       $D→$N Lock + Suspend"
+            echo "      zzzh      $D→$N Lock + Hibernate"
+            echo "      zzzx      $D→$N Lock + Hybrid-Sleep"
             if set -q _flag_verbose
-                echo "      $D# Desktop mit Flatpak-Integration$N"
+                echo "      $D# Desktop ueberschreibt upa/upchk aus 035-pacman.fish$N"
             end
         else
             echo "    $M""Server (kein GUI):$N"
             echo "      upa       $D→$N pacman + yay update (ohne Flatpak)"
+            echo "      upchk     $D→$N Update-Check (ohne Flatpak)"
             if set -q _flag_verbose
                 echo "      $D# Headless — 050-gui.fish wird uebersprungen$N"
             end

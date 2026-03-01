@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-02-24
+**Stand:** 2026-03-01
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -312,7 +312,7 @@ Details:
 
 ```json
 {
-  "comment": "Fish Shell v2.0 - System-weite Config",
+  "comment": "Fish Shell — System-weite Config",
   "target": "/etc/fish",
   "source": "/mr-bytez/shared/etc/fish",
   "type": "directory",
@@ -375,7 +375,7 @@ Danach zeigen alle System-Symlinks automatisch auf die „neue" Version.
 
 **Symptom:** Nach einem System-Update (`pacman -Syu`) funktioniert Fish nicht mehr korrekt oder der Prompt fehlt.
 
-**Ursache:** Wenn `fish` ueber pacman aktualisiert wird, kann `/etc/fish/conf.d/` geleert oder ueberschrieben werden. Der Loader-Symlink `/etc/fish/conf.d/00-loader.fish` geht dabei verloren.
+**Ursache:** Wenn `fish` ueber pacman aktualisiert wird, kann `/etc/fish/conf.d/` geleert oder ueberschrieben werden. Der Loader-Symlink `/etc/fish/conf.d/000-loader.fish` geht dabei verloren.
 
 **Fix:**
 
@@ -526,4 +526,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-02-24
+**Stand:** 2026-03-01

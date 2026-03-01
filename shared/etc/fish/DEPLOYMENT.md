@@ -3,7 +3,7 @@
 > **Pfad:** `shared/etc/fish/DEPLOYMENT.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-28
-> **Aktualisiert:** 2026-02-28
+> **Aktualisiert:** 2026-03-01
 > **Autor:** MR-ByteZ
 > **Zweck:** Deployment-Anleitung fuer Fish-Konfiguration auf alle Hosts
 

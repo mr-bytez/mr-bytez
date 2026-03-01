@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-02-28
+**Aktualisiert:** 2026-03-01
 
 ---
 
@@ -56,8 +56,8 @@
 
 ### Offen (jetzt in A-Projekten)
 
-- [ ] Bash-Config → B6 unter Projekt A2
-- [ ] mr-bytez-info.fish → B7 unter Projekt A2
+- [x] Bash-Config → B6 unter Projekt A2 ✅
+- [x] mr-bytez-info.fish → B7 unter Projekt A2 ✅
 - [ ] Docs-Struktur → B8 unter Projekt A3
 - [x] Submodule: n8-vps → B9 unter Projekt A1
 - [x] Submodule: n8-kiste → B10 unter Projekt A1
@@ -159,8 +159,8 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Details:** `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
 
-**Status:** 🟡 Phase 0-4 abgeschlossen — Phase 5 (Testen + Deploy) als naechstes
-**ETA:** Februar-Maerz 2026
+**Status:** ✅ Phase 0-6 abgeschlossen — Restposten: n8-book + n8-archstick (physischer Zugang)
+**ETA:** Abgeschlossen Maerz 2026
 
 ---
 
@@ -257,7 +257,7 @@ C1+C2 Policies (Chat-Benennung v2, TAG_REGISTRY) ✅ erledigt
   ↓
 A1 Secrets-Repo Restrukturierung + B1✅, B4✅, B9✅, B10✅, D9✅ — Phase 1+2 erledigt, Phase 3 in Arbeit (D13 offen)
   ↓
-A2 Fish DRY-Refactoring + B2, B3, B6, B7 → danach B5+B17
+A2 Fish DRY-Refactoring ✅ + B3✅, B6✅, B7✅, B17✅ → danach B5
   ↓
 A3 Claude Dev Container + B8, B11, B13, D12, D15, D16
   ↓
@@ -370,11 +370,11 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 |---|---------|---------|--------|
 | B1 | SSH-Config Secrets-Deployment | A1 | ✅ Phase 1 erledigt |
 | B2 | /etc/hosts Dokumentation | A1 | ✅ Phase 2 erledigt (3 Hosts) |
-| B3 | README Struktur-Baum | A2 + A5 | `HANDOFF_2026-02-08.md`, Aufgabe 3 |
+| B3 | README Struktur-Baum | A2 + A5 | ✅ A2 Phase 6 erledigt (A5 nochmal pruefen) |
 | B4 | Git-Config Shared | A1 | ✅ Phase 1 erledigt |
 | B5 | SMB-Shares Deployment | A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
-| B6 | Bash-Config | A2 | Phase 2 (offen) |
-| B7 | mr-bytez-info.fish | A2 | Phase 2 (offen) |
+| B6 | Bash-Config | A2 | ✅ Phase 6 erledigt |
+| B7 | mr-bytez-info.fish | A2 | ✅ Phase 6 erledigt |
 | B8 | Docs-Struktur | A3 | Phase 2 (offen) |
 | B9 | Submodule n8-vps | A1 | ✅ Phase 3 erledigt (Workaround) |
 | B10 | Submodule n8-kiste | A1 | ✅ Phase 3 erledigt |
@@ -384,7 +384,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B14 | Traefik Setup | A4 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
 | B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | ✅ Bereits in Phase 1 erstellt |
 | B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
-| B17 | VLC Desktop-Paketliste | B5/A2 | `HANDOFF_SMB_DEPLOYMENT.md` |
+| B17 | VLC Desktop-Paketliste | B5/A2 | ✅ Bereits in desktop-packages.txt |
 
 ---
 
@@ -439,6 +439,6 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-02-27
+**Letzte Aktualisierung:** 2026-03-01
 
 

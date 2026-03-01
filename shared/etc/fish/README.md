@@ -3,7 +3,7 @@
 > **Pfad:** `shared/etc/fish/`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-28
-> **Aktualisiert:** 2026-02-28
+> **Aktualisiert:** 2026-03-01
 > **Autor:** MR-ByteZ
 > **Zweck:** Zentrale Fish Shell Konfiguration fuer alle 8 Hosts
 
@@ -18,11 +18,12 @@ Verwaltet 8 Arch Linux Hosts ueber ein zentrales Konfigurations-System.
 
 ```
 shared/etc/fish/
-├── aliases/          Shared Aliases (010-045, nummeriert)
-├── conf.d/           Loader + Theme (000, 005)
-├── functions/        Fish Functions (Prompt, Helpers)
+├── aliases/          Shared Aliases (010-055, nummeriert)
+├── conf.d/           Loader (000) + Theme (005) + Host-Flags (008)
+├── functions/        Fish Functions (Prompt, Helpers, mr-bytez-info)
 ├── themes/           Theme-Dateien (Gruvbox)
-├── variables/        Shared Variablen (Pfade)
+├── variables/        Shared Variablen (010-paths)
+├── skills/           Schritt-fuer-Schritt Anleitungen (3 Skills)
 ├── .claude/context/  Fish-spezifische Policies
 ├── CLAUDE.md         Claude Code Kontext
 ├── CHANGELOG.md      Aenderungshistorie
