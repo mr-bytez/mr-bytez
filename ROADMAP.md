@@ -234,7 +234,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 - Pattern-Scanner Script (Fish)
 - Clean/Smudge Filter (bidirektional, .gitattributes)
 - Hostname/Username/IP Mapping
-- Git History Bereinigung (git filter-repo) — Entscheidung noch offen
+- Git History Bereinigung (git filter-repo) — Entscheidung: JA, bei A5
 
 **Mitlaufende Tasks:**
 - D5: Clean/Smudge Filter implementieren
@@ -247,6 +247,13 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Status:** Geplant nach A3
 **ETA:** April 2026
+
+**Entscheidung (2026-03-01, Chat #INF01.1):**
+- Hauptrepo bleibt **privat** bis A5 abgeschlossen
+- Dann: `git filter-repo` History-Rewrite (alle sensitiven Daten entfernen)
+- Dann erst: Repo oeffentlich schalten (GitHub + Codeberg)
+- Kein vorzeitiges Auslagern von Dateien ins Secrets-Repo
+- Chat: https://claude.ai/chat/f5a93098-b58c-49bd-89ed-aa9d2fd5651b
 
 ---
 

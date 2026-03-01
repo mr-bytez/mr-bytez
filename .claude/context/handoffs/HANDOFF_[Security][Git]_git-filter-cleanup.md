@@ -214,10 +214,10 @@ projects/infrastructure/** filter=hostname
 - ❌ Alte Commits bleiben \"dreckig\"
 - ❌ Sensitive Daten bleiben in History
 
-**Status:** Noch nicht entschieden - hängt ab von:
-- Wie weit ist Repo verbreitet?
-- Gibt es andere Collaborators?
-- Wie kritisch sind die Daten in alter History?
+**Status:** ✅ Entschieden — Option 1 (Komplette History neu schreiben)
+**Entscheidung (2026-03-01):** History-Rewrite mit `git filter-repo` wird bei A5 durchgefuehrt.
+Repo bleibt privat bis dahin. Kein vorzeitiges Auslagern ins Secrets-Repo.
+Chat: https://claude.ai/chat/f5a93098-b58c-49bd-89ed-aa9d2fd5651b
 
 ### B) Case-Handling für Username
 

@@ -1,14 +1,21 @@
 # 🌐 MR-ByteZ DNS Handoff – Hetzner Console API + Wildcard Setup
 
-**Chat:** MR-ByteZ - [DNS] - Hetzner Console API Setup hcloud CLI - Wildcard *.mr-bytez.de A AAAA Records LetsEncrypt Traefik ACME DNS-01 TTL Optimierung Backup  
-**Datum:** 2026-02-09  
-**Status:** 🟡 DNS eingerichtet — Traefik + Optimierung offen
+**Chat:** MR-ByteZ - [DNS] - Hetzner Console API Setup hcloud CLI - Wildcard *.mr-bytez.de A AAAA Records LetsEncrypt Traefik ACME DNS-01 TTL Optimierung Backup
+**Datum:** 2026-02-09
+**Aktualisiert:** 2026-03-01
+**Status:** 🟡 DNS erledigt — Optimierung wartet auf Traefik
+**Delegation:** Teilweise Claude Code (TTL/PTR Befehle), teilweise manuell (Hetzner Robot)
 
 ---
 
 ## 📋 Zusammenfassung
 
-In diesem Chat wurde die DNS-Infrastruktur für mr-bytez.de vollständig über die Hetzner Console API eingerichtet. Ziel war die Vorbereitung für Traefik Reverse Proxy mit Let's Encrypt Wildcard-Zertifikaten via DNS-01 Challenge.
+In diesem Chat wurde die DNS-Infrastruktur fuer mr-bytez.de vollstaendig ueber die Hetzner Console API
+eingerichtet. Ziel war die Vorbereitung fuer Traefik Reverse Proxy mit Let's Encrypt Wildcard-Zertifikaten
+via DNS-01 Challenge.
+
+**Update 2026-03-01:** Traefik-Setup-Tasks in eigenen Handoff ausgelagert:
+→ `HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md`
 
 ---
 
@@ -24,7 +31,7 @@ In diesem Chat wurde die DNS-Infrastruktur für mr-bytez.de vollständig über d
 
 ### 2. DNS Wildcard Records erstellt
 
-Wildcard A + AAAA Records für `*.mr-bytez.de` → n8-vps:
+Wildcard A + AAAA Records fuer `*.mr-bytez.de` → n8-vps:
 
 | Record | Typ | Wert | TTL | Ziel |
 |--------|-----|------|-----|------|
@@ -33,12 +40,23 @@ Wildcard A + AAAA Records für `*.mr-bytez.de` → n8-vps:
 
 ### 3. TTLs auf 300s gesetzt
 
-Alle bestehenden Records wurden temporär auf TTL 300s (5 Min) gesetzt für schnelle Änderungen während der Aufbauphase. **Später auf 3600s hochsetzen wenn alles stabil läuft!**
+Alle bestehenden Records wurden temporaer auf TTL 300s (5 Min) gesetzt fuer schnelle Aenderungen
+waehrend der Aufbauphase. **Spaeter auf 3600s hochsetzen wenn alles stabil laeuft!**
 
 ### 4. DNS Backup erstellt
 
 - **Datei:** `~/mr-bytez-dns-backup-2026-02-09.json`
-- **Inhalt:** Vollständiger JSON-Export aller DNS Records vor Änderungen
+- **Inhalt:** Vollstaendiger JSON-Export aller DNS Records vor Aenderungen
+
+### 5. CAA Records gesetzt
+
+- `0 issue letsencrypt.org` — Erlaubt LE fuer Einzel-Zertifikate
+- `0 issuewild letsencrypt.org` — Erlaubt LE fuer Wildcard-Zertifikate
+
+### 6. Hetzner Console Migration
+
+- Alte DNS Console (`dns.hetzner.com`) → Neue Hetzner Console (`api.hetzner.cloud`)
+- Migration abgeschlossen, alte API nicht mehr noetig
 
 ---
 
@@ -51,7 +69,7 @@ Alle bestehenden Records wurden temporär auf TTL 300s (5 Min) gesetzt für schn
 | **Webhosting** | `78.47.47.61` | `2a01:4f8:d0a:4398::2` | Website mr-bytez.de |
 | **n8-vps (EX63)** | `136.243.101.223` | `2a01:4f8:171:ad1::2` | Traefik, Docker Services |
 
-### DNS-Record Übersicht (Stand 2026-02-09)
+### DNS-Record Uebersicht (Stand 2026-02-09)
 
 | Name | Typ | Wert | Ziel-Host | TTL |
 |------|-----|------|-----------|-----|
@@ -131,16 +149,16 @@ hcloud zone rrset list mr-bytez.de -o json | python3 -m json.tool
 # Record erstellen
 hcloud zone rrset create --name 'subdomain' --type A --ttl 300 --record '1.2.3.4' mr-bytez.de
 
-# Record löschen
+# Record loeschen
 hcloud zone rrset delete mr-bytez.de 'subdomain' A
 
-# TTL ändern
+# TTL aendern
 hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de '@' A
 
-# Records eines RRSets setzen (überschreiben)
+# Records eines RRSets setzen (ueberschreiben)
 hcloud zone rrset set-records --record '1.2.3.4' mr-bytez.de 'subdomain' A
 
-# Records hinzufügen
+# Records hinzufuegen
 hcloud zone rrset add-records --record '5.6.7.8' mr-bytez.de 'subdomain' A
 
 # Hilfe
@@ -150,44 +168,60 @@ hcloud zone rrset create --help
 
 ---
 
-## ⏳ Offene Punkte / Nächste Schritte
+## ⏳ Offene Punkte / Naechste Schritte
 
-### Priorität 1: Traefik Setup
+### ~~Prioritaet 1: Traefik Setup~~ → AUSGELAGERT
 
-- [ ] API-Token mit Age verschlüsseln für n8-vps Deployment
-- [ ] Traefik docker-compose.yml mit ACME DNS-01 Challenge konfigurieren
-- [ ] Provider: `hetzner` (nutzt `api.hetzner.cloud`)
-- [ ] Token als Docker Secret einbinden
-- [ ] Wildcard-Zertifikat `*.mr-bytez.de` testen
+**Ausgelagert in:** `HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md`
+- API-Token Age-Verschluesselung (D3)
+- Traefik docker-compose.yml (D14)
+- Token als Docker Secret
+- Wildcard-Zertifikat testen
 
-### Priorität 2: DNS Optimierung
+### Prioritaet 2: DNS Optimierung (NACH Traefik-Stabilisierung)
 
-- [ ] TTLs auf 3600s hochsetzen wenn Infrastruktur stabil
-- [ ] PTR-Record für `136.243.101.223` → `mr-bytez.de` in Hetzner Robot setzen
-- [ ] PTR-Record für IPv6 setzen
+- [ ] TTLs auf 3600s hochsetzen (D1) — **Bedingung:** Traefik + Wildcard-Cert stabil
+- [ ] PTR-Record fuer `136.243.101.223` → `mr-bytez.de` in Hetzner Robot setzen (D2)
+- [ ] PTR-Record fuer IPv6 setzen (D2)
 - [ ] HTTPS-Record (optional, beschleunigt Verbindungsaufbau)
 
-### Priorität 3: Aufräumen
+**Befehle fuer TTL-Hochsetzung:**
+```fish
+# Alle Records auf 3600s setzen (einzeln pro Record-Typ)
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de '@' A
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de '@' AAAA
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de 'www' A
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de 'www' AAAA
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de '*' A
+hcloud zone rrset change-ttl --ttl 3600 mr-bytez.de '*' AAAA
+# ... weitere Records analog
+```
 
-- [ ] Alte API-Tokens prüfen (`n8-vps_console_api_token.secret`, `n8-vps_dns_manage_token.secret`)
-- [ ] Nicht mehr benötigte Tokens löschen
-- [ ] DNS Backup-Strategie (regelmäßig JSON-Export)
+**PTR-Record:** Muss im Hetzner Robot Web-Interface gesetzt werden (nicht ueber hcloud CLI).
+→ Robot → Server → IPs → Reverse DNS
+
+### Prioritaet 3: Aufraeumen (D4)
+
+- [ ] Alte API-Tokens pruefen (`n8-vps_console_api_token.secret`, `n8-vps_dns_manage_token.secret`)
+- [ ] Nicht mehr benoetigte Tokens loeschen
+- [ ] DNS Backup-Strategie (regelmaessig JSON-Export)
 
 ---
 
 ## ⚠️ Wichtige Hinweise
 
-1. **TTLs sind aktuell auf 300s** – nach Stabilisierung auf 3600s hochsetzen!
-2. **`www` Record beibehalten** – auch wenn Wildcard greift, explizit ist sicherer
-3. **Wildcard matcht keine Sub-Subdomains** – `*.mr-bytez.de` matcht `traefik.mr-bytez.de` aber NICHT `api.staging.mr-bytez.de`
-4. **CAA Records vorhanden** – `issue` und `issuewild` für `letsencrypt.org` sind gesetzt
-5. **Hetzner Console Migration** bereits abgeschlossen – alte DNS Console nicht mehr nötig
+1. **TTLs sind aktuell auf 300s** — nach Stabilisierung auf 3600s hochsetzen!
+2. **`www` Record beibehalten** — auch wenn Wildcard greift, explizit ist sicherer
+3. **Wildcard matcht keine Sub-Subdomains** — `*.mr-bytez.de` matcht `traefik.mr-bytez.de` aber NICHT `api.staging.mr-bytez.de`
+4. **CAA Records vorhanden** — `issue` und `issuewild` fuer `letsencrypt.org` sind gesetzt
+5. **Hetzner Console Migration** bereits abgeschlossen — alte DNS Console nicht mehr noetig
 6. **DNS Backup** liegt unter `~/mr-bytez-dns-backup-2026-02-09.json`
 
 ---
 
 ## 🔗 Referenzen
 
+- **Traefik-Handoff:** `.claude/context/handoffs/HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md`
 - **Hetzner Console:** https://console.hetzner.com
 - **Cloud API Docs:** https://docs.hetzner.cloud/reference/cloud
 - **DNS Migration Guide:** https://docs.hetzner.com/networking/dns/migration-to-hetzner-console/process/

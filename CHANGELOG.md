@@ -7,6 +7,29 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [Unreleased]
+
+### Added
+- [Docs][Infra] n8-vps Server-Dokumentation erstellt (Ist-Zustand, geplante Services, Schritt-fuer-Schritt)
+  - Server-Steckbrief (Hetzner EX63, Falkenstein, E5-2650v4, 128GB RAM)
+  - Kompletter Ist-Zustand (Phase 0-4 + mr-bytez Deployment + DNS)
+  - Geplante Services (14 Stacks, 30 Services aus Master-Planung)
+  - 10-Schritte Umsetzungsplan (Traefik → Authentik → ... → Produktiv-Services)
+  - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
+- [Traefik][Docker] Neuer Handoff fuer n8-vps Traefik Reverse Proxy Setup
+  - Architektur-Entscheidungen: Hybrid (Docker+File), Production LE, BasicAuth Dashboard
+  - 3-Phasen Plan: Vorbereitung (n8-kiste) → Deployment (n8-vps) → Test (whoami)
+  - Pfad: .claude/context/handoffs/HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md
+
+### Changed
+- [DNS][Infra] DNS-Handoff aktualisiert: Traefik-Tasks ausgelagert, Status angepasst
+  - Prioritaet 1 (Traefik) → eigener Handoff, Prioritaet 2+3 bleiben (TTL, PTR, Cleanup)
+- [Security][Git] A5 Entscheidung dokumentiert: History-Rewrite mit git filter-repo bei A5
+  - Repo bleibt privat bis A5, dann oeffentlich
+  - ROADMAP.md + Git-Filter-Handoff aktualisiert
+
+---
+
 ## [0.15.2] - 2026-03-01
 
 ### Removed
