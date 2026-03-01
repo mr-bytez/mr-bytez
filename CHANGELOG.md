@@ -7,6 +7,18 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.15.1] - 2026-03-01
+
+### Fixed
+- [ClaudeCode][Agents] audit-agent v0.2.0: Bash-Hook Regex-Fix
+  - Alter Regex `^\s*(rm|...)` pruefte nur Zeilenanfang — `cd /foo; git push` wurde nicht geblockt
+  - Neuer Regex `(^|\s|;|&&|\|)\s*(rm|...)` durchsucht gesamten Command-String
+  - Zusaetzliche schreibende Befehle geblockt: git rm, git reset, git checkout, tee, dd, truncate
+  - Sub-Agent Warnung ergaenzt (erbt moeglicherweise Permissions des aufrufenden Agents)
+  - Lesson Learned: Audit-Agent hat in A2 Phase 6 eigenmaechtig committet+gepusht
+
+---
+
 ## [0.15.0] - 2026-03-01
 
 ### Added
