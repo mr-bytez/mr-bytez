@@ -10,6 +10,13 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Added
+- [Traefik][Docker] Traefik v3.6 Reverse Proxy Stack fuer n8-vps erstellt
+  - docker-compose.yml: mrbz-traefik Container, Ports 80/443, mrbz-proxy-net
+  - traefik.yml: Statische Config (EntryPoints, Docker+File Provider, ACME DNS-01 Hetzner)
+  - middlewares.yml: Security-Headers Middleware (HSTS, X-Frame-Options, CSP)
+  - .env.example: Platzhalter fuer Hetzner API-Token + BasicAuth Hash
+  - README.md + DEPLOYMENT.md: Stack-Doku + 3-Phasen Deployment-Anleitung
+  - Pfad: projects/infrastructure/n8-vps/stacks/traefik/
 - [Docs][Infra] n8-vps Server-Dokumentation erstellt (Ist-Zustand, geplante Services, Schritt-fuer-Schritt)
   - Server-Steckbrief (Hetzner EX63, Falkenstein, E5-2650v4, 128GB RAM)
   - Kompletter Ist-Zustand (Phase 0-4 + mr-bytez Deployment + DNS)
@@ -768,4 +775,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-01
+**Letzte Aktualisierung:** 2026-03-02

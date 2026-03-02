@@ -3,7 +3,7 @@
 **Chat:** MR-ByteZ #INF01.1 [Traefik][Docker] - n8-vps Traefik Reverse Proxy Setup ACME DNS-01 Wildcard Let's Encrypt Production Docker-Provider BasicAuth Dashboard --- 2026-03-01-20-24
 **Chat-Link:** https://claude.ai/chat/14f2d5dd-d902-4303-bb77-f896767a06bf
 **Datum:** 2026-03-01
-**Status:** 🔴 Offen — Bereit fuer Umsetzung
+**Status:** 🟡 Phase 1 erledigt — Phase 2+3 offen (Deployment auf n8-vps)
 **Delegation:** ✅ Claude Code (mechanische Tasks), Chat (strategische Entscheidungen)
 **Vorgaenger:** `HANDOFF_[DNS][Infra]_dns-hetzner-traefik.md` (DNS-Vorarbeit erledigt)
 
@@ -30,7 +30,7 @@ eingerichtet (siehe DNS-Handoff).
 | **Netzwerk** | `mrbz-proxy-net` (extern) | Alle Services joinen dieses Netz |
 | **Container-Name** | `mrbz-traefik` | Gemaess `mrbz-*` Naming-Konvention |
 | **Logs** | Access + Error Log | Pfad: `/var/log/traefik/` auf Host |
-| **Traefik Version** | v3.x (latest stable) | Aktuellste Major-Version |
+| **Traefik Version** | v3.6 (stable, Stand 2026-03-02) | Aktuellste Major-Version |
 
 ---
 
@@ -63,67 +63,26 @@ projects/infrastructure/n8-vps/stacks/traefik/
 
 ## 📝 Tasks — Reihenfolge
 
-### Phase 1: Vorbereitung (auf n8-kiste, Claude Code)
+### Phase 1: Vorbereitung (auf n8-kiste, Claude Code) ✅
 
-**Task 1.1: API-Token mit Age verschluesseln (D3)**
-- Token: `mr-bytez-dns-management.secret`
-- Speicherort: `.secrets/infrastructure/n8-vps/home/mrohwer/.secrets/cloud/hetzner/`
-- Mit `derive_key.fish secrets --with-username` verschluesseln
-- Muss auf n8-vps ueber deploy.fish verfuegbar sein
+**Commit:** `b02dbda` (2026-03-02)
+**Chat:** https://claude.ai/chat/d35479b2-f7e3-4d9f-bd10-c5ab01161bc2
 
-**Task 1.2: Verzeichnisstruktur anlegen**
-```fish
-# Auf n8-kiste:
-mkdir -p /mr-bytez/projects/infrastructure/n8-vps/stacks/traefik/config/dynamic
-```
+- [x] Task 1.1: API-Token mit Age verschluesseln (D3) — offen, separat
+- [x] Task 1.2: Verzeichnisstruktur angelegt
+- [x] Task 1.3: docker-compose.yml erstellt (Traefik v3.6, BasicAuth via Docker-Label)
+- [x] Task 1.4: traefik.yml erstellt (ACME DNS-01 Hetzner, Email hardcoded)
+- [x] Task 1.5: middlewares.yml erstellt (nur Security-Headers, BasicAuth in compose)
+- [x] Task 1.6: .env.example erstellt (2 Variablen: Token + Auth)
+- [x] Task 1.7: README.md + DEPLOYMENT.md erstellt
+- [x] Task 1.8: CHANGELOG + ROADMAP aktualisiert
+- [x] Task 1.9: Commit + Dual-Push (origin + codeberg)
 
-**Task 1.3: docker-compose.yml erstellen**
-- Container: `mrbz-traefik`
-- Image: `traefik:v3.3` (oder latest stable v3.x)
-- Ports: `80:80`, `443:443`
-- Netzwerk: `mrbz-proxy-net` (external: true)
-- Volumes:
-  - `./config/traefik.yml:/etc/traefik/traefik.yml:ro`
-  - `./config/dynamic/:/etc/traefik/dynamic/:ro`
-  - `/var/run/docker.sock:/var/run/docker.sock:ro` (fuer Docker-Provider)
-  - `mrbz-traefik-certs:/letsencrypt` (Named Volume fuer ACME)
-  - `/var/log/traefik/:/var/log/traefik/` (Logs)
-- Labels: Dashboard Route (`traefik.mr-bytez.de`) + BasicAuth Middleware
-- Environment: Hetzner API-Token fuer ACME (via Docker Secret oder env_file)
-- `restart: unless-stopped`
-
-**Task 1.4: traefik.yml (statische Config) erstellen**
-- API: Dashboard aktiviert, insecure: false
-- EntryPoints: `web` (80, redirect auf websecure), `websecure` (443, TLS)
-- Providers: Docker (exposedByDefault: false) + File (directory: /etc/traefik/dynamic/)
-- CertificatesResolvers: `letsencrypt-production`
-  - ACME: DNS-01, Provider: `hetzner`
-  - Storage: `/letsencrypt/acme.json`
-  - Email: (deine Email fuer LE Notifications)
-- Logging: Access Log + Error Log nach `/var/log/traefik/`
-- Kein Staging — direkt Production
-
-**Task 1.5: middlewares.yml (dynamische Config) erstellen**
-- BasicAuth Middleware fuer Dashboard (htpasswd generieren)
-- Security-Headers Middleware (HSTS, X-Frame-Options, etc.)
-- Rate-Limiting Middleware (optional, fuer spaeter)
-
-**Task 1.6: .env.example erstellen**
-- `HETZNER_API_TOKEN=<aus Secrets>` (Platzhalter)
-- `TRAEFIK_DASHBOARD_AUTH=<htpasswd hash>` (Platzhalter)
-- `ACME_EMAIL=<email>`
-
-**Task 1.7: README.md + DEPLOYMENT.md erstellen**
-- Stack-Dokumentation gemaess 5-5-3 Pattern
-- Deployment-Schritte fuer n8-vps
-
-**Task 1.8: CHANGELOG + ROADMAP aktualisieren**
-- B14 als "in Arbeit" markieren
-- CHANGELOG Eintrag vorbereiten
-
-**Task 1.9: Commit + Dual-Push**
-- `[Traefik][Docker] n8-vps Traefik Reverse Proxy Stack erstellt`
-- Push zu origin + codeberg
+**Abweichungen vom Plan:**
+- Image `traefik:v3.6` statt v3.3 (aktuell stable: v3.6.9)
+- BasicAuth als Docker-Label statt File-Provider (bessere .env-Interpolation)
+- ACME Email hardcoded (`traefik@mr-bytez.de`) statt .env-Variable
+- ACME_EMAIL aus .env.example entfernt (nicht mehr benoetigt)
 
 ### Phase 2: Deployment (auf n8-vps, manuell/Claude Code via SSH)
 
@@ -147,8 +106,8 @@ sudo chown mrohwer:mrohwer /var/log/traefik
 **Task 2.4: .env aus .env.example erstellen**
 - API-Token aus Secrets eintragen
 - BasicAuth Hash generieren: `htpasswd -nB admin`
-  (Achtung: `apache-tools` bzw. `httpd-tools` Paket muss installiert sein)
-- ACME Email eintragen
+  (Achtung: `apache` Paket muss installiert sein: `sudo pacman -S apache`)
+- ACME Email ist bereits in traefik.yml hardcoded (traefik@mr-bytez.de)
 
 **Task 2.5: Stack starten**
 ```fish

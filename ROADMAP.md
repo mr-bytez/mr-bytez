@@ -206,6 +206,8 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prerequisite: Traefik Setup (B14)**
 - DNS Wildcard Records: ✅ erledigt
+- Traefik Stack erstellt: ✅ Phase 1 erledigt (docker-compose, traefik.yml, middlewares, Docs)
+- Traefik Deployment: 🔴 Phase 2+3 offen (n8-vps deploy + whoami Test)
 - API-Token Age-Verschluesselung (D3)
 - Traefik ACME DNS-01 (D14)
 - DNS TTL hochsetzen (D1)
@@ -388,7 +390,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B11 | Pre-Commit Hooks | A3 | Phase 3 (alt) |
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
 | B13 | Backup & Recovery | A3 | Phase 3 (alt) |
-| B14 | Traefik Setup | A4 | `MR-ByteZ_DNS_Handoff_2026-02-09.md` |
+| B14 | Traefik Setup | A4 | 🛠️ Phase 1 erledigt (Stack erstellt), Phase 2+3 offen (Deployment) |
 | B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | ✅ Bereits in Phase 1 erstellt |
 | B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
 | B17 | VLC Desktop-Paketliste | B5/A2 | ✅ Bereits in desktop-packages.txt |
@@ -446,6 +448,6 @@ Alle aktiven Handoffs liegen unter `.claude/context/handoffs/`.
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-01
+**Letzte Aktualisierung:** 2026-03-02
 
 

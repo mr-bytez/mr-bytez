@@ -1,0 +1,61 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  Traefik — Statische Konfiguration                                         ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:         projects/infrastructure/n8-vps/stacks/traefik/config/       ║
+# ║  Autor:        MR-ByteZ                                                    ║
+# ║  Version:      0.1.0                                                       ║
+# ║  Erstellt:     2026-03-01                                                  ║
+# ║  Aktualisiert: 2026-03-01                                                  ║
+# ║  Zweck:        Traefik v3 statische Config (EntryPoints, Provider, ACME)   ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# --- API & Dashboard ---
+api:
+  dashboard: true
+  insecure: false
+
+# --- EntryPoints ---
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: letsencrypt-production
+
+# --- Providers ---
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: mrbz-proxy-net
+  file:
+    directory: "/etc/traefik/dynamic/"
+    watch: true
+
+# --- Certificates Resolvers (ACME) ---
+certificatesResolvers:
+  letsencrypt-production:
+    acme:
+      email: "traefik@mr-bytez.de"
+      storage: "/letsencrypt/acme.json"
+      dnsChallenge:
+        provider: hetzner
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+
+# --- Logging ---
+log:
+  level: "INFO"
+  filePath: "/var/log/traefik/error.log"
+
+accessLog:
+  filePath: "/var/log/traefik/access.log"
+  bufferingSize: 100

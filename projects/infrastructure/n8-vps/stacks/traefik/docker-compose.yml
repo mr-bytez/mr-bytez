@@ -1,0 +1,48 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  Traefik Reverse Proxy — docker-compose.yml                                ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:         projects/infrastructure/n8-vps/stacks/traefik/              ║
+# ║  Autor:        MR-ByteZ                                                    ║
+# ║  Version:      0.1.0                                                       ║
+# ║  Erstellt:     2026-03-01                                                  ║
+# ║  Aktualisiert: 2026-03-01                                                  ║
+# ║  Zweck:        Traefik v3 als Reverse Proxy auf n8-vps                     ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+services:
+  traefik:
+    image: traefik:v3.6
+    container_name: mrbz-traefik
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - HETZNER_API_TOKEN=${HETZNER_API_TOKEN}
+    volumes:
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/dynamic/:/etc/traefik/dynamic/:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - mrbz-traefik-certs:/letsencrypt
+      - /var/log/traefik/:/var/log/traefik/
+    networks:
+      - mrbz-proxy-net
+    labels:
+      # Traefik Dashboard
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.mr-bytez.de`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt-production"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker,security-headers@file"
+      # BasicAuth fuer Dashboard (temporaer — wird durch Authentik Forward-Auth ersetzt)
+      # Hash generieren: htpasswd -nB admin
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=${TRAEFIK_DASHBOARD_AUTH}"
+
+volumes:
+  mrbz-traefik-certs:
+    name: mrbz-traefik-certs
+
+networks:
+  mrbz-proxy-net:
+    external: true
