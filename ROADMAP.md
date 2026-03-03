@@ -128,7 +128,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Details:** `.claude/context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
 
-**Status:** Phase 1+2+3 erledigt (alle 3 Hosts deployed + verifiziert, B15 erledigt)
+**Status:** Phase 1+2+3 erledigt (alle 3 Hosts deployed + verifiziert, B15 erledigt, deploy.fish v0.4.0 Beta)
 **ETA:** Februar-Maerz 2026
 
 ---

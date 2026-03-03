@@ -4,9 +4,9 @@
 # Datei:       min-packages.txt
 # Pfad:        shared/packages/min-packages.txt
 # Autor:       MR-ByteZ
-# Version:     0.1.0
+# Version:     0.2.0
 # Erstellt:    2026-02-28
-# Aktualisiert:2026-02-28
+# Aktualisiert:2026-03-03
 # Zweck:       Basispakete fuer alle 8 Hosts
 
 # === pacman (offizielle Repos) ===
@@ -14,7 +14,7 @@
 # Shell + Grundlagen
 fish
 git
-gh
+github-cli
 age
 openssh
 
@@ -26,6 +26,7 @@ jq
 tree
 fastfetch
 ripgrep
+fd
 less
 duf
 dust

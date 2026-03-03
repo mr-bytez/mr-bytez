@@ -11,7 +11,7 @@
 - #SEC01.7: https://claude.ai/chat/e9999483-ed49-49d9-9e8e-d14ebc17298e
 **Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4 → #SEC01.5 → #SEC01.6 → #SEC01.7
 **Datum:** 2026-02-25
-**Status:** Phase 1+2+3 erledigt — B15 erledigt, alle 3 Hosts deployed + verifiziert (D13 offen)
+**Status:** Phase 1+2+3 erledigt — B15 erledigt, alle 3 Hosts deployed + verifiziert, deploy.fish v0.4.0 Beta (D13 offen)
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---
@@ -592,6 +592,10 @@ Betroffene Dateien im Hauptrepo:
 13. ✅ **cat-Alias Sofort-Fix** (#SEC01.7) — --color=always → --color=auto, 2 Scripts command-Prefix gefixt
     - generate_pwd.fish:165, 00-theme.fish:138 — `cat` → `command cat`
     - Alias-Audit: Vollstaendige Risiko-Tabelle in shell.md dokumentiert
+14. ✅ **deploy.fish v0.4.0** — Full-Bootstrap mit 7 Fixes aus Live-Test
+    - Flatpak --system, FISH_LOADER_DEBUG, Zusammenfassungs-Box, --verbose, Flag-Validierung
+    - Phase 0 yay/flatpak Check, Erstinstallations-Anleitung, ln Output unterdrueckt
+    - Version 1.0.0 → 0.4.0 (Beta, erster Live-Test bestanden)
 
 **Lessons Learned:**
 - **#10 Codeberg IPv6:** n8-vps kann Codeberg nicht ueber IPv6 erreichen → AddressFamily inet in SSH-Config

@@ -27,6 +27,22 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
 
 ### Changed
+- [Deploy][Secrets] deploy.fish v0.4.0 — Full-Bootstrap mit 7 Fixes aus Live-Test:
+  - Fix 1: Flatpak `--system` Flag bei install + info (vermeidet interaktive Abfrage)
+  - Fix 2: FISH_LOADER_DEBUG unterdrueckt (kein [loader] Output im Deploy)
+  - Fix 3: .bak Backup wird immer ueberschrieben (aktuellstes Backup)
+  - Fix 4: Zusammenfassungs-Box zeigt alle Phasen (Pakete, Symlinks, Shell, Secrets)
+  - Fix 5: --gui/--dev werden bei --secrets-only ignoriert (Warnung statt Fehler)
+  - Fix 6: pacman/flatpak non-interactive (--noconfirm, --system)
+  - Fix 7: --verbose Flag (Paket-Details, Secrets-Pfade mit Permissions)
+- [Deploy][Secrets] deploy.fish: Phase 0 prueft yay + flatpak (Info, kein Abbruch)
+- [Deploy][Secrets] deploy.fish: Usage mit Erstinstallations-Anleitung (6 Schritte)
+- [Deploy][Secrets] deploy.fish: ln Output unterdrueckt (nur eigene Meldungen)
+- [Deploy][Secrets] deploy.fish: Version 1.0.0 → 0.4.0 (Beta, erster Live-Test)
+- [ClaudeCode][Config] Claude Code Statusline eingerichtet (shared/etc/claude-code/statusline.sh)
+  - Zeigt Model, Verzeichnis, Git-Branch, Kosten, Lines Added/Removed
+  - ANSI-Farben (Gruvbox), jq-basiert, Bash-Script ueber Symlink ~/.claude/statusline.sh
+  - settings.json: statusLine type=command konfiguriert
 - [Cleanup][Fish] command-Prefix Cleanup: `command cat/grep/du/awk/...` → direkte Aufrufe (15 Dateien)
   - Policies aktualisiert: shell.md, security.md, CLAUDE.md, deploy-agent, scaffold-agent
   - Fish-Configs: 040-fastfetch.fish, 005-theme.fish, host-test.fish, config.fish
@@ -44,7 +60,8 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs] claude-ai-projektanweisungen.txt: Hostname-Salt → Username-Salt, Alias-Dateinamen 0xx, Loader 000, A1-Status
 - [Docs] security.md: Verboten-Eintrag aktualisiert (cat-Alias existiert nicht mehr)
 - [Docs] shared/etc/fish/CLAUDE.md: Kaputte Handoff-Referenz entfernt
-- [Secrets] Submodule aktualisiert auf 7000b39 (Archiv 108 Dateien, Box-Header, command-Cleanup)
+- [Fish][Packages] Paketlisten korrigiert: min-packages.txt + desktop-packages.txt (Duplikate entfernt, Sektionen bereinigt)
+- [Secrets] Submodule aktualisiert (deploy.fish v0.4.0, Box-Header, command-Cleanup)
 
 ### Removed
 - [Cleanup] Traefik-Handoff geloescht (alle 3 Phasen erledigt): HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md

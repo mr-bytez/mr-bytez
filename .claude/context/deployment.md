@@ -30,7 +30,7 @@ Systemweit referenzieren wir **nicht direkt** `/mr-bytez`, sondern immer den sta
 | `/usr/local/share/micro` | `/opt/mr-bytez/current/shared/usr/local/share/micro` | ja | Symlink |
 | `/usr/local/bin/hwi` | `/opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh` | ja | Symlink |
 
-## Secrets-Deployment (deploy.fish v2.0)
+## Secrets-Deployment (deploy.fish v1.0.0)
 
 `deploy.fish` im Secrets-Repo deployt Dateien aus dem entpackten Archiv (`mrohwer/`).
 Methode: **Copy** fuer alles ausser `.gitconfig` (dort **Symlink** ueber Anker).
@@ -102,7 +102,7 @@ Details zu Secrets-Policy → `.claude/context/security.md`
 ## SSH-Konfiguration
 
 SSH-Config und SSH-Keys werden ueber das **private Secrets-Repo** deployt (nicht aus dem public Repo).
-Deployment via `deploy.fish v2.0` (Copy-Methode, nicht Symlink).
+Deployment via `deploy.fish v1.0.0` (Copy-Methode, nicht Symlink).
 
 - Gemeinsame SSH-Config: `.secrets/mrohwer/shared/home/mrohwer/.ssh/config`
 - Host-spezifische Keys: `.secrets/mrohwer/infrastructure/<hostname>/home/mrohwer/.ssh/`

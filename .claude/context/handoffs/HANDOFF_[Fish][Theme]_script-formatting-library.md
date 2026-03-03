@@ -79,7 +79,7 @@ end
 1. ~~`shared/lib/format.fish` erstellen mit allen Funktionen~~ ✅ A2 Phase 3
 2. ~~`shared/lib/banner.fish` Inhalt nach `format.fish` verschieben~~ → banner.fish bleibt separat, format.fish sourced es
 3. ~~`banner.fish` entfernen oder als Wrapper belassen~~ → Bleibt, format.fish sourced banner.fish
-4. `deploy.fish` lokale Funktionen entfernen, format.fish sourcen — **offen**
+4. ~~`deploy.fish` lokale Funktionen entfernen, format.fish sourcen~~ ✅ deploy.fish v0.4.0 sourced format.fish
 5. ~~`pack-secrets.fish` + `unpack-secrets.fish` migriert~~ ✅ A2 Phase 3
 6. `derive_key.fish` migrieren — **offen**
 7. Regel in `shell.md` als Pflicht dokumentieren — **offen**

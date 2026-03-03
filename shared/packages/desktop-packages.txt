@@ -4,9 +4,9 @@
 # Datei:       desktop-packages.txt
 # Pfad:        shared/packages/desktop-packages.txt
 # Autor:       MR-ByteZ
-# Version:     0.1.0
+# Version:     0.2.0
 # Erstellt:    2026-02-28
-# Aktualisiert:2026-02-28
+# Aktualisiert:2026-03-03
 # Zweck:       Desktop-Pakete fuer GUI-Hosts (MR_HAS_GUI)
 
 # === pacman (offizielle Repos) ===
@@ -16,6 +16,8 @@ firefox
 btop
 power-profiles-daemon
 wl-clipboard
+xclip
+flatpak
 
 # Media
 vlc
@@ -34,8 +36,6 @@ jdownloader2
 tinymediamanager-bin
 
 # === flatpak ===
-
-flatpak
 
 # Messenger
 org.telegram.desktop
