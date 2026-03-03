@@ -18,7 +18,7 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     if test -f /etc/motd
         echo ""
         set_color cyan
-        command cat /etc/motd
+        cat /etc/motd
         set_color normal
     end
 
@@ -43,7 +43,7 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     set -l kernel_str (uname -r)
     set -l arch_str (uname -m)
     set -l uptime_str (uptime -p 2>/dev/null || uptime | string replace -r '.*up ' 'up ')
-    set -l load_str (command cat /proc/loadavg | command awk '{print $1, $2, $3}')
+    set -l load_str (cat /proc/loadavg | awk '{print $1, $2, $3}')
 
     echo ""
     printf "  %-14s %s\n" "Hostname:" "$hostname_str"
@@ -64,8 +64,8 @@ function host-test --description "Zeigt umfassende Host-Informationen"
 
     # Physische Netzwerkkarten (keine docker/bridge)
     command ip -4 -o addr show 2>/dev/null | while read line
-        set -l iface (echo $line | command awk '{print $2}')
-        set -l ip_addr (echo $line | command awk '{print $4}')
+        set -l iface (echo $line | awk '{print $2}')
+        set -l ip_addr (echo $line | awk '{print $4}')
 
         # Loopback und Docker-Bridges überspringen
         if test "$iface" != "lo"
@@ -104,8 +104,8 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     echo ""
 
     # RAM - direkt aus /proc/meminfo lesen (zuverlässiger)
-    set -l mem_total_kb (command grep '^MemTotal:' /proc/meminfo | command awk '{print $2}')
-    set -l mem_avail_kb (command grep '^MemAvailable:' /proc/meminfo | command awk '{print $2}')
+    set -l mem_total_kb (grep '^MemTotal:' /proc/meminfo | awk '{print $2}')
+    set -l mem_avail_kb (grep '^MemAvailable:' /proc/meminfo | awk '{print $2}')
     set -l mem_used_kb (math "$mem_total_kb - $mem_avail_kb")
     set -l mem_percent (math --scale=0 "$mem_used_kb * 100 / $mem_total_kb")
 
@@ -117,8 +117,8 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     printf "  %-14s %sG / %sG (%s%% genutzt, %sG verfügbar)\n" "RAM:" "$mem_used_gb" "$mem_total_gb" "$mem_percent" "$mem_avail_gb"
 
     # SWAP
-    set -l swap_total_kb (command grep '^SwapTotal:' /proc/meminfo | command awk '{print $2}')
-    set -l swap_free_kb (command grep '^SwapFree:' /proc/meminfo | command awk '{print $2}')
+    set -l swap_total_kb (grep '^SwapTotal:' /proc/meminfo | awk '{print $2}')
+    set -l swap_free_kb (grep '^SwapFree:' /proc/meminfo | awk '{print $2}')
 
     if test "$swap_total_kb" -gt 0
         set -l swap_used_kb (math "$swap_total_kb - $swap_free_kb")
@@ -143,7 +143,7 @@ function host-test --description "Zeigt umfassende Host-Informationen"
 
     # Physische Disks (keine loop, keine zram)
     echo "  Physische Laufwerke:"
-    command lsblk -d -o NAME,SIZE,MODEL,TRAN 2>/dev/null | command grep -v "^NAME" | command grep -v "loop" | command grep -v "zram" | while read line
+    lsblk -d -o NAME,SIZE,MODEL,TRAN 2>/dev/null | grep -v "^NAME" | grep -v "loop" | grep -v "zram" | while read line
         echo "    $line"
     end
     echo ""
@@ -153,13 +153,13 @@ function host-test --description "Zeigt umfassende Host-Informationen"
     printf "    %-24s %8s %8s %8s %6s  %s\n" "Device" "Size" "Used" "Avail" "Use%" "Mount"
     echo "    ────────────────────────────────────────────────────────────────────────"
 
-    LANG=C command df -h -x tmpfs -x devtmpfs -x squashfs -x overlay 2>/dev/null | command grep -v "^Filesystem" | while read line
-        set -l dev (echo $line | command awk '{print $1}')
-        set -l size (echo $line | command awk '{print $2}')
-        set -l used (echo $line | command awk '{print $3}')
-        set -l avail (echo $line | command awk '{print $4}')
-        set -l pct (echo $line | command awk '{print $5}')
-        set -l mount (echo $line | command awk '{print $6}')
+    LANG=C df -h -x tmpfs -x devtmpfs -x squashfs -x overlay 2>/dev/null | grep -v "^Filesystem" | while read line
+        set -l dev (echo $line | awk '{print $1}')
+        set -l size (echo $line | awk '{print $2}')
+        set -l used (echo $line | awk '{print $3}')
+        set -l avail (echo $line | awk '{print $4}')
+        set -l pct (echo $line | awk '{print $5}')
+        set -l mount (echo $line | awk '{print $6}')
 
         # Farbcodierung nach Nutzung
         set -l usage_num (string replace "%" "" $pct)

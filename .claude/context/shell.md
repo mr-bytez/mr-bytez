@@ -2,7 +2,7 @@
 
 **Version:** 1.1.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-03-01
+**Aktualisiert:** 2026-03-03
 **Autor:** MR-ByteZ
 
 ---
@@ -37,32 +37,17 @@ printf '%s\n' \
 **Sehr komplexe Dateien (20+ Zeilen):**
 → IMMER Editor verwenden (micro/code)
 
-### Alias-Fallen
+### Alias-Sicherheit (seit A2 Phase 1)
 
-- `cat` kann auf `bat` gemappt sein → `command cat` verwenden (→ `.claude/context/security.md`)
-- `grep` kann Alias haben → `command grep` verwenden
+Alle coreutils sind **alias-frei** — cat, grep, ls, df, du, rm, cp, mv sind unveraenderte Originale.
+Moderne Alternativen laufen unter eigenen Namen: `bcat` (bat), `el` (eza), `rg` (ripgrep),
+`duf`, `dust`, `rmi`, `cpi`, `mvi`.
 
-### command-Prefix Pflicht in Scripts
+`command`-Prefix in Fish-Scripts ist daher **nicht mehr noetig** fuer diese Tools.
+In Bash-Scripts (.sh) bleibt `command` als Shell-Builtin Best Practice.
 
-Fish-Aliases ueberschreiben Standard-Linux-Commands. In **allen Scripts** (.fish)
-muessen diese Commands mit `command`-Prefix verwendet werden:
-
-| Risiko | Command | Neuer Alias | Tool | Problem |
-|--------|---------|-------------|------|---------|
-| **HOCH** | `cat` | bcat | bat --color=auto | Anderes Output-Format, Farbcodes |
-| **HOCH** | `grep` | (kein Alias) | ripgrep direkt: `rg` | Bricht Pipes |
-| **HOCH** | `ls` | el | eza --icons | Anderes Format, Icons |
-| **HOCH** | `df` | duf | duf | Komplett anderes Programm |
-| **HOCH** | `du` | dust | dust | Komplett anderes Programm |
-| mittel | `rm` | rmi | rm -Iv | Interaktive Rueckfrage |
-| mittel | `cp` | cpi | cp -iv | Interaktive Rueckfrage |
-| mittel | `mv` | mvi | mv -iv | Interaktive Rueckfrage |
-
-**Regel:** `command cat`, `command grep`, `command ls` etc. in Scripts — IMMER.
-Die Originale (cat, ls, grep, df, du, rm, cp, mv) sind seit A2 Phase 1 **alias-frei** (unveraenderte coreutils).
-
-**Hintergrund:** cat-Alias mit `--color=always` hat ANSI-Farbcodes in authorized_keys
-geschrieben und SSH Key-Auth kaputt gemacht (Bug gefunden 2026-02-25, gefixt).
+**Hintergrund:** Frueher hatte cat einen bat-Alias, der ANSI-Farbcodes in authorized_keys
+geschrieben und SSH Key-Auth kaputt gemacht hat (Bug gefunden 2026-02-25, gefixt in A2 Phase 1).
 
 ---
 

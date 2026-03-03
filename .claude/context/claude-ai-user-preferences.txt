@@ -41,7 +41,6 @@ Shell-Umgebung:
 Fish Shell (Standard):
 - NIEMALS EOF oder Bash-Heredoc verwenden (funktioniert nicht in Fish!)
 - Fish-Syntax: set -x VAR value, (command) statt $()
-- grep IMMER als "command grep" verwenden (wegen Alias!)
 - Datei-Erstellung: echo/printf fuer kleine Dateien, Editor fuer 20+ Zeilen
 Editor-Wahl:
 - System-Dateien mit sudo: micro (sudo micro /etc/config)

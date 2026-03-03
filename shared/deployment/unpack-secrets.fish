@@ -1,12 +1,14 @@
 #!/usr/bin/env fish
-# ============================================
-# unpack-secrets.fish — Secrets-Archiv entpacken
-# Pfad: /mr-bytez/shared/deployment/unpack-secrets.fish
-# Autor: MR-ByteZ
-# Erstellt: 2026-02-25
-# Version: siehe $script_version
-# Zweck: mrohwer.tar.age → mrohwer.tar → mrohwer/
-# ============================================
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — unpack-secrets.fish                                           ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:     shared/deployment/unpack-secrets.fish                           ║
+# ║  Autor:    MR-ByteZ                                                        ║
+# ║  Version:  0.2.0                                                           ║
+# ║  Erstellt: 2026-02-25                                                      ║
+# ║  Aktualisiert: 2026-03-03                                                  ║
+# ║  Zweck:    Secrets-Archiv entpacken (mrohwer.tar.age → mrohwer/)          ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ── Format-Library laden ───────────────────
 
@@ -129,7 +131,7 @@ if not test -f "$age_file"
     exit 1
 end
 
-set age_size (command du -h "$age_file" | cut -f1)
+set age_size (du -h "$age_file" | cut -f1)
 _success "Archiv gefunden: $age_file ($age_size)"
 
 # age verfuegbar?
@@ -181,7 +183,7 @@ if not test -f "$tar_file"
     exit 1
 end
 
-set tar_size (command du -h "$tar_file" | cut -f1)
+set tar_size (du -h "$tar_file" | cut -f1)
 _success "Entschluesselt: $tar_file ($tar_size)"
 
 # ── Schritt 2: In temp-Verzeichnis entpacken ──
@@ -220,7 +222,7 @@ _success "Entpackt: $temp_dir/ ($file_count Dateien)"
 _msg "Validiere entpackte Dateien..."
 
 # tar-Inhalt gegen entpackte Dateien pruefen
-set tar_count (tar -tf "$tar_file" | command grep -c -v '/$')
+set tar_count (tar -tf "$tar_file" | grep -c -v '/$')
 if test "$tar_count" -ne "$file_count"
     _error "Validierung fehlgeschlagen! Archiv: $tar_count Dateien, Entpackt: $file_count"
     rm -rf "$temp_dir"

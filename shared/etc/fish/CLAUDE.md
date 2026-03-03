@@ -18,8 +18,7 @@ zentrales System mit Feature-Flags und Shared Conditionals.
 ## Wichtige Regeln
 
 - **Fish-Syntax:** Kein `&&`, kein `export`, kein `$(cmd)`, kein Heredoc
-- **command cat/grep:** Immer `command cat` und `command grep` verwenden
-- **Alias-Sicherheit:** cat, ls, grep, df, du, rm, cp, mv = unveraenderte coreutils
+- **Alias-Sicherheit:** cat, ls, grep, df, du, rm, cp, mv = unveraenderte coreutils (kein `command`-Prefix noetig)
 - **Nummerierung:** 000-099 Shared, 100-200 Host-spezifisch, 5er-Schritte
 - **Header:** Jede neue Datei bekommt den Standard-Header (scaffold-agent)
 - **Version:** Neue Dateien starten bei 0.1.0
@@ -37,6 +36,6 @@ shared/etc/fish/
 
 ## Referenzen
 
-- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
+- A2 Status: Phase 0-6 abgeschlossen (ROADMAP.md)
 - Shell-Policies: `.claude/context/shell.md`
 - Scaffold-Agent: `.claude/agents/scaffold-agent.md`

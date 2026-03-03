@@ -1,12 +1,14 @@
 #!/usr/bin/env fish
-# ============================================
-# derive_key.fish — Key-Derivation Script
-# Pfad: /mr-bytez/shared/deployment/derive_key.fish
-# Autor: MR-ByteZ
-# Erstellt: 2026-01-23
-# Version: siehe $script_version
-# Zweck: PBKDF2 Key-Derivation aus Master-Password + Salt
-# ============================================
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — derive_key.fish                                               ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:     shared/deployment/derive_key.fish                               ║
+# ║  Autor:    MR-ByteZ                                                        ║
+# ║  Version:  0.2.0                                                           ║
+# ║  Erstellt: 2026-01-23                                                      ║
+# ║  Aktualisiert: 2026-03-03                                                  ║
+# ║  Zweck:    PBKDF2 Key-Derivation aus Master-Password + Salt               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ── Banner laden ────────────────────────────
 

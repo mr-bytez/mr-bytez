@@ -1,9 +1,15 @@
-# derive_key.fish - Key-Derivation Script
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — derive_key.fish Dokumentation                                 ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:     shared/deployment/derive_key.README.md                          ║
+# ║  Autor:    MR-ByteZ                                                        ║
+# ║  Version:  0.1.0                                                           ║
+# ║  Erstellt: 2026-01-23                                                      ║
+# ║  Aktualisiert: 2026-03-03                                                  ║
+# ║  Zweck:    Key-Derivation Script Dokumentation                             ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
-**Pfad:** `/mr-bytez/shared/deployment/derive_key.fish`
-**Version:** 1.0.0
-**Erstellt:** 2026-01-23
-**Autor:** Michael Rohwer
+# derive_key.fish - Key-Derivation Script
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-26
+**Aktualisiert:** 2026-03-03
 **Autor:** MR-ByteZ
 
 ---
@@ -28,26 +28,17 @@ Bei öffentlicher Kommunikation (Claude.ai, GitHub Issues, Docs) werden echte Ho
 
 ---
 
-## cat/bat Alias-Falle
+## cat/bat Alias-Falle (historisch)
 
-In diesem Projekt kann `cat` auf `bat` gemappt sein. Das zerstört Tokens/Keys durch Formatierung und CRLF.
-
-**NIEMALS:**
-```fish
-cat ~/.secrets/token.age  # GEFAHR: bat-Alias!
-```
-
-**IMMER:**
-```fish
-command cat ~/.secrets/token.age
-# oder
-/usr/bin/cat ~/.secrets/token.age
-```
+Seit A2 Phase 1 ist `cat` alias-frei (unveraenderte coreutils). `command cat` ist nicht mehr noetig.
+Moderne Alternative mit Syntax-Highlighting: `bcat` (bat).
 
 **Empfohlenes Sanitizing (Fish):**
 ```fish
-command cat token.txt | string replace -a \r '' | string trim
+cat token.txt | string replace -a \r '' | string trim
 ```
+
+**Hintergrund:** Frueher hatte cat einen bat-Alias, der ANSI-Farbcodes in Secrets geschrieben hat.
 
 ---
 
@@ -121,4 +112,4 @@ Das Secrets-Repo wird zum verschluesselten Home-User-Backup:
 - Secrets in Git-History (auch nicht gelöscht!)
 - SSH Private Keys aus dem PUBLIC Repo deployen
 - Klartext-Secrets im PUBLIC Repo
-- Tokens/Keys mit `cat`-Alias lesen
+- Entschluesselte Secrets in Pipes ohne Sanitizing leiten

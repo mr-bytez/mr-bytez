@@ -1,12 +1,14 @@
 #!/usr/bin/env fish
-# ============================================================================
-# Script: generate_pwd.fish
-# Pfad: ~/.config/fish/functions/generate_pwd.fish
-# Author: Mikele Rohwer
-# Created: 2025-01-20
-# Version: 1.0.0
-# Purpose: Interaktives Passwort-Generator Tool für ~/.secrets
-# ============================================================================
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — generate_pwd.fish                                             ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:     shared/deployment/generate_pwd.fish                             ║
+# ║  Autor:    MR-ByteZ                                                        ║
+# ║  Version:  0.1.0                                                           ║
+# ║  Erstellt: 2025-01-20                                                      ║
+# ║  Aktualisiert: 2026-03-03                                                  ║
+# ║  Zweck:    Interaktives Passwort-Generator Tool fuer Secrets               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
 function generate_pwd --description "🔐 Generiere sichere Passwörter in ~/.secrets"
     # Header
@@ -162,7 +164,7 @@ function generate_pwd --description "🔐 Generiere sichere Passwörter in ~/.se
     set_color cyan
     echo "🔑 Passwort:"
     set_color yellow
-    echo "   "(command cat $secret_file)
+    echo "   "(cat $secret_file)
     set_color normal
     echo ""
     set_color cyan

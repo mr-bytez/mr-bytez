@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-03-01
+**Aktualisiert:** 2026-03-03
 
 ---
 
@@ -206,8 +206,9 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 
 **Prerequisite: Traefik Setup (B14)**
 - DNS Wildcard Records: ✅ erledigt
-- Traefik Stack erstellt: ✅ Phase 1 erledigt (docker-compose, traefik.yml, middlewares, Docs)
-- Traefik Deployment: 🔴 Phase 2+3 offen (n8-vps deploy + whoami Test)
+- Traefik Stack erstellt + deployed: ✅ Phase 1+2+3 erledigt (2026-03-03)
+  - Dashboard: traefik.mr-bytez.de (BasicAuth, Let's Encrypt)
+  - Fixes: Unbound 0.0.0.0 (Docker DNS), UFW Docker-Regeln, Hetzner Robot UDP
 - API-Token Age-Verschluesselung (D3)
 - Traefik ACME DNS-01 (D14)
 - DNS TTL hochsetzen (D1)
@@ -390,7 +391,7 @@ A5 Sensitive Data Cleanup + D5-D7 → danach B3 nochmal pruefen
 | B11 | Pre-Commit Hooks | A3 | Phase 3 (alt) |
 | B12 | Chat-Namer Skill | A4 | Phase 3 (alt) |
 | B13 | Backup & Recovery | A3 | Phase 3 (alt) |
-| B14 | Traefik Setup | A4 | 🛠️ Phase 1 erledigt (Stack erstellt), Phase 2+3 offen (Deployment) |
+| B14 | Traefik Setup | A4 | ✅ Alle 3 Phasen erledigt (Stack + Deploy + Test, 2026-03-03) |
 | B15 | Host-zu-Host SSH-Config (Ports, Keys, Hostnamen fuer eigene Hosts) | A1 | ✅ Bereits in Phase 1 erstellt |
 | B16 | Web-Projekte (blog, shop) | Phase 4 | Phase 4 |
 | B17 | VLC Desktop-Paketliste | B5/A2 | ✅ Bereits in desktop-packages.txt |

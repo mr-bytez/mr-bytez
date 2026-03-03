@@ -1,7 +1,7 @@
 # 🖥️ n8-vps Server — Komplette Statusdokumentation
 
 **Erstellt:** 2026-03-01
-**Aktualisiert:** 2026-03-01
+**Aktualisiert:** 2026-03-03
 **Autor:** MR-ByteZ + Claude
 **Zweck:** Übersicht über Ist-Zustand, geplante Services und nächste Schritte
 **Ablage im Repo:** `projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md`
@@ -70,26 +70,35 @@
 
 **Firewall (UFW):**
 - IPv6 komplett deaktiviert
-- Default: deny incoming, allow outgoing
+- Default: deny incoming, allow outgoing, deny routed
 - Port 61020/tcp: SSH (rate-limited)
-- Port 80/tcp: HTTP (für Traefik)
-- Port 443/tcp: HTTPS (für Traefik)
+- Port 80/tcp: HTTP (fuer Traefik)
+- Port 443/tcp: HTTPS (fuer Traefik)
 - Port 61820/udp: WireGuard VPN
+- Docker Outbound: `route allow in on br+ out on enp130s0` (Container Internet-Zugang)
+- Docker DNS: `allow in on br+ to any port 53 proto udp` (Container → Host Unbound)
 
 **Hetzner Robot Firewall (externe Hardware-Firewall):**
-- ICMP erlaubt (Diagnose)
-- Port 22/tcp (temporär — entfernen!)
-- Port 61020/tcp (SSH)
-- Port 80/tcp (HTTP)
-- Port 443/tcp (HTTPS)
-- Port 61820/udp (WireGuard)
-- TCP Established für Antwort-Pakete
-- IPv6 komplett gefiltert
+- Default-Policy: discard (alles nicht explizit Erlaubte wird verworfen)
+- IPv6 komplett gefiltert, Hetzner Services erlaubt
+- Eingehend:
+  - #1: ICMP erlaubt (Diagnose)
+  - #2: Port 22/tcp (temporaer — entfernen!)
+  - #3: TCP Established (ACK-Flag, Antwort-Pakete, Ziel-Port 32768-65535)
+  - #4: Port 61020/tcp (SSH)
+  - #5: Port 80/tcp (HTTP, fuer Traefik)
+  - #6: Port 443/tcp (HTTPS, fuer Traefik)
+  - #7: UDP Established (Antwort-Pakete, Ziel-Port 32768-65535) — fuer DNS-Antworten
+- Ausgehend:
+  - #1+#2: Block Mail Ports 25,465 (ipv4+ipv6, discard)
+  - #3: Allow all (accept)
 
 **DNS (Unbound):**
 - Lokaler DNS-Resolver aktiv
+- Interface: 0.0.0.0 (alle Interfaces, inkl. Docker-Bridges)
+- Access-Control: 127.0.0.0/8 allow, 172.16.0.0/12 allow (Docker), 0.0.0.0/0 refuse
 - DoT (DNS over TLS) zu Cloudflare + Quad9
-- Optimiert für 20 Cores, 64 GB RAM
+- Optimiert fuer 20 Cores, 64 GB RAM
 
 ### ✅ Phase 2: Fish Shell (erledigt/übersprungen)
 

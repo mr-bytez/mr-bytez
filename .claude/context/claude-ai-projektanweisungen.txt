@@ -11,8 +11,8 @@ Repo-Root: /mr-bytez auf allen Hosts, Anker: /opt/mr-bytez/current → /mr-bytez
 Repositories:
 → mr-bytez (Haupt-Repo, GitHub + Codeberg)
 → mr-bytez-secrets (Privates Submodule, eingebunden unter .secrets/)
-  Age-verschluesselt, Master-Password Derivation mit Hostname-Salt
-  Eigene Restrukturierung geplant (A1 in Roadmap)
+  Age-verschluesselt, Master-Password Derivation mit Username-Salt (--with-username)
+  A1 Restrukturierung: Phase 1+2+3 erledigt (3 Hosts deployed + verifiziert)
 
 Source of Truth: .claude/context/ im Repo
 Alle Regeln, Tags, Konventionen liegen dort. Bei Fragen zuerst durchsuchen.
@@ -64,11 +64,11 @@ Aufgaben-Delegation:
 - Mehrere separate Codeboxen nur wenn Output-Pruefung zwischen Schritten erforderlich
 
 Fish Shell Aliases (aktiv, bitte in Befehlen verwenden):
-→ shared/etc/fish/aliases/10-nav.fish (Navigation)
-→ shared/etc/fish/aliases/20-eza.fish (Listing)
-→ shared/etc/fish/aliases/30-docker.fish (Docker)
-→ shared/etc/fish/aliases/40-git.fish (Git)
-→ shared/etc/fish/aliases/90-misc.fish (System, Editoren, Suche)
+→ shared/etc/fish/aliases/010-nav.fish (Navigation + sichere Datei-Ops)
+→ shared/etc/fish/aliases/015-eza.fish (Listing)
+→ shared/etc/fish/aliases/020-docker.fish (Docker)
+→ shared/etc/fish/aliases/025-git.fish (Git)
+→ shared/etc/fish/aliases/045-misc.fish (bcat, duf, dust, Editoren, Monitoring)
 Navigation: .. ... mrbz (cd /mr-bytez) mb (cd /mr-bytez) hm (cd ~)
 Listing (eza): ls ll la lt ld lf lg lk lm lp lr lta
 Docker: dps dco dcu dcd dcr dcp dcl
@@ -76,14 +76,13 @@ Git: gs ga gc gp gl gd gb gco
 System: top (htop) cpu (lscpu) mem (free -h) path reload
 Editoren: e (micro) v (vim)
 Sicherheit: rm cp mv mkdir chmod chown ln sind alle verbose/interaktiv
-Wichtig: grep ist als Funktion definiert (command grep fuer Scripts!)
 Diagnose: mr-bytez-info zeigt alle Aliases, Funktionen, Variablen, Struktur
 → shared/etc/fish/functions/mr-bytez-info.fish
 
 Fish Loader-System:
-→ shared/etc/fish/conf.d/00-loader.fish
+→ shared/etc/fish/conf.d/000-loader.fish (v0.5.0, einschleifig)
 → .claude/context/shell.md
-Hierarchie: 00-09 Theme, 10-69 Shared, 70-79 Host-Kategorie, 80-89 Host-spezifisch, 90-99 User-Tweaks
+Nummerierung: 000-099 Shared (alle Hosts), 100-200 Host-spezifisch, 5er-Schritte, zero-padded
 Debug: set -gx FISH_LOADER_DEBUG 1
 
 Hosts:
@@ -128,14 +127,14 @@ Geplant: mrbz-dev, mrbz-mcp, mrbz-qdrant, Traefik
 
 Security:
 → .claude/context/security.md
-Age-Encryption mit Master-Password Derivation + Hostname-Salt
+Age-Encryption mit Master-Password Derivation + Username-Salt (--with-username)
 Secrets-Submodule: .secrets/ (eigenes Repo: mr-bytez-secrets)
 SSH-Ports: host-spezifisch (n8-kiste: 61022, n8-vps: 61020, n8-station: 63022)
 
 Aktive Roadmap (Reihenfolge):
 → ROADMAP.md (Root)
 C1+C2: Policies (Chat-Benennung v2, Tag-Registry) — erledigt
-A1: Secrets-Repo Restrukturierung → mr-bytez-secrets — aktuell
+A1: Secrets-Repo Restrukturierung → mr-bytez-secrets — Phase 1+2+3 erledigt
 A2: Fish DRY-Refactoring → shared/etc/fish/
 A3: Claude Dev Container → shared/stacks/mrbz-dev/
 A4: MCP Server → projects/infrastructure/mcp-server/

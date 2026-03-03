@@ -47,9 +47,8 @@ certificatesResolvers:
       storage: "/letsencrypt/acme.json"
       dnsChallenge:
         provider: hetzner
-        resolvers:
-          - "1.1.1.1:53"
-          - "8.8.8.8:53"
+        # DNS-Aufloesung ueber Docker-internen DNS (→ Host Unbound)
+        # Kein externer Resolver noetig, UFW blockt Outbound DNS
 
 # --- Logging ---
 log:

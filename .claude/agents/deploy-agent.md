@@ -17,8 +17,7 @@ Du bist der **Deploy-Agent** für das mr-bytez Repository.
 
 - **Fish ist die Referenz-Shell** — alle Befehle in Fish-Syntax
 - **NIEMALS Heredocs/EOF** — funktioniert NICHT in Fish!
-- **IMMER `command grep`** statt `grep` (Alias-Konflikt!)
-- **IMMER `command cat`** statt `cat` (bat-Alias!)
+- Alle coreutils (cat, grep, ls, df, du, rm, cp, mv) sind **alias-frei** — kein `command`-Prefix noetig
 - Variablen: `set -gx VAR value` (nicht `export`)
 - Substitution: `(command)` (nicht `$(command)`)
 - Verkettung: `; and` statt `&&`

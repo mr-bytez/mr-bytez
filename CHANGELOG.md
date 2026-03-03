@@ -10,30 +10,45 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Added
-- [Traefik][Docker] Traefik v3.6 Reverse Proxy Stack fuer n8-vps erstellt
+- [Traefik][Docker] Traefik v3.6 Reverse Proxy Stack fuer n8-vps erstellt + deployed
   - docker-compose.yml: mrbz-traefik Container, Ports 80/443, mrbz-proxy-net
   - traefik.yml: Statische Config (EntryPoints, Docker+File Provider, ACME DNS-01 Hetzner)
   - middlewares.yml: Security-Headers Middleware (HSTS, X-Frame-Options, CSP)
-  - .env.example: Platzhalter fuer Hetzner API-Token + BasicAuth Hash
+  - .env.example: Platzhalter fuer Hetzner API-Token + BasicAuth Hash (bcrypt, $$-Escaping)
   - README.md + DEPLOYMENT.md: Stack-Doku + 3-Phasen Deployment-Anleitung
   - Pfad: projects/infrastructure/n8-vps/stacks/traefik/
+  - Deployment auf n8-vps: Phase 2+3 erfolgreich (Dashboard 401, LE-Cert, whoami-Test)
+  - Fixes: Unbound auf 0.0.0.0 (Docker DNS), UFW Docker-Regeln, Hetzner Robot UDP-Regel
 - [Docs][Infra] n8-vps Server-Dokumentation erstellt (Ist-Zustand, geplante Services, Schritt-fuer-Schritt)
   - Server-Steckbrief (Hetzner EX63, Falkenstein, E5-2650v4, 128GB RAM)
   - Kompletter Ist-Zustand (Phase 0-4 + mr-bytez Deployment + DNS)
   - Geplante Services (14 Stacks, 30 Services aus Master-Planung)
   - 10-Schritte Umsetzungsplan (Traefik → Authentik → ... → Produktiv-Services)
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
-- [Traefik][Docker] Neuer Handoff fuer n8-vps Traefik Reverse Proxy Setup
-  - Architektur-Entscheidungen: Hybrid (Docker+File), Production LE, BasicAuth Dashboard
-  - 3-Phasen Plan: Vorbereitung (n8-kiste) → Deployment (n8-vps) → Test (whoami)
-  - Pfad: .claude/context/handoffs/HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md
 
 ### Changed
+- [Cleanup][Fish] command-Prefix Cleanup: `command cat/grep/du/awk/...` → direkte Aufrufe (15 Dateien)
+  - Policies aktualisiert: shell.md, security.md, CLAUDE.md, deploy-agent, scaffold-agent
+  - Fish-Configs: 040-fastfetch.fish, 005-theme.fish, host-test.fish, config.fish
+  - Scripts: scan-secrets.fish, generate_pwd.fish, pack-secrets.fish, unpack-secrets.fish
+  - Hintergrund: Seit A2 Phase 1 sind alle coreutils alias-frei, `command`-Prefix war unnoetig
+- [Docs][Cleanup] Box-Header fuer 5 Deployment-Scripts (derive_key, generate_pwd, pack/unpack-secrets, derive_key.README)
+- [Infra][Docs] n8-vps Server-Dokumentation aktualisiert: UFW Docker-Regeln, Hetzner Robot Firewall komplett, Unbound Docker-Config
+- [Fish] config.fish: Loader-Pfad 000-loader.fish (statt 00-loader.fish), Debug deaktiviert
+- [Traefik] traefik.yml: Externe DNS-Resolver entfernt (Docker-interner DNS → Host Unbound)
 - [DNS][Infra] DNS-Handoff aktualisiert: Traefik-Tasks ausgelagert, Status angepasst
   - Prioritaet 1 (Traefik) → eigener Handoff, Prioritaet 2+3 bleiben (TTL, PTR, Cleanup)
 - [Security][Git] A5 Entscheidung dokumentiert: History-Rewrite mit git filter-repo bei A5
   - Repo bleibt privat bis A5, dann oeffentlich
   - ROADMAP.md + Git-Filter-Handoff aktualisiert
+- [Docs] claude-ai-projektanweisungen.txt: Hostname-Salt → Username-Salt, Alias-Dateinamen 0xx, Loader 000, A1-Status
+- [Docs] security.md: Verboten-Eintrag aktualisiert (cat-Alias existiert nicht mehr)
+- [Docs] shared/etc/fish/CLAUDE.md: Kaputte Handoff-Referenz entfernt
+- [Secrets] Submodule aktualisiert auf 7000b39 (Archiv 108 Dateien, Box-Header, command-Cleanup)
+
+### Removed
+- [Cleanup] Traefik-Handoff geloescht (alle 3 Phasen erledigt): HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md
+- [Cleanup] INF01 Chat-Uebergabe geloescht (obsolet): HANDOFF_[Infra][Traefik]_chatuebergabe-INF01.md
 
 ---
 

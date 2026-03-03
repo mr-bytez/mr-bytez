@@ -185,7 +185,7 @@ Wenn das Script Farbausgaben enthält:
 4. ✅ Datum heute
 5. ✅ Zweck beschrieben
 6. ✅ Shebang korrekt (fish: `#!/usr/bin/env fish`, bash: `#!/bin/bash`)
-7. ✅ Fish-Syntax beachtet (kein EOF, kein export, `command grep`)
+7. ✅ Fish-Syntax beachtet (kein EOF, kein export)
 8. ✅ Banner-Breite konsistent (57 Zeichen zwischen den Pipes)
 
 ## Kontext

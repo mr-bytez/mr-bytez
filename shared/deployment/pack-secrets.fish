@@ -1,12 +1,14 @@
 #!/usr/bin/env fish
-# ============================================
-# pack-secrets.fish — Secrets-Archiv packen
-# Pfad: /mr-bytez/shared/deployment/pack-secrets.fish
-# Autor: MR-ByteZ
-# Erstellt: 2026-02-25
-# Version: siehe $script_version
-# Zweck: mrohwer/ → mrohwer.tar → mrohwer.tar.age
-# ============================================
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — pack-secrets.fish                                             ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:     shared/deployment/pack-secrets.fish                             ║
+# ║  Autor:    MR-ByteZ                                                        ║
+# ║  Version:  0.1.0                                                           ║
+# ║  Erstellt: 2026-02-25                                                      ║
+# ║  Aktualisiert: 2026-03-03                                                  ║
+# ║  Zweck:    Secrets-Archiv packen (mrohwer/ → mrohwer.tar.age)             ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
 
 # ── Format-Library laden ───────────────────
 
@@ -148,7 +150,7 @@ end
 
 if test -f "$age_file"
     _warn "Bestehendes Archiv gefunden: $age_file"
-    set old_size (command du -h "$age_file" | cut -f1)
+    set old_size (du -h "$age_file" | cut -f1)
     echo "  Groesse: $old_size"
     echo ""
 
@@ -188,14 +190,14 @@ if test $status -ne 0
     exit 1
 end
 
-set tar_size (command du -h "$tar_file" | cut -f1)
+set tar_size (du -h "$tar_file" | cut -f1)
 _success "tar erstellt ($tar_size)"
 
 # ── Schritt 2: tar validieren ────────────────
 
 _msg "Validiere Archiv..."
 
-set tar_count (tar -tf "$tar_file" | command grep -c -v '/$')
+set tar_count (tar -tf "$tar_file" | grep -c -v '/$')
 if test "$tar_count" -ne "$file_count"
     _error "Archiv-Validierung fehlgeschlagen! Erwartet: $file_count Dateien, Gefunden: $tar_count"
     rm "$tar_file"
@@ -229,7 +231,7 @@ if not test -f "$age_file"
     exit 1
 end
 
-set age_size (command du -h "$age_file" | cut -f1)
+set age_size (du -h "$age_file" | cut -f1)
 _success "Verschluesselt: $age_file ($age_size)"
 
 # ── Schritt 4: Aufraumen ────────────────────

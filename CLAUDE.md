@@ -13,8 +13,6 @@ Live-Checkout: `/mr-bytez`, stabiler Anker: `/opt/mr-bytez/current`.
 - **Fish ist die Referenz-Shell.** Alle Skripte und Befehle in Fish-Syntax.
 - **Keine Heredocs/EOF** — `cat <<EOF` funktioniert nicht in Fish!
 - **Kein `&&`** — Fish nutzt `; and` oder Befehle untereinander
-- **`command grep`** statt `grep` (Alias-Konflikt!)
-- **`command cat`** statt `cat` (bat-Alias kann Output verfaelschen)
 - Variablen: `set -x VAR value` (nicht `export`)
 - Substitution: `(cmd)` (nicht `$(cmd)`)
 - Datei-Generierung: `printf '%s\n' 'Zeile1' 'Zeile2' > datei.txt`

@@ -53,7 +53,7 @@ for keyword in $keywords
     echo "## Keyword: $keyword" >> $report_file
     echo "" >> $report_file
     
-    set -l matches (command grep -rn -i "$keyword" claude/ docs/ 2>/dev/null)
+    set -l matches (grep -rn -i "$keyword" claude/ docs/ 2>/dev/null)
     
     if test -n "$matches"
         set -l count (echo "$matches" | wc -l)
