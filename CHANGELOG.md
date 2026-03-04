@@ -27,6 +27,11 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
 
 ### Changed
+- [Deploy][Secrets] deploy.fish v0.5.1 — Reflector Country-Filter + Threads:
+  - --country Germany,France,Netherlands,Austria,Switzerland (nur EU-Nachbarn statt weltweit)
+  - --threads 5 (parallele Mirror-Tests)
+  - Laufzeit von 5+ Minuten auf ~30 Sekunden reduziert
+- [Deploy][Config] reflector.conf v0.5.1 — Country-Filter + Threads synchronisiert
 - [Deploy][Secrets] deploy.fish v0.5.0 — Paketmanager-Updates + Reflector-Integration:
   - Phase 1: pacman -Syu + yay -Syu + flatpak update VOR Paketinstallation
   - reflector: Live-Mirrorlist + Fallback, reflector.conf + reflector.timer
