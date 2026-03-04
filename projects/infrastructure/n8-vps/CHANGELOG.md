@@ -13,6 +13,11 @@
 
 ### Added
 - 5-5-3 Pattern umgesetzt: README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md
+- Authentik SSO Stack erstellt (`stacks/authentik/`)
+  - docker-compose.yml: 4 Services (postgres, valkey, server, worker)
+  - Subnet `172.20.0.0/24`, Worker-Tuning 4x4 (12-Kerne-optimiert)
+  - Traefik-Labels fuer `auth.mr-bytez.de`
+  - .env.example, README.md, DEPLOYMENT.md
 
 ---
 

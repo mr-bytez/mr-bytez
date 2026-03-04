@@ -33,6 +33,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
 ### Added
+- [VPS][Auth][DKR] Authentik SSO Stack fuer n8-vps erstellt
+  - docker-compose.yml: 4 Services (postgres, valkey, server, worker)
+  - Subnet 172.20.0.0/24, Container mrbz-authentik-*, Worker-Tuning 4x4
+  - Traefik-Labels fuer auth.mr-bytez.de (websecure, letsencrypt-production)
+  - .env.example (Secrets-Pfade via file://-Pattern)
+  - README.md + DEPLOYMENT.md (3-Phasen-Anleitung)
 - [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
   (README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md)
 - [Structure] hwi.sh Versionierung auf SemVer normalisiert (3.1.1 → 0.3.2),

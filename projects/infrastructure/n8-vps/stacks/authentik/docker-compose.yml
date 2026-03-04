@@ -1,0 +1,233 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MR-ByteZ — Authentik SSO Stack                                            ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:         projects/infrastructure/n8-vps/stacks/authentik/            ║
+# ║  Autor:        MR-ByteZ                                                    ║
+# ║  Version:      0.1.0                                                       ║
+# ║  Erstellt:     2026-03-04                                                  ║
+# ║  Aktualisiert: 2026-03-04                                                  ║
+# ║  Zweck:        Authentik Identity Provider auf n8-vps                      ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# ==============================================================================
+# Authentik Environment Anchor (DRY — wird von server + worker geteilt)
+# ==============================================================================
+x-authentik-env: &authentik-env
+  AUTHENTIK_REDIS__HOST: mrbz-authentik-valkey
+  AUTHENTIK_POSTGRESQL__HOST: mrbz-authentik-postgres
+  AUTHENTIK_POSTGRESQL__PORT: 5432
+  AUTHENTIK_POSTGRESQL__NAME: authentik
+  AUTHENTIK_POSTGRESQL__USER: authentik
+  AUTHENTIK_POSTGRESQL__PASSWORD: file://${AUTHENTIK_DB_PASSWORD_FILE}
+  AUTHENTIK_SECRET_KEY: file://${AUTHENTIK_SECRET_KEY_FILE}
+  AUTHENTIK_ERROR_REPORTING__ENABLED: "false"
+  AUTHENTIK_DISABLE_UPDATE_CHECK: "true"
+  AUTHENTIK_DISABLE_STARTUP_ANALYTICS: "true"
+  AUTHENTIK_AVATARS: initials
+  AUTHENTIK_DEFAULT_USER_CHANGE_NAME: "false"
+  AUTHENTIK_DEFAULT_USER_CHANGE_EMAIL: "false"
+  AUTHENTIK_DEFAULT_USER_CHANGE_USERNAME: "false"
+  AUTHENTIK_COOKIE_DOMAIN: .mr-bytez.de
+  AUTHENTIK_LISTEN__TRUSTED_PROXY_CIDRS: 172.20.0.0/24,10.0.0.0/8
+  AUTHENTIK_LOG_LEVEL: info
+  # --- Bootstrap (nur beim ersten Start einkommentieren) ---
+  # AUTHENTIK_BOOTSTRAP_PASSWORD: file://${AUTHENTIK_BOOTSTRAP_PASSWORD_FILE}
+  # AUTHENTIK_BOOTSTRAP_TOKEN: file://${AUTHENTIK_BOOTSTRAP_TOKEN_FILE}
+  # AUTHENTIK_BOOTSTRAP_EMAIL: admin@mr-bytez.de
+
+# ==============================================================================
+# Services
+# ==============================================================================
+services:
+
+  # --- PostgreSQL 18 ---
+  postgres:
+    image: postgres:18-alpine
+    container_name: mrbz-authentik-postgres
+    hostname: postgres.authentik.docker.n8vps
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: authentik
+      POSTGRES_USER: authentik
+      POSTGRES_PASSWORD_FILE: ${AUTHENTIK_DB_PASSWORD_FILE}
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=256MB"
+      - "-c"
+      - "effective_cache_size=512MB"
+      - "-c"
+      - "work_mem=8MB"
+      - "-c"
+      - "maintenance_work_mem=128MB"
+      - "-c"
+      - "max_connections=100"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "wal_buffers=16MB"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "effective_io_concurrency=200"
+      - "-c"
+      - "log_timezone=Europe/Berlin"
+      - "-c"
+      - "timezone=Europe/Berlin"
+    volumes:
+      - mrbz-authentik-postgres-data:/var/lib/postgresql/data
+    networks:
+      mrbz-authentik-net:
+        ipv4_address: 172.20.0.100
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d authentik -U authentik"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- Valkey 9 (Redis-kompatibler Cache) ---
+  valkey:
+    image: valkey/valkey:9-alpine
+    container_name: mrbz-authentik-valkey
+    hostname: valkey.authentik.docker.n8vps
+    restart: unless-stopped
+    command:
+      - "valkey-server"
+      - "--save"
+      - "60"
+      - "1"
+      - "--loglevel"
+      - "warning"
+      - "--rename-command"
+      - "FLUSHDB"
+      - ""
+      - "--rename-command"
+      - "FLUSHALL"
+      - ""
+    volumes:
+      - mrbz-authentik-valkey-data:/data
+    networks:
+      mrbz-authentik-net:
+        ipv4_address: 172.20.0.101
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli ping | grep -q PONG"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # --- Authentik Server (Web-UI + API) ---
+  server:
+    image: ghcr.io/goauthentik/server:2026.2.1
+    container_name: mrbz-authentik-server
+    hostname: server.authentik.docker.n8vps
+    restart: unless-stopped
+    command: server
+    environment:
+      <<: *authentik-env
+      AUTHENTIK_WEB__WORKERS: 4
+      AUTHENTIK_WEB__THREADS: 4
+    volumes:
+      - mrbz-authentik-media:/media
+      - mrbz-authentik-templates:/templates
+    networks:
+      mrbz-proxy-net:
+      mrbz-authentik-net:
+        ipv4_address: 172.20.0.102
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.authentik.rule=Host(`auth.mr-bytez.de`)"
+      - "traefik.http.routers.authentik.entrypoints=websecure"
+      - "traefik.http.routers.authentik.tls.certresolver=letsencrypt-production"
+      - "traefik.http.routers.authentik.middlewares=security-headers@file"
+      - "traefik.http.services.authentik.loadbalancer.server.port=9000"
+      - "traefik.docker.network=mrbz-proxy-net"
+    healthcheck:
+      test: ["CMD", "ak", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  # --- Authentik Worker (Hintergrund-Tasks) ---
+  worker:
+    image: ghcr.io/goauthentik/server:2026.2.1
+    container_name: mrbz-authentik-worker
+    hostname: worker.authentik.docker.n8vps
+    restart: unless-stopped
+    command: worker
+    environment:
+      <<: *authentik-env
+    volumes:
+      - mrbz-authentik-media:/media
+      - mrbz-authentik-templates:/templates
+      - mrbz-authentik-certs:/certs
+    networks:
+      mrbz-authentik-net:
+        ipv4_address: 172.20.0.103
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "ak", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ==============================================================================
+# Volumes
+# ==============================================================================
+volumes:
+  mrbz-authentik-postgres-data:
+    name: mrbz-authentik-postgres-data
+  mrbz-authentik-valkey-data:
+    name: mrbz-authentik-valkey-data
+  mrbz-authentik-media:
+    name: mrbz-authentik-media
+  mrbz-authentik-templates:
+    name: mrbz-authentik-templates
+  mrbz-authentik-certs:
+    name: mrbz-authentik-certs
+
+# ==============================================================================
+# Networks
+# ==============================================================================
+networks:
+  mrbz-proxy-net:
+    external: true
+  mrbz-authentik-net:
+    name: mrbz-authentik-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1

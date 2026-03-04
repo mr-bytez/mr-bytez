@@ -306,7 +306,7 @@ Parallel/unabhaengig:
 Kurzstatus:
 - Schritt 1 ✅ Pakete + Port 22 Cleanup
 - Schritt 2 ✅ Traefik Reverse Proxy
-- Schritt 3 📌 NEXT Authentik SSO
+- Schritt 3 🟠 WIP Authentik SSO (Stack erstellt, Deployment offen)
 - Schritt 4-10 ○ Portainer, WireGuard, CrowdSec, Monitoring, Backup, Services, DNS
 
 ---

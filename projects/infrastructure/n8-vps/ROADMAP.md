@@ -20,7 +20,7 @@ Schritt  Status   Beschreibung                              Aufwand
 ────────────────────────────────────────────────────────────────────
   1      ✅       Pakete (deploy.fish v0.5.1) + Port 22     erledigt
   2      ✅       Traefik Reverse Proxy (B14)               erledigt
-  3      📌 NEXT  Authentik SSO (auth.mr-bytez.de)          2-3h
+  3      🟠 WIP   Authentik SSO (auth.mr-bytez.de)          Stack erstellt
   4      ○        Portainer + Watchtower                    30 Min
   5      ○        WireGuard VPN (Port 61820 offen)          1-2h
   6      ○        CrowdSec IDS/IPS                          1h
@@ -32,7 +32,7 @@ Schritt  Status   Beschreibung                              Aufwand
 
 Pipeline-Visualisierung:
 ```
-✅ Traefik → 📌 Authentik → Portainer → WireGuard
+✅ Traefik → 🟠 Authentik → Portainer → WireGuard
                   │                         │
                   ↓                         ↓
              CrowdSec → Monitoring → Backup → Services
