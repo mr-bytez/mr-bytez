@@ -9,6 +9,10 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Changed
+- [Fish][Theme] Prompt-Farben aktualisiert (mr-bytez.fish 0.3.2):
+  n8-kiste Blau→Dunkelgrün (#145a32), n8-station Text→Weiß, Sudo-User→Dunkel (#1e1e2e)
+
 ### Added
 - [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
   (README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md)

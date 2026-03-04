@@ -3,9 +3,9 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:        shared/etc/fish/themes/mr-bytez.fish                          ║
 # ║  Autor:       MR-ByteZ                                                      ║
-# ║  Version:     0.3.1                                                         ║
+# ║  Version:     0.3.2                                                         ║
 # ║  Erstellt:    2026-01-26                                                    ║
-# ║  Aktualisiert:2026-02-28                                                    ║
+# ║  Aktualisiert:2026-03-04                                                    ║
 # ║  Zweck:       Offizielles mr-bytez Dark Theme mit Host-Farben              ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -63,7 +63,7 @@ set -g MR_ICON_INFO     "ℹ"                 # Info
 # User-Teil (statisch)
 set -g MR_COLOR_BG_USER         1e1e2e      # Dunkler Hintergrund
 set -g MR_COLOR_TEXT_USER_ROOT  ff5555      # Rot für Root (Warnung!)
-set -g MR_COLOR_TEXT_USER_SUDO  ffb86c      # Orange für Sudo-User
+set -g MR_COLOR_TEXT_USER_SUDO  1e1e2e      # Sehr dunkel für Sudo-User
 set -g MR_COLOR_TEXT_USER_NORMAL 50a060     # Grün für normale User
 
 # Host-Teil (DYNAMISCH - wird aus Theme-Variablen gelesen)
@@ -73,8 +73,8 @@ set -g MR_COLOR_TEXT_HOST       ffffff      # Weiß (Default)
 # ── Host-spezifische Farben (BG + TEXT für optimale Lesbarkeit) ──────────────
 
 # n8-kiste: Storage/Cloud
-set -g MR_COLOR_BG_HOST_KISTE       3498db  # 🟦 Blau (mittel)
-set -g MR_COLOR_TEXT_HOST_KISTE     ffffff  # Weiß (gut lesbar auf Blau)
+set -g MR_COLOR_BG_HOST_KISTE       145a32  # 🟩 Sehr dunkles Grün
+set -g MR_COLOR_TEXT_HOST_KISTE     ffffff  # Weiß (gut lesbar auf dunklem Grün)
 
 # n8-vps: Production Server
 set -g MR_COLOR_BG_HOST_VPS         e74c3c  # 🟥 Rot (WARNUNG Production!)
@@ -82,7 +82,7 @@ set -g MR_COLOR_TEXT_HOST_VPS       ffffff  # Weiß (maximaler Kontrast)
 
 # n8-station: Development Workstation
 set -g MR_COLOR_BG_HOST_STATION     2ecc71  # 🟩 Grün (mittel)
-set -g MR_COLOR_TEXT_HOST_STATION   1e1e2e  # Dunkel (besser lesbar als weiß auf grün)
+set -g MR_COLOR_TEXT_HOST_STATION   ffffff  # Weiß
 
 # n8-book: Laptop
 set -g MR_COLOR_BG_HOST_BOOK        f39c12  # 🟨 Gelb/Orange (hell!)
