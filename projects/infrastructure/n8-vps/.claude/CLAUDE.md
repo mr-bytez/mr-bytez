@@ -23,7 +23,7 @@
 ## Quick Start
 
 1. **Lies:** `README.md` — Host-Uebersicht
-2. **Dann:** `ROADMAP.md` — Aktuelle Planung (verweist auf Root)
+2. **Dann:** `ROADMAP.md` — Aktuelle Planung (vollstaendige Pipeline)
 3. **Details:** `docs/n8-vps-server-dokumentation.md` — Kompletter Ist-Zustand
 
 ---
@@ -47,5 +47,5 @@
 
 ## Aktuell
 
-→ Siehe: Root `ROADMAP.md` (n8-vps Service-Pipeline)
+→ Siehe: `ROADMAP.md` (n8-vps Service-Pipeline)
 → Naechster Schritt: Authentik SSO (Schritt 3)

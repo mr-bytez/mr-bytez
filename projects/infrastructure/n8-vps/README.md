@@ -43,7 +43,7 @@
 - **Traefik** v3.6 Reverse Proxy (Dashboard: traefik.mr-bytez.de)
 - Fish Shell mit mr-bytez Integration (Powerline Prompt, rot = Production)
 
-→ Geplante Services: Root `ROADMAP.md` (n8-vps Service-Pipeline)
+→ Geplante Services: `ROADMAP.md` (n8-vps Service-Pipeline)
 
 ---
 

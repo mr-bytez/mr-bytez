@@ -10,6 +10,13 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Changed
+- [Docs][Structure] n8-vps Service-Pipeline in Projekt-ROADMAP verschoben
+  Root ROADMAP verweist jetzt auf projects/infrastructure/n8-vps/ROADMAP.md
+  n8-vps Docs (CLAUDE.md, README, Server-Doku) verweisen auf eigene ROADMAP
+  (5-5-3 Konvention: Projekte fuehren eigene Planung, Root nur Verweis)
+- [Docs][Config] Task-Format + Selbst-Verifikation als Workflow-Regeln verankert
+  - claude-ai-projektanweisungen.txt: task/mintask Keywords (Ziel+Kontext statt Schritt-fuer-Schritt)
+  - policies.md: Claude Code Selbst-Verifikation vor jedem Commit (5 Pruefschritte)
 - [Fish][Theme][ClaudeCode] Prompt-Farben + Statusline v0.3.0:
   - Theme: n8-kiste BG dunkelgruen (#145a32), n8-station Text weiss, Sudo-User dunkel (#1e1e2e)
   - Statusline: Context-Fortschrittsbalken mit Farbschwellen (gruen/gelb/rot)

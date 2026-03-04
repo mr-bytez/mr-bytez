@@ -50,6 +50,16 @@ Für zentrale Markdown-Dateien (README.md, DEPLOYMENT.md, CHANGELOG.md, ROADMAP.
 - Bei Datei-Aenderungen: Immer Zeilennummer + Zeile davor und danach angeben fuer eindeutigen Kontext
 - Aufgaben-Delegation: Strategisches im Chat besprechen, Mechanisches (Datei-Edits, Struktur-Anlage) an Claude Code delegieren
 
+### Claude Code Selbst-Verifikation
+
+Vor jedem Commit muss Claude Code eigenstaendig verifizieren:
+
+1. **Erfolgskriterien pruefen** — Alle Kriterien des Tasks durchgehen, keines auslassen
+2. **Geaenderte Dateien pruefen** — Jede geaenderte Datei nochmal lesen und auf Konsistenz pruefen
+3. **Verweise pruefen** — Alle Querverweise zwischen Dateien auf Aktualitaet pruefen
+4. **Kein Content verloren** — Bei Verschiebungen/Refactors: Original-Inhalt vollstaendig uebernommen?
+5. **Erst committen wenn bestanden** — Verifikation dokumentieren, dann erst stagen und committen
+
 ---
 
 ## Verwandte Policies

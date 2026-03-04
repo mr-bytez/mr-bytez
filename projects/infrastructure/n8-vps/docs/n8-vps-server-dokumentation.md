@@ -8,7 +8,7 @@
 > **Zweck:** Detail-Referenzdoku — Ist-Zustand, geplante Services und naechste Schritte
 
 → Schnelluebersicht: `README.md` (Host-Uebersicht)
-→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline)
+→ Aktuelle Planung: `ROADMAP.md` (n8-vps Service-Pipeline)
 
 ---
 
@@ -258,7 +258,7 @@ Traefik entscheidet dann per Host-Header, welcher Service angesprochen wird.
 
 ## 5. Schritt-für-Schritt: Was jetzt zu tun ist
 
-→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline, 10-Schritte-Plan)
+→ Aktuelle Planung: `ROADMAP.md` (n8-vps Service-Pipeline, 10-Schritte-Plan)
 
 Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können parallel laufen.
 
@@ -435,4 +435,4 @@ Forgejo → Vaultwarden → Nextcloud → Media → Paperless → Immich
 ```
 
 **Nächster konkreter Schritt:** Authentik SSO aufsetzen (Schritt 3). Traefik ist live, SSO wird von fast allen Services benoetigt.
-→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline)
+→ Aktuelle Planung: `ROADMAP.md` (n8-vps Service-Pipeline)

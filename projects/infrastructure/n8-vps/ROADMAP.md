@@ -1,28 +1,44 @@
 # n8-vps — ROADMAP
 
 > **Pfad:** `projects/infrastructure/n8-vps/ROADMAP.md`
-> **Version:** 0.1.0
+> **Version:** 0.2.0
 > **Erstellt:** 2026-03-04
 > **Aktualisiert:** 2026-03-04
 > **Autor:** MR-ByteZ
-> **Zweck:** Host-Planung fuer n8-vps (verweist auf Root-ROADMAP)
+> **Zweck:** Host-Planung fuer n8-vps (vollstaendige Pipeline)
 
 ---
 
 ## Aktuelle Planung
 
-Die n8-vps Service-Pipeline (10 Schritte) wird zentral in der Root-ROADMAP gefuehrt.
+### Service-Pipeline (10-Schritte-Plan)
 
-→ Siehe: Root `ROADMAP.md` → Abschnitt "n8-vps Service-Pipeline"
+Traefik ist live — der kritische Pfad zum produktiven n8-vps Server.
 
-### Kurzuebersicht
+```
+Schritt  Status   Beschreibung                              Aufwand
+────────────────────────────────────────────────────────────────────
+  1      ✅       Pakete (deploy.fish v0.5.1) + Port 22     erledigt
+  2      ✅       Traefik Reverse Proxy (B14)               erledigt
+  3      📌 NEXT  Authentik SSO (auth.mr-bytez.de)          2-3h
+  4      ○        Portainer + Watchtower                    30 Min
+  5      ○        WireGuard VPN (Port 61820 offen)          1-2h
+  6      ○        CrowdSec IDS/IPS                          1h
+  7      ○        Monitoring (Prometheus+Grafana+UptimeKuma) 2-3h
+  8      ○        Backup Borg/borgmatic (VOR Prod-Daten!)   2h
+  9      ○        Produktiv-Services (Forgejo→Vault→NC→...) variabel
+ 10      ○        DNS-Optimierung (TTLs, PTR, Tokens)       30 Min
+```
 
-| Schritt | Status | Beschreibung |
-|---------|--------|-------------|
-| 1 | ✅ | Pakete + Port 22 Cleanup |
-| 2 | ✅ | Traefik Reverse Proxy |
-| 3 | 📌 NEXT | Authentik SSO |
-| 4-10 | ○ | Portainer, WireGuard, CrowdSec, Monitoring, Backup, Services, DNS |
+Pipeline-Visualisierung:
+```
+✅ Traefik → 📌 Authentik → Portainer → WireGuard
+                  │                         │
+                  ↓                         ↓
+             CrowdSec → Monitoring → Backup → Services
+```
+
+→ Details: `docs/n8-vps-server-dokumentation.md`
 
 ---
 

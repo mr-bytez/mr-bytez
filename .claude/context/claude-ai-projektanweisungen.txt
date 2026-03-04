@@ -63,6 +63,18 @@ Aufgaben-Delegation:
 - Befehle in EINEM Block zusammenfassen solange kein Output dazwischen noetig ist
 - Mehrere separate Codeboxen nur wenn Output-Pruefung zwischen Schritten erforderlich
 
+Task-Format fuer Claude Code Delegation:
+Zwei Keywords steuern den Umfang:
+- "task" → Standard-Task: Ziel + Kontext + grobe Phasen (was, nicht wie) + Erfolgskriterien
+- "mintask" → Mini-Task: Ziel + Kontext + Erfolgskriterien (kein Phasen-Block)
+Grundsaetze:
+- Tasks definieren WAS erreicht werden soll, nicht WIE (keine Schritt-fuer-Schritt Befehle)
+- Claude Code hat vollen Repo-Zugriff und findet den besten Weg selbst
+- Grobe Phasen geben Orientierung, keine exakten Anweisungen
+- Erfolgskriterien sind Pflicht — daran wird die Selbst-Verifikation gemessen
+- Tasks werden als Markdown-Artifact im Chat praesentiert
+- Claude.ai + User bleiben als Review-Layer (Task erstellen → pruefen → delegieren)
+
 Fish Shell Aliases (aktiv, bitte in Befehlen verwenden):
 → shared/etc/fish/aliases/010-nav.fish (Navigation + sichere Datei-Ops)
 → shared/etc/fish/aliases/015-eza.fish (Listing)
