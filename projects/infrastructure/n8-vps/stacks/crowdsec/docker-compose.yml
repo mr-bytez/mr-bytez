@@ -29,7 +29,7 @@ services:
       COLLECTIONS: >-
         crowdsecurity/traefik
         crowdsecurity/http-cve
-        crowdsecurity/http-probing
+        crowdsecurity/http-dos
         crowdsecurity/base-http-scenarios
       # --- Central API Enrollment ---
       ENROLL_KEY: ${CROWDSEC_ENROLL_KEY}
