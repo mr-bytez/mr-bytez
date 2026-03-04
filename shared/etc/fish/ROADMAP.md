@@ -33,5 +33,4 @@ A2 Fish DRY-Refactoring ist abgeschlossen (Phase 0-6).
 
 ## Referenz
 
-- Handoff: `.claude/context/handoffs/HANDOFF_Fish_Refactor_fish-dry-refactoring.md`
 - Shell-Policies: `.claude/context/shell.md`

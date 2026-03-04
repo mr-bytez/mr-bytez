@@ -10,6 +10,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Changed
+- [Docs][Audit] ROADMAP-Audit: 8 ROADMAPs geprueft, 7 Fixes angewendet
+  - Root ROADMAP: Kompakt-Tabelle A1-A5 korrigiert (Status, Abhaengigkeiten, ETAs)
+  - Root ROADMAP: Quick Win "Port 22" als erledigt markiert, Format-Library Beschreibung aktualisiert
+  - Fish ROADMAP: Toten Handoff-Verweis entfernt (HANDOFF_Fish_Refactor nicht mehr existent)
+  - MCP-Server CLAUDE.md: Toten Handoff-Verweis durch Root ROADMAP Referenz ersetzt
+  - .claude/ROADMAP.md: Version 1.0.0→0.4.0 (Versionierungs-Policy), Hooks-Status aktualisiert
 - [Docs][Config] Projektanweisungen: 7 Bugfixes (Header .md→.txt, Delegation-Duplikate entfernt,
   n8-vps Status aktualisiert, A2-A5 Status mit Root ROADMAP synchronisiert)
 - [Docs][Structure] n8-vps Service-Pipeline in Projekt-ROADMAP verschoben

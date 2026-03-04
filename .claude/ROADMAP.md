@@ -1,8 +1,8 @@
 # .claude/ Roadmap
 
-**Version:** 1.0.0
+**Version:** 0.4.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-11
+**Aktualisiert:** 2026-03-04
 **Autor:** MR-ByteZ
 
 ---
@@ -52,7 +52,7 @@
 - [x] Secrets-Submodule auf 5-5-3 Pattern migrieren → A1 ✅
 - [x] `symlinks.db` ins private Submodule verschieben → D9 ✅
 - [ ] Skills entwickeln (`.claude/skills/`) → inkrementell pro A-Projekt
-- [ ] Hooks erweitern (`.claude/hooks/`) → inkrementell pro A-Projekt
+- [x] Hooks erweitern (`.claude/hooks/`) → 7 Hooks aktiv (Session-Start, Secrets-Guard, Fish-Syntax, Dual-Push, Docs-Check, Handoff-Lifecycle, Bash-Logger)
 - [ ] Projekt-Level `.claude/` befuellen → inkrementell pro A-Projekt (n8-vps ✅, A3: mrbz-dev, A4: MCP)
 
 **ETA:** Q1-Q2 2026

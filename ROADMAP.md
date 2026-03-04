@@ -343,8 +343,8 @@ Getestet auf n8-archstick — Deploy-Script fehlt noch.
 ### Quick Wins
 
 - [ ] PTR-Records setzen (D2, Hetzner Robot, 10 Min)
-- [ ] Fish Format-Library abschliessen (derive_key.fish + shell.md Regel, 30 Min)
-- [ ] n8-vps: Port 22 aus UFW entfernen (manuell per SSH, 5 Min)
+- [ ] Fish Format-Library Integration (format.fish existiert in shared/lib/, noch in derive_key.fish einbinden + shell.md Regel)
+- [x] n8-vps: Port 22 aus UFW entfernen (manuell per SSH, 5 Min) — erledigt (VPS-Pipeline Schritt 1)
 
 ---
 
@@ -428,11 +428,11 @@ Getestet auf n8-archstick — Deploy-Script fehlt noch.
 
 | Projekt | Beschreibung | Abhaengigkeit | ETA |
 |---------|-------------|---------------|-----|
-| **A1** Secrets-Repo | 5-5-3 Migration, SSH-Config, Submodules | Keine | Feb 2026 |
-| **A2** Fish DRY | Nummerierung 000-200, Feature-Flags, 8 Hosts | Keine | Feb-Maerz 2026 |
-| **A3** Dev Container | Docker Stack, Claude Code, VS Code | Keine | Maerz 2026 |
-| **A4** MCP Server | TypeScript, Traefik, RAG, n8-vps | A3 | Maerz-Apr 2026 |
-| **A5** Data Cleanup | Clean/Smudge Filter, History Rewrite | A3 | Apr 2026 |
+| **A1** Secrets-Repo ✅ | 5-5-3 Migration, SSH-Config, Submodules | Keine | Done |
+| **A2** Fish DRY ✅ | Nummerierung 000-200, Feature-Flags, 8 Hosts | Keine | Done |
+| **A3** Dev Container | Docker Stack, Claude Code, VS Code | Keine | Bei Bedarf |
+| **A4** MCP Server | TypeScript, Traefik, RAG, n8-vps | VPS-Pipeline (Authentik) | Nach Schritt 3 |
+| **A5** Data Cleanup | Clean/Smudge Filter, History Rewrite | Keine | Bei Gelegenheit |
 
 ### 📅 Expansion (Phase 4)
 

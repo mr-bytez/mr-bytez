@@ -6,4 +6,4 @@
 
 TODO: Befuellen wenn Projekt startet.
 
-**Referenz:** `.claude/context/handoffs/HANDOFF_[DNS][Infra]_dns-hetzner-traefik.md`
+**Referenz:** Root `ROADMAP.md` → A4 MCP Server
