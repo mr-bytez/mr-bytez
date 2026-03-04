@@ -19,6 +19,10 @@
   - Traefik-Labels fuer `auth.mr-bytez.de`
   - .env.example, README.md, DEPLOYMENT.md
 
+### Fixed
+- Authentik docker-compose.yml: Secret-File Volume-Mounts fuer postgres, server, worker hinzugefuegt
+  (file://-Pfade muessen als Bind-Mounts im Container verfuegbar sein)
+
 ---
 
 ## Bisherige Meilensteine

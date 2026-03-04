@@ -76,6 +76,7 @@ services:
       - "timezone=Europe/Berlin"
     volumes:
       - mrbz-authentik-postgres-data:/var/lib/postgresql/data
+      - ${AUTHENTIK_DB_PASSWORD_FILE}:${AUTHENTIK_DB_PASSWORD_FILE}:ro
     networks:
       mrbz-authentik-net:
         ipv4_address: 172.20.0.100
@@ -141,6 +142,8 @@ services:
     volumes:
       - mrbz-authentik-media:/media
       - mrbz-authentik-templates:/templates
+      - ${AUTHENTIK_DB_PASSWORD_FILE}:${AUTHENTIK_DB_PASSWORD_FILE}:ro
+      - ${AUTHENTIK_SECRET_KEY_FILE}:${AUTHENTIK_SECRET_KEY_FILE}:ro
     networks:
       mrbz-proxy-net:
       mrbz-authentik-net:
@@ -183,6 +186,8 @@ services:
       - mrbz-authentik-media:/media
       - mrbz-authentik-templates:/templates
       - mrbz-authentik-certs:/certs
+      - ${AUTHENTIK_DB_PASSWORD_FILE}:${AUTHENTIK_DB_PASSWORD_FILE}:ro
+      - ${AUTHENTIK_SECRET_KEY_FILE}:${AUTHENTIK_SECRET_KEY_FILE}:ro
     networks:
       mrbz-authentik-net:
         ipv4_address: 172.20.0.103
