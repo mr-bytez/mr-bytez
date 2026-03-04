@@ -5,7 +5,7 @@
 # Datei:        statusline.sh
 # Pfad:         shared/etc/claude-code/statusline.sh
 # Autor:        MR-ByteZ
-# Version:      0.2.0
+# Version:      0.2.1
 # Erstellt:     2026-03-03
 # Aktualisiert: 2026-03-04
 # Zweck:        Statusline fuer Claude Code CLI
@@ -40,13 +40,15 @@ else
     bar=""
     i=0; while [ $i -lt $filled ]; do bar="${bar}▓"; i=$((i + 1)); done
     i=0; while [ $i -lt $empty ]; do bar="${bar}░"; i=$((i + 1)); done
-    # Farbschwellen
-    if [ "$ctx_pct" -ge 80 ]; then
-        ctx_color='\033[91m'
+    # Farbschwellen (4 Stufen)
+    if [ "$ctx_pct" -ge 90 ]; then
+        ctx_color='\033[91m'       # Rot
+    elif [ "$ctx_pct" -ge 70 ]; then
+        ctx_color='\033[38;5;208m' # Orange
     elif [ "$ctx_pct" -ge 50 ]; then
-        ctx_color='\033[33m'
+        ctx_color='\033[33m'       # Gelb
     else
-        ctx_color='\033[32m'
+        ctx_color='\033[32m'       # Gruen
     fi
     ctx_bar="ctx ${bar} ${ctx_pct}%"
 fi

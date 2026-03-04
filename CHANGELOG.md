@@ -13,7 +13,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Fish][Theme][ClaudeCode] Prompt-Farben + Statusline v0.2.0:
   - Theme: n8-kiste BG dunkelgruen (#145a32), n8-station Text weiss, Sudo-User dunkel (#1e1e2e)
   - Statusline: $-Kosten + Lines entfernt (irrelevant bei Pro-Abo)
-  - Statusline: Context-Fortschrittsbalken mit Farbschwellen (gruen/gelb/rot)
+  - Statusline: Context-Fortschrittsbalken mit 4 Farbschwellen (gruen/gelb/orange/rot)
 
 ### Added
 - [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
