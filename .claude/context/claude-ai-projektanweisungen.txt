@@ -1,5 +1,5 @@
 Dieses Dokument ist versioniert im Repo:
-→ .claude/context/claude-ai-projektanweisungen.md
+→ .claude/context/claude-ai-projektanweisungen.txt
 Bei groesseren Aenderungen am Projekt (neue Hosts, neue Patterns, Struktur-Umbau)
 muss dieses Dokument reviewt und angepasst werden.
 Aenderungen dort committen, dann hier in die Projektanweisungen uebernehmen.
@@ -59,9 +59,6 @@ Aufgaben-Delegation:
 - Strategisches im Chat besprechen (Planung, Architektur, Reviews)
 - Mechanisches an Claude Code delegieren (Datei-Edits, Struktur, Commits)
 - Selbststaendig vorschlagen wenn Delegation sinnvoll
-- Bei Datei-Aenderungen: Zeilennummer + Zeile davor/danach fuer Kontext
-- Befehle in EINEM Block zusammenfassen solange kein Output dazwischen noetig ist
-- Mehrere separate Codeboxen nur wenn Output-Pruefung zwischen Schritten erforderlich
 
 Task-Format fuer Claude Code Delegation:
 Zwei Keywords steuern den Umfang:
@@ -100,7 +97,7 @@ Debug: set -gx FISH_LOADER_DEBUG 1
 Hosts:
 → .claude/context/infrastructure.md
 - n8-kiste: Dev/Storage, commits hier, Fish+Micro+Claude Code deployed
-- n8-vps: Hetzner Production, read-only, Docker Stacks geplant
+- n8-vps: Hetzner Production, read-only, Traefik deployed, weitere Stacks in Pipeline
 - n8-station: Workstation, deployed
 - n8-book: Mobile Workstation, deployed
 - n8-archstick: Portable USB Arch, deployed
@@ -147,10 +144,10 @@ Aktive Roadmap (Reihenfolge):
 → ROADMAP.md (Root)
 C1+C2: Policies (Chat-Benennung v2, Tag-Registry) — erledigt
 A1: Secrets-Repo Restrukturierung → mr-bytez-secrets — Phase 1+2+3 erledigt
-A2: Fish DRY-Refactoring → shared/etc/fish/
-A3: Claude Dev Container → shared/stacks/mrbz-dev/
-A4: MCP Server → projects/infrastructure/mcp-server/
-A5: Sensitive Data Cleanup → Ort wird bei Projektstart festgelegt
+A2: Fish DRY-Refactoring → shared/etc/fish/ — erledigt
+A3: Claude Dev Container → shared/stacks/mrbz-dev/ — bewusst zurueckgestellt
+A4: MCP Server → projects/infrastructure/mcp-server/ — wartet auf Authentik (VPS Schritt 3)
+A5: Sensitive Data Cleanup → nach VPS-Pipeline, Repo bleibt privat bis A5 erledigt
 
 Handoff-Policy:
 → .claude/context/policies.md (Details)

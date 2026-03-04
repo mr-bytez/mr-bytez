@@ -10,6 +10,8 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Changed
+- [Docs][Config] Projektanweisungen: 7 Bugfixes (Header .md→.txt, Delegation-Duplikate entfernt,
+  n8-vps Status aktualisiert, A2-A5 Status mit Root ROADMAP synchronisiert)
 - [Docs][Structure] n8-vps Service-Pipeline in Projekt-ROADMAP verschoben
   Root ROADMAP verweist jetzt auf projects/infrastructure/n8-vps/ROADMAP.md
   n8-vps Docs (CLAUDE.md, README, Server-Doku) verweisen auf eigene ROADMAP
