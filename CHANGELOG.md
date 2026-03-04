@@ -33,6 +33,15 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
 ### Added
+- [VPS][SEC][DKR] CrowdSec Stack + Traefik Plugin + CSP-Header
+  - CrowdSec Stack angelegt: projects/infrastructure/n8-vps/stacks/crowdsec/
+    Docker Agent (mrbz-crowdsec), LAPI auf 127.0.0.1:8080, Subnet 172.21.0.0/24
+    Collections: traefik, http-cve, http-probing, base-http-scenarios
+  - Traefik: Access-Log auf JSON-Format (CrowdSec-Kompatibilitaet)
+  - Traefik: CrowdSec Bouncer Plugin registriert (v1.5.1)
+  - middlewares.yml: crowdsec-bouncer Middleware + CSP-Header ergaenzt
+  - Architektur: Docker Agent + Traefik Plugin + Firewall Bouncer (systemd, manuell)
+  - docker-compose.yml, .env.example, README.md, DEPLOYMENT.md, config/acquis.yaml
 - [VPS][Auth][DKR] Authentik SSO Stack fuer n8-vps erstellt
   - docker-compose.yml: 4 Services (postgres, valkey, server, worker)
   - Subnet 172.20.0.0/24, Container mrbz-authentik-*, Worker-Tuning 4x4

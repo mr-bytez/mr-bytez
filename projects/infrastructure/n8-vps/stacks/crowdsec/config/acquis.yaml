@@ -1,0 +1,16 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  CrowdSec — Log Acquisition                                                ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:         .../crowdsec/config/acquis.yaml                             ║
+# ║  Autor:        MR-ByteZ                                                    ║
+# ║  Version:      0.1.0                                                       ║
+# ║  Erstellt:     2026-03-04                                                  ║
+# ║  Aktualisiert: 2026-03-04                                                  ║
+# ║  Zweck:        Log-Quellen fuer CrowdSec Security Engine                   ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# --- Traefik Access-Log (JSON-Format) ---
+filenames:
+  - /var/log/traefik/access.log
+labels:
+  type: traefik

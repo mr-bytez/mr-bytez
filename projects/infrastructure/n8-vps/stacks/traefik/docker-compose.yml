@@ -3,9 +3,9 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:         projects/infrastructure/n8-vps/stacks/traefik/              ║
 # ║  Autor:        MR-ByteZ                                                    ║
-# ║  Version:      0.1.0                                                       ║
+# ║  Version:      0.2.0                                                       ║
 # ║  Erstellt:     2026-03-01                                                  ║
-# ║  Aktualisiert: 2026-03-01                                                  ║
+# ║  Aktualisiert: 2026-03-04                                                  ║
 # ║  Zweck:        Traefik v3 als Reverse Proxy auf n8-vps                     ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -19,6 +19,7 @@ services:
       - "443:443"
     environment:
       - HETZNER_API_TOKEN=${HETZNER_API_TOKEN}
+      - CROWDSEC_BOUNCER_API_KEY=${CROWDSEC_BOUNCER_API_KEY}
     volumes:
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/dynamic/:/etc/traefik/dynamic/:ro

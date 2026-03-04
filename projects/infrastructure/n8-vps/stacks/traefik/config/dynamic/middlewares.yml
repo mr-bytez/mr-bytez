@@ -3,10 +3,10 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:         .../traefik/config/dynamic/middlewares.yml                   ║
 # ║  Autor:        MR-ByteZ                                                    ║
-# ║  Version:      0.1.0                                                       ║
+# ║  Version:      0.2.0                                                       ║
 # ║  Erstellt:     2026-03-01                                                  ║
-# ║  Aktualisiert: 2026-03-01                                                  ║
-# ║  Zweck:        Gemeinsame Middlewares (Security-Headers)                     ║
+# ║  Aktualisiert: 2026-03-04                                                  ║
+# ║  Zweck:        Gemeinsame Middlewares (Security-Headers, CrowdSec Bouncer) ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
 http:
@@ -22,5 +22,29 @@ http:
         stsSeconds: 31536000
         customFrameOptionsValue: "SAMEORIGIN"
         referrerPolicy: "strict-origin-when-cross-origin"
+        contentSecurityPolicy: >-
+          default-src 'self';
+          img-src https: data:;
+          object-src 'none';
+          style-src 'self' 'unsafe-inline';
+          script-src 'self' 'unsafe-inline';
+          frame-ancestors 'self'
         customResponseHeaders:
           X-Robots-Tag: "noindex, nofollow"
+
+    # --- CrowdSec Bouncer ---
+    # Blockiert IPs basierend auf CrowdSec-Entscheidungen
+    # Aktivierung: Router-Label "middlewares=crowdsec-bouncer@file,security-headers@file"
+    crowdsec-bouncer:
+      plugin:
+        crowdsec-bouncer:
+          enabled: true
+          crowdsecLapiHost: mrbz-crowdsec:8080
+          crowdsecLapiKey: "{{ env "CROWDSEC_BOUNCER_API_KEY" }}"
+          crowdsecLapiScheme: http
+          updateIntervalSeconds: 60
+          defaultDecisionSeconds: 60
+          httpTimeoutSeconds: 10
+          clientTrustedIPs:
+            - "127.0.0.1/32"
+            - "172.16.0.0/12"

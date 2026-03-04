@@ -3,9 +3,9 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:         projects/infrastructure/n8-vps/stacks/traefik/config/       ║
 # ║  Autor:        MR-ByteZ                                                    ║
-# ║  Version:      0.1.0                                                       ║
+# ║  Version:      0.2.0                                                       ║
 # ║  Erstellt:     2026-03-01                                                  ║
-# ║  Aktualisiert: 2026-03-01                                                  ║
+# ║  Aktualisiert: 2026-03-04                                                  ║
 # ║  Zweck:        Traefik v3 statische Config (EntryPoints, Provider, ACME)   ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -57,4 +57,12 @@ log:
 
 accessLog:
   filePath: "/var/log/traefik/access.log"
+  format: json
   bufferingSize: 100
+
+# --- CrowdSec Bouncer Plugin ---
+experimental:
+  plugins:
+    crowdsec-bouncer:
+      moduleName: github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      version: v1.5.1
