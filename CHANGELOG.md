@@ -33,6 +33,15 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
 ### Added
+- [VPS][SEC][Auth][DKR] CrowdSec Middleware + Authentik Forward-Auth fuer Traefik
+  - CrowdSec Bouncer Middleware (`crowdsec-bouncer@file`) auf allen oeffentlichen Routern aktiviert:
+    Dashboard (`traefik.mr-bytez.de`), Authentik (`auth.mr-bytez.de`)
+  - Authentik Forward-Auth Middleware erstellt: `config/dynamic/authentik.yml`
+    forwardAuth via Embedded Outpost (`mrbz-authentik-server:9000`)
+  - Outpost-Router Labels auf Authentik Server (Priority 200, Auth-Loop-Schutz)
+  - Dashboard-Router: BasicAuth durch Authentik Forward-Auth ersetzt
+  - CrowdSec Bouncer: `crowdsecMode: stream` + `updateMaxFailure: 5` (Best Practice aus Docs)
+  - Forward-Auth: `X-authentik-entitlements` Header ergaenzt (neu seit Authentik 2026.x)
 - [VPS][SEC][DKR] CrowdSec Stack + Traefik Plugin + CSP-Header
   - CrowdSec Stack angelegt: projects/infrastructure/n8-vps/stacks/crowdsec/
     Docker Agent (mrbz-crowdsec), LAPI auf 127.0.0.1:8080, Subnet 172.21.0.0/24

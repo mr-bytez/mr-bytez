@@ -306,8 +306,10 @@ Parallel/unabhaengig:
 Kurzstatus:
 - Schritt 1 ✅ Pakete + Port 22 Cleanup
 - Schritt 2 ✅ Traefik Reverse Proxy
-- Schritt 3 🟠 WIP Authentik SSO (Stack erstellt, Deployment offen)
-- Schritt 4-10 ○ Portainer, WireGuard, CrowdSec, Monitoring, Backup, Services, DNS
+- Schritt 3 🟠 WIP Authentik SSO (Stack + Forward-Auth Config fertig, Deployment + Authentik-Setup offen)
+- Schritt 4-5 ○ Portainer, WireGuard
+- Schritt 6 🟠 WIP CrowdSec IDS/IPS (Middleware auf Routern aktiviert, Stack-Deployment offen)
+- Schritt 7-10 ○ Monitoring, Backup, Services, DNS
 
 ---
 

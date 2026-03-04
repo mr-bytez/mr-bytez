@@ -5,7 +5,7 @@
 # ║  Autor:        MR-ByteZ                                                    ║
 # ║  Version:      0.1.0                                                       ║
 # ║  Erstellt:     2026-03-04                                                  ║
-# ║  Aktualisiert: 2026-03-04                                                  ║
+# ║  Aktualisiert: 2026-03-05                                                  ║
 # ║  Zweck:        Authentik Identity Provider auf n8-vps                      ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -158,9 +158,17 @@ services:
       - "traefik.http.routers.authentik.rule=Host(`auth.mr-bytez.de`)"
       - "traefik.http.routers.authentik.entrypoints=websecure"
       - "traefik.http.routers.authentik.tls.certresolver=letsencrypt-production"
-      - "traefik.http.routers.authentik.middlewares=security-headers@file"
+      - "traefik.http.routers.authentik.middlewares=crowdsec-bouncer@file,security-headers@file"
       - "traefik.http.services.authentik.loadbalancer.server.port=9000"
       - "traefik.docker.network=mrbz-proxy-net"
+      # Forward-Auth Outpost (fuer alle geschuetzten *.mr-bytez.de Domains)
+      # Verhindert Auth-Loop: Outpost-Pfade werden direkt an Authentik geroutet
+      - "traefik.http.routers.authentik-outpost.rule=HostRegexp(`^.+\\.mr-bytez\\.de$$`) && PathPrefix(`/outpost.goauthentik.io/`)"
+      - "traefik.http.routers.authentik-outpost.entrypoints=websecure"
+      - "traefik.http.routers.authentik-outpost.tls.certresolver=letsencrypt-production"
+      - "traefik.http.routers.authentik-outpost.middlewares=security-headers@file"
+      - "traefik.http.routers.authentik-outpost.service=authentik"
+      - "traefik.http.routers.authentik-outpost.priority=200"
     healthcheck:
       test: ["CMD", "ak", "healthcheck"]
       interval: 30s

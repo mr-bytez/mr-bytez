@@ -12,6 +12,13 @@
 ## [Unreleased]
 
 ### Added
+- CrowdSec Middleware + Authentik Forward-Auth fuer Traefik
+  - `crowdsec-bouncer@file` auf Dashboard- und Authentik-Router aktiviert
+  - `config/dynamic/authentik.yml`: Forward-Auth Middleware (Embedded Outpost)
+  - Outpost-Router Labels auf Authentik Server (Priority 200, Auth-Loop-Schutz)
+  - Dashboard: BasicAuth durch Authentik Forward-Auth ersetzt
+  - CrowdSec Bouncer: `crowdsecMode: stream` + `updateMaxFailure: 5`
+  - Forward-Auth: `X-authentik-entitlements` Header ergaenzt
 - 5-5-3 Pattern umgesetzt: README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md
 - Authentik SSO Stack erstellt (`stacks/authentik/`)
   - docker-compose.yml: 4 Services (postgres, valkey, server, worker)
@@ -45,4 +52,4 @@
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-04
+**Letzte Aktualisierung:** 2026-03-05

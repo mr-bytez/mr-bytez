@@ -20,10 +20,10 @@ Schritt  Status   Beschreibung                              Aufwand
 ────────────────────────────────────────────────────────────────────
   1      ✅       Pakete (deploy.fish v0.5.1) + Port 22     erledigt
   2      ✅       Traefik Reverse Proxy (B14)               erledigt
-  3      🟠 WIP   Authentik SSO (auth.mr-bytez.de)          Stack erstellt
+  3      🟠 WIP   Authentik SSO (auth.mr-bytez.de)          Config fertig
   4      ○        Portainer + Watchtower                    30 Min
   5      ○        WireGuard VPN (Port 61820 offen)          1-2h
-  6      ○        CrowdSec IDS/IPS                          1h
+  6      🟠 WIP   CrowdSec IDS/IPS                          Middleware aktiv
   7      ○        Monitoring (Prometheus+Grafana+UptimeKuma) 2-3h
   8      ○        Backup Borg/borgmatic (VOR Prod-Daten!)   2h
   9      ○        Produktiv-Services (Forgejo→Vault→NC→...) variabel
@@ -35,7 +35,7 @@ Pipeline-Visualisierung:
 ✅ Traefik → 🟠 Authentik → Portainer → WireGuard
                   │                         │
                   ↓                         ↓
-             CrowdSec → Monitoring → Backup → Services
+             🟠 CrowdSec → Monitoring → Backup → Services
 ```
 
 → Details: `docs/n8-vps-server-dokumentation.md`
@@ -62,4 +62,4 @@ Authentik → Portainer+Watchtower → WireGuard → CrowdSec → Monitoring →
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-04
+**Letzte Aktualisierung:** 2026-03-05
