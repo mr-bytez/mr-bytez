@@ -1,16 +1,19 @@
 #!/bin/bash
-
-# Hardware Info Script (hwi)
-# Version: 3.1.1
-# Beschreibung: Multi-Distro Hardware-Audit mit flexiblem Output
-# Speicherort: /mr-bytez/shared/usr/local/bin/hwi/hwi.sh
-# Symlink: /usr/local/bin/hwi -> /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Bash Script                                │
+# └─────────────────────────────────────────────────────────┘
+# Datei:        hwi.sh
+# Pfad:         shared/usr/local/bin/hwi/hwi.sh
+# Autor:        MR-ByteZ
+# Version:      0.3.2
+# Erstellt:     2026-02-17
+# Aktualisiert: 2026-03-04
+# Zweck:        Multi-Distro Hardware-Audit mit flexiblem Output
+# Symlink:      /usr/local/bin/hwi -> /opt/mr-bytez/current/shared/usr/local/bin/hwi/hwi.sh
 # Output:
 #   - Standard: ~/hostname_hardware.md
 #   - Mit -o: /custom/path/hostname_hardware.md
 #   - Mit mrbz: /mr-bytez/projects/infrastructure/hostname/HARDWARE.md
-# Autor: MR-ByteZ
-# Datum: 2026-02-17
 
 set -euo pipefail
 
@@ -18,7 +21,7 @@ set -euo pipefail
 # KONFIGURATION
 # ═══════════════════════════════════════════════════════
 
-SCRIPT_VERSION="3.1.1"
+SCRIPT_VERSION="0.3.2"
 REAL_USER=${SUDO_USER:-$(whoami)}
 REAL_HOME=$(eval echo ~${REAL_USER})
 DATE_ONLY=$(date +%Y%m%d)
@@ -769,6 +772,26 @@ generate_markdown_output() {
     {
         IFS='|' read -r distro_name kernel_version <<< "$(get_distribution_info)"
 
+        # MR-ByteZ Standard-Header
+        local output_path_relative=""
+        case "$OUTPUT_MODE" in
+            mrbz) output_path_relative="projects/infrastructure/${HOSTNAME}/HARDWARE.md" ;;
+            custom) output_path_relative="${CUSTOM_OUTPUT_DIR}/${HOSTNAME}_hardware.md" ;;
+            standard) output_path_relative="~/${HOSTNAME}_hardware.md" ;;
+        esac
+
+        local audit_date=$(date '+%Y-%m-%d')
+        echo "# ${HOSTNAME} — Hardware-Audit"
+        echo ""
+        echo "> **Pfad:** \`${output_path_relative}\`"
+        echo "> **Version:** ${SCRIPT_VERSION}"
+        echo "> **Erstellt:** ${audit_date}"
+        echo "> **Aktualisiert:** ${audit_date}"
+        echo "> **Autor:** MR-ByteZ (hwi v${SCRIPT_VERSION})"
+        echo "> **Zweck:** Hardware-Audit fuer ${HOSTNAME}"
+        echo ""
+        echo "---"
+        echo ""
         echo "═══════════════════════════════════════════════════════"
         echo "  HARDWARE AUDIT - ${HOSTNAME}"
         echo "  Datum: $(date '+%Y-%m-%d %H:%M:%S')"

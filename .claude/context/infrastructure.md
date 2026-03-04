@@ -36,7 +36,7 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 
 - SSH-Ports sind **host-spezifisch** (nicht einheitlich!):
   - n8-kiste: **61022**
-  - n8-vps: **61020** (+ 22 als Fallback)
+  - n8-vps: **61020**
   - n8-station: **63022**
   - Weitere Hosts: noch nicht konfiguriert
 - Auth: Key-basiert

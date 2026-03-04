@@ -10,6 +10,16 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Added
+- [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
+  (README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md)
+- [Structure] hwi.sh Versionierung auf SemVer normalisiert (3.1.1 → 0.3.2),
+  Bash-Header + Markdown-Header-Generierung
+- [Docs][Infra] ROADMAP zum Master-Arbeitsplan erweitert:
+  n8-vps Service-Pipeline (10 Schritte), UFW Deployment (Ist-Zustand 3 Hosts),
+  Quick Wins, SMB, Empfohlene Reihenfolge
+- [Docs] UFW Ist-Zustand aller 3 Hosts in ROADMAP dokumentiert
+  (n8-vps: 6 Regeln, n8-kiste: 20 Regeln, n8-station: nicht installiert)
+- [Docs][Infra] Strategische Uebersicht Maerz 2026 erstellt (Pipeline, Quick Wins, Handoff-Status)
 - [Traefik][Docker] Traefik v3.6 Reverse Proxy Stack fuer n8-vps erstellt + deployed
   - docker-compose.yml: mrbz-traefik Container, Ports 80/443, mrbz-proxy-net
   - traefik.yml: Statische Config (EntryPoints, Docker+File Provider, ACME DNS-01 Hetzner)
@@ -27,6 +37,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
 
 ### Changed
+- [Docs] n8-vps Server-Doku verschlankt — Verweise auf Root ROADMAP, Header-Format korrigiert
+- [Docs][Infra] n8-vps Server-Doku: Schritt 1+2 ✅, Port 22 entfernt, Handoff-Verweise aktualisiert
+- [Docs] ROADMAP: A1 komplett ✅, A3 zurueckgestellt, A4/A5 Abhaengigkeiten korrigiert
+- [Docs] Handoff-Policy: Dauerhafte Tasks → ROADMAP, Handoffs nur fuer Uebergaben
+- [Docs] infrastructure.md: Port 22 Fallback bei n8-vps entfernt
+- [Docs][Infra] Strategische Uebersicht: Quick Wins aktualisiert
 - [Deploy][Secrets] deploy.fish v0.5.1 — Reflector Country-Filter + Threads:
   - --country Germany,France,Netherlands,Austria,Switzerland (nur EU-Nachbarn statt weltweit)
   - --threads 5 (parallele Mirror-Tests)
@@ -76,6 +92,11 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Secrets] Submodule aktualisiert (deploy.fish v0.4.0, Box-Header, command-Cleanup)
 
 ### Removed
+- [Cleanup] Handoff-Konsolidierung — 6 Handoffs aufgeloest:
+  A1-Secrets, SMB-Deploy, DNS-Traefik, Git-Filter, Fish-Format, Strategische Uebersicht
+  Alle offenen Tasks in ROADMAP.md konsolidiert
+  Verbleibend: 1 Handoff (mr-bytez-learn — eigenes Projekt)
+- [Cleanup] A1 Handoff geloescht (alle Phasen erledigt, D13 → Phase 4)
 - [Cleanup] Traefik-Handoff geloescht (alle 3 Phasen erledigt): HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md
 - [Cleanup] INF01 Chat-Uebergabe geloescht (obsolet): HANDOFF_[Infra][Traefik]_chatuebergabe-INF01.md
 
@@ -819,4 +840,4 @@ git push codeberg v0.6.0
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-02
+**Letzte Aktualisierung:** 2026-03-04

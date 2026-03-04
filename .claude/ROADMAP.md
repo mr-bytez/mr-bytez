@@ -49,11 +49,11 @@
 
 ## Phase 4: Nutzung & Erweiterung 📌 GEPLANT
 
-- [ ] Secrets-Submodule auf 5-5-3 Pattern migrieren → Projekt A1 in Root `ROADMAP.md`
-- [ ] `symlinks.db` ins private Submodule verschieben → D9 unter A1
+- [x] Secrets-Submodule auf 5-5-3 Pattern migrieren → A1 ✅
+- [x] `symlinks.db` ins private Submodule verschieben → D9 ✅
 - [ ] Skills entwickeln (`.claude/skills/`) → inkrementell pro A-Projekt
 - [ ] Hooks erweitern (`.claude/hooks/`) → inkrementell pro A-Projekt
-- [ ] Projekt-Level `.claude/` befuellen → inkrementell pro A-Projekt (A2: Fish, A3: mrbz-dev, A4: MCP)
+- [ ] Projekt-Level `.claude/` befuellen → inkrementell pro A-Projekt (n8-vps ✅, A3: mrbz-dev, A4: MCP)
 
 **ETA:** Q1-Q2 2026
 

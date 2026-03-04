@@ -1,11 +1,14 @@
-# 🖥️ n8-vps Server — Komplette Statusdokumentation
+# n8-vps Server — Komplette Statusdokumentation
 
-**Erstellt:** 2026-03-01
-**Aktualisiert:** 2026-03-03
-**Autor:** MR-ByteZ + Claude
-**Zweck:** Übersicht über Ist-Zustand, geplante Services und nächste Schritte
-**Ablage im Repo:** `projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md`
-**Referenz-Chats:** Wird in Chats als zentrale VPS-Referenz verlinkt
+> **Pfad:** `projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md`
+> **Version:** 0.2.0
+> **Erstellt:** 2026-03-01
+> **Aktualisiert:** 2026-03-04
+> **Autor:** MR-ByteZ
+> **Zweck:** Detail-Referenzdoku — Ist-Zustand, geplante Services und naechste Schritte
+
+→ Schnelluebersicht: `README.md` (Host-Uebersicht)
+→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline)
 
 ---
 
@@ -24,7 +27,6 @@
 | **IPv4** | `136.243.101.223` |
 | **IPv6** | `2a01:4f8:171:ad1::2` |
 | **SSH-Port** | 61020 (Key-Only, Password disabled) |
-| **SSH Fallback** | Port 22 (temporär, sollte entfernt werden!) |
 | **User** | `mrohwer` (sudo NOPASSWD, wheel-Gruppe) |
 | **Rolle** | Production Server (read-only für Git, kein Commit!) |
 
@@ -65,8 +67,8 @@
 - Development: `python`, `python-pip`, `nodejs`, `npm`
 - Container: `docker`, `docker-compose`, `docker-buildx`
 
-**Fehlende Pakete (aus Host-Matrix Pre-Flight):**
-- `duf`, `dust`, `htop`, `ripgrep`, `less` — noch zu installieren
+**Nachinstallierte Pakete (via deploy.fish v0.5.1):**
+- `duf`, `dust`, `htop`, `ripgrep`, `less` — installiert 2026-03-04
 
 **Firewall (UFW):**
 - IPv6 komplett deaktiviert
@@ -83,12 +85,11 @@
 - IPv6 komplett gefiltert, Hetzner Services erlaubt
 - Eingehend:
   - #1: ICMP erlaubt (Diagnose)
-  - #2: Port 22/tcp (temporaer — entfernen!)
-  - #3: TCP Established (ACK-Flag, Antwort-Pakete, Ziel-Port 32768-65535)
-  - #4: Port 61020/tcp (SSH)
-  - #5: Port 80/tcp (HTTP, fuer Traefik)
-  - #6: Port 443/tcp (HTTPS, fuer Traefik)
-  - #7: UDP Established (Antwort-Pakete, Ziel-Port 32768-65535) — fuer DNS-Antworten
+  - #2: TCP Established (ACK-Flag, Antwort-Pakete, Ziel-Port 32768-65535)
+  - #3: Port 61020/tcp (SSH)
+  - #4: Port 80/tcp (HTTP, fuer Traefik)
+  - #5: Port 443/tcp (HTTPS, fuer Traefik)
+  - #6: UDP Established (Antwort-Pakete, Ziel-Port 32768-65535) — fuer DNS-Antworten
 - Ausgehend:
   - #1+#2: Block Mail Ports 25,465 (ipv4+ipv6, discard)
   - #3: Allow all (accept)
@@ -257,62 +258,26 @@ Traefik entscheidet dann per Host-Header, welcher Service angesprochen wird.
 
 ## 5. Schritt-für-Schritt: Was jetzt zu tun ist
 
+→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline, 10-Schritte-Plan)
+
 Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können parallel laufen.
 
-### 🔴 Schritt 1: Fehlende Pakete nachinstallieren
+### ✅ Schritt 1: Fehlende Pakete + Port 22 Cleanup (erledigt)
 
-**Aufwand:** 5 Minuten
-**Warum:** Pre-Flight aus Host-Matrix zeigt fehlende Basis-Tools.
+**Erledigt:** 2026-03-04
 
-```fish
-sudo pacman -S duf dust htop ripgrep less
-```
+- Pakete `duf`, `dust`, `htop`, `ripgrep`, `less` via deploy.fish v0.5.1 installiert
+- Port 22 aus UFW und Hetzner Robot Firewall entfernt
 
-Danach Port 22 aus UFW **und** Hetzner Robot Firewall entfernen:
-```fish
-sudo ufw delete allow 22/tcp
-sudo ufw status
-```
-→ In Hetzner Robot: Regel #2 "ssh-legacy" löschen
+### ✅ Schritt 2: Traefik Reverse Proxy (B14, erledigt)
 
-### 🔴 Schritt 2: Traefik Reverse Proxy aufsetzen (B14/A4 Prerequisite)
+**Erledigt:** 2026-03-03
+**Details:** Siehe `projects/infrastructure/n8-vps/stacks/traefik/README.md`
 
-**Aufwand:** 1–2 Stunden
-**Warum:** Traefik ist die Grundvoraussetzung für ALLE öffentlich erreichbaren Services.
-**Abhängigkeiten:** DNS Wildcard ✅, CAA Records ✅, Firewall Ports 80+443 ✅
-
-**Teilschritte:**
-
-1. **Verzeichnisstruktur anlegen** (auf n8-kiste committen, auf n8-vps pullen):
-   ```
-   projects/infrastructure/n8-vps/stacks/traefik/
-   ├── docker-compose.yml
-   ├── config/
-   │   ├── traefik.yml          # Statische Konfiguration
-   │   └── dynamic/             # Dynamische File-Provider Configs
-   ├── .env.example
-   └── README.md
-   ```
-
-2. **API-Token für ACME DNS-01 Challenge:**
-   - Token `mr-bytez-dns-management.secret` mit Age verschlüsseln (D3)
-   - Auf n8-vps als Docker Secret einbinden
-   - Provider: `hetzner` (nutzt `api.hetzner.cloud`)
-
-3. **Traefik docker-compose.yml erstellen:**
-   - Container: `mrbz-traefik`
-   - Netzwerk: `mrbz-proxy-net` (extern)
-   - Ports: 80, 443
-   - ACME: DNS-01 Challenge über Hetzner API
-   - Wildcard-Zertifikat: `*.mr-bytez.de`
-   - Dashboard: `traefik.mr-bytez.de` (mit Authentik geschützt, später)
-   - Let's Encrypt Staging erst testen, dann Production!
-   - Logs: `/var/log/traefik/` (Access + Error)
-
-4. **Starten und verifizieren:**
-   - `docker compose up -d`
-   - Wildcard-Zertifikat prüfen
-   - Test-Route einrichten (z.B. `whoami.mr-bytez.de`)
+- Stack deployed: mrbz-traefik Container, Ports 80/443, mrbz-proxy-net
+- ACME DNS-01 via Hetzner API, Let's Encrypt Production
+- Dashboard: `traefik.mr-bytez.de` (BasicAuth)
+- whoami-Test erfolgreich, LE-Cert verifiziert
 
 ### 🟠 Schritt 3: Authentik SSO aufsetzen
 
@@ -431,13 +396,12 @@ sudo ufw status
 | Datei/Pfad | Inhalt |
 |------------|--------|
 | `projects/infrastructure/n8-vps/` | Host-spezifische Configs |
-| `projects/infrastructure/n8-vps/stacks/traefik/` | Traefik Stack (geplant) |
+| `projects/infrastructure/n8-vps/stacks/traefik/` | Traefik Stack (deployed ✅) |
 | `projects/infrastructure/n8-vps/docs/` | Diese Dokumentation |
 | `projects/infrastructure/mcp-server/` | MCP Server (geplant) |
 | `.claude/context/infrastructure.md` | Hosts, Netzwerk, Deployment-Status |
 | `.claude/context/docker.md` | Container-Naming, Stack-Konventionen |
-| `.claude/context/handoffs/HANDOFF_[DNS][Infra]_dns-hetzner-traefik.md` | DNS Handoff (Optimierung offen) |
-| `.claude/context/handoffs/HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md` | Traefik Setup Handoff (aktiv) |
+| `ROADMAP.md` (Root) | Master-Arbeitsplan inkl. VPS-Pipeline |
 | `.claude/context/HOST_MATRIX.md` | Feature-Flags aller Hosts |
 | `.claude/archive/mrbz-dev-plan.md` | Dev Container Architektur |
 | `DEPLOYMENT.md` | Deployment-Guide (Quickstart) |
@@ -470,6 +434,5 @@ Backup (Borg/borgmatic) ←── BEVOR produktive Daten!
 Forgejo → Vaultwarden → Nextcloud → Media → Paperless → Immich
 ```
 
-**Nächster konkreter Schritt:** Traefik aufsetzen (Schritt 2). Alles andere baut darauf auf.
-→ Details siehe `HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md`
-→ DNS-Nacharbeiten siehe `HANDOFF_[DNS][Infra]_dns-hetzner-traefik.md`
+**Nächster konkreter Schritt:** Authentik SSO aufsetzen (Schritt 3). Traefik ist live, SSO wird von fast allen Services benoetigt.
+→ Aktuelle Planung: Root `ROADMAP.md` (n8-vps Service-Pipeline)

@@ -101,6 +101,10 @@ Beispiel: `HANDOFF_[Security][Git]_git-filter-cleanup.md`
 - Claude schlaegt proaktiv vor in `.claude/context/handoffs/` nachzuschauen
 - Gilt auch ausserhalb von Ketten-Chats wenn Thema passt
 
+**Dauerhafte Aufgaben gehoeren in die ROADMAP, nicht in Handoffs.**
+Handoffs nur fuer Chat-Uebergaben bei laufender Arbeit und eigenstaendige Projekte
+(z.B. mr-bytez-learn mit eigenem Repo).
+
 ### Delegation an Claude Code
 
 Fuer direkte Claude Code Delegation wird der Handoff als Prompt-Vorlage genutzt.
