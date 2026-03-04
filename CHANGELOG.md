@@ -32,6 +32,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - --threads 5 (parallele Mirror-Tests)
   - Laufzeit von 5+ Minuten auf ~30 Sekunden reduziert
 - [Deploy][Config] reflector.conf v0.5.1 — Country-Filter + Threads synchronisiert
+- [Deploy][Config] Fallback-Mirrorlist aktualisiert (reflector Top 20 DE/FR/NL/AT/CH, tote Mirrors entfernt)
 - [Deploy][Secrets] deploy.fish v0.5.0 — Paketmanager-Updates + Reflector-Integration:
   - Phase 1: pacman -Syu + yay -Syu + flatpak update VOR Paketinstallation
   - reflector: Live-Mirrorlist + Fallback, reflector.conf + reflector.timer
