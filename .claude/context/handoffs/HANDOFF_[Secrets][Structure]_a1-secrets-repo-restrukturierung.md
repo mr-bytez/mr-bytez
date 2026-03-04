@@ -11,7 +11,7 @@
 - #SEC01.7: https://claude.ai/chat/e9999483-ed49-49d9-9e8e-d14ebc17298e
 **Vorgaenger-Kette:** #DOC01.1 → #DOC01.2 → #DOC01.3 → #SEC01.1 → #SEC01.2 → #SEC01.3 → #SEC01.4 → #SEC01.5 → #SEC01.6 → #SEC01.7
 **Datum:** 2026-02-25
-**Status:** Phase 1+2+3 erledigt — B15 erledigt, alle 3 Hosts deployed + verifiziert, deploy.fish v0.4.0 Beta (D13 offen)
+**Status:** Phase 1+2+3 erledigt — B15 erledigt, alle 3 Hosts deployed + verifiziert, deploy.fish v0.5.0 Beta (D13 offen)
 **Delegation:** Strategisch in Claude.ai, Mechanisch an Claude Code
 
 ---

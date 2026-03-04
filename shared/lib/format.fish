@@ -82,17 +82,43 @@ end
 
 function _box --description "Zusammenfassungs-Box mit Rahmen"
     # Verwendung: _box "Zeile 1" "Zeile 2" ...
+    # Box-Breite: dynamisch (laengste Zeile + 2 Padding, Minimum 40)
+    set -l min_width 40
+    set -l max_len 0
+    for line in $argv
+        set -l len (string length "$line")
+        if test $len -gt $max_len
+            set max_len $len
+        end
+    end
+    # Innenbreite = laengste Zeile + 2 (je 1 Space links/rechts)
+    set -l inner_width (math $max_len + 2)
+    if test $inner_width -lt $min_width
+        set inner_width $min_width
+    end
+    # Rahmenlinien generieren
+    set -l border (string repeat -n $inner_width "─")
     echo ""
     set_color yellow
-    echo "┌────────────────────────────────────────┐"
+    echo "┌$border┐"
     set_color normal
     for line in $argv
+        set -l visible_len (string length "$line")
+        set -l pad_len (math $inner_width - 2 - $visible_len)
+        if test $pad_len -lt 0
+            set pad_len 0
+        end
+        set -l padding (string repeat -n $pad_len " ")
         set_color yellow
         echo -n "│ "
         set_color normal
-        echo "$line"
+        echo -n "$line"
+        echo -n "$padding"
+        set_color yellow
+        echo " │"
+        set_color normal
     end
     set_color yellow
-    echo "└────────────────────────────────────────┘"
+    echo "└$border┘"
     set_color normal
 end

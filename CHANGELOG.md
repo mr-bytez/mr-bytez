@@ -27,6 +27,10 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
 
 ### Changed
+- [Deploy][Secrets] deploy.fish v0.5.0 — Paketmanager-Updates + Reflector-Integration:
+  - Phase 1: pacman -Syu + yay -Syu + flatpak update VOR Paketinstallation
+  - reflector: Live-Mirrorlist + Fallback, reflector.conf + reflector.timer
+  - Flatpak mit sudo, Zusammenfassungs-Box dynamische Breite
 - [Deploy][Secrets] deploy.fish v0.4.0 — Full-Bootstrap mit 7 Fixes aus Live-Test:
   - Fix 1: Flatpak `--system` Flag bei install + info (vermeidet interaktive Abfrage)
   - Fix 2: FISH_LOADER_DEBUG unterdrueckt (kein [loader] Output im Deploy)
@@ -60,7 +64,9 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Docs] claude-ai-projektanweisungen.txt: Hostname-Salt → Username-Salt, Alias-Dateinamen 0xx, Loader 000, A1-Status
 - [Docs] security.md: Verboten-Eintrag aktualisiert (cat-Alias existiert nicht mehr)
 - [Docs] shared/etc/fish/CLAUDE.md: Kaputte Handoff-Referenz entfernt
-- [Fish][Packages] Paketlisten korrigiert: min-packages.txt + desktop-packages.txt (Duplikate entfernt, Sektionen bereinigt)
+- [Deploy][Config] shared/etc/pacman.d/mirrorlist: Fallback-Mirrorlist (10 DE + 3 EU)
+- [Deploy][Config] shared/etc/xdg/reflector/reflector.conf: Reflector-Konfiguration
+- [Fish][Packages] Paketlisten korrigiert: min-packages.txt + desktop-packages.txt (Duplikate entfernt, Sektionen bereinigt, reflector hinzugefuegt)
 - [Secrets] Submodule aktualisiert (deploy.fish v0.4.0, Box-Header, command-Cleanup)
 
 ### Removed
