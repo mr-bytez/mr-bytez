@@ -10,10 +10,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ## [Unreleased]
 
 ### Changed
-- [Fish][Theme][ClaudeCode] Prompt-Farben + Statusline v0.2.0:
+- [Fish][Theme][ClaudeCode] Prompt-Farben + Statusline v0.3.0:
   - Theme: n8-kiste BG dunkelgruen (#145a32), n8-station Text weiss, Sudo-User dunkel (#1e1e2e)
-  - Statusline: $-Kosten + Lines entfernt (irrelevant bei Pro-Abo)
-  - Statusline: Context-Fortschrittsbalken mit 4 Farbschwellen (gruen/gelb/orange/rot)
+  - Statusline: Context-Fortschrittsbalken mit Farbschwellen (gruen/gelb/rot)
+  - Statusline: OAuth Usage API — 5h/7d Nutzungslimits mit Reset-Zeit
+  - Statusline: Kosten-Block ($X.XX), Git-Cache (5s), Usage-Cache (60s)
+  - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
 ### Added
 - [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
