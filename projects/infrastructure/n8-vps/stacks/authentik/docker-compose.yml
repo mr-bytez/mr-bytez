@@ -29,6 +29,8 @@ x-authentik-env: &authentik-env
   AUTHENTIK_COOKIE_DOMAIN: .mr-bytez.de
   AUTHENTIK_LISTEN__TRUSTED_PROXY_CIDRS: 172.20.0.0/24,10.0.0.0/8
   AUTHENTIK_LOG_LEVEL: info
+  AUTHENTIK_HOST_BROWSER: "https://auth.mr-bytez.de"
+  AUTHENTIK_WEB__CSRF_TRUSTED_ORIGINS: "https://auth.mr-bytez.de"
   # --- Bootstrap (nur beim ersten Start einkommentieren) ---
   # AUTHENTIK_BOOTSTRAP_PASSWORD: file://${AUTHENTIK_BOOTSTRAP_PASSWORD_FILE}
   # AUTHENTIK_BOOTSTRAP_TOKEN: file://${AUTHENTIK_BOOTSTRAP_TOKEN_FILE}
@@ -45,10 +47,16 @@ services:
     container_name: mrbz-authentik-postgres
     hostname: postgres.authentik.docker.n8vps
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     environment:
+      TZ: Europe/Berlin
       POSTGRES_DB: authentik
       POSTGRES_USER: authentik
       POSTGRES_PASSWORD_FILE: ${AUTHENTIK_DB_PASSWORD_FILE}
+      PGDATA: /var/lib/postgresql/18/docker
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --data-checksums"
     command:
       - "postgres"
       - "-c"
@@ -76,7 +84,7 @@ services:
       - "-c"
       - "timezone=Europe/Berlin"
     volumes:
-      - mrbz-authentik-postgres-data:/var/lib/postgresql/data
+      - mrbz-authentik-postgres-data:/var/lib/postgresql
       - ${AUTHENTIK_DB_PASSWORD_FILE}:${AUTHENTIK_DB_PASSWORD_FILE}:ro
     networks:
       mrbz-authentik-net:
@@ -99,6 +107,8 @@ services:
     container_name: mrbz-authentik-server
     hostname: server.authentik.docker.n8vps
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     command: server
     environment:
       <<: *authentik-env
@@ -150,6 +160,8 @@ services:
     container_name: mrbz-authentik-worker
     hostname: worker.authentik.docker.n8vps
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     command: worker
     environment:
       <<: *authentik-env
@@ -183,6 +195,7 @@ services:
 volumes:
   mrbz-authentik-postgres-data:
     name: mrbz-authentik-postgres-data
+    external: true
   mrbz-authentik-media:
     name: mrbz-authentik-media
   mrbz-authentik-templates:

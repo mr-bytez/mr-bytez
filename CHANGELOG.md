@@ -9,6 +9,19 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Fixed
+- [VPS][DKR] Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
+  (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
+  DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.
+
+### Changed
+- [VPS][DKR][SEC] Stack-Haertung aller 3 n8-vps Stacks (Traefik, CrowdSec, Authentik):
+  - `security_opt: no-new-privileges:true` auf allen Services (5 Container)
+  - Traefik: hostname, Healthcheck (ping), Logging-Rotation hinzugefuegt
+  - Traefik: `ping: {}` in statischer Config aktiviert
+  - Authentik PostgreSQL: `scram-sha-256` Auth, `--data-checksums`, `PGDATA` explizit
+  - Authentik: CSRF-Schutz (`HOST_BROWSER`, `CSRF_TRUSTED_ORIGINS`)
+
 ### Added
 - [Structure][Docs][Roadmap] Vorbereitungen fuer mrbz_aud Docs-Audit-Bot:
   - Agents-Ordner umstrukturiert: `.claude/agents/manual/` (4 bestehende Agents) + `.claude/agents/bot/` (fuer automatisierte Bots)

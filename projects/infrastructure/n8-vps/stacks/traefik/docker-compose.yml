@@ -13,7 +13,10 @@ services:
   traefik:
     image: traefik:v3.6
     container_name: mrbz-traefik
+    hostname: traefik.proxy.docker.n8vps
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     ports:
       - "80:80"
       - "443:443"
@@ -36,6 +39,17 @@ services:
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt-production"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=crowdsec-bouncer@file,authentik-forward-auth@file,security-headers@file"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
 
 volumes:
   mrbz-traefik-certs:

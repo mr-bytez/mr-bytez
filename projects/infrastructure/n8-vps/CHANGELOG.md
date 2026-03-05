@@ -11,7 +11,20 @@
 
 ## [Unreleased]
 
+### Changed
+- Stack-Haertung aller 3 Stacks (Traefik, CrowdSec, Authentik):
+  - `security_opt: no-new-privileges:true` auf allen Services (5 Container)
+  - Traefik: `hostname: traefik.proxy.docker.n8vps`, Healthcheck (ping), Logging-Rotation
+  - Traefik: `ping: {}` in statischer Config aktiviert
+  - Authentik PostgreSQL: `POSTGRES_HOST_AUTH_METHOD: scram-sha-256`,
+    `POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256 --data-checksums"`,
+    `PGDATA` explizit gesetzt, `TZ: Europe/Berlin`
+  - Authentik: `AUTHENTIK_HOST_BROWSER` + `AUTHENTIK_WEB__CSRF_TRUSTED_ORIGINS` (CSRF-Schutz)
+
 ### Fixed
+- Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
+  (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
+  DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.
 - Traefik Config-Fix: keepAliveMaxRequests/keepAliveMaxTime von EntryPoint- auf transport-Ebene
   verschoben (Traefik v3.6.9 Restart-Loop behoben — Felder gehoeren unter transport, nicht direkt
   unter dem EntryPoint)

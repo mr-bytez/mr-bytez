@@ -36,6 +36,9 @@ Konfiguration und Host-Level Tuning.
 - ✅ Config-Dateien unter shared/etc/ ins Repo aufgenommen (5 Dateien + Fish ulimit)
 - ✅ DEPLOYMENT.md mit manuellen Deploy-Schritten ergaenzt
 - ✅ Codeberg-Pushes nachgeholt
+- ✅ Host-Level Tuning auf n8-vps deployed (sysctl, ulimits, Docker, systemd, Fish)
+- ✅ PostgreSQL Volume-Mount Fix: `/var/lib/postgresql/data` → `/var/lib/postgresql`
+  (postgres:18-alpine schreibt unter `18/docker/`, Volume war leer). `external: true` gesetzt.
 
 ---
 
@@ -50,8 +53,7 @@ Konfiguration und Host-Level Tuning.
   Erst danach funktioniert Forward-Auth live.
 - [ ] **Traefik Dashboard Forward-Auth testen** — nach Provider-Anlage:
   traefik.mr-bytez.de aufrufen, Authentik Login-Flow pruefen.
-- [ ] **Host-Level Tuning auf n8-vps deployen** — Config-Dateien liegen im Repo,
-  muessen noch per `sudo cp` auf n8-vps angewendet werden (siehe DEPLOYMENT.md).
+- [x] ~~**Host-Level Tuning auf n8-vps deployen**~~ — erledigt (deployed + verifiziert)
 
 ---
 
