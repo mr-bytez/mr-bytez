@@ -11,6 +11,11 @@
 
 ## [Unreleased]
 
+### Fixed
+- Traefik Config-Fix: keepAliveMaxRequests/keepAliveMaxTime von EntryPoint- auf transport-Ebene
+  verschoben (Traefik v3.6.9 Restart-Loop behoben — Felder gehoeren unter transport, nicht direkt
+  unter dem EntryPoint)
+
 ### Added
 - Hardware-Doku Korrektur + Stack-Tuning
   - Hardware-Specs korrigiert: Core Ultra 7 265 (20K), 64 GB DDR5 (vorher falsch)

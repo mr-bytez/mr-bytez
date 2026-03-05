@@ -35,8 +35,8 @@ entryPoints:
         idleTimeout: 120s
       lifeCycle:
         graceTimeOut: 30s
-    keepAliveMaxRequests: 1000
-    keepAliveMaxTime: 600s
+      keepAliveMaxRequests: 1000
+      keepAliveMaxTime: 600s
 
 # --- Providers ---
 providers:

@@ -32,13 +32,18 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: Kosten-Block ($X.XX), Git-Cache (5s), Usage-Cache (60s)
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
+### Fixed
+- [VPS][DKR] Traefik Config-Fix: keepAlive-Felder von EntryPoint- auf transport-Ebene verschoben
+  (keepAliveMaxRequests/keepAliveMaxTime gehoeren unter entryPoints.websecure.transport,
+  nicht direkt unter entryPoints.websecure — Traefik v3.6.9 Restart-Loop behoben)
+
 ### Added
 - [VPS][Docs][DKR] Hardware-Doku Korrektur + n8-vps Stack-Tuning
   - Hardware-Specs korrigiert: Intel Core Ultra 7 265 (20K), 64 GB DDR5
     (vorher falsch: Xeon E5-2650v4, 128 GB DDR4 — aus Hetzner-Produktseite statt Live-Daten)
   - 4 Dateien korrigiert: hardware.md, README, Server-Doku, infrastructure.md, Authentik README
   - PostgreSQL: shared_buffers 256MB→2GB, effective_cache_size 512MB→8GB (passend fuer 64 GB RAM)
-  - Traefik: Timeouts gesetzt (readTimeout 30s, writeTimeout 60s, keepAliveMax 1000/600s)
+  - Traefik: Timeouts gesetzt (readTimeout 30s, writeTimeout 60s, keepAlive 1000/600s)
   - Traefik: ForwardAuth maxResponseBodySize auf 1 MB begrenzt (DoS-Schutz)
   - CrowdSec: updateIntervalSeconds 60→15 (schnellere Ban-Reaktion im Stream-Modus)
   - Host-Level Tuning dokumentiert (sysctl + ulimit Empfehlungen in Server-Doku)
