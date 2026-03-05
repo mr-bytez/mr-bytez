@@ -3,7 +3,7 @@
 > **Pfad:** `projects/infrastructure/n8-vps/README.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 > **Zweck:** Host-Uebersicht fuer n8-vps (Hetzner EX63 Production Server)
 
@@ -16,9 +16,9 @@
 | **Hostname** | n8-vps |
 | **Typ** | Hetzner EX63 Dedicated Server |
 | **Standort** | Hetzner Rechenzentrum Falkenstein, Deutschland |
-| **Prozessor** | Intel Xeon E5-2650 v4 (12 Kerne / 24 Threads) |
-| **RAM** | 128 GB DDR4 ECC |
-| **Storage** | 2x 1 TB NVMe (RAID 1) |
+| **Prozessor** | Intel Core Ultra 7 265 (20 Kerne, 8P+12E) |
+| **RAM** | 64 GB DDR5 5600 MT/s |
+| **Storage** | 2x Micron 3500 954 GB NVMe (RAID 1) |
 | **LVM-Layout** | 500 GB root, 100 GB home, 8 GB swap (~353 GB Reserve) |
 | **OS** | Arch Linux (vanilla slim, installimage) |
 | **IPv4** | `136.243.101.223` |
@@ -41,6 +41,8 @@
 ## Aktive Services
 
 - **Traefik** v3.6 Reverse Proxy (Dashboard: traefik.mr-bytez.de)
+- **Authentik** 2026.2.1 SSO (auth.mr-bytez.de, Forward-Auth fuer Dashboard)
+- **CrowdSec** IDS/IPS (Bouncer Plugin auf allen Routern, Stream-Modus)
 - Fish Shell mit mr-bytez Integration (Powerline Prompt, rot = Production)
 
 → Geplante Services: `ROADMAP.md` (n8-vps Service-Pipeline)
@@ -62,7 +64,9 @@ projects/infrastructure/n8-vps/
 ├── docs/
 │   └── n8-vps-server-dokumentation.md  # Detail-Referenzdoku
 ├── stacks/
-│   └── traefik/               # Traefik Reverse Proxy Stack
+│   ├── traefik/               # Traefik Reverse Proxy Stack
+│   ├── authentik/             # Authentik SSO Stack (3 Services)
+│   └── crowdsec/              # CrowdSec IDS/IPS Stack
 └── root/
     └── home/mrohwer/.config/fish/
         ├── aliases/           # Host-Aliases (110-n8-vps.fish)

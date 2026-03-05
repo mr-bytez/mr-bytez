@@ -19,7 +19,7 @@ Echte Hostnamen, IPs und User werden durch sanitized Werte ersetzt.
 | Hostname | Typ | Prozessor | RAM | Rolle |
 |----------|-----|-----------|-----|-------|
 | host-dev | 🖥️ Physisch | i7-12700K | 64GB | Development & Storage Server |
-| host-vps | 🖥️ Physisch | E5-2650v4 | 128GB | Hetzner EX63, Production Server |
+| host-vps | 🖥️ Physisch | Core Ultra 7 265 | 64GB | Hetzner EX63, Production Server |
 | host-station | 🖥️ Physisch | - | - | Workstation |
 | host-book | 💻 Physisch | - | - | Mobile Workstation (Laptop) |
 | host-bookchen | 💻 Physisch | - | - | Small Laptop |

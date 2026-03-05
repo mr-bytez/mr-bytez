@@ -12,6 +12,15 @@
 ## [Unreleased]
 
 ### Added
+- Hardware-Doku Korrektur + Stack-Tuning
+  - Hardware-Specs korrigiert: Core Ultra 7 265 (20K), 64 GB DDR5 (vorher falsch)
+  - PostgreSQL: shared_buffers 2GB, effective_cache_size 8GB, work_mem 32MB
+  - Traefik: Timeouts (read 30s, write 60s), ForwardAuth maxResponseBodySize 1MB
+  - CrowdSec: updateIntervalSeconds 15s (Stream-Modus)
+  - Host-Level Performance-Tuning Sektion in Server-Doku (sysctl, ulimit)
+  - Valkey/Redis komplett entfernt (seit Authentik 2025.10 obsolet)
+    PostgreSQL als alleiniger Cache (django_postgres_cache)
+    max_connections 200, max_locks_per_transaction 256, wal_buffers 64MB
 - CrowdSec Middleware + Authentik Forward-Auth fuer Traefik
   - `crowdsec-bouncer@file` auf Dashboard- und Authentik-Router aktiviert
   - `config/dynamic/authentik.yml`: Forward-Auth Middleware (Embedded Outpost)
@@ -53,3 +62,4 @@
 ---
 
 **Letzte Aktualisierung:** 2026-03-05
+

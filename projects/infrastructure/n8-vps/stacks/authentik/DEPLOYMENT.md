@@ -100,9 +100,6 @@ docker ps --filter "name=mrbz-authentik" --format "table {{.Names}}\t{{.Status}}
 
 # PostgreSQL erreichbar?
 docker exec mrbz-authentik-postgres pg_isready -d authentik -U authentik
-
-# Valkey erreichbar?
-docker exec mrbz-authentik-valkey valkey-cli ping
 ```
 
 ### 3.2 Web-UI testen

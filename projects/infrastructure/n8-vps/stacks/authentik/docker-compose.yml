@@ -13,7 +13,6 @@
 # Authentik Environment Anchor (DRY — wird von server + worker geteilt)
 # ==============================================================================
 x-authentik-env: &authentik-env
-  AUTHENTIK_REDIS__HOST: mrbz-authentik-valkey
   AUTHENTIK_POSTGRESQL__HOST: mrbz-authentik-postgres
   AUTHENTIK_POSTGRESQL__PORT: 5432
   AUTHENTIK_POSTGRESQL__NAME: authentik
@@ -53,19 +52,21 @@ services:
     command:
       - "postgres"
       - "-c"
-      - "shared_buffers=256MB"
+      - "shared_buffers=2GB"
       - "-c"
-      - "effective_cache_size=512MB"
+      - "effective_cache_size=8GB"
       - "-c"
-      - "work_mem=8MB"
+      - "work_mem=32MB"
       - "-c"
-      - "maintenance_work_mem=128MB"
+      - "maintenance_work_mem=512MB"
       - "-c"
-      - "max_connections=100"
+      - "max_connections=200"
+      - "-c"
+      - "max_locks_per_transaction=256"
       - "-c"
       - "checkpoint_completion_target=0.9"
       - "-c"
-      - "wal_buffers=16MB"
+      - "wal_buffers=64MB"
       - "-c"
       - "random_page_cost=1.1"
       - "-c"
@@ -86,42 +87,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-
-  # --- Valkey 9 (Redis-kompatibler Cache) ---
-  valkey:
-    image: valkey/valkey:9-alpine
-    container_name: mrbz-authentik-valkey
-    hostname: valkey.authentik.docker.n8vps
-    restart: unless-stopped
-    command:
-      - "valkey-server"
-      - "--save"
-      - "60"
-      - "1"
-      - "--loglevel"
-      - "warning"
-      - "--rename-command"
-      - "FLUSHDB"
-      - ""
-      - "--rename-command"
-      - "FLUSHALL"
-      - ""
-    volumes:
-      - mrbz-authentik-valkey-data:/data
-    networks:
-      mrbz-authentik-net:
-        ipv4_address: 172.20.0.101
-    healthcheck:
-      test: ["CMD-SHELL", "valkey-cli ping | grep -q PONG"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 15s
     logging:
       driver: json-file
       options:
@@ -150,8 +115,6 @@ services:
         ipv4_address: 172.20.0.102
     depends_on:
       postgres:
-        condition: service_healthy
-      valkey:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
@@ -202,8 +165,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      valkey:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "ak", "healthcheck"]
       interval: 30s
@@ -222,8 +183,6 @@ services:
 volumes:
   mrbz-authentik-postgres-data:
     name: mrbz-authentik-postgres-data
-  mrbz-authentik-valkey-data:
-    name: mrbz-authentik-valkey-data
   mrbz-authentik-media:
     name: mrbz-authentik-media
   mrbz-authentik-templates:

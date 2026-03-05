@@ -3,7 +3,7 @@
 > **Pfad:** `projects/infrastructure/n8-vps/.claude/CLAUDE.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 > **Zweck:** Claude Code Steuerung fuer n8-vps Host
 
@@ -16,6 +16,8 @@
 | Hardware | `.claude/context/hardware.md` |
 | Detail-Doku | `docs/n8-vps-server-dokumentation.md` |
 | Traefik Stack | `stacks/traefik/` |
+| Authentik Stack | `stacks/authentik/` |
+| CrowdSec Stack | `stacks/crowdsec/` |
 | Globale Policies | Root `.claude/context/` |
 
 ---

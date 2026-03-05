@@ -3,7 +3,7 @@
 > **Pfad:** `projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md`
 > **Version:** 0.2.0
 > **Erstellt:** 2026-03-01
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 > **Zweck:** Detail-Referenzdoku — Ist-Zustand, geplante Services und naechste Schritte
 
@@ -19,9 +19,9 @@
 | **Hostname** | n8-vps |
 | **Typ** | Hetzner EX63 Dedicated Server |
 | **Standort** | Hetzner Rechenzentrum Falkenstein, Deutschland |
-| **Prozessor** | Intel Xeon E5-2650 v4 (12 Kerne / 24 Threads) |
-| **RAM** | 128 GB DDR4 ECC |
-| **Storage** | 2× 1 TB NVMe (RAID 1) |
+| **Prozessor** | Intel Core Ultra 7 265 (20 Kerne, 8P+12E) |
+| **RAM** | 64 GB DDR5 5600 MT/s |
+| **Storage** | 2x Micron 3500 954 GB NVMe (RAID 1) |
 | **LVM-Layout** | 500 GB root, 100 GB home, 8 GB swap (~353 GB Reserve) |
 | **OS** | Arch Linux (vanilla slim, installimage) |
 | **IPv4** | `136.243.101.223` |
@@ -152,7 +152,7 @@ Basierend auf der `n8-vps_Master-Planung_v4_1.md` (14 Stacks, 30 Services) und d
 | Stack | Services | Zweck | Priorität |
 |-------|----------|-------|-----------|
 | **Traefik** | Reverse Proxy, Let's Encrypt ACME | Zentraler Eingang für alle Services, SSL/TLS | 🔴 Höchste |
-| **Authentik** | SSO Server, PostgreSQL, Valkey | Single Sign-On, OAuth2, OIDC für alle Services | 🔴 Hoch |
+| **Authentik** | SSO Server, PostgreSQL | Single Sign-On, OAuth2, OIDC für alle Services | 🔴 Hoch |
 | **WireGuard** | VPN Tunnel | Verbindung zu n8-kiste und anderen Hosts | 🟠 Mittel |
 | **CrowdSec** | IDS/IPS, Threat Intelligence | Intrusion Detection & Prevention | 🟠 Mittel |
 | **Unbound** | DNS Resolver | Lokaler DNS (bereits aktiv als System-Service) | ✅ Erledigt |
@@ -295,7 +295,7 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
    └── README.md
    ```
 
-2. Services: Authentik Server, Worker, PostgreSQL, Valkey
+2. Services: Authentik Server, Worker, PostgreSQL
 3. Traefik-Labels für `auth.mr-bytez.de`
 4. Secrets: DB-Passwort, Secret-Key via `openssl rand -base64 32`
 5. Initial-Admin einrichten
@@ -374,7 +374,73 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
 
 ---
 
-## 6. Verknüpfung mit der ROADMAP
+## 6. Host-Level Performance-Tuning
+
+Empfohlene sysctl/ulimit-Aenderungen fuer n8-vps (manuell auf dem Host anwenden).
+
+### sysctl-Anpassungen
+
+```fish
+# /etc/sysctl.d/90-mr-bytez.conf
+# Server mit 64 GB RAM — Swap minimieren, Netzwerk-Queues vergroessern
+
+# Swap nur bei echtem RAM-Engpass nutzen (Standard: 60)
+vm.swappiness = 10
+
+# Netzwerk-Queue fuer eingehende Pakete (Standard: 1000)
+net.core.netdev_max_backlog = 5000
+```
+
+Anwenden: `sudo sysctl --system`
+
+### ulimit-Anpassungen
+
+```fish
+# /etc/security/limits.d/90-mr-bytez.conf
+# File Descriptors fuer Docker + Traefik (Standard: 1024 — viel zu niedrig!)
+
+mrohwer  soft  nofile  65536
+mrohwer  hard  nofile  65536
+root     soft  nofile  65536
+root     hard  nofile  65536
+```
+
+Fuer Docker-Container zusaetzlich in `/etc/docker/daemon.json`:
+```json
+{
+  "default-ulimits": {
+    "nofile": { "Name": "nofile", "Soft": 65536, "Hard": 65536 }
+  }
+}
+```
+
+### Ist-Zustand (2026-03-05)
+
+| Parameter | Aktuell | Empfohlen | Status |
+|-----------|---------|-----------|--------|
+| `vm.swappiness` | 60 | 10 | ○ offen |
+| `net.core.netdev_max_backlog` | 1000 | 5000 | ○ offen |
+| `ulimit -n` (nofile) | 1024 | 65536 | ○ offen |
+| `net.core.somaxconn` | 4096 | 4096 | ✅ passt |
+| `tcp_max_syn_backlog` | 4096 | 4096 | ✅ passt |
+
+### Redis/Valkey-Entfernung
+
+Authentik hat seit Version 2025.10 Redis/Valkey komplett entfernt
+(https://goauthentik.io/blog/2025-11-13-we-removed-redis/).
+PostgreSQL uebernimmt jetzt Cache, Sessions, WebSocket und Tasks via `django_postgres_cache`.
+
+Valkey-Container wurde aus `docker-compose.yml` entfernt (2026-03-05).
+PostgreSQL-Tuning angepasst fuer die zusaetzliche Cache-Last:
+- `max_connections`: 100 → 200 (~50% mehr Connections ohne Redis, offiziell empfohlen)
+- `max_locks_per_transaction`: 64 → 256 (bekanntes Problem nach Redis-Entfernung, GitHub #18151)
+- `wal_buffers`: 16 MB → 64 MB (mehr Write-Throughput fuer Cache-Writes)
+
+Nach Deployment: `docker volume rm mrbz-authentik-valkey-data` auf n8-vps.
+
+---
+
+## 7. Verknüpfung mit der ROADMAP
 
 | ROADMAP-Punkt | VPS-Relevanz | Abhängigkeit |
 |---------------|-------------|-------------|
@@ -391,7 +457,7 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
 
 ---
 
-## 7. Relevante Dateien im Repo
+## 8. Relevante Dateien im Repo
 
 | Datei/Pfad | Inhalt |
 |------------|--------|
@@ -409,9 +475,9 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
 
 ---
 
-## 8. Zusammenfassung
+## 9. Zusammenfassung
 
-**n8-vps ist ein leistungsstarker Hetzner EX63 Dedicated Server** (E5-2650v4, 128 GB RAM, 2× 1 TB NVMe RAID 1) in Falkenstein, Deutschland. Das Basis-Setup ist vollständig abgeschlossen: Arch Linux, SSH-Hardening, Firewall (UFW + Hetzner Robot), Docker, Fish Shell mit mr-bytez Integration, DNS Wildcard Records.
+**n8-vps ist ein leistungsstarker Hetzner EX63 Dedicated Server** (Core Ultra 7 265, 64 GB DDR5, 2x Micron 3500 NVMe RAID 1) in Falkenstein, Deutschland. Das Basis-Setup ist vollständig abgeschlossen: Arch Linux, SSH-Hardening, Firewall (UFW + Hetzner Robot), Docker, Fish Shell mit mr-bytez Integration, DNS Wildcard Records.
 
 **Was fehlt für den produktiven Betrieb:**
 Der Server hat aktuell **keine laufenden Docker-Services**. Der kritische Pfad ist:

@@ -5,7 +5,7 @@
 # ║  Autor:        MR-ByteZ                                                    ║
 # ║  Version:      0.2.0                                                       ║
 # ║  Erstellt:     2026-03-01                                                  ║
-# ║  Aktualisiert: 2026-03-04                                                  ║
+# ║  Aktualisiert: 2026-03-05                                                  ║
 # ║  Zweck:        Traefik v3 statische Config (EntryPoints, Provider, ACME)   ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -28,6 +28,15 @@ entryPoints:
     http:
       tls:
         certResolver: letsencrypt-production
+    transport:
+      respondingTimeouts:
+        readTimeout: 30s
+        writeTimeout: 60s
+        idleTimeout: 120s
+      lifeCycle:
+        graceTimeOut: 30s
+    keepAliveMaxRequests: 1000
+    keepAliveMaxTime: 600s
 
 # --- Providers ---
 providers:

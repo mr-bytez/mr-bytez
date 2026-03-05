@@ -33,6 +33,20 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
 
 ### Added
+- [VPS][Docs][DKR] Hardware-Doku Korrektur + n8-vps Stack-Tuning
+  - Hardware-Specs korrigiert: Intel Core Ultra 7 265 (20K), 64 GB DDR5
+    (vorher falsch: Xeon E5-2650v4, 128 GB DDR4 — aus Hetzner-Produktseite statt Live-Daten)
+  - 4 Dateien korrigiert: hardware.md, README, Server-Doku, infrastructure.md, Authentik README
+  - PostgreSQL: shared_buffers 256MB→2GB, effective_cache_size 512MB→8GB (passend fuer 64 GB RAM)
+  - Traefik: Timeouts gesetzt (readTimeout 30s, writeTimeout 60s, keepAliveMax 1000/600s)
+  - Traefik: ForwardAuth maxResponseBodySize auf 1 MB begrenzt (DoS-Schutz)
+  - CrowdSec: updateIntervalSeconds 60→15 (schnellere Ban-Reaktion im Stream-Modus)
+  - Host-Level Tuning dokumentiert (sysctl + ulimit Empfehlungen in Server-Doku)
+  - Valkey-Status dokumentiert (Keyspace leer, Beobachtung)
+  - Authentik: Valkey/Redis komplett entfernt (seit Authentik 2025.10 obsolet)
+    PostgreSQL uebernimmt Cache via django_postgres_cache
+    max_connections 100→200, max_locks_per_transaction 64→256, wal_buffers 16→64MB
+  - hwi ROADMAP: `--context` Modus als Feature geplant
 - [VPS][SEC][Auth][DKR] CrowdSec Middleware + Authentik Forward-Auth fuer Traefik
   - CrowdSec Bouncer Middleware (`crowdsec-bouncer@file`) auf allen oeffentlichen Routern aktiviert:
     Dashboard (`traefik.mr-bytez.de`), Authentik (`auth.mr-bytez.de`)

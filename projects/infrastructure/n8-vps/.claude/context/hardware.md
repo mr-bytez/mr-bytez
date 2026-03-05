@@ -3,9 +3,9 @@
 > **Pfad:** `projects/infrastructure/n8-vps/.claude/context/hardware.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
-> **Zweck:** Hardware-Spezifikationen des n8-vps Servers (aus Server-Doku extrahiert)
+> **Zweck:** Hardware-Spezifikationen des n8-vps Servers (aus hwi-Audit vom 2026-02-17)
 
 ---
 
@@ -15,12 +15,14 @@
 |-------------|------|
 | **Modell** | Hetzner EX63 Dedicated Server |
 | **Standort** | Falkenstein, Deutschland |
-| **Prozessor** | Intel Xeon E5-2650 v4 |
-| **Kerne/Threads** | 12 Kerne / 24 Threads |
-| **Taktfrequenz** | 2.2 GHz (Turbo: 2.9 GHz) |
-| **RAM** | 128 GB DDR4 ECC |
-| **Storage** | 2x 1 TB NVMe SSD |
+| **Mainboard** | ASRockRack W880M WS-1L |
+| **Prozessor** | Intel Core Ultra 7 265 |
+| **Kerne** | 20 Kerne (8P+12E, kein Hyperthreading) |
+| **Taktfrequenz** | bis 4.6 GHz (Turbo) |
+| **RAM** | 64 GB DDR5 5600 MT/s (2x Micron) |
+| **Storage** | 2x Micron 3500 954 GB NVMe |
 | **RAID** | RAID 1 (Spiegelung) |
+| **GPU** | Intel Arrow Lake-S (integriert) |
 | **Netzwerk** | 1 Gbit/s |
 
 ---

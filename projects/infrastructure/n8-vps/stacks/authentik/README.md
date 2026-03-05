@@ -3,7 +3,7 @@
 > **Pfad:** `projects/infrastructure/n8-vps/stacks/authentik/`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 > **Zweck:** Authentik Identity Provider fuer zentrales SSO auf n8-vps
 
@@ -22,10 +22,12 @@ Er stellt OAuth2/OIDC, SAML und LDAP bereit und schuetzt Services ueber Traefik 
 
 | Service | Container | Image | IP | Funktion |
 |---------|-----------|-------|----|----------|
-| PostgreSQL | `mrbz-authentik-postgres` | `postgres:18-alpine` | `172.20.0.100` | Datenbank |
-| Valkey | `mrbz-authentik-valkey` | `valkey/valkey:9-alpine` | `172.20.0.101` | Cache (Redis-kompatibel) |
+| PostgreSQL | `mrbz-authentik-postgres` | `postgres:18-alpine` | `172.20.0.100` | Datenbank + Cache (django_postgres_cache) |
 | Server | `mrbz-authentik-server` | `ghcr.io/goauthentik/server:2026.2.1` | `172.20.0.102` | Web-UI + API |
 | Worker | `mrbz-authentik-worker` | `ghcr.io/goauthentik/server:2026.2.1` | `172.20.0.103` | Hintergrund-Tasks |
+
+**Hinweis:** Seit Authentik 2025.10 wurde Redis/Valkey entfernt. PostgreSQL uebernimmt
+Cache, Sessions, WebSocket und Tasks via `django_postgres_cache`.
 
 ---
 
@@ -42,8 +44,7 @@ Er stellt OAuth2/OIDC, SAML und LDAP bereit und schuetzt Services ueber Traefik 
 
 | Volume | Zweck |
 |--------|-------|
-| `mrbz-authentik-postgres-data` | PostgreSQL Datenbank |
-| `mrbz-authentik-valkey-data` | Valkey Persistenz |
+| `mrbz-authentik-postgres-data` | PostgreSQL Datenbank + Cache |
 | `mrbz-authentik-media` | Authentik Media (Icons, Bilder) |
 | `mrbz-authentik-templates` | Custom Templates |
 | `mrbz-authentik-certs` | Zertifikate (Worker) |
@@ -66,10 +67,13 @@ Alle Secrets liegen verschluesselt im Secrets-Submodule unter:
 
 ## Performance-Tuning
 
-Optimiert fuer n8-vps (12 Kerne / 24 Threads, 128 GB RAM):
+Optimiert fuer n8-vps (20 Kerne, 64 GB DDR5):
 - **Web Workers:** 4 (statt Standard 2)
 - **Web Threads:** 4 pro Worker
-- **PostgreSQL:** 256 MB shared_buffers, 512 MB effective_cache_size
+- **PostgreSQL:** 2 GB shared_buffers, 8 GB effective_cache_size, 200 max_connections
+- **PostgreSQL:** max_locks_per_transaction=256 (Authentik Redis-Migration, GitHub #18151)
+- **PostgreSQL:** wal_buffers=64 MB (erhoehter Write-Throughput fuer Cache-Writes)
+- **Kein Redis/Valkey:** Seit Authentik 2025.10 entfernt, PostgreSQL ist alleiniger Cache
 
 ---
 
