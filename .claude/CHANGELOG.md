@@ -5,15 +5,18 @@
 
 ---
 
-## [2.1.0] - 2026-03-05
+## [0.6.0] - 2026-03-05
 
 ### Added
 - `agents/manual/` — Unterordner fuer interaktive Einzeldatei-Agents (4 bestehende verschoben)
 - `agents/bot/` — Unterordner fuer automatisierte Multi-File Bots (bereit fuer mrbz_aud)
 - `context/tags.md`: [Bot] Tag (Index: BOT) mit Suffix-Konvention (_AUD, _FIX, _DEP), jetzt 68 Tags
 - `context/webfetch-domains.md`: Source of Truth fuer WebFetch-Domains (56 Domains, kategorisiert)
+- `settings.json`: Neue Datei (Team-weit, in Git) mit allen Permissions (allow/deny/ask, 64 WebFetch-Domains)
 
 ### Changed
+- `context/webfetch-domains.md` v0.2.0: Status-Spalte, Sync-Pflicht-Kommentar, 10 neue Domains, Gesamt 64
+- `settings.local.json`: Permissions-Block entfernt (migriert nach settings.json), nur noch Hooks + includeCoAuthoredBy
 - `CLAUDE.md`: Agents-Sektion erweitert (manual/ + bot/ Tabellen, Bot-Uebersicht)
 - `ROADMAP.md`: Phase 5 um Bot-Projekte A7/A8/A9 erweitert
 - `context/structure.md`: agents/-Baum aktualisiert (manual/ + bot/ Unterordner)
@@ -24,6 +27,9 @@
 - `hooks/pre-commit-docs-check.sh` v0.2.0: Dynamische CHANGELOG-Pruefung fuer alle Ordner
 - 8 Dateien: Referenzen auf alte Agent-Pfade aktualisiert
 
+### Versions-Korrektur
+- Alle Versionen von 1.x/2.x auf 0.x.x korrigiert (Versionierungs-Policy: 1.0.0 erst nach 6 Monaten ohne Aenderung)
+
 ### Policy-Entscheidung
 - `.claude/CHANGELOG.md` trackt ab sofort ALLE Aenderungen an `.claude/` — eigene Perspektive,
   kein 1:1 Copy vom Root-CHANGELOG. Fehlende Eintraege seit 2026-02-27 werden nicht nachgetragen,
@@ -31,7 +37,7 @@
 
 ---
 
-## [2.0.0] - 2026-02-27
+## [0.5.0] - 2026-02-27
 
 ### Added
 - `hooks/` Ordner mit 7 Claude Code Event-Hooks:
@@ -51,7 +57,7 @@
 ### Changed
 - **5-3-3 → 5-5-3 Pattern:** 5 Docs, 5 Ordner (context, skills, hooks, agents, archive), 3 Ebenen
 - `CLAUDE.md`: Hooks + Agents Uebersicht mit Tabellen, Verweise-Tabelle aktualisiert
-- `context/structure.md` v2.0.0: Komplett auf 5-5-3 umgestellt
+- `context/structure.md` v0.5.0: Komplett auf 5-5-3 umgestellt
 - `context/documentation.md`: 5-3-3 Referenzen → 5-5-3
 - `context/claude-ai-projektanweisungen.txt`: 5-5-3, Hooks/Agents-Uebersicht ergaenzt
 
@@ -61,7 +67,7 @@
 
 ---
 
-## [1.2.1] - 2026-02-11
+## [0.4.1] - 2026-02-11
 
 ### Added
 - `context/handoffs/HANDOFF_[Secrets][Structure]_a1-secrets-repo-restrukturierung.md`
@@ -71,7 +77,7 @@
 
 ---
 
-## [1.2.0] - 2026-02-11
+## [0.4.0] - 2026-02-11
 
 ### Changed
 - `context/structure.md`: tasks/-Verweis entfernt, Typ 3 Community-Projekte,
@@ -88,20 +94,20 @@
 
 ---
 
-## [1.1.0] - 2026-02-10
+## [0.3.0] - 2026-02-10
 
 ### Added
 - `.claude/CLAUDE.md` als zentrale Steuerung (ersetzt Root /init-Version)
 - `.claude/CHANGELOG.md` (diese Datei)
-- `.claude/ROADMAP.md` für .claude/-spezifische Planung
-- 2 zusätzliche context/ Dateien: `migration.md`, `structure.md`
+- `.claude/ROADMAP.md` fuer .claude/-spezifische Planung
+- 2 zusaetzliche context/ Dateien: `migration.md`, `structure.md`
 
 ### Changed
 - `.claude/README.md` aktualisiert (neue Struktur, plans/ Referenz entfernt)
-- Root `CLAUDE.md` entfernt (war von `/init`, gehört nach `.claude/`)
+- Root `CLAUDE.md` entfernt (war von `/init`, gehoert nach `.claude/`)
 - Root `README.md` aktualisiert (PROJECT_NOTES.md Referenz entfernt)
 - Root `DEPLOYMENT.md` aktualisiert (PROJECT_NOTES.md Referenz entfernt)
-- Root `CHANGELOG.md` mit Phase 2+3 Migration Eintrag ergänzt
+- Root `CHANGELOG.md` mit Phase 2+3 Migration Eintrag ergaenzt
 - Root `ROADMAP.md` Phase 2 Migration als erledigt markiert
 - `.gitignore` erweitert (Sanitization-Patterns)
 
@@ -110,7 +116,7 @@
 
 ---
 
-## [1.0.0] - 2026-02-10
+## [0.2.0] - 2026-02-10
 
 ### Added
 - Neue Struktur implementiert (5-3-3 Pattern)
@@ -135,6 +141,6 @@
 
 ### Added
 - `.claude/` Verzeichnis erstellt
-- `README.md` (Struktur-Übersicht)
+- `README.md` (Struktur-Uebersicht)
 - `plans/` mit `mrbz-dev-plan.md`
 - `archive/` mit `.gitkeep`

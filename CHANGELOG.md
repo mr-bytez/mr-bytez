@@ -28,6 +28,14 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [ClaudeCode][Config] WebFetch-Domain-Registry: `.claude/context/webfetch-domains.md`
   - Source of Truth fuer alle erlaubten WebFetch-Domains (56 Domains)
   - Kategorisiert nach Infrastruktur, Security, Services, AI/Cloud, etc.
+- [ClaudeCode][Config] WebFetch-Konsolidierung + Settings-Migration:
+  - `.claude/settings.json` erstellt (Team-weit, in Git) mit allen Permissions (allow/deny/ask)
+  - `.claude/settings.local.json` bereinigt (nur noch Hooks + persoenliche Einstellungen)
+  - 10 fehlende Domains nachgetragen: Codeberg, Hetzner (3x), age, Arch Man-Pages, AUR, Amazon PartnerNet DE, Anthropic Console, Claude Docs
+  - OpenAI-Domains aus JSON entfernt (blocken WebFetch mit 403)
+  - affiliate-program.amazon.de entfernt (Domain existiert nicht, ECONNREFUSED)
+  - `webfetch-domains.md` v0.2.0: Status-Spalte + Sync-Pflicht-Kommentar, Gesamt 64 Domains
+  - `.claude/CHANGELOG.md`: Alle Versionen von 1.x/2.x auf 0.x.x korrigiert (Versionierungs-Policy)
 
 ### Changed
 - [Docs][Audit] ROADMAP-Audit: 8 ROADMAPs geprueft, 7 Fixes angewendet
