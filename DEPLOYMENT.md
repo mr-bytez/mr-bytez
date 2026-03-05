@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-03-01
+**Stand:** 2026-03-05
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -237,6 +237,73 @@ sudo hwi mrbz
 > **NICHT committet** (in `.gitignore`). Die Datei bleibt nur lokal auf dem Host
 > und kann von Claude Code (lokal) gelesen werden — nicht von Claude.ai.
 > Details zum Script: `shared/usr/local/bin/hwi/`
+
+---
+
+## Host-Level Tuning (manuelles Deployment)
+
+Die folgenden Config-Dateien werden per **Copy** (nicht Symlink) deployed, da systemd
+und Docker nicht ueber Symlinks lesen. Aktuell manuell — spaeter in deploy.fish integriert.
+
+### 1. Configs kopieren
+
+```fish
+# sysctl (Kernel-Parameter)
+sudo cp /opt/mr-bytez/current/shared/etc/sysctl.d/90-mr-bytez.conf /etc/sysctl.d/
+
+# PAM Limits (File Descriptors)
+sudo cp /opt/mr-bytez/current/shared/etc/security/limits.d/90-mr-bytez.conf /etc/security/limits.d/
+
+# Docker Default-Ulimits
+sudo mkdir -p /etc/docker
+sudo cp /opt/mr-bytez/current/shared/etc/docker/daemon.json /etc/docker/
+
+# systemd System-Limits
+sudo mkdir -p /etc/systemd/system.conf.d
+sudo cp /opt/mr-bytez/current/shared/etc/systemd/system.conf.d/90-mr-bytez.conf /etc/systemd/system.conf.d/
+
+# systemd User-Limits
+sudo mkdir -p /etc/systemd/user.conf.d
+sudo cp /opt/mr-bytez/current/shared/etc/systemd/user.conf.d/90-mr-bytez.conf /etc/systemd/user.conf.d/
+```
+
+### 2. Aktivieren
+
+```fish
+# sysctl sofort anwenden
+sudo sysctl --system
+
+# systemd neu laden
+sudo systemctl daemon-reexec
+
+# Docker neu starten (ACHTUNG: stoppt alle Container!)
+sudo systemctl restart docker
+
+# Danach Docker-Stacks neu starten
+cd /mr-bytez/projects/infrastructure/n8-vps/stacks/traefik
+docker compose up -d
+# ... weitere Stacks
+```
+
+### 3. Fish ulimit-Workaround
+
+Die Datei `shared/etc/fish/conf.d/010-ulimits.fish` wird automatisch ueber den Fish-Loader
+geladen. Sie setzt `ulimit -Sn 65536` bei jedem Login, weil auf Arch Linux das Soft-Limit
+trotz PAM limits.d und systemd DefaultLimitNOFILE bei SSH-Login auf 1024 bleibt.
+
+### 4. Verifizieren
+
+```fish
+# sysctl pruefen
+sysctl vm.swappiness net.core.netdev_max_backlog
+
+# ulimit pruefen (nach Re-Login!)
+ulimit -Sn  # Soft: 65536
+ulimit -Hn  # Hard: 65536
+
+# Docker pruefen
+docker run --rm alpine sh -c 'ulimit -n'  # 65536
+```
 
 ---
 
@@ -526,4 +593,4 @@ git pull origin main      # Nur pullen!
 
 ---
 
-**Stand:** 2026-03-01
+**Stand:** 2026-03-05

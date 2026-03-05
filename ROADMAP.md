@@ -263,8 +263,8 @@ A2 Fish DRY ✅ + B3✅, B6✅, B7✅, B17✅ — Komplett erledigt
   ↓
 B14 Traefik ✅ — Dashboard + LE-Cert auf n8-vps
   ↓
-n8-vps Service-Pipeline (10 Schritte, Schritt 1+2 ✅)
-  → Authentik → Portainer → WireGuard → CrowdSec → Monitoring → Backup → Services
+n8-vps Service-Pipeline (10 Schritte, Schritt 1+2+3+6 ✅)
+  → Portainer → WireGuard → Monitoring → Backup → Services
   ↓
 A4 MCP Server (braucht Traefik ✅ + Authentik) + D1-D4, D14, D17 → danach B12
   ↓
@@ -274,6 +274,7 @@ Parallel/unabhaengig:
   - A3 Dev Container — bewusst zurueckgestellt, bei Bedarf
   - B5 SMB-Deployment — bei Gelegenheit
   - UFW Deployment — parallel zur VPS-Pipeline
+  - deploy.fish: Host-Level Tuning Phase (sysctl/ulimits/Docker-Config automatisch deployen)
 ```
 
 **Inkrementell (kein fester Zeitpunkt):**
@@ -306,9 +307,9 @@ Parallel/unabhaengig:
 Kurzstatus:
 - Schritt 1 ✅ Pakete + Port 22 Cleanup
 - Schritt 2 ✅ Traefik Reverse Proxy
-- Schritt 3 🟠 WIP Authentik SSO (Stack + Forward-Auth Config fertig, Deployment + Authentik-Setup offen)
+- Schritt 3 ✅ Authentik SSO (deployed, akadmin deaktiviert, mrohwer Admin + MFA, Valkey entfernt)
 - Schritt 4-5 ○ Portainer, WireGuard
-- Schritt 6 🟠 WIP CrowdSec IDS/IPS (Middleware auf Routern aktiviert, Stack-Deployment offen)
+- Schritt 6 ✅ CrowdSec IDS/IPS (Stack deployed, Middleware aktiv, Enrollment bestaetigt)
 - Schritt 7-10 ○ Monitoring, Backup, Services, DNS
 
 ---
@@ -488,7 +489,9 @@ Getestet auf n8-archstick — Deploy-Script fehlt noch.
 | D16 | Recovery-Runbook | A3/B13 | Phase 4 (alt) |
 | D17 | Automatische Context-Sync | A4 | `.claude/ROADMAP.md` Phase 5 |
 
-Aktiver Handoff: `.claude/context/handoffs/HANDOFF_[Learn][Stack]_mr-bytez-learn-projektplan.md`
+Aktive Handoffs:
+- `.claude/context/handoffs/HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md`
+- `.claude/context/handoffs/HANDOFF_[Learn][Stack]_mr-bytez-learn-projektplan.md`
 
 ---
 
@@ -499,7 +502,7 @@ Aktiver Handoff: `.claude/context/handoffs/HANDOFF_[Learn][Stack]_mr-bytez-learn
 - Policies in `.claude/context/`
 - Dauerhafte Aufgaben gehoeren hier in die ROADMAP, nicht in Handoffs
 - Handoffs nur fuer Chat-Uebergaben bei laufender Arbeit und eigenstaendige Projekte
-- Aktive Handoffs: `.claude/context/handoffs/` (1 verbleibend: mr-bytez-learn)
+- Aktive Handoffs: `.claude/context/handoffs/` (2 verbleibend: VPS-SEC, mr-bytez-learn)
 
 ---
 
@@ -519,6 +522,6 @@ Aktiver Handoff: `.claude/context/handoffs/HANDOFF_[Learn][Stack]_mr-bytez-learn
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-04
+**Letzte Aktualisierung:** 2026-03-05
 
 

@@ -376,7 +376,8 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
 
 ## 6. Host-Level Performance-Tuning
 
-Empfohlene sysctl/ulimit-Aenderungen fuer n8-vps (manuell auf dem Host anwenden).
+Kernel- und Prozess-Limits fuer n8-vps. Config-Dateien liegen unter `shared/etc/`
+und werden per Copy deployed (siehe DEPLOYMENT.md Root, Abschnitt Host-Level Tuning).
 
 ### sysctl-Anpassungen
 
@@ -414,13 +415,27 @@ Fuer Docker-Container zusaetzlich in `/etc/docker/daemon.json`:
 }
 ```
 
+### Repo-Configs (Deploy: Copy)
+
+Config-Dateien liegen unter `shared/etc/` und werden per `sudo cp` deployed (nicht Symlink —
+systemd/Docker lesen nicht ueber Symlinks):
+
+| Datei | Ziel auf Host | Zweck |
+|-------|---------------|-------|
+| `shared/etc/sysctl.d/90-mr-bytez.conf` | `/etc/sysctl.d/` | Swappiness + Netzwerk-Queue |
+| `shared/etc/security/limits.d/90-mr-bytez.conf` | `/etc/security/limits.d/` | nofile 65536 |
+| `shared/etc/docker/daemon.json` | `/etc/docker/` | Docker Default-Ulimits |
+| `shared/etc/systemd/system.conf.d/90-mr-bytez.conf` | `/etc/systemd/system.conf.d/` | systemd System-Limit |
+| `shared/etc/systemd/user.conf.d/90-mr-bytez.conf` | `/etc/systemd/user.conf.d/` | systemd User-Limit |
+| `shared/etc/fish/conf.d/010-ulimits.fish` | (via Fish-Loader) | Soft-Limit Workaround |
+
 ### Ist-Zustand (2026-03-05)
 
 | Parameter | Aktuell | Empfohlen | Status |
 |-----------|---------|-----------|--------|
-| `vm.swappiness` | 60 | 10 | ○ offen |
-| `net.core.netdev_max_backlog` | 1000 | 5000 | ○ offen |
-| `ulimit -n` (nofile) | 1024 | 65536 | ○ offen |
+| `vm.swappiness` | 60 | 10 | ✅ Config im Repo |
+| `net.core.netdev_max_backlog` | 1000 | 5000 | ✅ Config im Repo |
+| `ulimit -n` (nofile) | 1024 | 65536 | ✅ Config im Repo |
 | `net.core.somaxconn` | 4096 | 4096 | ✅ passt |
 | `tcp_max_syn_backlog` | 4096 | 4096 | ✅ passt |
 

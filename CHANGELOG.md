@@ -61,6 +61,16 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Dashboard-Router: BasicAuth durch Authentik Forward-Auth ersetzt
   - CrowdSec Bouncer: `crowdsecMode: stream` + `updateMaxFailure: 5` (Best Practice aus Docs)
   - Forward-Auth: `X-authentik-entitlements` Header ergaenzt (neu seit Authentik 2026.x)
+- [VPS][Config][Docs] Host-Level Tuning ins Repo aufgenommen
+  - 5 Config-Dateien unter shared/etc/ erstellt: sysctl.d, limits.d, docker daemon.json,
+    systemd system.conf.d + user.conf.d (alle 90-mr-bytez.conf)
+  - Fish ulimit-Workaround: shared/etc/fish/conf.d/010-ulimits.fish
+    (Soft-Limit auf 65536 hochziehen — Arch Linux SSH-Login setzt trotz PAM/systemd nur 1024)
+  - DEPLOYMENT.md: Neuer Abschnitt Host-Level Tuning mit Deploy-Befehlen + Verifizierung
+  - Server-Doku: Ist-Zustand-Tabelle aktualisiert, Repo-Config-Tabelle ergaenzt
+  - Deployment-Methode: Copy (nicht Symlink — systemd/Docker lesen nicht ueber Symlinks)
+  - Handoff erstellt: HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md
+  - ROADMAP: Schritt 3 (Authentik) + Schritt 6 (CrowdSec) als erledigt markiert
 - [VPS][SEC][DKR] CrowdSec Stack + Traefik Plugin + CSP-Header
   - CrowdSec Stack angelegt: projects/infrastructure/n8-vps/stacks/crowdsec/
     Docker Agent (mrbz-crowdsec), LAPI auf 127.0.0.1:8080, Subnet 172.21.0.0/24

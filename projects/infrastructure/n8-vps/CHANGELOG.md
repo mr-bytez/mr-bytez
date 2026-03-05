@@ -17,6 +17,14 @@
   unter dem EntryPoint)
 
 ### Added
+- Host-Level Tuning Config-Dateien unter shared/etc/ erstellt
+  - sysctl.d/90-mr-bytez.conf: vm.swappiness 10, netdev_max_backlog 5000
+  - security/limits.d/90-mr-bytez.conf: nofile 65536 (mrohwer + root)
+  - docker/daemon.json: default-ulimits nofile 65536
+  - systemd/system.conf.d/90-mr-bytez.conf: DefaultLimitNOFILE 65536
+  - systemd/user.conf.d/90-mr-bytez.conf: DefaultLimitNOFILE 65536
+  - fish/conf.d/010-ulimits.fish: Soft-Limit Workaround (Arch SSH-Login Bug)
+  - Deployment: Copy-Methode (nicht Symlink)
 - Hardware-Doku Korrektur + Stack-Tuning
   - Hardware-Specs korrigiert: Core Ultra 7 265 (20K), 64 GB DDR5 (vorher falsch)
   - PostgreSQL: shared_buffers 2GB, effective_cache_size 8GB, work_mem 32MB

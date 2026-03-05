@@ -20,10 +20,10 @@ Schritt  Status   Beschreibung                              Aufwand
 ────────────────────────────────────────────────────────────────────
   1      ✅       Pakete (deploy.fish v0.5.1) + Port 22     erledigt
   2      ✅       Traefik Reverse Proxy (B14)               erledigt
-  3      🟠 WIP   Authentik SSO (auth.mr-bytez.de)          Config fertig
+  3      ✅       Authentik SSO (auth.mr-bytez.de)           erledigt
   4      ○        Portainer + Watchtower                    30 Min
   5      ○        WireGuard VPN (Port 61820 offen)          1-2h
-  6      🟠 WIP   CrowdSec IDS/IPS                          Middleware aktiv
+  6      ✅       CrowdSec IDS/IPS                           erledigt
   7      ○        Monitoring (Prometheus+Grafana+UptimeKuma) 2-3h
   8      ○        Backup Borg/borgmatic (VOR Prod-Daten!)   2h
   9      ○        Produktiv-Services (Forgejo→Vault→NC→...) variabel
@@ -32,10 +32,10 @@ Schritt  Status   Beschreibung                              Aufwand
 
 Pipeline-Visualisierung:
 ```
-✅ Traefik → 🟠 Authentik → Portainer → WireGuard
+✅ Traefik → ✅ Authentik → Portainer → WireGuard
                   │                         │
                   ↓                         ↓
-             🟠 CrowdSec → Monitoring → Backup → Services
+             ✅ CrowdSec → Monitoring → Backup → Services
 ```
 
 → Details: `docs/n8-vps-server-dokumentation.md`
@@ -59,6 +59,14 @@ IPv6 komplett deaktiviert.
 Authentik → Portainer+Watchtower → WireGuard → CrowdSec → Monitoring → Backup → Produktiv-Services
 
 → Details zu jedem Stack: `docs/n8-vps-server-dokumentation.md`
+
+---
+
+### Host-Level Tuning
+
+Config-Dateien fuer sysctl, ulimits, Docker und systemd unter `shared/etc/` erstellt.
+Aktuell manuelles Deployment per `sudo cp` (siehe Root DEPLOYMENT.md).
+Automatisierung in deploy.fish geplant.
 
 ---
 
