@@ -11,6 +11,7 @@
 - `agents/manual/` — Unterordner fuer interaktive Einzeldatei-Agents (4 bestehende verschoben)
 - `agents/bot/` — Unterordner fuer automatisierte Multi-File Bots (bereit fuer mrbz_aud)
 - `context/tags.md`: [Bot] Tag (Index: BOT) mit Suffix-Konvention (_AUD, _FIX, _DEP), jetzt 68 Tags
+- `context/webfetch-domains.md`: Source of Truth fuer WebFetch-Domains (56 Domains, kategorisiert)
 
 ### Changed
 - `CLAUDE.md`: Agents-Sektion erweitert (manual/ + bot/ Tabellen, Bot-Uebersicht)

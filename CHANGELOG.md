@@ -25,6 +25,9 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Legacy-Pfade (projects/web/) ausgeschlossen
 - [Docs][Policy] CHANGELOG-Pflicht pro Ordner als Policy in policies.md verankert
   - .claude/CHANGELOG.md trackt ab sofort ALLE .claude/-Aenderungen (eigene Perspektive)
+- [ClaudeCode][Config] WebFetch-Domain-Registry: `.claude/context/webfetch-domains.md`
+  - Source of Truth fuer alle erlaubten WebFetch-Domains (56 Domains)
+  - Kategorisiert nach Infrastruktur, Security, Services, AI/Cloud, etc.
 
 ### Changed
 - [Docs][Audit] ROADMAP-Audit: 8 ROADMAPs geprueft, 7 Fixes angewendet
