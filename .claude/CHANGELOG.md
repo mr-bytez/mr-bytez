@@ -5,6 +5,31 @@
 
 ---
 
+## [2.1.0] - 2026-03-05
+
+### Added
+- `agents/manual/` — Unterordner fuer interaktive Einzeldatei-Agents (4 bestehende verschoben)
+- `agents/bot/` — Unterordner fuer automatisierte Multi-File Bots (bereit fuer mrbz_aud)
+- `context/tags.md`: [Bot] Tag (Index: BOT) mit Suffix-Konvention (_AUD, _FIX, _DEP), jetzt 68 Tags
+
+### Changed
+- `CLAUDE.md`: Agents-Sektion erweitert (manual/ + bot/ Tabellen, Bot-Uebersicht)
+- `ROADMAP.md`: Phase 5 um Bot-Projekte A7/A8/A9 erweitert
+- `context/structure.md`: agents/-Baum aktualisiert (manual/ + bot/ Unterordner)
+- `context/claude-ai-projektanweisungen.txt`: Agents-Sektion + BOT-Tag-Konvention
+- `README.md`: Agents-Baum aktualisiert
+- `CLAUDE.md`: mrbz-dev aus "Aktive Projekte" entfernt (Placeholder geloescht)
+- `context/policies.md`: CHANGELOG-Pflicht pro Ordner als Policy verankert (6 Orte)
+- `hooks/pre-commit-docs-check.sh` v0.2.0: Dynamische CHANGELOG-Pruefung fuer alle Ordner
+- 8 Dateien: Referenzen auf alte Agent-Pfade aktualisiert
+
+### Policy-Entscheidung
+- `.claude/CHANGELOG.md` trackt ab sofort ALLE Aenderungen an `.claude/` — eigene Perspektive,
+  kein 1:1 Copy vom Root-CHANGELOG. Fehlende Eintraege seit 2026-02-27 werden nicht nachgetragen,
+  das erledigt der mrbz_aud Bot spaeter.
+
+---
+
 ## [2.0.0] - 2026-02-27
 
 ### Added

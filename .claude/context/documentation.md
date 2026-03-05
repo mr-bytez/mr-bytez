@@ -1,8 +1,8 @@
 # Documentation — Workflow & Regeln
 
-**Version:** 1.0.0
+**Version:** 0.1.1
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -66,7 +66,7 @@ DEPLOYMENT.md   → Deployment-Anleitung
 context/        → Details, Policies, Design-Docs
 skills/         → AI-Skills (Custom Prompts)
 hooks/          → Claude Code Event-Hooks (Bash-Scripts)
-agents/         → Claude Code Agents (Spezialisierte Sub-Agenten)
+agents/         → Claude Code Agents (manual/ + bot/)
 archive/        → Abgeschlossene Arbeit
 ```
 

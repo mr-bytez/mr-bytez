@@ -3,7 +3,7 @@
 > **Pfad:** `shared/etc/fish/CLAUDE.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-10
-> **Aktualisiert:** 2026-03-01
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 
 > **Zweck:** Claude Code Kontext fuer Fish Shell Konfiguration
@@ -38,4 +38,4 @@ shared/etc/fish/
 
 - A2 Status: Phase 0-6 abgeschlossen (ROADMAP.md)
 - Shell-Policies: `.claude/context/shell.md`
-- Scaffold-Agent: `.claude/agents/scaffold-agent.md`
+- Scaffold-Agent: `.claude/agents/manual/scaffold-agent.md`

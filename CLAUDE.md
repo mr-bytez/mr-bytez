@@ -54,13 +54,13 @@ Offene Aufgaben in `.claude/context/handoffs/`. Bei Chat-Start pruefen ob releva
 ## Claude Code Automation
 
 → `.claude/hooks/` — 7 Event-Hooks (Secrets-Guard, Fish-Syntax, Docs-Check, Dual-Push, ...)
-→ `.claude/agents/` — 4 Agents (docs, audit, deploy, scaffold)
+→ `.claude/agents/` — 4 manuelle Agents + Bot-Ordner (manual/, bot/)
 
 ## Zentrale Steuerung & Detail-Policies
 
 → `.claude/CLAUDE.md` — Zentrale Steuerung mit allen Verweisen
 → `.claude/context/` — Alle 11 Policy-Dateien (shell, git, security, docker, deployment, ...)
-→ `.claude/context/tags.md` — Tag-Registry (67 Tags, 3-Zeichen-Index)
+→ `.claude/context/tags.md` — Tag-Registry (68 Tags, 3-Zeichen-Index)
 → `.claude/context/structure.md` — Repo-Aufbau, 5-5-3 Pattern, Verzeichnisstruktur
 → `.claude/context/infrastructure.md` — Hosts, Netzwerk, SSH
 → `ROADMAP.md` — Aktuelle Planung

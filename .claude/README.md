@@ -3,7 +3,7 @@
 **Pfad:** `.claude/`
 **Zweck:** Kontext, Policies und Konfiguration für Claude Code & Claude.ai
 **Erstellt:** 2026-02-04
-**Aktualisiert:** 2026-02-11
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -31,7 +31,9 @@
 │   └── migration.md           # Migrationsplan Alt → Neu
 │
 ├── hooks/                # Claude Code Hooks (7 Event-Scripts)
-├── agents/               # Claude Code Agents (4 Spezialisten)
+├── agents/               # Claude Code Agents (manual/ + bot/)
+│   ├── manual/               # Interaktive Einzeldatei-Agents (4)
+│   └── bot/                  # Automatisierte Multi-File Bots
 ├── archive/              # Abgeschlossene Pläne & Arbeit
 └── skills/               # AI-Skills (Custom Prompts)
 ```

@@ -1,8 +1,8 @@
 # Policies — Grundprinzipien & Repo-Regeln
 
-**Version:** 1.0.0
+**Version:** 0.2.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -28,6 +28,19 @@ Für zentrale Markdown-Dateien (README.md, DEPLOYMENT.md, CHANGELOG.md, ROADMAP.
 - Es werden **nur Ergänzungen** oder **kleine Korrekturen** gemacht
 - **Keine Kürzungen/Entfernungen** — außer explizit erlaubt
 - Vor Änderungen kurz erklären: **was** geändert wird, **wo** und **warum**
+
+### CHANGELOG-Pflicht (pro Ordner)
+
+Jeder Ordner mit eigenem CHANGELOG.md muss diesen aktualisieren wenn Dateien in diesem
+Ordner geaendert werden. Der `pre-commit-docs-check.sh` Hook prueft das automatisch.
+
+Aktiv gepflegte CHANGELOGs (6 Orte):
+- Root `/mr-bytez/CHANGELOG.md` — Repo-weite Aenderungen
+- `.claude/CHANGELOG.md` — Alle Aenderungen an `.claude/` (eigene Perspektive, kein 1:1 Copy vom Root)
+- `.secrets/CHANGELOG.md` — Secrets-Repo Aenderungen
+- `shared/etc/fish/CHANGELOG.md` — Fish Shell Config
+- `projects/infrastructure/n8-vps/CHANGELOG.md` — VPS-Projekt
+- `shared/usr/local/bin/hwi/CHANGELOG.md` — Hardware-Info Script
 
 ### Commit-Regeln
 

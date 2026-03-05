@@ -3,10 +3,18 @@
 > **Pfad:** `shared/etc/fish/CHANGELOG.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-02-10
-> **Aktualisiert:** 2026-03-01
+> **Aktualisiert:** 2026-03-05
 > **Autor:** MR-ByteZ
 
 > **Zweck:** Aenderungshistorie der Fish Shell Konfiguration
+
+---
+
+## [0.6.1] — 2026-03-05
+
+### Changed
+- CLAUDE.md: Scaffold-Agent Referenz auf neuen Pfad `.claude/agents/manual/scaffold-agent.md`
+- CLAUDE.md: Aktualisiert-Datum
 
 ---
 

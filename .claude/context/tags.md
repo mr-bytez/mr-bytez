@@ -1,8 +1,8 @@
 # Tag-Registry — Commits & Chat-Benennung
 
-**Version:** 1.0.0
+**Version:** 0.1.1
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-10
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -23,6 +23,7 @@ Zentrale Registry fuer ALLE Tags — verwendet in Git-Commits UND Chat-Benennung
 |-------------|-------|---------------------------------------|-----------------|---------|
 | [Backup]    | BAK   | Backup, Recovery, Restore, Borg       | Commits + Chats | 2026-02 |
 | [Bash]      | BSH   | Bash Shell, Scripts                   | Commits + Chats | 2026-02 |
+| [Bot]       | BOT   | Automatisierte Bot-Commits (Suffix: _AUD, _FIX, _DEP) | Commits | 2026-03 |
 | [Cleanup]   | CLN   | Aufraeumarbeiten, Linting             | Commits         | 2026-01 |
 | [ClaudeCode]| CLC   | Claude Code CLI Aufgaben              | Chats           | 2026-02 |
 | [Cloud]     | CLD   | Cloud-Services allgemein (Nextcloud, Immich, rclone) | Commits + Chats | 2026-02 |

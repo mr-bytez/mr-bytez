@@ -1,8 +1,8 @@
 # .claude/ Struktur — 5-5-3 Pattern
 
-**Version:** 2.0.0
+**Version:** 0.4.0
 **Erstellt:** 2026-02-05
-**Aktualisiert:** 2026-02-27
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -23,7 +23,7 @@ DEPLOYMENT.md   → Deployment-Anleitung
 context/        → Details, Policies, Design-Docs
 skills/         → AI-Skills (Custom Prompts)
 hooks/          → Claude Code Event-Hooks (Bash-Scripts)
-agents/         → Claude Code Agents (Spezialisierte Sub-Agenten)
+agents/         → Claude Code Agents (manual/ + bot/)
 archive/        → Abgeschlossene Arbeit
 ```
 
@@ -55,7 +55,9 @@ Projekte        → Pro Host/Stack
     ├── context/               # Globale Policies & Daten
     ├── skills/                # AI-Skills (Custom Prompts)
     ├── hooks/                 # Claude Code Event-Hooks (7 Scripts)
-    ├── agents/                # Claude Code Agents (4 Spezialisten)
+    ├── agents/                # Claude Code Agents (manual/ + bot/)
+    │   ├── manual/                # Interaktive Einzeldatei-Agents (4)
+    │   └── bot/                   # Automatisierte Multi-File Bots
     └── archive/               # Abgeschlossene Arbeit
 ```
 
@@ -214,10 +216,13 @@ Claude Code Event-Hooks    → .claude/hooks/
 ### agents/:
 ```
 Claude Code Agents         → .claude/agents/
-  docs-agent               → Dokumentation pflegen (5-5-3, Additive-Only)
-  audit-agent              → Read-only Bestandsaufnahmen und Reports
-  deploy-agent             → Deployment auf Hosts ueber Anker-System
-  scaffold-agent           → Neue Dateien mit korrektem Header erstellen
+  manual/                  → Interaktive Einzeldatei-Agents
+    docs-agent             → Dokumentation pflegen (5-5-3, Additive-Only)
+    audit-agent            → Read-only Bestandsaufnahmen und Reports
+    deploy-agent           → Deployment auf Hosts ueber Anker-System
+    scaffold-agent         → Neue Dateien mit korrektem Header erstellen
+  bot/                     → Automatisierte Multi-File Bots
+    mrbz_aud/              → Docs-Audit-Bot (woechentlicher Nachtlauf)
 ```
 
 ---
@@ -328,5 +333,3 @@ Claude Code Agents         → .claude/agents/
 ```
 
 ---
-
-**Letzte Aktualisierung:** 2026-02-27

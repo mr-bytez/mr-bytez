@@ -2,7 +2,7 @@
 
 **Version:** 0.4.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-03-04
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -65,6 +65,9 @@
 - [ ] Claude Development Container (`.claude/` Mount) → Projekt A3 in Root `ROADMAP.md`
 - [ ] Pre-Commit Hooks fuer Doku-Konsistenz → B11 unter A3
 - [ ] Automatische Context-Synchronisation → D17 unter A4
+- [ ] mrbz_aud Docs-Audit-Bot → Projekt A7 in Root `ROADMAP.md`
+- [ ] mrbz_dep/mrbz_cov Deploy-Coverage-Bot → Projekt A8 in Root `ROADMAP.md`
+- [ ] Master-Key Automatisierung → Projekt A9 in Root `ROADMAP.md`
 
 **ETA:** Q2 2026
 

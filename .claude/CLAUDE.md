@@ -1,8 +1,8 @@
 # mr-bytez — Claude Context
 
-**Version:** 1.0.0
+**Version:** 0.3.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-02-27
+**Aktualisiert:** 2026-03-05
 **Autor:** MR-ByteZ
 
 ---
@@ -61,9 +61,11 @@ Event-basierte Automatisierung in `.claude/hooks/`:
 
 ---
 
-## Claude Code Agents (4)
+## Claude Code Agents
 
 Spezialisierte Sub-Agenten in `.claude/agents/`:
+
+### manual/ — Einzeldatei-Agents (interaktiv)
 
 | Agent | Zweck |
 |-------|-------|
@@ -71,6 +73,12 @@ Spezialisierte Sub-Agenten in `.claude/agents/`:
 | `audit-agent.md` | Read-only Auditor (Bestandsaufnahmen, Reports) |
 | `deploy-agent.md` | Deployment auf Hosts (Anker-System, Fish-first) |
 | `scaffold-agent.md` | Neue Dateien mit korrektem Header/Banner erstellen |
+
+### bot/ — Automatisierte Multi-File Bots
+
+| Bot | Zweck | Status |
+|-----|-------|--------|
+| `mrbz_aud/` | Docs-Audit-Bot (woechentlicher Nachtlauf) | In Entwicklung |
 
 ---
 
@@ -80,7 +88,6 @@ Spezialisierte Sub-Agenten in `.claude/agents/`:
 |---------|-----|------|
 | n8-kiste | Physical Host | `projects/infrastructure/n8-kiste/` |
 | n8-vps | Physical Host | `projects/infrastructure/n8-vps/` |
-| mrbz-dev | Docker Stack | `shared/stacks/mrbz-dev/` |
 
 ---
 

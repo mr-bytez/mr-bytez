@@ -9,6 +9,23 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Added
+- [Structure][Docs][Roadmap] Vorbereitungen fuer mrbz_aud Docs-Audit-Bot:
+  - Agents-Ordner umstrukturiert: `.claude/agents/manual/` (4 bestehende Agents) + `.claude/agents/bot/` (fuer automatisierte Bots)
+  - `[Bot]` Tag (Index: BOT) in Tag-Registry registriert mit Suffix-Konvention (_AUD, _FIX, _DEP)
+  - ROADMAP: A7 mrbz_aud (Docs-Audit-Bot), A8 mrbz_dep/mrbz_cov (Deploy-Coverage), A9 Master-Key Automatisierung
+  - Alle Referenzen auf alte Agent-Pfade aktualisiert (8 Dateien)
+- [Structure][Cleanup] Placeholder-Projekte entfernt:
+  - `projects/infrastructure/mcp-server/` (A4, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
+  - `shared/stacks/mrbz-dev/` (A3, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
+  - ROADMAP A3+A4: Placeholder-Entfernung vermerkt
+- [ClaudeCode][Hook] pre-commit-docs-check.sh v0.2.0:
+  - Dynamische CHANGELOG-Pruefung fuer alle Ordner mit eigenen CHANGELOGs (6 Orte)
+  - Blockiert Commit wenn CHANGELOG eines betroffenen Ordners fehlt
+  - Legacy-Pfade (projects/web/) ausgeschlossen
+- [Docs][Policy] CHANGELOG-Pflicht pro Ordner als Policy in policies.md verankert
+  - .claude/CHANGELOG.md trackt ab sofort ALLE .claude/-Aenderungen (eigene Perspektive)
+
 ### Changed
 - [Docs][Audit] ROADMAP-Audit: 8 ROADMAPs geprueft, 7 Fixes angewendet
   - Root ROADMAP: Kompakt-Tabelle A1-A5 korrigiert (Status, Abhaengigkeiten, ETAs)
@@ -915,5 +932,3 @@ git push codeberg v0.6.0
 - Codeberg: https://codeberg.org/n8lauscher/mr-bytez/tags
 
 ---
-
-**Letzte Aktualisierung:** 2026-03-04

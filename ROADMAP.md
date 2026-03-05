@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-03-04
+**Aktualisiert:** 2026-03-05
 
 ---
 
@@ -182,6 +182,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 **Chat:** [Claude Dev Container](https://claude.ai/chat/beb70400-561e-4420-8920-86b2fcaf6cbd)
 
 **Status:** Bewusst zurueckgestellt — Claude Code im Repo reicht, kein Blocker fuer A4/A5
+**Placeholder entfernt:** 2026-03-05 (5-5-3 Skelett `shared/stacks/mrbz-dev/` geloescht, wird bei Projektstart neu gescaffoldet)
 **ETA:** Bei Bedarf
 
 ---
@@ -216,6 +217,7 @@ Details: Inventur wurde in diese ROADMAP integriert (Datei geloescht)
 **Chat:** [MCP Server Implementation](https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54)
 
 **Status:** Geplant — wartet auf Authentik
+**Placeholder entfernt:** 2026-03-05 (5-5-3 Skelett `projects/infrastructure/mcp-server/` geloescht, wird bei Projektstart neu gescaffoldet)
 **ETA:** Nach VPS-Pipeline Schritt 3
 
 ---
@@ -275,6 +277,12 @@ Parallel/unabhaengig:
   - B5 SMB-Deployment — bei Gelegenheit
   - UFW Deployment — parallel zur VPS-Pipeline
   - deploy.fish: Host-Level Tuning Phase (sysctl/ulimits/Docker-Config automatisch deployen)
+  ↓
+A7 mrbz_aud (Docs-Audit-Bot, braucht Agents-Umbau + BOT-Tag ✅)
+  ↓
+A8 mrbz_dep/mrbz_cov (Deploy-Coverage-Bot, nach A7)
+  ↓
+A9 Master-Key Automatisierung (vor erstem Bot mit Secrets-Zugriff)
 ```
 
 **Inkrementell (kein fester Zeitpunkt):**
@@ -297,6 +305,57 @@ Parallel/unabhaengig:
 
 **Status:** Geplant
 **ETA:** Q2 2026
+
+---
+
+### A7: mrbz_aud — Automatisierter Docs-Audit-Bot
+
+**Prioritaet:** Mittel — automatisiert wiederkehrende Doku-Pruefungen
+**Abhaengigkeiten:** Agents-Umstrukturierung (manual/ + bot/) + BOT-Tag
+**5-5-3 Ort:** `.claude/agents/bot/mrbz_aud/`
+
+**Umfang:**
+- 8 Module: Referenz-Pruefung, Tag-Validierung, Struktur-Check, Konsistenz, etc.
+- Woechentlicher Nachtlauf (3:00 Uhr CET)
+- Commits mit `[BOT_AUD]` Tag
+- Ergebnis: Audit-Report + automatische Fixes wo moeglich
+
+**Status:** In Entwicklung
+**ETA:** Q1 2026
+
+---
+
+### A8: mrbz_dep / mrbz_cov — Deploy-Coverage-Bot
+
+**Prioritaet:** Niedrig — nach mrbz_aud
+**Abhaengigkeiten:** A7 (mrbz_aud als Vorlage)
+**5-5-3 Ort:** `.claude/agents/bot/mrbz_dep/`
+
+**Umfang:**
+- Prueft ob alle Repo-Dateien (shared/etc/, .secrets/) im deploy.fish erfasst sind
+- Coverage-Report: Was wird deployt, was fehlt
+- Commits mit `[BOT_DEP]` Tag
+
+**Status:** Geplant
+**ETA:** Nach A7
+
+---
+
+### A9: Master-Key Automatisierung
+
+**Prioritaet:** Niedrig — Voraussetzung fuer automatisierte Secrets-Operationen
+**Abhaengigkeiten:** Keine
+**5-5-3 Ort:** `.secrets/`
+
+**Umfang:**
+- `.secrets/.mrbz-master-key` — Master-Key fuer automatisiertes pack/unpack
+- 0400 Permissions, in `.secrets/.gitignore` explizit gelistet
+- Nur auf n8-kiste vorhanden
+- Wird normal mitgepackt in .age Datei
+- Ermoeglicht Bots (mrbz_aud, mrbz_dep) automatischen Secrets-Zugriff
+
+**Status:** Geplant
+**ETA:** Bei Bedarf (vor erstem Bot mit Secrets-Zugriff)
 
 ---
 
@@ -411,12 +470,13 @@ Getestet auf n8-archstick — Deploy-Script fehlt noch.
 - `CLAUDE.md` als zentrale Steuerung
 - Root-Dateien bereinigt (keine verwaisten Referenzen)
 - 7 Claude Code Hooks in `.claude/hooks/` (Session-Start, Secrets-Guard, Fish-Syntax, Dual-Push, Docs-Check, Handoff-Lifecycle, Bash-Logger)
-- 4 Claude Code Agents in `.claude/agents/` (docs, audit, deploy, scaffold)
+- 4 Claude Code Agents in `.claude/agents/manual/` (docs, audit, deploy, scaffold)
+- Agents-Ordner umstrukturiert: `manual/` (interaktiv) + `bot/` (automatisiert)
 - configs/ + projects/ geloescht (ungenutzt), hooks/ + agents/ als Ersatz
 
 **C1+C2 Policies:** ✅
 - Chat-Benennung v2 (Format, Ketten-System, Datum-Ermittlung)
-- Tag-Registry mit 67 Tags (3-Zeichen-Index, generisch + dienst-spezifisch)
+- Tag-Registry mit 68 Tags (3-Zeichen-Index, generisch + dienst-spezifisch, inkl. [Bot])
 - Handoff-Policy definiert + Ordner umstrukturiert
 - Context-Audit: structure.md, integration.md, infrastructure.md aktualisiert
 - Opus 4.6 Features in integration.md dokumentiert
@@ -436,6 +496,10 @@ Getestet auf n8-archstick — Deploy-Script fehlt noch.
 | **A3** Dev Container | Docker Stack, Claude Code, VS Code | Keine | Bei Bedarf |
 | **A4** MCP Server | TypeScript, Traefik, RAG, n8-vps | VPS-Pipeline (Authentik) | Nach Schritt 3 |
 | **A5** Data Cleanup | Clean/Smudge Filter, History Rewrite | Keine | Bei Gelegenheit |
+| **A6** Cloud-Sync | rclone crypt, Google Drive, Auto-Mount | A1 Phase 2 | Q2 2026 |
+| **A7** mrbz_aud | Docs-Audit-Bot, 8 Module, woechentlich | Agents-Umbau + BOT-Tag | In Entwicklung |
+| **A8** mrbz_dep/cov | Deploy-Coverage-Bot | A7 | Nach A7 |
+| **A9** Master-Key | Automatisiertes pack/unpack fuer Bots | Keine | Bei Bedarf |
 
 ### 📅 Expansion (Phase 4)
 
@@ -521,7 +585,5 @@ Aktive Handoffs:
    https://claude.ai/chat/fd879abe-a618-40b4-bf2a-540854fa6a54
 
 ---
-
-**Letzte Aktualisierung:** 2026-03-05
 
 

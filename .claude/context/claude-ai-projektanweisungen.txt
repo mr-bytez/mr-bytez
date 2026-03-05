@@ -17,7 +17,7 @@ Repositories:
 Source of Truth: .claude/context/ im Repo
 Alle Regeln, Tags, Konventionen liegen dort. Bei Fragen zuerst durchsuchen.
 Context-Dateien Uebersicht:
-→ .claude/context/tags.md (Tag-Registry, 67 Tags, 3-Zeichen-Index)
+→ .claude/context/tags.md (Tag-Registry, 68 Tags, 3-Zeichen-Index)
 → .claude/context/git.md (Commit-Format, Remotes, Chat-Link Regel)
 → .claude/context/documentation.md (Chat-Benennung v2, 5-5-3 Pattern, Header)
 → .claude/context/structure.md (Repo-Aufbau, Projekt-Typen, CLAUDE.md Schema)
@@ -120,12 +120,17 @@ pre-commit-docs-check.sh (PreToolUse/Bash: CHANGELOG/ROADMAP im Staging?)
 handoff-lifecycle-check.sh (PreToolUse/Bash: erledigte Handoffs bereinigt?)
 bash-command-logger.sh (PreToolUse/Bash: Audit-Trail in .claude/logs/)
 
-Claude Code Agents (4):
-→ .claude/agents/
+Claude Code Agents:
+→ .claude/agents/manual/ (interaktive Einzeldatei-Agents)
 docs-agent.md — Dokumentation pflegen (5-5-3, Additive-Only, Tags)
 audit-agent.md — Read-only Auditor (Bestandsaufnahmen, Reports)
 deploy-agent.md — Deployment auf Hosts (Anker-System, Fish-first)
 scaffold-agent.md — Neue Dateien mit korrektem Header/Banner erstellen
+→ .claude/agents/bot/ (automatisierte Multi-File Bots)
+mrbz_aud — Docs-Audit-Bot (woechentlich, [BOT_AUD] Tag)
+
+BOT-Tag Suffix-Konvention:
+Automatisierte Bot-Commits nutzen [Bot] mit Suffix: [BOT_AUD] (Audit), [BOT_FIX] (Fix), [BOT_DEP] (Deploy)
 
 Docker:
 → .claude/context/docker.md

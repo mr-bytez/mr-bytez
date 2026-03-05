@@ -3,7 +3,7 @@
 **Version:** 0.7.0\
 **Status:** Active / Fish-first / Micro\
 **Erstellt:** 2026-01-22\
-**Aktualisiert:** 2026-03-01\
+**Aktualisiert:** 2026-03-05\
 **Autor:** MR-ByteZ
 
 ---
@@ -66,7 +66,9 @@ Enthält:
 │   ├── CLAUDE.md                # Zentrale Steuerung fuer Claude Code
 │   ├── context/                 # Policies (11 Dateien) + Handoffs
 │   ├── hooks/                   # Claude Code Event-Hooks (7 Scripts)
-│   └── agents/                  # Claude Code Agents (4 Spezialisten)
+│   └── agents/                  # Claude Code Agents (manual/ + bot/)
+│       ├── manual/                  # Interaktive Einzeldatei-Agents (4)
+│       └── bot/                     # Automatisierte Multi-File Bots
 ├── .config/                     # Repo-weite Configs
 ├── README.md
 ├── DEPLOYMENT.md                # Deployment-Guide
