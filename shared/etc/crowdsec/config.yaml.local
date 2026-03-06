@@ -1,16 +1,29 @@
 # ╔══════════════════════════════════════════════════════════════════════════════╗
-# ║  CrowdSec — Log Acquisition                                                ║
+# ║  CrowdSec — Lokale Config-Overrides                                       ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:         .../crowdsec/config/acquis.yaml                             ║
+# ║  Pfad:         /etc/crowdsec/config.yaml.local                             ║
+# ║  Repo:         shared/etc/crowdsec/config.yaml.local                       ║
 # ║  Autor:        MR-ByteZ                                                    ║
 # ║  Version:      0.1.0                                                       ║
-# ║  Erstellt:     2026-03-04                                                  ║
-# ║  Aktualisiert: 2026-03-04                                                  ║
-# ║  Zweck:        Log-Quellen fuer CrowdSec Security Engine                   ║
+# ║  Erstellt:     2026-03-06                                                  ║
+# ║  Zweck:        Overrides fuer CrowdSec Default-Config (persistent)         ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
+#
+# Hinweis: Diese Datei ueberschreibt Werte aus config.yaml.
+# config.yaml wird vom Paketmanager verwaltet — eigene Anpassungen hier!
 
-# --- Traefik Access-Log (JSON-Format) ---
-filenames:
-  - /var/log/traefik/access.log
-labels:
-  type: traefik
+common:
+  log_media: file
+  log_level: info
+
+db_config:
+  use_wal: true
+
+api:
+  server:
+    # LAPI nur lokal erreichbar — Traefik Plugin verbindet via Docker-Bridge
+    listen_uri: 0.0.0.0:8080
+    trusted_ips:
+      - 127.0.0.1
+      - ::1
+      - 172.16.0.0/12

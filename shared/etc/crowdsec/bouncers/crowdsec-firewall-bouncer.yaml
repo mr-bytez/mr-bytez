@@ -1,0 +1,51 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  CrowdSec — Firewall Bouncer Config                                       ║
+# ╠══════════════════════════════════════════════════════════════════════════════╣
+# ║  Pfad:         /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml       ║
+# ║  Repo:         shared/etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml ║
+# ║  Autor:        MR-ByteZ                                                    ║
+# ║  Version:      0.1.0                                                       ║
+# ║  Erstellt:     2026-03-06                                                  ║
+# ║  Zweck:        Firewall Bouncer fuer iptables (UFW-kompatibel)             ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+#
+# Blockiert IPs auf Netzwerkebene (iptables/ipset).
+# Schuetzt: SSH, HTTP(S), Docker-Ports — incoming + outgoing.
+# Kompatibel mit UFW (eigene Chains, stoert UFW-Regeln nicht).
+#
+# WICHTIG: api_key muss nach Installation gesetzt werden!
+#   sudo cscli bouncers add firewall-bouncer
+#   → Key hier eintragen
+
+mode: iptables
+update_frequency: 10s
+log_mode: file
+log_dir: /var/log/
+log_level: info
+log_compression: true
+log_max_size: 100
+log_max_backups: 3
+log_max_age: 30
+api_url: http://127.0.0.1:8080/
+api_key: CHANGE_ME_AFTER_INSTALL
+
+insecure_skip_verify: false
+disable_ipv6: true
+deny_action: DROP
+deny_log: false
+supported_decisions_types:
+  - ban
+
+# --- ipset Blacklists ---
+blacklists_ipv4: crowdsec-blacklists
+blacklists_ipv6: crowdsec6-blacklists
+ipset_type: nethash
+
+# --- iptables Chains ---
+# INPUT:       Schuetzt Host-Services (SSH, Unbound)
+# FORWARD:     Schuetzt weitergeleiteten Traffic
+# DOCKER-USER: Schuetzt exponierte Docker-Ports (HTTP, HTTPS)
+iptables_chains:
+  - INPUT
+  - FORWARD
+  - DOCKER-USER

@@ -17,7 +17,7 @@
 | Detail-Doku | `docs/n8-vps-server-dokumentation.md` |
 | Traefik Stack | `stacks/traefik/` |
 | Authentik Stack | `stacks/authentik/` |
-| CrowdSec Stack | `stacks/crowdsec/` |
+| CrowdSec Config | `shared/etc/crowdsec/` (Root-Repo) |
 | Globale Policies | Root `.claude/context/` |
 
 ---
@@ -50,4 +50,4 @@
 ## Aktuell
 
 → Siehe: `ROADMAP.md` (n8-vps Service-Pipeline)
-→ Naechster Schritt: Authentik SSO (Schritt 3)
+→ Naechster Schritt: Portainer + Watchtower (Schritt 4)

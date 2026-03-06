@@ -1,9 +1,9 @@
 # n8-vps — CHANGELOG
 
 > **Pfad:** `projects/infrastructure/n8-vps/CHANGELOG.md`
-> **Version:** 0.1.0
+> **Version:** 0.2.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-06
 > **Autor:** MR-ByteZ
 > **Zweck:** Aenderungshistorie fuer den n8-vps Host
 
@@ -12,6 +12,12 @@
 ## [Unreleased]
 
 ### Changed
+- CrowdSec von Docker-Container auf native Installation migriert (systemd):
+  - AUR-Pakete `crowdsec` + `cs-firewall-bouncer` via yay
+  - Firewall Bouncer: iptables-Mode, INPUT + FORWARD + DOCKER-USER
+  - SSH-Log-Analyse direkt via journalctl (kein journal-to-file Workaround)
+  - Traefik Plugin: LAPI-Adresse auf Docker-Bridge 172.17.0.1:8080
+  - UFW-Regel: Port 8080/tcp auf br+ (LAPI fuer Docker-Container)
 - Stack-Haertung aller 3 Stacks (Traefik, CrowdSec, Authentik):
   - `security_opt: no-new-privileges:true` auf allen Services (5 Container)
   - Traefik: `hostname: traefik.proxy.docker.n8vps`, Healthcheck (ping), Logging-Rotation

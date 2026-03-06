@@ -49,9 +49,11 @@ Konfiguration und Host-Level Tuning.
 
 ## Offene Punkte
 
-- [ ] **Firewall Bouncer** — CrowdSec Firewall Bouncer (cs-firewall-bouncer-iptables)
-  aus AUR bauen und auf n8-vps installieren. Manuell per SSH (systemd-Service).
-  Konfiguration: LAPI URL http://127.0.0.1:8080, API-Key aus `cscli bouncers add`.
+- [x] ~~**Firewall Bouncer**~~ — erledigt (CrowdSec komplett auf nativ migriert, Bouncer in iptables-Mode)
+- [ ] **Community-Blocklisten** — In CrowdSec Console zusaetzliche Listen abonnieren:
+  FireHOL BotScout, greensnow.co, Georgs Honeypot, Tor Exit Nodes
+- [ ] **CrowdSec Console Enrollment** — Neue native Instanz in Console enrollen
+  (alter Docker-Enrollment ist ungueltig, neuer Enroll-Key noetig)
 - [x] ~~**Authentik Forward-Auth Provider**~~ — erledigt (via API: Provider + Application + Outpost)
 - [x] ~~**Traefik Dashboard Forward-Auth testen**~~ — erledigt (302 → auth.mr-bytez.de, Login funktioniert)
 - [x] ~~**Host-Level Tuning auf n8-vps deployen**~~ — erledigt (deployed + verifiziert)

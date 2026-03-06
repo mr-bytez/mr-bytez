@@ -3,7 +3,7 @@
 > **Pfad:** `projects/infrastructure/n8-vps/ROADMAP.md`
 > **Version:** 0.2.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-04
+> **Aktualisiert:** 2026-03-06
 > **Autor:** MR-ByteZ
 > **Zweck:** Host-Planung fuer n8-vps (vollstaendige Pipeline)
 
@@ -23,7 +23,7 @@ Schritt  Status   Beschreibung                              Aufwand
   3      ✅       Authentik SSO (auth.mr-bytez.de)           erledigt
   4      ○        Portainer + Watchtower                    30 Min
   5      ○        WireGuard VPN (Port 61820 offen)          1-2h
-  6      ✅       CrowdSec IDS/IPS                           erledigt
+  6      ✅       CrowdSec IDS/IPS (nativ + FW Bouncer)      erledigt
   7      ○        Monitoring (Prometheus+Grafana+UptimeKuma) 2-3h
   8      ○        Backup Borg/borgmatic (VOR Prod-Daten!)   2h
   9      ○        Produktiv-Services (Forgejo→Vault→NC→...) variabel
@@ -56,7 +56,8 @@ IPv6 komplett deaktiviert.
 
 ### Geplante Stacks (Reihenfolge)
 
-Authentik → Portainer+Watchtower → WireGuard → CrowdSec → Monitoring → Backup → Produktiv-Services
+Portainer+Watchtower → WireGuard → Monitoring → Backup → Produktiv-Services
+(Authentik ✅ und CrowdSec ✅ bereits deployed)
 
 → Details zu jedem Stack: `docs/n8-vps-server-dokumentation.md`
 
@@ -70,4 +71,4 @@ Automatisierung in deploy.fish geplant.
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-05
+**Letzte Aktualisierung:** 2026-03-06

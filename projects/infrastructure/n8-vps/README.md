@@ -1,9 +1,9 @@
 # n8-vps — Host-Uebersicht
 
 > **Pfad:** `projects/infrastructure/n8-vps/README.md`
-> **Version:** 0.1.0
+> **Version:** 0.2.0
 > **Erstellt:** 2026-03-04
-> **Aktualisiert:** 2026-03-05
+> **Aktualisiert:** 2026-03-06
 > **Autor:** MR-ByteZ
 > **Zweck:** Host-Uebersicht fuer n8-vps (Hetzner EX63 Production Server)
 
@@ -42,7 +42,7 @@
 
 - **Traefik** v3.6 Reverse Proxy (Dashboard: traefik.mr-bytez.de)
 - **Authentik** 2026.2.1 SSO (auth.mr-bytez.de, Forward-Auth fuer Dashboard)
-- **CrowdSec** IDS/IPS (Bouncer Plugin auf allen Routern, Stream-Modus)
+- **CrowdSec** IDS/IPS (nativ, Firewall Bouncer + Traefik Plugin, 8 Collections)
 - Fish Shell mit mr-bytez Integration (Powerline Prompt, rot = Production)
 
 → Geplante Services: `ROADMAP.md` (n8-vps Service-Pipeline)
@@ -65,8 +65,7 @@ projects/infrastructure/n8-vps/
 │   └── n8-vps-server-dokumentation.md  # Detail-Referenzdoku
 ├── stacks/
 │   ├── traefik/               # Traefik Reverse Proxy Stack
-│   ├── authentik/             # Authentik SSO Stack (3 Services)
-│   └── crowdsec/              # CrowdSec IDS/IPS Stack
+│   └── authentik/             # Authentik SSO Stack (3 Services)
 └── root/
     └── home/mrohwer/.config/fish/
         ├── aliases/           # Host-Aliases (110-n8-vps.fish)

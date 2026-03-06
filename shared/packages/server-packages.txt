@@ -1,0 +1,63 @@
+# ┌─────────────────────────────────────────────────────────┐
+# │  MR-ByteZ — Paketliste                                 │
+# └─────────────────────────────────────────────────────────┘
+# Datei:       server-packages.txt
+# Pfad:        shared/packages/server-packages.txt
+# Autor:       MR-ByteZ
+# Version:     0.1.0
+# Erstellt:    2026-03-06
+# Aktualisiert:2026-03-06
+# Zweck:       Server-Pakete fuer Hosts mit Internet-Diensten (n8-vps)
+
+# === pacman (offizielle Repos) ===
+
+# Firewall
+ufw
+
+# DNS
+unbound
+
+# Netzwerk-Tools
+bind
+ldns
+mtr
+nmap
+tcpdump
+traceroute
+net-tools
+iperf3
+
+# System-Monitoring
+iotop
+sysstat
+lsof
+strace
+smartmontools
+
+# Storage & Filesystem
+btrfs-progs
+xfsprogs
+nvme-cli
+lvm2
+mdadm
+
+# Crypto & VPN
+wireguard-tools
+
+# Scheduled Tasks
+cronie
+
+# Terminal-Multiplexer
+tmux
+screen
+
+# Hardware
+dmidecode
+lshw
+i2c-tools
+
+# === yay (AUR) ===
+
+# CrowdSec Security Engine (IDS/IPS)
+crowdsec
+cs-firewall-bouncer

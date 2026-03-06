@@ -1,6 +1,8 @@
 # .claude/ Changelog
 
+**Version:** 0.6.0
 **Erstellt:** 2026-02-10
+**Aktualisiert:** 2026-03-06
 **Autor:** MR-ByteZ
 
 ---
@@ -8,6 +10,15 @@
 ## [Unreleased]
 
 ### Added
+- `DEPLOYMENT.md` erstellt (5-5-3 Vollstaendigkeit fuer .claude/)
+- mrbz_aud Phase 3: 20 MITTEL + 5 INFO Findings manuell abgearbeitet
+  - Zaehler, tote Pfade, veraltete Eintraege in context/ korrigiert
+  - Header standardisiert (CHANGELOG, DEPLOYMENT, ROADMAP, README)
+  - n8-kiste Docs (Erweitert), n8-station Docs (Minimal) erstellt
+  - docker.md Stacks-Tabelle aktualisiert
+  - ROADMAP A7 Status und Phase-3-Handoff bereinigt
+
+### Previously Added
 - `agents/bot/mrbz_aud/` — Kompletter Docs-Audit-Bot (Projekt A7):
   - `mrbz_aud-agent_audit.md` — Read-Only Audit-Agent (Phase 1, 8 Module)
   - `mrbz_aud-agent_verify.md` — Verifikations-Agent (Phase 2, Konsolidierung)

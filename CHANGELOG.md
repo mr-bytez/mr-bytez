@@ -1,5 +1,10 @@
 # CHANGELOG.md
 
+**Version:** 0.18.0
+**Erstellt:** 2026-01-22
+**Aktualisiert:** 2026-03-06
+**Autor:** MR-ByteZ
+
 Alle nennenswerten Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/),
@@ -8,6 +13,45 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 ---
 
 ## [Unreleased]
+
+### Fixed (mrbz_aud Phase 3 — 20 MITTEL + 5 INFO Findings)
+- [BOT_AUD][Docs] Zaehler korrigiert: "11 Policy-Dateien" → 18, "68 Tags" → 70 in Root CLAUDE.md
+- [BOT_AUD][Docs] Toter Pfad `scripts/hwi/hwi.sh` → `shared/usr/local/bin/hwi/hwi.sh` in shell.md
+- [BOT_AUD][Docs] Geloeschte Projekte (mcp-server, mrbz-dev) aus infrastructure.md entfernt
+- [BOT_AUD][Docs] 010-ulimits.fish in shell.md Dateitabelle ergaenzt
+- [BOT_AUD][Docs] ROADMAP: "public Repo" → "privates Repo", A4 Authentik-Status aktualisiert
+- [BOT_AUD][Docs] Header standardisiert: CHANGELOG.md, DEPLOYMENT.md, ROADMAP.md (Root)
+- [BOT_AUD][Docs] Header standardisiert: .claude/CHANGELOG.md, .claude/README.md
+- [BOT_AUD][Docs] Header standardisiert: hwi/ (CHANGELOG, DEPLOYMENT, README, ROADMAP)
+- [BOT_AUD][Docs] scan-secrets.fish: Version 2.0 → 0.2.0 (Policy-konform), Autor → MR-ByteZ
+- [BOT_AUD][Docs] docker.md: Stacks-Tabelle aktualisiert (Traefik/Authentik/CrowdSec → Deployed)
+- [BOT_AUD][Docs] infrastructure.md: Sanitization-Hinweis praezisiert
+
+### Added (mrbz_aud Phase 3 — neue Dateien)
+- [BOT_AUD][Docs] .claude/DEPLOYMENT.md erstellt (5-5-3 Vollstaendigkeit)
+- [BOT_AUD][Docs] n8-kiste: README.md + CHANGELOG.md + DEPLOYMENT.md (Erweiterte Stufe)
+- [BOT_AUD][Docs] n8-station: README.md + CHANGELOG.md (Minimale Stufe)
+
+### Changed (mrbz_aud Phase 3 — INFO-Fixes)
+- [BOT_AUD][Docs] .claude/ROADMAP: mrbz_aud Checkbox auf [x], "A1-A5" → "A1-A9"
+- [BOT_AUD][Docs] n8-vps ROADMAP: Datum synchronisiert, Geplante Stacks aktualisiert
+
+### Changed (VPS — CrowdSec Migration Docker → Nativ)
+- [VPS][SEC] CrowdSec von Docker-Container auf native Installation migriert (systemd)
+  - AUR-Pakete: `crowdsec` + `cs-firewall-bouncer` (in neuer `server-packages.txt`)
+  - 8 Collections: traefik, http-cve, http-dos, base-http-scenarios, sshd, linux, auditd, whitelist-good-actors
+  - SSH-Log-Analyse direkt via journalctl (kein Workaround noetig)
+  - Firewall Bouncer (iptables): INPUT + FORWARD + DOCKER-USER Chains
+  - Traefik Plugin: LAPI-Adresse von Docker-intern auf Host-Bridge (172.17.0.1:8080)
+  - UFW-Regel fuer LAPI-Zugriff von Docker-Containern (Port 8080 auf br+)
+  - Config-Dateien ins Repo: `shared/etc/crowdsec/` (acquis.yaml, config.yaml.local, bouncer-config)
+
+### Removed (VPS — CrowdSec Docker-Stack)
+- [VPS][DKR] CrowdSec Docker-Stack entfernt (`stacks/crowdsec/` komplett)
+- [VPS][SEC] crowdsec-journal-ssh.service entfernt (nicht mehr noetig bei nativem CrowdSec)
+
+### Added
+- [Pkg] `shared/packages/server-packages.txt` erstellt (Server-Pakete: UFW, CrowdSec, Netzwerk-Tools, etc.)
 
 ---
 

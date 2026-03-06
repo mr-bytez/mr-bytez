@@ -3,9 +3,9 @@
 # ╠══════════════════════════════════════════════════════════════════════════════╣
 # ║  Pfad:         .../traefik/config/dynamic/middlewares.yml                   ║
 # ║  Autor:        MR-ByteZ                                                    ║
-# ║  Version:      0.2.0                                                       ║
+# ║  Version:      0.3.0                                                       ║
 # ║  Erstellt:     2026-03-01                                                  ║
-# ║  Aktualisiert: 2026-03-05                                                  ║
+# ║  Aktualisiert: 2026-03-06                                                  ║
 # ║  Zweck:        Gemeinsame Middlewares (Security-Headers, CrowdSec Bouncer) ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -40,7 +40,7 @@ http:
         crowdsec-bouncer:
           enabled: true
           crowdsecMode: stream
-          crowdsecLapiHost: mrbz-crowdsec:8080
+          crowdsecLapiHost: 172.17.0.1:8080
           crowdsecLapiKey: "{{ env "CROWDSEC_BOUNCER_API_KEY" }}"
           crowdsecLapiScheme: http
           updateIntervalSeconds: 15
