@@ -21,7 +21,16 @@
     `PGDATA` explizit gesetzt, `TZ: Europe/Berlin`
   - Authentik: `AUTHENTIK_HOST_BROWSER` + `AUTHENTIK_WEB__CSRF_TRUSTED_ORIGINS` (CSRF-Schutz)
 
+### Added
+- Authentik Forward-Auth Provider via API eingerichtet:
+  - Proxy Provider `traefik-dashboard-forward-auth` (forward_single)
+  - Application `Traefik Dashboard` + Embedded Outpost zugewiesen
+  - Forward-Auth live getestet (302 → auth.mr-bytez.de)
+  - CLI Automation Token erstellt (Secret auf n8-vps)
+
 ### Fixed
+- Authentik Secret-Key Newline-Bug: `openssl rand -base64` erzeugt Zeilenumbruch bei 76 Zeichen,
+  Go-Outpost scheiterte an `invalid header field value for Authorization`. Newline entfernt.
 - Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
   (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
   DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.

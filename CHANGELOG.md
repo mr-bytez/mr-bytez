@@ -13,6 +13,9 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [VPS][DKR] Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
   (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
   DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.
+- [VPS][SEC] Authentik Secret-Key Newline-Bug: `openssl rand -base64` erzeugt Zeilenumbruch
+  bei 76 Zeichen, Go-Outpost scheiterte an `invalid header field value for Authorization`.
+  Newline entfernt, Embedded Outpost funktioniert.
 
 ### Changed
 - [VPS][DKR][SEC] Stack-Haertung aller 3 n8-vps Stacks (Traefik, CrowdSec, Authentik):
@@ -23,6 +26,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Authentik: CSRF-Schutz (`HOST_BROWSER`, `CSRF_TRUSTED_ORIGINS`)
 
 ### Added
+- [VPS][SEC] Authentik Forward-Auth Provider via API eingerichtet:
+  - Proxy Provider `traefik-dashboard-forward-auth` (forward_single, `traefik.mr-bytez.de`)
+  - Application `Traefik Dashboard` erstellt und Provider zugewiesen
+  - Embedded Outpost konfiguriert, Forward-Auth live getestet (302 → auth.mr-bytez.de)
+
+
 - [Structure][Docs][Roadmap] Vorbereitungen fuer mrbz_aud Docs-Audit-Bot:
   - Agents-Ordner umstrukturiert: `.claude/agents/manual/` (4 bestehende Agents) + `.claude/agents/bot/` (fuer automatisierte Bots)
   - `[Bot]` Tag (Index: BOT) in Tag-Registry registriert mit Suffix-Konvention (_AUD, _FIX, _DEP)

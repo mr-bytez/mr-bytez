@@ -366,7 +366,7 @@ A9 Master-Key Automatisierung (vor erstem Bot mit Secrets-Zugriff)
 Kurzstatus:
 - Schritt 1 ✅ Pakete + Port 22 Cleanup
 - Schritt 2 ✅ Traefik Reverse Proxy
-- Schritt 3 ✅ Authentik SSO (deployed, akadmin deaktiviert, mrohwer Admin + MFA, Valkey entfernt)
+- Schritt 3 ✅ Authentik SSO (deployed, Forward-Auth live, Secret-Key Bugfix, Stack-Haertung)
 - Schritt 4-5 ○ Portainer, WireGuard
 - Schritt 6 ✅ CrowdSec IDS/IPS (Stack deployed, Middleware aktiv, Enrollment bestaetigt)
 - Schritt 7-10 ○ Monitoring, Backup, Services, DNS

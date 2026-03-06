@@ -5,6 +5,12 @@
 
 ---
 
+## [Unreleased]
+
+### Changed
+- `context/handoffs/HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md`:
+  Forward-Auth Provider + Dashboard-Test + Secret-Key Bugfix + Stack-Haertung als erledigt markiert
+
 ## [0.6.0] - 2026-03-05
 
 ### Added

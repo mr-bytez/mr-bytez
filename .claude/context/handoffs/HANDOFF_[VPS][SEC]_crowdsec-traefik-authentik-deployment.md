@@ -39,6 +39,11 @@ Konfiguration und Host-Level Tuning.
 - ✅ Host-Level Tuning auf n8-vps deployed (sysctl, ulimits, Docker, systemd, Fish)
 - ✅ PostgreSQL Volume-Mount Fix: `/var/lib/postgresql/data` → `/var/lib/postgresql`
   (postgres:18-alpine schreibt unter `18/docker/`, Volume war leer). `external: true` gesetzt.
+- ✅ Stack-Haertung: `no-new-privileges`, Traefik Healthcheck/Hostname/Logging, CSRF, PGDATA
+- ✅ Secret-Key Newline-Bug gefixt (openssl base64 Zeilenumbruch → Outpost-Fehler)
+- ✅ Forward-Auth Provider + Application via API erstellt, Embedded Outpost zugewiesen
+- ✅ Forward-Auth live getestet (traefik.mr-bytez.de → 302 → auth.mr-bytez.de)
+- ✅ Alle 3 Stacks redeployed + verifiziert (5 Container healthy)
 
 ---
 
@@ -47,12 +52,8 @@ Konfiguration und Host-Level Tuning.
 - [ ] **Firewall Bouncer** — CrowdSec Firewall Bouncer (cs-firewall-bouncer-iptables)
   aus AUR bauen und auf n8-vps installieren. Manuell per SSH (systemd-Service).
   Konfiguration: LAPI URL http://127.0.0.1:8080, API-Key aus `cscli bouncers add`.
-- [ ] **Authentik Forward-Auth Provider** — im Authentik Web-UI anlegen:
-  Proxy Provider erstellen (Forward Auth Single Application),
-  Application erstellen, Provider zuweisen.
-  Erst danach funktioniert Forward-Auth live.
-- [ ] **Traefik Dashboard Forward-Auth testen** — nach Provider-Anlage:
-  traefik.mr-bytez.de aufrufen, Authentik Login-Flow pruefen.
+- [x] ~~**Authentik Forward-Auth Provider**~~ — erledigt (via API: Provider + Application + Outpost)
+- [x] ~~**Traefik Dashboard Forward-Auth testen**~~ — erledigt (302 → auth.mr-bytez.de, Login funktioniert)
 - [x] ~~**Host-Level Tuning auf n8-vps deployen**~~ — erledigt (deployed + verifiziert)
 
 ---
