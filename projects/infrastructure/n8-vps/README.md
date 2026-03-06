@@ -42,7 +42,8 @@
 
 - **Traefik** v3.6 Reverse Proxy (Dashboard: traefik.mr-bytez.de)
 - **Authentik** 2026.2.1 SSO (auth.mr-bytez.de, Forward-Auth fuer Dashboard)
-- **CrowdSec** IDS/IPS (nativ, Firewall Bouncer + Traefik Plugin, 8 Collections)
+- **CrowdSec** IDS/IPS (nativ, Firewall Bouncer + Traefik Plugin, 8 Collections,
+  Console enrolled, 3 Community-Blocklisten)
 - Fish Shell mit mr-bytez Integration (Powerline Prompt, rot = Production)
 
 → Geplante Services: `ROADMAP.md` (n8-vps Service-Pipeline)

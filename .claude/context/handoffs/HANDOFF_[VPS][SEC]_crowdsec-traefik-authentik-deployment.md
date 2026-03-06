@@ -3,7 +3,7 @@
 > **Pfad:** `.claude/context/handoffs/HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md`
 > **Version:** 0.1.0
 > **Erstellt:** 2026-03-05
-> **Aktualisiert:** 2026-03-05
+> **Aktualisiert:** 2026-03-06
 > **Autor:** MR-ByteZ
 > **Chat:** https://claude.ai/chat/f64d25fb-098d-4d26-87df-c58ccbfce3c3
 
@@ -50,10 +50,15 @@ Konfiguration und Host-Level Tuning.
 ## Offene Punkte
 
 - [x] ~~**Firewall Bouncer**~~ — erledigt (CrowdSec komplett auf nativ migriert, Bouncer in iptables-Mode)
-- [ ] **Community-Blocklisten** — In CrowdSec Console zusaetzliche Listen abonnieren:
-  FireHOL BotScout, greensnow.co, Georgs Honeypot, Tor Exit Nodes
-- [ ] **CrowdSec Console Enrollment** — Neue native Instanz in Console enrollen
-  (alter Docker-Enrollment ist ungueltig, neuer Enroll-Key noetig)
+- [x] ~~**Fresh-Deploy Luecken 1-4**~~ — erledigt (acquis.yaml SSH-Duplikat entfernt, DEPLOYMENT.md geschrieben)
+  - Doppelte SSH-Acquisition gefixt (SSH-Block aus acquis.yaml entfernt, acquis.d/ ist auto-generiert)
+  - Collections-Installation in DEPLOYMENT.md dokumentiert (8 Collections + iptables)
+  - Bouncer API-Keys Workflow in DEPLOYMENT.md dokumentiert (FW-Bouncer + Traefik-Bouncer)
+  - UFW-Regel `8080/tcp on br+` in DEPLOYMENT.md dokumentiert
+- [x] ~~**CrowdSec Console Enrollment**~~ — erledigt (native Instanz enrolled, Name "n8-vps",
+  Tags: production/n8-vps/traefik/nativ, console_management aktiviert)
+- [x] ~~**Community-Blocklisten**~~ — erledigt (3/3 Free-Slots belegt):
+  Firehol greensnow.co, Firehol cruzit.com, CVE-2025-55182 React2Shell (alle Ban-Remediation)
 - [x] ~~**Authentik Forward-Auth Provider**~~ — erledigt (via API: Provider + Application + Outpost)
 - [x] ~~**Traefik Dashboard Forward-Auth testen**~~ — erledigt (302 → auth.mr-bytez.de, Login funktioniert)
 - [x] ~~**Host-Level Tuning auf n8-vps deployen**~~ — erledigt (deployed + verifiziert)
@@ -64,7 +69,7 @@ Konfiguration und Host-Level Tuning.
 
 | Datei | Beschreibung |
 |-------|--------------|
-| `projects/infrastructure/n8-vps/stacks/crowdsec/` | CrowdSec Stack |
+| `shared/etc/crowdsec/` | CrowdSec Config (nativ) |
 | `projects/infrastructure/n8-vps/stacks/authentik/` | Authentik Stack |
 | `projects/infrastructure/n8-vps/stacks/traefik/` | Traefik Stack |
 | `shared/etc/sysctl.d/90-mr-bytez.conf` | Kernel-Parameter |

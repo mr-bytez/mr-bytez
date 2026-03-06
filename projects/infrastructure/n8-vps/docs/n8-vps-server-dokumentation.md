@@ -321,15 +321,19 @@ Die Schritte sind nach der aktuellen ROADMAP priorisiert. Manche können paralle
 - Peers: n8-kiste, n8-station (später: n8-book, n8-archstick)
 - Ermöglicht: n8-vps → n8-kiste SSH, gemeinsamer Zugriff auf interne Services
 
-### 🟡 Schritt 6: CrowdSec IDS/IPS
+### ✅ Schritt 6: CrowdSec IDS/IPS
 
-**Aufwand:** 1 Stunde
-**Warum:** Schutz vor Brute-Force und bekannten Angreifern.
-**Abhängigkeiten:** Traefik (für Bouncer)
+**Status:** Erledigt (nativ, nicht Docker)
+**Abhängigkeiten:** Traefik (für Bouncer Plugin)
 
-- CrowdSec Agent auf n8-vps
-- Traefik Bouncer Plugin
-- Community Blocklists aktivieren
+- CrowdSec Security Engine nativ (systemd, AUR-Paket)
+- Firewall Bouncer (iptables): INPUT + FORWARD + DOCKER-USER Chains
+- Traefik Bouncer Plugin v1.5.1 (Stream-Mode via Docker-Bridge 172.17.0.1:8080)
+- 8 Collections: linux, sshd, traefik, http-cve, http-dos, base-http-scenarios, auditd, whitelist-good-actors
+- Console enrolled (Name: n8-vps, console_management aktiv)
+- 3 Community-Blocklisten: greensnow.co, cruzit.com, CVE-2025-55182 React2Shell
+- UFW-Regel: 8080/tcp auf br+ (LAPI-Zugriff fuer Docker-Container)
+- Config im Repo: `shared/etc/crowdsec/` (acquis.yaml, config.yaml.local, bouncer-config)
 
 ### 🟡 Schritt 7: Monitoring Stack (Prometheus + Grafana + UptimeKuma)
 

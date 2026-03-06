@@ -4,9 +4,12 @@
 # ║  Pfad:         /etc/crowdsec/acquis.yaml                                   ║
 # ║  Repo:         shared/etc/crowdsec/acquis.yaml                             ║
 # ║  Autor:        MR-ByteZ                                                    ║
-# ║  Version:      0.3.0                                                       ║
+# ║  Version:      0.4.0                                                       ║
 # ║  Erstellt:     2026-03-04                                                  ║
 # ║  Aktualisiert: 2026-03-06                                                  ║
+# ║  Hinweis:      acquis.d/ wird bei Installation auto-generiert!             ║
+# ║                Dort liegen: setup.sshd.yaml, setup.linux.yaml,            ║
+# ║                setup.auditd.yaml — NICHT doppelt pflegen!                 ║
 # ║  Zweck:        Log-Quellen fuer CrowdSec Security Engine (nativ)           ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -15,13 +18,8 @@ filenames:
   - /var/log/traefik/access.log
 labels:
   type: traefik
----
-# --- SSH / sshd (systemd Journal, nativ) ---
-# CrowdSec nativ hat direkten journalctl-Zugriff — kein Workaround noetig.
-# OpenSSH 9.8+ nutzt sshd-auth/sshd-session statt sshd — CrowdSec erkennt
-# beide Varianten ueber den syslog-Parser.
-source: journalctl
-journalctl_filter:
-  - "_SYSTEMD_UNIT=sshd.service"
-labels:
-  type: syslog
+
+# --- SSH / sshd ---
+# NICHT hier definieren! Wird automatisch durch acquis.d/setup.sshd.yaml
+# abgedeckt (auto-generiert bei CrowdSec-Installation via sshd-Collection).
+# Doppelte Acquisition fuehrt zu doppelter Log-Verarbeitung!

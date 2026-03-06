@@ -51,7 +51,8 @@ Externe Hardware-Firewall — Default: discard, IPv6 gefiltert.
 
 ### UFW (lokale Firewall)
 
-6 Regeln: SSH LIMIT 61020, HTTP 80, HTTPS 443, WG 61820, Docker FWD+DNS.
+7 Regeln: SSH LIMIT 61020, HTTP 80, HTTPS 443, WG 61820, Docker FWD+DNS,
+CrowdSec LAPI 8080/tcp auf br+ (Docker-Bridge).
 IPv6 komplett deaktiviert.
 
 ### Geplante Stacks (Reihenfolge)

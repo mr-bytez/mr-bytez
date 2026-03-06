@@ -11,6 +11,17 @@
 
 ## [Unreleased]
 
+### Added
+- CrowdSec Console Enrollment (Name: n8-vps, Tags: production/n8-vps/traefik/nativ)
+- console_management aktiviert (Blocklisten-Empfang ueber Console)
+- 3 Community-Blocklisten abonniert (Ban-Remediation):
+  Firehol greensnow.co (~4.600 IPs), Firehol cruzit.com (~13.200 IPs),
+  CVE-2025-55182 React2Shell (~12.600 IPs)
+
+### Fixed
+- Doppelte SSH-Acquisition: SSH-Block aus acquis.yaml entfernt
+  (wird automatisch durch acquis.d/setup.sshd.yaml bei CrowdSec-Installation generiert)
+
 ### Changed
 - CrowdSec von Docker-Container auf native Installation migriert (systemd):
   - AUR-Pakete `crowdsec` + `cs-firewall-bouncer` via yay
@@ -102,5 +113,5 @@
 
 ---
 
-**Letzte Aktualisierung:** 2026-03-05
+**Letzte Aktualisierung:** 2026-03-06
 

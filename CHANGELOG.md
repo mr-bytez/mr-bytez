@@ -36,6 +36,21 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [BOT_AUD][Docs] .claude/ROADMAP: mrbz_aud Checkbox auf [x], "A1-A5" → "A1-A9"
 - [BOT_AUD][Docs] n8-vps ROADMAP: Datum synchronisiert, Geplante Stacks aktualisiert
 
+### Fixed (VPS — CrowdSec Fresh-Deploy Luecken)
+- [VPS][SEC] Doppelte SSH-Acquisition gefixt: SSH-Block aus `acquis.yaml` entfernt
+  (wird automatisch durch `acquis.d/setup.sshd.yaml` bei CrowdSec-Installation generiert)
+- [VPS][SEC] acquis.yaml Header: Hinweis auf auto-generierte `acquis.d/` Dateien ergaenzt
+
+### Added (VPS — CrowdSec Deployment-Doku + Console)
+- [VPS][SEC][Docs] CrowdSec natives Deployment in Root DEPLOYMENT.md dokumentiert:
+  Paket-Installation, 8 Collections, Config-Deployment, Bouncer API-Keys,
+  UFW-Regel (8080/tcp auf br+), Console Enrollment, Verifikation
+- [VPS][SEC] CrowdSec Console Enrollment: n8-vps enrolled (Name + Tags + console_management)
+- [VPS][SEC] 3 Community-Blocklisten abonniert (Ban-Remediation):
+  Firehol greensnow.co (~4.600 IPs), Firehol cruzit.com (~13.200 IPs),
+  CVE-2025-55182 React2Shell (~12.600 IPs)
+- [VPS][SEC][Docs] Blocklisten-Auswahl dokumentiert (gewaehlt + nicht gewaehlt mit Begruendung)
+
 ### Changed (VPS — CrowdSec Migration Docker → Nativ)
 - [VPS][SEC] CrowdSec von Docker-Container auf native Installation migriert (systemd)
   - AUR-Pakete: `crowdsec` + `cs-firewall-bouncer` (in neuer `server-packages.txt`)

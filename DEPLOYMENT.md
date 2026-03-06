@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez
 **Geltungsbereich:** Live-System-Deployment (z. B. n8-kiste, n8-vps, …)
 **Prinzip:** kontrolliert, reproduzierbar, Fish-first, GitHub CLI
-**Stand:** 2026-03-05
+**Stand:** 2026-03-06
 
 > **WICHTIG:** Alle Änderungen an diesem Repo IMMER auf n8-kiste machen!
 > n8-vps ist read-only (nur pullen, nicht committen)!
@@ -303,6 +303,172 @@ ulimit -Hn  # Hard: 65536
 
 # Docker pruefen
 docker run --rm alpine sh -c 'ulimit -n'  # 65536
+```
+
+---
+
+## CrowdSec (natives Deployment)
+
+CrowdSec laeuft als nativer systemd-Service (nicht Docker). Config-Dateien im Repo
+unter `shared/etc/crowdsec/`, Deployment per Copy wie Host-Level Tuning.
+
+### 1. Pakete installieren (AUR)
+
+```fish
+# CrowdSec Security Engine + Firewall Bouncer
+yay -S crowdsec cs-firewall-bouncer
+```
+
+> **Hinweis:** Die Installation generiert automatisch:
+> - `acquis.d/setup.sshd.yaml`, `setup.linux.yaml`, `setup.auditd.yaml` (Log-Quellen)
+> - Einen Firewall-Bouncer API-Key in der Bouncer-Config
+> - CrowdSec wird als systemd-Service registriert
+
+### 2. Collections installieren
+
+Nach der Paket-Installation sind keine Collections aktiv. Alle 8 manuell installieren:
+
+```fish
+sudo cscli collections install \
+  crowdsecurity/linux \
+  crowdsecurity/sshd \
+  crowdsecurity/base-http-scenarios \
+  crowdsecurity/http-cve \
+  crowdsecurity/http-dos \
+  crowdsecurity/traefik \
+  crowdsecurity/whitelist-good-actors \
+  crowdsecurity/auditd
+```
+
+Optional fuer Firewall Bouncer (iptables-Szenarien):
+
+```fish
+sudo cscli collections install crowdsecurity/iptables
+```
+
+### 3. Config-Dateien deployen
+
+```fish
+# Haupt-Acquisition (Traefik Access-Log)
+sudo cp /opt/mr-bytez/current/shared/etc/crowdsec/acquis.yaml /etc/crowdsec/
+
+# Lokale Config-Overrides (LAPI-Bind, WAL-Mode, Log-Level)
+sudo cp /opt/mr-bytez/current/shared/etc/crowdsec/config.yaml.local /etc/crowdsec/
+
+# Firewall Bouncer Config (Template — Key muss angepasst werden!)
+sudo cp /opt/mr-bytez/current/shared/etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml \
+  /etc/crowdsec/bouncers/
+```
+
+### 4. Bouncer API-Keys einrichten
+
+**Firewall Bouncer:**
+
+```fish
+# Key wurde bei Installation auto-generiert — pruefen:
+sudo grep api_key /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+# Falls "CHANGE_ME_AFTER_INSTALL" → neuen Key generieren:
+sudo cscli bouncers add firewall-bouncer
+# → Key in /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml eintragen
+```
+
+**Traefik Bouncer (Plugin):**
+
+```fish
+# Neuen Bouncer-Key fuer Traefik generieren
+sudo cscli bouncers add traefik-bouncer
+# → Key in Traefik .env eintragen: CROWDSEC_BOUNCER_API_KEY=<key>
+# Pfad: projects/infrastructure/n8-vps/stacks/traefik/.env
+```
+
+### 5. UFW-Regel fuer Docker-LAPI-Zugriff
+
+Traefik (Docker) muss die LAPI auf dem Host erreichen (172.17.0.1:8080):
+
+```fish
+sudo ufw allow in on br+ to any port 8080 proto tcp comment "CrowdSec LAPI fuer Docker"
+```
+
+> **Warum `br+`?** Docker-Bridge-Interfaces heissen `br-*`. Die Wildcard `br+`
+> matcht alle aktuellen und zukuenftigen Docker-Bridges.
+
+### 6. Services starten und aktivieren
+
+```fish
+# CrowdSec Engine
+sudo systemctl enable --now crowdsec
+
+# Firewall Bouncer
+sudo systemctl enable --now cs-firewall-bouncer
+```
+
+### 7. CrowdSec Console Enrollment
+
+```fish
+# Enroll-Key von https://app.crowdsec.net holen, dann:
+sudo cscli console enroll --name n8-vps --tags production --tags n8-vps --tags traefik --tags nativ <ENROLL_KEY>
+# Enrollment in Console bestätigen (Browser: Accept enroll)
+
+# Console Management aktivieren (noetig fuer Blocklisten-Empfang!)
+sudo cscli console enable console_management
+sudo systemctl reload crowdsec
+```
+
+### 8. Community-Blocklisten abonnieren (Console)
+
+Im Community-Plan sind **3 kostenlose Blocklisten** enthalten.
+Abonnierung ueber https://app.crowdsec.net → Blocklists → Subscribe.
+
+**Aktive Blocklisten (Stand 2026-03-06):**
+
+| Blockliste | Kategorie | IPs | Zweck |
+|------------|-----------|-----|-------|
+| Firehol greensnow.co | General | ~4.600 | Brute-Force + Angriffs-IPs |
+| Firehol cruzit.com | Behaviors | ~13.200 | Kompromittierte Hosts, breiter Schutz |
+| CVE-2025-55182 React2Shell | CrowdSec | ~12.600 | Aktive CVE-Ausnutzer |
+
+**Nicht gewaehlt (mit Begruendung):**
+
+| Blockliste | IPs | Grund |
+|------------|-----|-------|
+| Firehol BotScout | 2.886 | Spam-Bots, wenig relevant ohne Forum |
+| Free proxies list | 6.999 | Blockt auch legitime Proxy-Nutzer |
+| CVE-2024-4577 PHP-CGI | 2.470 | Kein PHP auf n8-vps |
+| Firehol voipbl.org | 51.941 | Kein VoIP auf n8-vps |
+| TOR Blocklist | 2.237 | Blockt legitime Tor-Nutzer |
+| OTX Web Scanners | 2.590 | 3 Monate veraltet |
+| OTX Georgs Honeypot | 0 | Liste leer |
+| Firehol SSL proxies | 558 | Zu klein, wenig Impact |
+| Firehol xroxy.com | 43 | Vernachlaessigbar |
+| Firehol dyndns.org | 34 | Vernachlaessigbar |
+| Firehol cybercrime tracker | 215 | C&C-Server, wenig relevant eingehend |
+
+> **Hinweis:** Blocklisten-Decisions kommen ueber CAPI (Pull alle 2h).
+> Remediation-Typ: **Ban** (fuer alle drei Listen).
+
+### 9. Verifizieren
+
+```fish
+# Services pruefen
+sudo systemctl status crowdsec cs-firewall-bouncer
+
+# Collections pruefen
+sudo cscli collections list
+
+# Bouncer pruefen
+sudo cscli bouncers list
+
+# Firewall-Chains pruefen (CROWDSEC_CHAIN in INPUT/FORWARD/DOCKER-USER)
+sudo iptables -L INPUT -n | grep CROWDSEC
+sudo iptables -L FORWARD -n | grep CROWDSEC
+sudo iptables -L DOCKER-USER -n | grep CROWDSEC
+
+# LAPI-Zugriff von Docker pruefen
+docker run --rm alpine wget -qO- http://172.17.0.1:8080/v1/decisions 2>&1 | head -1
+
+# Log-Quellen pruefen (keine Duplikate!)
+sudo cscli machines list
+sudo cscli metrics
 ```
 
 ---

@@ -9,7 +9,11 @@
 
 ## [Unreleased]
 
-### Added
+### Changed
+- Handoff VPS/SEC: Alle CrowdSec-Punkte als erledigt markiert
+  (Console Enrollment, Blocklisten, Fresh-Deploy Luecken)
+
+### Previously Added
 - `DEPLOYMENT.md` erstellt (5-5-3 Vollstaendigkeit fuer .claude/)
 - mrbz_aud Phase 3: 20 MITTEL + 5 INFO Findings manuell abgearbeitet
   - Zaehler, tote Pfade, veraltete Eintraege in context/ korrigiert
