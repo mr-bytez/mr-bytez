@@ -26,6 +26,14 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Authentik: CSRF-Schutz (`HOST_BROWSER`, `CSRF_TRUSTED_ORIGINS`)
 
 ### Added
+- [BOT_AUD][Structure] mrbz_aud Docs-Audit-Bot komplett erstellt (Projekt A7):
+  - 3-Phasen-Pipeline: Audit (8 Module) → Verifikation → Fix/Worker
+  - 3 Agent-Prompts mit Read-Only Hooks und Secrets-Schutz
+  - Fish-Orchestrator-Script fuer automatische Pipeline-Steuerung
+  - 8 Module: Struktur-Inventar, 5-5-3, Header, ROADMAP/CHANGELOG, Cross-Refs, Context, Secrets-Struktur, Secrets-Freshness
+  - Bot-README mit Pipeline-Visualisierung und Ausfuehrungsanleitung
+  - Docs-Stufen Policy: Voll-5-5-3 (5 Docs) vs. Minimal (README + CHANGELOG)
+
 - [VPS][SEC] Authentik Forward-Auth Provider via API eingerichtet:
   - Proxy Provider `traefik-dashboard-forward-auth` (forward_single, `traefik.mr-bytez.de`)
   - Application `Traefik Dashboard` erstellt und Provider zugewiesen

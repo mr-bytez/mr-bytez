@@ -2,7 +2,7 @@
 
 **Version:** 0.3.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-03-05
+**Aktualisiert:** 2026-03-06
 **Autor:** MR-ByteZ
 
 ---
@@ -78,7 +78,7 @@ Spezialisierte Sub-Agenten in `.claude/agents/`:
 
 | Bot | Zweck | Status |
 |-----|-------|--------|
-| `mrbz_aud/` | Docs-Audit-Bot (woechentlicher Nachtlauf) | In Entwicklung |
+| `mrbz_aud/` | Docs-Audit-Bot: 3-Phasen-Pipeline (Audit → Verify → Fix), 8 Module, woechentlicher Nachtlauf | Bereit |
 
 ---
 

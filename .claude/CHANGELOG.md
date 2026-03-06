@@ -7,7 +7,19 @@
 
 ## [Unreleased]
 
+### Added
+- `agents/bot/mrbz_aud/` — Kompletter Docs-Audit-Bot (Projekt A7):
+  - `mrbz_aud-agent_audit.md` — Read-Only Audit-Agent (Phase 1, 8 Module)
+  - `mrbz_aud-agent_verify.md` — Verifikations-Agent (Phase 2, Konsolidierung)
+  - `mrbz_aud-agent_fix.md` — Fix/Worker-Agent (Phase 3, Fixes + Commit)
+  - `mrbz_aud-orchestrator.fish` — Fish-Script fuer Pipeline-Steuerung
+  - `mrbz_aud-README.md` — Bot-Dokumentation
+  - `reports/` + `logs/` Verzeichnisse mit .gitkeep
+  - Hooks: Secrets-Schutz, Read-Only Enforcement, Reports-Only Write
+
 ### Changed
+- `context/structure.md` v0.5.0: Docs-Stufen Policy (Voll-5-5-3 vs. Minimal mit 2 Docs)
+- `CLAUDE.md`: mrbz_aud Bot-Status auf "Bereit" aktualisiert, Beschreibung erweitert
 - `context/handoffs/HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md`:
   Forward-Auth Provider + Dashboard-Test + Secret-Key Bugfix + Stack-Haertung als erledigt markiert
 

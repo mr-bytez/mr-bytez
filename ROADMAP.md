@@ -3,7 +3,7 @@
 **Projekt:** mr-bytez Meta-Repository
 **Zweck:** Roadmap & Meilensteine (Projekte + kompakte Uebersicht)
 **Erstellt:** 2026-01-22
-**Aktualisiert:** 2026-03-05
+**Aktualisiert:** 2026-03-06
 
 ---
 
@@ -320,7 +320,21 @@ A9 Master-Key Automatisierung (vor erstem Bot mit Secrets-Zugriff)
 - Commits mit `[BOT_AUD]` Tag
 - Ergebnis: Audit-Report + automatische Fixes wo moeglich
 
-**Status:** In Entwicklung
+**Erledigt:**
+- [x] Ordnerstruktur `.claude/agents/bot/mrbz_aud/` angelegt
+- [x] 3 Agent-Prompts (audit, verify, fix) mit Hooks erstellt
+- [x] 8 Modul-Definitionen mit Scope und Report-Format
+- [x] Fish-Orchestrator-Script (Pipeline-Steuerung)
+- [x] Bot-README mit Dokumentation
+
+**Offen:**
+- [x] Erster Testlauf (Modul 01-08 einzeln getestet, 51 Findings)
+- [ ] Phase 2 testen (Verify-Agent, Gesamt-Report)
+- [ ] Phase 3 testen (Fix-Agent, Findings abarbeiten)
+- [ ] Orchestrator End-to-End Test
+- [ ] Cron-Eintrag aktivieren (nach stabilen Laeufen)
+
+**Status:** Bereit (Bot gebaut, Phase 1 getestet, Phase 2+3 ausstehend)
 **ETA:** Q1 2026
 
 ---

@@ -2,7 +2,7 @@
 
 **Version:** 0.4.0
 **Erstellt:** 2026-02-05
-**Aktualisiert:** 2026-03-05
+**Aktualisiert:** 2026-03-06
 **Autor:** MR-ByteZ
 
 ---
@@ -102,7 +102,41 @@ context/
 
 ---
 
-## Projekte — Zwei Typen
+## Docs-Stufen (Minimal vs. Voll)
+
+Nicht jedes Verzeichnis braucht alle 5 Docs. Zwei Stufen:
+
+### Voll-5-5-3 (aktive Projekte mit eigenem Scope)
+
+Alle 5 Docs + optional `.claude/` Unterordner.
+
+**Gilt fuer:** Root, .claude/, n8-vps, n8-kiste, n8-station, shared/etc/fish/, shared/usr/local/bin/hwi/
+
+```
+README.md       → Pflicht
+CLAUDE.md       → Pflicht (im Projekt-Root, verweist auf Root-Policies)
+CHANGELOG.md    → Pflicht
+ROADMAP.md      → Pflicht
+DEPLOYMENT.md   → Pflicht
+```
+
+### Minimal (Host-Verzeichnisse mit nur Configs)
+
+Nur 2 Docs — README + CHANGELOG reichen.
+
+**Gilt fuer:** n8-book, n8-bookchen, n8-broker, n8-maxx, n8-archstick
+
+```
+README.md       → Pflicht (Was ist das, welche Configs liegen hier)
+CHANGELOG.md    → Pflicht (Was hat sich geaendert)
+```
+
+CLAUDE.md, ROADMAP.md, DEPLOYMENT.md lohnen erst wenn der Host aktiven Scope bekommt.
+Ein Host wird auf Voll-5-5-3 hochgestuft sobald er eigene Planung, Deployment oder KI-Anweisungen braucht.
+
+---
+
+## Projekte — Drei Typen
 
 ### Typ 1: Physical Hosts (n8-kiste, n8-vps)
 
