@@ -9,46 +9,18 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
-### Fixed
-- [VPS][DKR] Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
-  (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
-  DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.
-- [VPS][SEC] Authentik Secret-Key Newline-Bug: `openssl rand -base64` erzeugt Zeilenumbruch
-  bei 76 Zeichen, Go-Outpost scheiterte an `invalid header field value for Authorization`.
-  Newline entfernt, Embedded Outpost funktioniert.
+---
 
-### Changed
-- [VPS][DKR][SEC] Stack-Haertung aller 3 n8-vps Stacks (Traefik, CrowdSec, Authentik):
-  - `security_opt: no-new-privileges:true` auf allen Services (5 Container)
-  - Traefik: hostname, Healthcheck (ping), Logging-Rotation hinzugefuegt
-  - Traefik: `ping: {}` in statischer Config aktiviert
-  - Authentik PostgreSQL: `scram-sha-256` Auth, `--data-checksums`, `PGDATA` explizit
-  - Authentik: CSRF-Schutz (`HOST_BROWSER`, `CSRF_TRUSTED_ORIGINS`)
+## [0.18.0] - 2026-03-06
 
 ### Added
-- [BOT_AUD][Structure] mrbz_aud Docs-Audit-Bot komplett erstellt (Projekt A7):
-  - 3-Phasen-Pipeline: Audit (8 Module) → Verifikation → Fix/Worker
-  - 3 Agent-Prompts mit Read-Only Hooks und Secrets-Schutz
-  - Fish-Orchestrator-Script fuer automatische Pipeline-Steuerung
-  - 8 Module: Struktur-Inventar, 5-5-3, Header, ROADMAP/CHANGELOG, Cross-Refs, Context, Secrets-Struktur, Secrets-Freshness
-  - Bot-README mit Pipeline-Visualisierung und Ausfuehrungsanleitung
-  - Docs-Stufen Policy: Voll-5-5-3 (5 Docs) vs. Minimal (README + CHANGELOG)
-
-- [VPS][SEC] Authentik Forward-Auth Provider via API eingerichtet:
-  - Proxy Provider `traefik-dashboard-forward-auth` (forward_single, `traefik.mr-bytez.de`)
-  - Application `Traefik Dashboard` erstellt und Provider zugewiesen
-  - Embedded Outpost konfiguriert, Forward-Auth live getestet (302 → auth.mr-bytez.de)
-
-
-- [Structure][Docs][Roadmap] Vorbereitungen fuer mrbz_aud Docs-Audit-Bot:
-  - Agents-Ordner umstrukturiert: `.claude/agents/manual/` (4 bestehende Agents) + `.claude/agents/bot/` (fuer automatisierte Bots)
-  - `[Bot]` Tag (Index: BOT) in Tag-Registry registriert mit Suffix-Konvention (_AUD, _FIX, _DEP)
-  - ROADMAP: A7 mrbz_aud (Docs-Audit-Bot), A8 mrbz_dep/mrbz_cov (Deploy-Coverage), A9 Master-Key Automatisierung
-  - Alle Referenzen auf alte Agent-Pfade aktualisiert (8 Dateien)
-- [Structure][Cleanup] Placeholder-Projekte entfernt:
-  - `projects/infrastructure/mcp-server/` (A4, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
-  - `shared/stacks/mrbz-dev/` (A3, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
-  - ROADMAP A3+A4: Placeholder-Entfernung vermerkt
+- [Docs][Config] NEEDS_REVIEW Entscheidungen aus mrbz_aud Gesamt-Report umgesetzt (NR-1 bis NR-6):
+  - Docs-Stufen Policy erweitert: Neue Stufe "Erweitert" (3 Docs: README + CHANGELOG + DEPLOYMENT)
+  - n8-kiste auf Erweitert (Sonderrolle als Master-Commit-Host), n8-station auf Minimal herabgestuft
+  - Mini-Header Format definiert (~30 Zeilen Schwelle, 6-Zeilen-Box neben 9-box)
+  - Relative Pfade als Standard in docs-agent.md und documentation.md
+  - ROADMAP A7 ETA praezisiert (Q1 2026 → Maerz 2026)
+  - NR-6 (Secrets Backup-Struktur) als separater Task dokumentiert
 - [ClaudeCode][Hook] pre-commit-docs-check.sh v0.2.0:
   - Dynamische CHANGELOG-Pruefung fuer alle Ordner mit eigenen CHANGELOGs (6 Orte)
   - Blockiert Commit wenn CHANGELOG eines betroffenen Ordners fehlt
@@ -66,6 +38,16 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - affiliate-program.amazon.de entfernt (Domain existiert nicht, ECONNREFUSED)
   - `webfetch-domains.md` v0.2.0: Status-Spalte + Sync-Pflicht-Kommentar, Gesamt 64 Domains
   - `.claude/CHANGELOG.md`: Alle Versionen von 1.x/2.x auf 0.x.x korrigiert (Versionierungs-Policy)
+- [Structure] hwi.sh Versionierung auf SemVer normalisiert (3.1.1 → 0.3.2),
+  Bash-Header + Markdown-Header-Generierung
+- [Docs][Infra] ROADMAP zum Master-Arbeitsplan erweitert:
+  n8-vps Service-Pipeline (10 Schritte), UFW Deployment (Ist-Zustand 3 Hosts),
+  Quick Wins, SMB, Empfohlene Reihenfolge
+- [Docs][Infra] Strategische Uebersicht Maerz 2026 erstellt (Pipeline, Quick Wins, Handoff-Status)
+- [Structure][Cleanup] Placeholder-Projekte entfernt:
+  - `projects/infrastructure/mcp-server/` (A4, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
+  - `shared/stacks/mrbz-dev/` (A3, reines 5-5-3 Skelett, wird bei Projektstart neu gescaffoldet)
+  - ROADMAP A3+A4: Placeholder-Entfernung vermerkt
 
 ### Changed
 - [Docs][Audit] ROADMAP-Audit: 8 ROADMAPs geprueft, 7 Fixes angewendet
@@ -76,10 +58,6 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - .claude/ROADMAP.md: Version 1.0.0→0.4.0 (Versionierungs-Policy), Hooks-Status aktualisiert
 - [Docs][Config] Projektanweisungen: 7 Bugfixes (Header .md→.txt, Delegation-Duplikate entfernt,
   n8-vps Status aktualisiert, A2-A5 Status mit Root ROADMAP synchronisiert)
-- [Docs][Structure] n8-vps Service-Pipeline in Projekt-ROADMAP verschoben
-  Root ROADMAP verweist jetzt auf projects/infrastructure/n8-vps/ROADMAP.md
-  n8-vps Docs (CLAUDE.md, README, Server-Doku) verweisen auf eigene ROADMAP
-  (5-5-3 Konvention: Projekte fuehren eigene Planung, Root nur Verweis)
 - [Docs][Config] Task-Format + Selbst-Verifikation als Workflow-Regeln verankert
   - claude-ai-projektanweisungen.txt: task/mintask Keywords (Ziel+Kontext statt Schritt-fuer-Schritt)
   - policies.md: Claude Code Selbst-Verifikation vor jedem Commit (5 Pruefschritte)
@@ -89,27 +67,72 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Statusline: OAuth Usage API — 5h/7d Nutzungslimits mit Reset-Zeit
   - Statusline: Kosten-Block ($X.XX), Git-Cache (5s), Usage-Cache (60s)
   - Statusline: Wiederverwendbare Balken-Funktion, Null-Safety durchgehend
+- [ClaudeCode][Config] Claude Code Statusline eingerichtet (shared/etc/claude-code/statusline.sh)
+  - Zeigt Model, Verzeichnis, Git-Branch, Kosten, Lines Added/Removed
+  - ANSI-Farben (Gruvbox), jq-basiert, Bash-Script ueber Symlink ~/.claude/statusline.sh
+  - settings.json: statusLine type=command konfiguriert
+- [Cleanup][Fish] command-Prefix Cleanup: `command cat/grep/du/awk/...` → direkte Aufrufe (15 Dateien)
+  - Policies aktualisiert: shell.md, security.md, CLAUDE.md, deploy-agent, scaffold-agent
+  - Fish-Configs: 040-fastfetch.fish, 005-theme.fish, host-test.fish, config.fish
+  - Scripts: scan-secrets.fish, generate_pwd.fish, pack-secrets.fish, unpack-secrets.fish
+  - Hintergrund: Seit A2 Phase 1 sind alle coreutils alias-frei, `command`-Prefix war unnoetig
+- [Docs][Cleanup] Box-Header fuer 5 Deployment-Scripts (derive_key, generate_pwd, pack/unpack-secrets, derive_key.README)
+- [Docs] ROADMAP: A1 komplett ✅, A3 zurueckgestellt, A4/A5 Abhaengigkeiten korrigiert
+- [Docs] Handoff-Policy: Dauerhafte Tasks → ROADMAP, Handoffs nur fuer Uebergaben
+- [Docs][Infra] Strategische Uebersicht: Quick Wins aktualisiert
+- [Fish] config.fish: Loader-Pfad 000-loader.fish (statt 00-loader.fish), Debug deaktiviert
+- [Security][Git] A5 Entscheidung dokumentiert: History-Rewrite mit git filter-repo bei A5
+  - Repo bleibt privat bis A5, dann oeffentlich
+  - ROADMAP.md + Git-Filter-Handoff aktualisiert
+- [Docs] claude-ai-projektanweisungen.txt: Hostname-Salt → Username-Salt, Alias-Dateinamen 0xx, Loader 000, A1-Status
+- [Docs] security.md: Verboten-Eintrag aktualisiert (cat-Alias existiert nicht mehr)
+- [Docs] shared/etc/fish/CLAUDE.md: Kaputte Handoff-Referenz entfernt
+
+### Removed
+- [Cleanup] Handoff-Konsolidierung — 6 Handoffs aufgeloest:
+  A1-Secrets, SMB-Deploy, DNS-Traefik, Git-Filter, Fish-Format, Strategische Uebersicht
+  Alle offenen Tasks in ROADMAP.md konsolidiert
+  Verbleibend: 1 Handoff (mr-bytez-learn — eigenes Projekt)
+- [Cleanup] A1 Handoff geloescht (alle Phasen erledigt, D13 → Phase 4)
+
+---
+
+## [0.17.0] - 2026-03-06
+
+### Added
+- [BOT_AUD][Structure] mrbz_aud Docs-Audit-Bot komplett erstellt (Projekt A7):
+  - 3-Phasen-Pipeline: Audit (8 Module) → Verifikation → Fix/Worker
+  - 3 Agent-Prompts mit Read-Only Hooks und Secrets-Schutz
+  - Fish-Orchestrator-Script fuer automatische Pipeline-Steuerung
+  - 8 Module: Struktur-Inventar, 5-5-3, Header, ROADMAP/CHANGELOG, Cross-Refs, Context, Secrets-Struktur, Secrets-Freshness
+  - Bot-README mit Pipeline-Visualisierung und Ausfuehrungsanleitung
+  - Docs-Stufen Policy: Voll-5-5-3 (5 Docs) vs. Minimal (README + CHANGELOG)
+- [Structure][Docs][Roadmap] Vorbereitungen fuer mrbz_aud Docs-Audit-Bot:
+  - Agents-Ordner umstrukturiert: `.claude/agents/manual/` (4 bestehende Agents) + `.claude/agents/bot/` (fuer automatisierte Bots)
+  - `[Bot]` Tag (Index: BOT) in Tag-Registry registriert mit Suffix-Konvention (_AUD, _FIX, _DEP)
+  - ROADMAP: A7 mrbz_aud (Docs-Audit-Bot), A8 mrbz_dep/mrbz_cov (Deploy-Coverage), A9 Master-Key Automatisierung
+  - Alle Referenzen auf alte Agent-Pfade aktualisiert (8 Dateien)
+
+---
+
+## [0.16.0] - 2026-03-06
 
 ### Fixed
+- [VPS][DKR] Authentik PostgreSQL Volume-Mount: `/var/lib/postgresql/data` → `/var/lib/postgresql`
+  (postgres:18-alpine schreibt unter `/var/lib/postgresql/18/docker/`, Volume war leer,
+  DB-Daten gingen bei Container-Neustart verloren). Volume auf `external: true` gesetzt.
+- [VPS][SEC] Authentik Secret-Key Newline-Bug: `openssl rand -base64` erzeugt Zeilenumbruch
+  bei 76 Zeichen, Go-Outpost scheiterte an `invalid header field value for Authorization`.
+  Newline entfernt, Embedded Outpost funktioniert.
 - [VPS][DKR] Traefik Config-Fix: keepAlive-Felder von EntryPoint- auf transport-Ebene verschoben
   (keepAliveMaxRequests/keepAliveMaxTime gehoeren unter entryPoints.websecure.transport,
   nicht direkt unter entryPoints.websecure — Traefik v3.6.9 Restart-Loop behoben)
 
 ### Added
-- [VPS][Docs][DKR] Hardware-Doku Korrektur + n8-vps Stack-Tuning
-  - Hardware-Specs korrigiert: Intel Core Ultra 7 265 (20K), 64 GB DDR5
-    (vorher falsch: Xeon E5-2650v4, 128 GB DDR4 — aus Hetzner-Produktseite statt Live-Daten)
-  - 4 Dateien korrigiert: hardware.md, README, Server-Doku, infrastructure.md, Authentik README
-  - PostgreSQL: shared_buffers 256MB→2GB, effective_cache_size 512MB→8GB (passend fuer 64 GB RAM)
-  - Traefik: Timeouts gesetzt (readTimeout 30s, writeTimeout 60s, keepAlive 1000/600s)
-  - Traefik: ForwardAuth maxResponseBodySize auf 1 MB begrenzt (DoS-Schutz)
-  - CrowdSec: updateIntervalSeconds 60→15 (schnellere Ban-Reaktion im Stream-Modus)
-  - Host-Level Tuning dokumentiert (sysctl + ulimit Empfehlungen in Server-Doku)
-  - Valkey-Status dokumentiert (Keyspace leer, Beobachtung)
-  - Authentik: Valkey/Redis komplett entfernt (seit Authentik 2025.10 obsolet)
-    PostgreSQL uebernimmt Cache via django_postgres_cache
-    max_connections 100→200, max_locks_per_transaction 64→256, wal_buffers 16→64MB
-  - hwi ROADMAP: `--context` Modus als Feature geplant
+- [VPS][SEC] Authentik Forward-Auth Provider via API eingerichtet:
+  - Proxy Provider `traefik-dashboard-forward-auth` (forward_single, `traefik.mr-bytez.de`)
+  - Application `Traefik Dashboard` erstellt und Provider zugewiesen
+  - Embedded Outpost konfiguriert, Forward-Auth live getestet (302 → auth.mr-bytez.de)
 - [VPS][SEC][Auth][DKR] CrowdSec Middleware + Authentik Forward-Auth fuer Traefik
   - CrowdSec Bouncer Middleware (`crowdsec-bouncer@file`) auf allen oeffentlichen Routern aktiviert:
     Dashboard (`traefik.mr-bytez.de`), Authentik (`auth.mr-bytez.de`)
@@ -144,16 +167,24 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Traefik-Labels fuer auth.mr-bytez.de (websecure, letsencrypt-production)
   - .env.example (Secrets-Pfade via file://-Pattern)
   - README.md + DEPLOYMENT.md (3-Phasen-Anleitung)
+- [VPS][Docs][DKR] Hardware-Doku Korrektur + n8-vps Stack-Tuning
+  - Hardware-Specs korrigiert: Intel Core Ultra 7 265 (20K), 64 GB DDR5
+    (vorher falsch: Xeon E5-2650v4, 128 GB DDR4 — aus Hetzner-Produktseite statt Live-Daten)
+  - 4 Dateien korrigiert: hardware.md, README, Server-Doku, infrastructure.md, Authentik README
+  - PostgreSQL: shared_buffers 256MB→2GB, effective_cache_size 512MB→8GB (passend fuer 64 GB RAM)
+  - Traefik: Timeouts gesetzt (readTimeout 30s, writeTimeout 60s, keepAlive 1000/600s)
+  - Traefik: ForwardAuth maxResponseBodySize auf 1 MB begrenzt (DoS-Schutz)
+  - CrowdSec: updateIntervalSeconds 60→15 (schnellere Ban-Reaktion im Stream-Modus)
+  - Host-Level Tuning dokumentiert (sysctl + ulimit Empfehlungen in Server-Doku)
+  - Valkey-Status dokumentiert (Keyspace leer, Beobachtung)
+  - Authentik: Valkey/Redis komplett entfernt (seit Authentik 2025.10 obsolet)
+    PostgreSQL uebernimmt Cache via django_postgres_cache
+    max_connections 100→200, max_locks_per_transaction 64→256, wal_buffers 16→64MB
+  - hwi ROADMAP: `--context` Modus als Feature geplant
 - [Structure][Docs] n8-vps 5-5-3 Migration — 6 Docs erstellt
   (README, CHANGELOG, ROADMAP, DEPLOYMENT, CLAUDE.md, hardware.md)
-- [Structure] hwi.sh Versionierung auf SemVer normalisiert (3.1.1 → 0.3.2),
-  Bash-Header + Markdown-Header-Generierung
-- [Docs][Infra] ROADMAP zum Master-Arbeitsplan erweitert:
-  n8-vps Service-Pipeline (10 Schritte), UFW Deployment (Ist-Zustand 3 Hosts),
-  Quick Wins, SMB, Empfohlene Reihenfolge
 - [Docs] UFW Ist-Zustand aller 3 Hosts in ROADMAP dokumentiert
   (n8-vps: 6 Regeln, n8-kiste: 20 Regeln, n8-station: nicht installiert)
-- [Docs][Infra] Strategische Uebersicht Maerz 2026 erstellt (Pipeline, Quick Wins, Handoff-Status)
 - [Traefik][Docker] Traefik v3.6 Reverse Proxy Stack fuer n8-vps erstellt + deployed
   - docker-compose.yml: mrbz-traefik Container, Ports 80/443, mrbz-proxy-net
   - traefik.yml: Statische Config (EntryPoints, Docker+File Provider, ACME DNS-01 Hetzner)
@@ -162,7 +193,7 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - README.md + DEPLOYMENT.md: Stack-Doku + 3-Phasen Deployment-Anleitung
   - Pfad: projects/infrastructure/n8-vps/stacks/traefik/
   - Deployment auf n8-vps: Phase 2+3 erfolgreich (Dashboard 401, LE-Cert, whoami-Test)
-  - Fixes: Unbound auf 0.0.0.0 (Docker DNS), UFW Docker-Regeln, Hetzner Robot UDP-Regel
+  - Fixes: Unbound auf 0.0.0.0 (Docker DNS), UFW Docker-Regeln, Hetzner Robot Firewall
 - [Docs][Infra] n8-vps Server-Dokumentation erstellt (Ist-Zustand, geplante Services, Schritt-fuer-Schritt)
   - Server-Steckbrief (Hetzner EX63, Falkenstein, E5-2650v4, 128GB RAM)
   - Kompletter Ist-Zustand (Phase 0-4 + mr-bytez Deployment + DNS)
@@ -171,12 +202,23 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
   - Pfad: projects/infrastructure/n8-vps/docs/n8-vps-server-dokumentation.md
 
 ### Changed
+- [VPS][DKR][SEC] Stack-Haertung aller 3 n8-vps Stacks (Traefik, CrowdSec, Authentik):
+  - `security_opt: no-new-privileges:true` auf allen Services (5 Container)
+  - Traefik: hostname, Healthcheck (ping), Logging-Rotation hinzugefuegt
+  - Traefik: `ping: {}` in statischer Config aktiviert
+  - Authentik PostgreSQL: `scram-sha-256` Auth, `--data-checksums`, `PGDATA` explizit
+  - Authentik: CSRF-Schutz (`HOST_BROWSER`, `CSRF_TRUSTED_ORIGINS`)
+- [Docs][Structure] n8-vps Service-Pipeline in Projekt-ROADMAP verschoben
+  Root ROADMAP verweist jetzt auf projects/infrastructure/n8-vps/ROADMAP.md
+  n8-vps Docs (CLAUDE.md, README, Server-Doku) verweisen auf eigene ROADMAP
+  (5-5-3 Konvention: Projekte fuehren eigene Planung, Root nur Verweis)
 - [Docs] n8-vps Server-Doku verschlankt — Verweise auf Root ROADMAP, Header-Format korrigiert
 - [Docs][Infra] n8-vps Server-Doku: Schritt 1+2 ✅, Port 22 entfernt, Handoff-Verweise aktualisiert
-- [Docs] ROADMAP: A1 komplett ✅, A3 zurueckgestellt, A4/A5 Abhaengigkeiten korrigiert
-- [Docs] Handoff-Policy: Dauerhafte Tasks → ROADMAP, Handoffs nur fuer Uebergaben
 - [Docs] infrastructure.md: Port 22 Fallback bei n8-vps entfernt
-- [Docs][Infra] Strategische Uebersicht: Quick Wins aktualisiert
+- [Infra][Docs] n8-vps Server-Dokumentation aktualisiert: UFW Docker-Regeln, Hetzner Robot Firewall komplett, Unbound Docker-Config
+- [Traefik] traefik.yml: Externe DNS-Resolver entfernt (Docker-interner DNS → Host Unbound)
+- [DNS][Infra] DNS-Handoff aktualisiert: Traefik-Tasks ausgelagert, Status angepasst
+  - Prioritaet 1 (Traefik) → eigener Handoff, Prioritaet 2+3 bleiben (TTL, PTR, Cleanup)
 - [Deploy][Secrets] deploy.fish v0.5.1 — Reflector Country-Filter + Threads:
   - --country Germany,France,Netherlands,Austria,Switzerland (nur EU-Nachbarn statt weltweit)
   - --threads 5 (parallele Mirror-Tests)
@@ -199,38 +241,12 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - [Deploy][Secrets] deploy.fish: Usage mit Erstinstallations-Anleitung (6 Schritte)
 - [Deploy][Secrets] deploy.fish: ln Output unterdrueckt (nur eigene Meldungen)
 - [Deploy][Secrets] deploy.fish: Version 1.0.0 → 0.4.0 (Beta, erster Live-Test)
-- [ClaudeCode][Config] Claude Code Statusline eingerichtet (shared/etc/claude-code/statusline.sh)
-  - Zeigt Model, Verzeichnis, Git-Branch, Kosten, Lines Added/Removed
-  - ANSI-Farben (Gruvbox), jq-basiert, Bash-Script ueber Symlink ~/.claude/statusline.sh
-  - settings.json: statusLine type=command konfiguriert
-- [Cleanup][Fish] command-Prefix Cleanup: `command cat/grep/du/awk/...` → direkte Aufrufe (15 Dateien)
-  - Policies aktualisiert: shell.md, security.md, CLAUDE.md, deploy-agent, scaffold-agent
-  - Fish-Configs: 040-fastfetch.fish, 005-theme.fish, host-test.fish, config.fish
-  - Scripts: scan-secrets.fish, generate_pwd.fish, pack-secrets.fish, unpack-secrets.fish
-  - Hintergrund: Seit A2 Phase 1 sind alle coreutils alias-frei, `command`-Prefix war unnoetig
-- [Docs][Cleanup] Box-Header fuer 5 Deployment-Scripts (derive_key, generate_pwd, pack/unpack-secrets, derive_key.README)
-- [Infra][Docs] n8-vps Server-Dokumentation aktualisiert: UFW Docker-Regeln, Hetzner Robot Firewall komplett, Unbound Docker-Config
-- [Fish] config.fish: Loader-Pfad 000-loader.fish (statt 00-loader.fish), Debug deaktiviert
-- [Traefik] traefik.yml: Externe DNS-Resolver entfernt (Docker-interner DNS → Host Unbound)
-- [DNS][Infra] DNS-Handoff aktualisiert: Traefik-Tasks ausgelagert, Status angepasst
-  - Prioritaet 1 (Traefik) → eigener Handoff, Prioritaet 2+3 bleiben (TTL, PTR, Cleanup)
-- [Security][Git] A5 Entscheidung dokumentiert: History-Rewrite mit git filter-repo bei A5
-  - Repo bleibt privat bis A5, dann oeffentlich
-  - ROADMAP.md + Git-Filter-Handoff aktualisiert
-- [Docs] claude-ai-projektanweisungen.txt: Hostname-Salt → Username-Salt, Alias-Dateinamen 0xx, Loader 000, A1-Status
-- [Docs] security.md: Verboten-Eintrag aktualisiert (cat-Alias existiert nicht mehr)
-- [Docs] shared/etc/fish/CLAUDE.md: Kaputte Handoff-Referenz entfernt
 - [Deploy][Config] shared/etc/pacman.d/mirrorlist: Fallback-Mirrorlist (10 DE + 3 EU)
 - [Deploy][Config] shared/etc/xdg/reflector/reflector.conf: Reflector-Konfiguration
 - [Fish][Packages] Paketlisten korrigiert: min-packages.txt + desktop-packages.txt (Duplikate entfernt, Sektionen bereinigt, reflector hinzugefuegt)
 - [Secrets] Submodule aktualisiert (deploy.fish v0.4.0, Box-Header, command-Cleanup)
 
 ### Removed
-- [Cleanup] Handoff-Konsolidierung — 6 Handoffs aufgeloest:
-  A1-Secrets, SMB-Deploy, DNS-Traefik, Git-Filter, Fish-Format, Strategische Uebersicht
-  Alle offenen Tasks in ROADMAP.md konsolidiert
-  Verbleibend: 1 Handoff (mr-bytez-learn — eigenes Projekt)
-- [Cleanup] A1 Handoff geloescht (alle Phasen erledigt, D13 → Phase 4)
 - [Cleanup] Traefik-Handoff geloescht (alle 3 Phasen erledigt): HANDOFF_[Traefik][Docker]_n8-vps-traefik-setup.md
 - [Cleanup] INF01 Chat-Uebergabe geloescht (obsolet): HANDOFF_[Infra][Traefik]_chatuebergabe-INF01.md
 

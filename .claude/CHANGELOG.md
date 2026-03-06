@@ -18,7 +18,12 @@
   - Hooks: Secrets-Schutz, Read-Only Enforcement, Reports-Only Write
 
 ### Changed
-- `context/structure.md` v0.5.0: Docs-Stufen Policy (Voll-5-5-3 vs. Minimal mit 2 Docs)
+- `context/structure.md` v0.5.0: Docs-Stufen erweitert auf 3 Stufen (Voll/Erweitert/Minimal), n8-kiste → Erweitert, n8-station → Minimal
+- `context/documentation.md` v0.2.0: Mini-Header Format (6-Zeilen) + Schwellen-Regel (~30 Zeilen), Pfad-Konvention (relativ)
+- `agents/manual/docs-agent.md`: Relative Pfade als Standard, Mini-Header Regel ergaenzt
+- `agents/bot/mrbz_aud/reports/`: 9 Audit-Reports (Module 01-08 + Gesamt 09) + NEEDS_REVIEW Dokumente
+- `agents/bot/mrbz_aud/mrbz_aud-orchestrator.fish`: Nesting-Guard + stdin-Fix
+- Vorheriger Eintrag: `context/structure.md` Docs-Stufen Policy (Voll-5-5-3 vs. Minimal mit 2 Docs)
 - `CLAUDE.md`: mrbz_aud Bot-Status auf "Bereit" aktualisiert, Beschreibung erweitert
 - `context/handoffs/HANDOFF_[VPS][SEC]_crowdsec-traefik-authentik-deployment.md`:
   Forward-Auth Provider + Dashboard-Test + Secret-Key Bugfix + Stack-Haertung als erledigt markiert

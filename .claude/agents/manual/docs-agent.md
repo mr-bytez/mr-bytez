@@ -91,12 +91,15 @@ Format: `MR-ByteZ #<IDX><Nr>.<Chat> [Tag1][Tag2] - Beschreibung - keywords --- Y
 
 ## Header-Standards
 
+Pfade in Headern sind **relativ vom Repo-Root** (nicht absolut).
+Beispiel: `shared/etc/fish/conf.d/000-loader.fish` (nicht `/mr-bytez/shared/...`).
+
 **Deployment-Scripts (7-Feld):**
 ```
 #!/usr/bin/env fish
 # ============================================
 # dateiname.fish — Kurzbeschreibung
-# Pfad: /vollständiger/pfad
+# Pfad: shared/deployment/dateiname.fish
 # Autor: MR-ByteZ
 # Erstellt: YYYY-MM-DD
 # Version: X.Y.Z
@@ -104,15 +107,27 @@ Format: `MR-ByteZ #<IDX><Nr>.<Chat> [Tag1][Tag2] - Beschreibung - keywords --- Y
 # ============================================
 ```
 
-**Config-Dateien (9-Zeilen-Box):**
+**Config-Dateien — Grosser Header (9-box, fuer Dateien ueber ~30 Zeilen):**
 ```fish
 # ╔══════════════════════════════════════════╗
 # ║  Beschreibung                            ║
 # ╠══════════════════════════════════════════╣
-# ║  Pfad:     /pfad/zur/datei               ║
+# ║  Pfad:     shared/pfad/zur/datei         ║
 # ║  Autor:    MR-ByteZ                      ║
 # ║  Version:  X.Y.Z                        ║
 # ║  Erstellt: YYYY-MM-DD                   ║
 # ║  Zweck:    Detaillierte Beschreibung     ║
 # ╚══════════════════════════════════════════╝
 ```
+
+**Config-Dateien — Mini-Header (6-Zeilen, fuer Dateien unter ~30 Zeilen):**
+```fish
+# ── MR-ByteZ ──────────────────────────
+# Datei:        dateiname.fish
+# Version:      0.1.0
+# Erstellt:     YYYY-MM-DD
+# Aktualisiert: YYYY-MM-DD
+# ──────────────────────────────────────
+```
+
+Shell-Hooks (.sh) behalten ihr eigenes Format.

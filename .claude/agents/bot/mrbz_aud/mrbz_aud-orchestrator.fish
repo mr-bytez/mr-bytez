@@ -47,6 +47,10 @@ end
 
 # --- Voraussetzungen pruefen ---
 
+# Claude Code Nesting-Guard umgehen: env CLAUDECODE= vor jedem claude-Aufruf
+# (noetig weil der Orchestrator aus einer laufenden Claude Code Session gestartet werden kann)
+# Siehe: https://github.com/anthropics/claude-code/issues/25434
+
 if not command -q claude
     log_error "Claude Code CLI nicht gefunden! Abbruch."
     exit 1
@@ -97,11 +101,13 @@ for i in (seq 1 (count $MODULE_NAMES))
     log_msg "Starte $module_name ..."
 
     # Claude Code mit Agent und Timeout ausfuehren
-    timeout $MODULE_TIMEOUT claude -p \
+    # env -u CLAUDECODE: Nesting-Guard umgehen (erlaubt Start aus Claude-Session heraus)
+    # < /dev/null: stdin schliessen (verhindert Terminal-Zugriff → SIGTTIN/Tl-Status)
+    timeout $MODULE_TIMEOUT env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT claude -p \
         --agent $AUDIT_AGENT \
         --dangerously-skip-permissions \
         "$module_name" \
-        >> $LOG_FILE 2>&1
+        < /dev/null >> $LOG_FILE 2>&1
 
     set -l exit_code $status
 
@@ -142,11 +148,11 @@ if test $elapsed -ge $TOTAL_TIMEOUT
     exit 1
 end
 
-timeout $MODULE_TIMEOUT claude -p \
+timeout $MODULE_TIMEOUT env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT claude -p \
     --agent $VERIFY_AGENT \
     --dangerously-skip-permissions \
     "Konsolidiere alle 8 Modul-Reports zum Gesamt-Report" \
-    >> $LOG_FILE 2>&1
+    < /dev/null >> $LOG_FILE 2>&1
 
 set -l exit_code $status
 

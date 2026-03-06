@@ -1,8 +1,8 @@
 # Documentation — Workflow & Regeln
 
-**Version:** 0.1.1
+**Version:** 0.2.0
 **Erstellt:** 2026-02-10
-**Aktualisiert:** 2026-03-05
+**Aktualisiert:** 2026-03-06
 **Autor:** MR-ByteZ
 
 ---
@@ -89,13 +89,15 @@ Vollstaendige Beschreibung → `.claude/context/structure.md`
 - **Commit-Messages:** Deutsch
 - **Variablen/Funktionsnamen:** Englisch (technische Konvention)
 
-### Config-Datei Header-Template
+### Config-Datei Header — Grosser Header (9-box)
+
+Fuer Dateien **ueber ~30 Zeilen**. Standard fuer Config-Dateien (conf.d/, aliases/, completions/).
 
 ```fish
 # ╔══════════════════════════════════════════════════════════════════════════════╗
 # ║  Titel                                                                       ║
 # ╠══════════════════════════════════════════════════════════════════════════════╣
-# ║  Pfad:     /vollständiger/pfad                                   ║
+# ║  Pfad:     shared/pfad/zur/datei                                 ║
 # ║  Autor:    MR-ByteZ                                                          ║
 # ║  Version:  1.0.0                                                             ║
 # ║  Erstellt: YYYY-MM-DD                                                        ║
@@ -103,6 +105,36 @@ Vollstaendige Beschreibung → `.claude/context/structure.md`
 # ║  Zweck:    Kurzbeschreibung                                                 ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 ```
+
+### Config-Datei Header — Mini-Header (6-Zeilen)
+
+Fuer Dateien **unter ~30 Zeilen** (kleine Functions, einfache Configs).
+
+```fish
+# ── MR-ByteZ ──────────────────────────
+# Datei:        dateiname.fish
+# Version:      0.1.0
+# Erstellt:     YYYY-MM-DD
+# Aktualisiert: YYYY-MM-DD
+# ──────────────────────────────────────
+```
+
+### Header-Schwelle
+
+- **~30 Zeilen** ist die Schwelle — keine harte Grenze, sondern Richtwert
+- Grosser Header fuer Dateien mit Zweck-Beschreibung und komplexer Logik
+- Mini-Header fuer kleine Einzweck-Dateien (Test-Functions, einfache Aliases)
+- Shell-Hooks (.sh) behalten ihr eigenes Format (sind Bash, nicht Fish)
+- Migration bestehender Dateien: Bei naechster inhaltlicher Aenderung, kein Bulk-Update
+
+### Pfad-Konvention
+
+Pfade in Headern sind **relativ vom Repo-Root** (nicht absolut):
+- `shared/etc/fish/conf.d/000-loader.fish` (richtig)
+- `/mr-bytez/shared/etc/fish/conf.d/000-loader.fish` (falsch)
+
+Begruendung: Das Repo liegt unter `/mr-bytez` (Live-Checkout) und `/opt/mr-bytez/current` (Anker).
+Relative Pfade sind mount-unabhaengig und innerhalb des Repos eindeutig.
 
 ---
 

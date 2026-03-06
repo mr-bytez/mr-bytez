@@ -335,7 +335,7 @@ A9 Master-Key Automatisierung (vor erstem Bot mit Secrets-Zugriff)
 - [ ] Cron-Eintrag aktivieren (nach stabilen Laeufen)
 
 **Status:** Bereit (Bot gebaut, Phase 1 getestet, Phase 2+3 ausstehend)
-**ETA:** Q1 2026
+**ETA:** Maerz 2026
 
 ---
 
